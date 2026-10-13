@@ -1,0 +1,101 @@
+{
+  "date": "2026-04-25",
+  "playoff": true,
+  "strong": [
+    {
+      "type": "ML",
+      "matchup": "DAL @ MIN",
+      "pick": "DAL  (away)",
+      "odds": 120,
+      "model_prob": 55.2,
+      "edge": 11.4,
+      "proj_score": "DAL 4.95 \u2014 MIN 4.74",
+      "proj_total": 6.92,
+      "b2b_home": false,
+      "b2b_away": false
+    }
+  ],
+  "value": [
+    {
+      "type": "ML",
+      "matchup": "CAR @ OTT",
+      "pick": "OTT  (home)",
+      "odds": 115,
+      "model_prob": 54.0,
+      "edge": 9.2,
+      "proj_score": "CAR 4.31 \u2014 OTT 4.86",
+      "proj_total": 6.42,
+      "b2b_home": false,
+      "b2b_away": false
+    },
+    {
+      "type": "ML",
+      "matchup": "PIT @ PHI",
+      "pick": "PHI  (home)",
+      "odds": -120,
+      "model_prob": 59.9,
+      "edge": 7.7,
+      "proj_score": "PIT 3.33 \u2014 PHI 4.22",
+      "proj_total": 6.39,
+      "b2b_home": false,
+      "b2b_away": false
+    }
+  ],
+  "reg_ml": [
+    {
+      "matchup": "PIT @ PHI",
+      "home_prob": 55.0,
+      "away_prob": 30.4,
+      "draw_prob": 14.1,
+      "home_fair_ml": -122,
+      "away_fair_ml": 229,
+      "draw_fair_ml": 611,
+      "proj_score": "PIT 3.33 \u2014 PHI 4.22"
+    },
+    {
+      "matchup": "CAR @ OTT",
+      "home_prob": 49.4,
+      "away_prob": 35.8,
+      "draw_prob": 13.2,
+      "home_fair_ml": 102,
+      "away_fair_ml": 179,
+      "draw_fair_ml": 660,
+      "proj_score": "CAR 4.31 \u2014 OTT 4.86"
+    },
+    {
+      "matchup": "DAL @ MIN",
+      "home_prob": 39.9,
+      "away_prob": 44.9,
+      "draw_prob": 13.0,
+      "home_fair_ml": 151,
+      "away_fair_ml": 123,
+      "draw_fair_ml": 672,
+      "proj_score": "DAL 4.95 \u2014 MIN 4.74"
+    }
+  ],
+  "totals": [],
+  "puck_line": [
+    {
+      "type": "PL",
+      "matchup": "CAR @ OTT",
+      "pick": "CAR  (CAR -1.5)",
+      "odds": 205,
+      "model_prob": 62.6,
+      "mkt_impl": 32.8,
+      "edge": 29.8,
+      "proj_score": "CAR 4.31 \u2014 OTT 4.86",
+      "proj_total": 6.42
+    },
+    {
+      "type": "PL",
+      "matchup": "PIT @ PHI",
+      "pick": "PHI  (PHI -1.5)",
+      "odds": 215,
+      "model_prob": 40.7,
+      "mkt_impl": 31.7,
+      "edge": 8.9,
+      "proj_score": "PIT 3.33 \u2014 PHI 4.22",
+      "proj_total": 6.39
+    }
+  ]
+}

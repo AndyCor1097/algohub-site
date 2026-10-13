@@ -1,0 +1,50 @@
+{
+  "date": "2026-05-07",
+  "playoff": false,
+  "strong": [],
+  "value": [
+    {
+      "type": "ML",
+      "matchup": "CAR @ PHI",
+      "pick": "CAR  (away)",
+      "odds": -163,
+      "model_prob": 65.0,
+      "edge": 5.5,
+      "proj_score": "CAR 5.29 \u2014 PHI 4.33",
+      "proj_total": 7.08,
+      "b2b_home": false,
+      "b2b_away": false
+    }
+  ],
+  "reg_ml": [
+    {
+      "matchup": "CAR @ PHI",
+      "home_prob": 31.3,
+      "away_prob": 53.8,
+      "draw_prob": 12.5,
+      "home_fair_ml": 220,
+      "away_fair_ml": -116,
+      "draw_fair_ml": 703,
+      "bov_home_reg": 210,
+      "bov_away_reg": -101,
+      "bov_draw": 300,
+      "home_reg_edge": -1.0,
+      "away_reg_edge": 3.6,
+      "proj_score": "CAR 5.29 \u2014 PHI 4.33"
+    }
+  ],
+  "totals": [],
+  "puck_line": [
+    {
+      "type": "PL",
+      "matchup": "CAR @ PHI",
+      "pick": "CAR  (CAR -1.5)",
+      "odds": 163,
+      "model_prob": 78.6,
+      "mkt_impl": 38.0,
+      "edge": 40.6,
+      "proj_score": "CAR 5.29 \u2014 PHI 4.33",
+      "proj_total": 7.08
+    }
+  ]
+}

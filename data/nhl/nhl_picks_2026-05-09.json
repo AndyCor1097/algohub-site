@@ -1,0 +1,97 @@
+{
+  "date": "2026-05-09",
+  "playoff": false,
+  "strong": [],
+  "value": [
+    {
+      "type": "ML",
+      "matchup": "COL @ MIN",
+      "pick": "MIN  (home)",
+      "odds": 117,
+      "model_prob": 48.8,
+      "edge": 4.5,
+      "proj_score": "COL 4.11 \u2014 MIN 4.28",
+      "proj_total": 7.35,
+      "b2b_home": false,
+      "b2b_away": false
+    }
+  ],
+  "reg_ml": [
+    {
+      "matchup": "COL @ MIN",
+      "home_prob": 44.9,
+      "away_prob": 40.4,
+      "draw_prob": 14.0,
+      "home_fair_ml": 123,
+      "away_fair_ml": 148,
+      "draw_fair_ml": 616,
+      "bov_home_reg": 168,
+      "bov_away_reg": 116,
+      "bov_draw": 325,
+      "home_reg_edge": 7.5,
+      "away_reg_edge": -5.9,
+      "proj_score": "COL 4.11 \u2014 MIN 4.28"
+    },
+    {
+      "matchup": "CAR @ PHI",
+      "home_prob": 31.3,
+      "away_prob": 53.8,
+      "draw_prob": 12.5,
+      "home_fair_ml": 220,
+      "away_fair_ml": -116,
+      "draw_fair_ml": 703,
+      "bov_home_reg": 235,
+      "bov_away_reg": -117,
+      "bov_draw": 320,
+      "home_reg_edge": 1.4,
+      "away_reg_edge": -0.1,
+      "proj_score": "CAR 5.29 \u2014 PHI 4.33"
+    }
+  ],
+  "totals": [
+    {
+      "type": "TOTAL",
+      "matchup": "CAR @ PHI",
+      "pick": "OVER 5.5",
+      "odds": 115,
+      "proj": 7.35,
+      "line": 5.5,
+      "edge": 8.5,
+      "proj_score": "CAR 5.29 \u2014 PHI 4.33"
+    },
+    {
+      "type": "TOTAL",
+      "matchup": "COL @ MIN",
+      "pick": "OVER 6.5",
+      "odds": 100,
+      "proj": 7.35,
+      "line": 6.5,
+      "edge": 5.0,
+      "proj_score": "COL 4.11 \u2014 MIN 4.28"
+    }
+  ],
+  "puck_line": [
+    {
+      "type": "PL",
+      "matchup": "CAR @ PHI",
+      "pick": "CAR  (CAR -1.5)",
+      "odds": 133,
+      "model_prob": 78.6,
+      "mkt_impl": 42.9,
+      "edge": 35.7,
+      "proj_score": "CAR 5.29 \u2014 PHI 4.33",
+      "proj_total": 7.35
+    },
+    {
+      "type": "PL",
+      "matchup": "COL @ MIN",
+      "pick": "COL  (COL -1.5)",
+      "odds": 178,
+      "model_prob": 68.0,
+      "mkt_impl": 36.0,
+      "edge": 32.0,
+      "proj_score": "COL 4.11 \u2014 MIN 4.28",
+      "proj_total": 7.35
+    }
+  ]
+}

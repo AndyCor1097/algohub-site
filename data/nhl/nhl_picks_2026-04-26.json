@@ -1,0 +1,118 @@
+{
+  "date": "2026-04-26",
+  "playoff": true,
+  "strong": [
+    {
+      "type": "ML",
+      "matchup": "COL @ LAK",
+      "pick": "LAK  (home)",
+      "odds": 147,
+      "model_prob": 72.1,
+      "edge": 33.0,
+      "proj_score": "COL 2.87 \u2014 LAK 4.76",
+      "proj_total": 6.03,
+      "b2b_home": false,
+      "b2b_away": false
+    },
+    {
+      "type": "ML",
+      "matchup": "TBL @ MTL",
+      "pick": "TBL  (away)",
+      "odds": -112,
+      "model_prob": 66.1,
+      "edge": 15.7,
+      "proj_score": "TBL 4.25 \u2014 MTL 3.22",
+      "proj_total": 6.37,
+      "b2b_home": false,
+      "b2b_away": false
+    }
+  ],
+  "value": [],
+  "reg_ml": [
+    {
+      "matchup": "COL @ LAK",
+      "home_prob": 68.2,
+      "away_prob": 19.0,
+      "draw_prob": 11.8,
+      "home_fair_ml": -215,
+      "away_fair_ml": 427,
+      "draw_fair_ml": 749,
+      "bov_home_reg": 215,
+      "bov_away_reg": -107,
+      "bov_draw": 310,
+      "home_reg_edge": 36.5,
+      "away_reg_edge": -32.7,
+      "proj_score": "COL 2.87 \u2014 LAK 4.76"
+    },
+    {
+      "matchup": "EDM @ ANA",
+      "home_prob": 42.0,
+      "away_prob": 43.1,
+      "draw_prob": 14.2,
+      "home_fair_ml": 138,
+      "away_fair_ml": 132,
+      "draw_fair_ml": 604,
+      "bov_home_reg": 170,
+      "bov_away_reg": 113,
+      "bov_draw": 330,
+      "home_reg_edge": 5.0,
+      "away_reg_edge": -3.8,
+      "proj_score": "EDM 4.09 \u2014 ANA 4.05"
+    },
+    {
+      "matchup": "BUF @ BOS",
+      "home_prob": 40.4,
+      "away_prob": 44.8,
+      "draw_prob": 13.7,
+      "home_fair_ml": 147,
+      "away_fair_ml": 123,
+      "draw_fair_ml": 630,
+      "bov_home_reg": 138,
+      "bov_away_reg": 145,
+      "bov_draw": 310,
+      "home_reg_edge": -1.6,
+      "away_reg_edge": 4.0,
+      "proj_score": "BUF 4.44 \u2014 BOS 4.27"
+    },
+    {
+      "matchup": "TBL @ MTL",
+      "home_prob": 28.5,
+      "away_prob": 57.1,
+      "draw_prob": 13.9,
+      "home_fair_ml": 251,
+      "away_fair_ml": -133,
+      "draw_fair_ml": 619,
+      "bov_home_reg": 144,
+      "bov_away_reg": 140,
+      "bov_draw": 305,
+      "home_reg_edge": -12.5,
+      "away_reg_edge": 15.4,
+      "proj_score": "TBL 4.25 \u2014 MTL 3.22"
+    }
+  ],
+  "totals": [],
+  "puck_line": [
+    {
+      "type": "PL",
+      "matchup": "TBL @ MTL",
+      "pick": "TBL  (TBL -1.5)",
+      "odds": 225,
+      "model_prob": 82.6,
+      "mkt_impl": 30.8,
+      "edge": 51.9,
+      "proj_score": "TBL 4.25 \u2014 MTL 3.22",
+      "proj_total": 6.37
+    },
+    {
+      "type": "PL",
+      "matchup": "EDM @ ANA",
+      "pick": "EDM  (EDM -1.5)",
+      "odds": 175,
+      "model_prob": 70.9,
+      "mkt_impl": 36.4,
+      "edge": 34.5,
+      "proj_score": "EDM 4.09 \u2014 ANA 4.05",
+      "proj_total": 7.29
+    }
+  ]
+}

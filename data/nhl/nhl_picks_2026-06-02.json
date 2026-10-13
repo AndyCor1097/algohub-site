@@ -1,0 +1,38 @@
+{
+  "date": "2026-06-02",
+  "playoff": false,
+  "strong": [],
+  "value": [
+    {
+      "type": "ML",
+      "matchup": "VGK @ CAR",
+      "pick": "VGK  (away)",
+      "odds": 133,
+      "model_prob": 48.3,
+      "edge": 6.9,
+      "proj_score": "VGK 3.67 \u2014 CAR 4.03",
+      "proj_total": 6.49,
+      "b2b_home": false,
+      "b2b_away": false
+    }
+  ],
+  "reg_ml": [
+    {
+      "matchup": "VGK @ CAR",
+      "home_prob": 47.5,
+      "away_prob": 37.5,
+      "draw_prob": 14.5,
+      "home_fair_ml": 110,
+      "away_fair_ml": 167,
+      "draw_fair_ml": 589,
+      "bov_home_reg": 106,
+      "bov_away_reg": 200,
+      "bov_draw": 305,
+      "home_reg_edge": -1.0,
+      "away_reg_edge": 4.2,
+      "proj_score": "VGK 3.67 \u2014 CAR 4.03"
+    }
+  ],
+  "totals": [],
+  "puck_line": []
+}

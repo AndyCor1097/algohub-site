@@ -1,0 +1,36 @@
+{
+  "date": "2026-05-13",
+  "playoff": false,
+  "strong": [],
+  "value": [],
+  "reg_ml": [
+    {
+      "matchup": "MIN @ COL",
+      "home_prob": 61.6,
+      "away_prob": 24.5,
+      "draw_prob": 12.0,
+      "home_fair_ml": -160,
+      "away_fair_ml": 308,
+      "draw_fair_ml": 736,
+      "bov_home_reg": -136,
+      "bov_away_reg": 270,
+      "bov_draw": 340,
+      "home_reg_edge": 3.9,
+      "away_reg_edge": -2.5,
+      "proj_score": "MIN 3.7 \u2014 COL 5.23"
+    }
+  ],
+  "totals": [
+    {
+      "type": "TOTAL",
+      "matchup": "MIN @ COL",
+      "pick": "OVER 6.5",
+      "odds": -103,
+      "proj": 7.59,
+      "line": 6.5,
+      "edge": 4.3,
+      "proj_score": "MIN 3.7 \u2014 COL 5.23"
+    }
+  ],
+  "puck_line": []
+}

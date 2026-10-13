@@ -1,0 +1,65 @@
+{
+  "date": "2026-04-30",
+  "playoff": true,
+  "strong": [],
+  "value": [
+    {
+      "type": "ML",
+      "matchup": "DAL @ MIN",
+      "pick": "DAL  (away)",
+      "odds": 107,
+      "model_prob": 55.2,
+      "edge": 9.0,
+      "proj_score": "DAL 4.95 \u2014 MIN 4.74",
+      "proj_total": 6.55,
+      "b2b_home": false,
+      "b2b_away": false
+    }
+  ],
+  "reg_ml": [
+    {
+      "matchup": "EDM @ ANA",
+      "home_prob": 42.0,
+      "away_prob": 43.1,
+      "draw_prob": 14.2,
+      "home_fair_ml": 138,
+      "away_fair_ml": 132,
+      "draw_fair_ml": 604,
+      "bov_home_reg": 164,
+      "bov_away_reg": 118,
+      "bov_draw": 325,
+      "home_reg_edge": 4.2,
+      "away_reg_edge": -2.8,
+      "proj_score": "EDM 4.09 \u2014 ANA 4.05"
+    },
+    {
+      "matchup": "DAL @ MIN",
+      "home_prob": 39.9,
+      "away_prob": 44.9,
+      "draw_prob": 13.0,
+      "home_fair_ml": 151,
+      "away_fair_ml": 123,
+      "draw_fair_ml": 672,
+      "bov_home_reg": 125,
+      "bov_away_reg": 164,
+      "bov_draw": 305,
+      "home_reg_edge": -4.5,
+      "away_reg_edge": 7.0,
+      "proj_score": "DAL 4.95 \u2014 MIN 4.74"
+    }
+  ],
+  "totals": [],
+  "puck_line": [
+    {
+      "type": "PL",
+      "matchup": "EDM @ ANA",
+      "pick": "EDM  (EDM -1.5)",
+      "odds": 180,
+      "model_prob": 70.9,
+      "mkt_impl": 35.7,
+      "edge": 35.2,
+      "proj_score": "EDM 4.09 \u2014 ANA 4.05",
+      "proj_total": 7.29
+    }
+  ]
+}

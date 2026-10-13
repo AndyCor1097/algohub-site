@@ -1,0 +1,67 @@
+{
+  "date": "2026-04-29",
+  "playoff": true,
+  "strong": [],
+  "value": [],
+  "reg_ml": [
+    {
+      "matchup": "MTL @ TBL",
+      "home_prob": 59.5,
+      "away_prob": 26.5,
+      "draw_prob": 13.3,
+      "home_fair_ml": -147,
+      "away_fair_ml": 278,
+      "draw_fair_ml": 652,
+      "bov_home_reg": -104,
+      "bov_away_reg": 212,
+      "bov_draw": 310,
+      "home_reg_edge": 8.5,
+      "away_reg_edge": -5.6,
+      "proj_score": "MTL 3.27 \u2014 TBL 4.5"
+    },
+    {
+      "matchup": "UTA @ VGK",
+      "home_prob": 55.2,
+      "away_prob": 30.3,
+      "draw_prob": 13.9,
+      "home_fair_ml": -123,
+      "away_fair_ml": 229,
+      "draw_fair_ml": 621,
+      "bov_home_reg": -104,
+      "bov_away_reg": 205,
+      "bov_draw": 315,
+      "home_reg_edge": 4.2,
+      "away_reg_edge": -2.4,
+      "proj_score": "UTA 3.42 \u2014 VGK 4.33"
+    },
+    {
+      "matchup": "PIT @ PHI",
+      "home_prob": 55.0,
+      "away_prob": 30.4,
+      "draw_prob": 14.1,
+      "home_fair_ml": -122,
+      "away_fair_ml": 229,
+      "draw_fair_ml": 611,
+      "bov_home_reg": 128,
+      "bov_away_reg": 159,
+      "bov_draw": 300,
+      "home_reg_edge": 11.2,
+      "away_reg_edge": -8.2,
+      "proj_score": "PIT 3.33 \u2014 PHI 4.22"
+    }
+  ],
+  "totals": [],
+  "puck_line": [
+    {
+      "type": "PL",
+      "matchup": "PIT @ PHI",
+      "pick": "PHI  (PHI -1.5)",
+      "odds": 215,
+      "model_prob": 40.7,
+      "mkt_impl": 31.7,
+      "edge": 8.9,
+      "proj_score": "PIT 3.33 \u2014 PHI 4.22",
+      "proj_total": 6.01
+    }
+  ]
+}

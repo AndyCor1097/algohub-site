@@ -1,0 +1,86 @@
+{
+  "date": "2026-05-06",
+  "playoff": false,
+  "strong": [],
+  "value": [
+    {
+      "type": "ML",
+      "matchup": "ANA @ VGK",
+      "pick": "ANA  (away)",
+      "odds": 137,
+      "model_prob": 47.9,
+      "edge": 7.4,
+      "proj_score": "ANA 4.37 \u2014 VGK 4.83",
+      "proj_total": 7.71,
+      "b2b_home": false,
+      "b2b_away": false
+    }
+  ],
+  "reg_ml": [
+    {
+      "matchup": "MTL @ BUF",
+      "home_prob": 51.0,
+      "away_prob": 34.2,
+      "draw_prob": 12.8,
+      "home_fair_ml": -104,
+      "away_fair_ml": 193,
+      "draw_fair_ml": 679,
+      "bov_home_reg": 122,
+      "bov_away_reg": 168,
+      "bov_draw": 300,
+      "home_reg_edge": 5.9,
+      "away_reg_edge": -3.2,
+      "proj_score": "MTL 4.38 \u2014 BUF 5.08"
+    },
+    {
+      "matchup": "ANA @ VGK",
+      "home_prob": 48.3,
+      "away_prob": 36.9,
+      "draw_prob": 13.2,
+      "home_fair_ml": 107,
+      "away_fair_ml": 171,
+      "draw_fair_ml": 658,
+      "bov_home_reg": 100,
+      "bov_away_reg": 195,
+      "bov_draw": 315,
+      "home_reg_edge": -1.7,
+      "away_reg_edge": 3.0,
+      "proj_score": "ANA 4.37 \u2014 VGK 4.83"
+    }
+  ],
+  "totals": [
+    {
+      "type": "TOTAL",
+      "matchup": "MTL @ BUF",
+      "pick": "OVER 6.0",
+      "odds": 105,
+      "proj": 7.56,
+      "line": 6.0,
+      "edge": 6.2,
+      "proj_score": "MTL 4.38 \u2014 BUF 5.08"
+    },
+    {
+      "type": "TOTAL",
+      "matchup": "ANA @ VGK",
+      "pick": "OVER 6.5",
+      "odds": -103,
+      "proj": 7.71,
+      "line": 6.5,
+      "edge": 4.3,
+      "proj_score": "ANA 4.37 \u2014 VGK 4.83"
+    }
+  ],
+  "puck_line": [
+    {
+      "type": "PL",
+      "matchup": "MTL @ BUF",
+      "pick": "BUF  (BUF -1.5)",
+      "odds": 190,
+      "model_prob": 39.2,
+      "mkt_impl": 34.5,
+      "edge": 4.7,
+      "proj_score": "MTL 4.38 \u2014 BUF 5.08",
+      "proj_total": 7.56
+    }
+  ]
+}

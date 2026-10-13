@@ -1,0 +1,53 @@
+{
+  "date": "2026-05-12",
+  "playoff": false,
+  "strong": [],
+  "value": [
+    {
+      "type": "ML",
+      "matchup": "ANA @ VGK",
+      "pick": "ANA  (away)",
+      "odds": 140,
+      "model_prob": 47.9,
+      "edge": 7.8,
+      "proj_score": "ANA 4.37 \u2014 VGK 4.83",
+      "proj_total": 7.44,
+      "b2b_home": false,
+      "b2b_away": false
+    }
+  ],
+  "reg_ml": [
+    {
+      "matchup": "BUF @ MTL",
+      "home_prob": 53.3,
+      "away_prob": 32.3,
+      "draw_prob": 13.4,
+      "home_fair_ml": -114,
+      "away_fair_ml": 210,
+      "draw_fair_ml": 646,
+      "bov_home_reg": 108,
+      "bov_away_reg": 185,
+      "bov_draw": 310,
+      "home_reg_edge": 5.2,
+      "away_reg_edge": -2.8,
+      "proj_score": "BUF 3.84 \u2014 MTL 4.65"
+    },
+    {
+      "matchup": "ANA @ VGK",
+      "home_prob": 48.3,
+      "away_prob": 36.9,
+      "draw_prob": 13.2,
+      "home_fair_ml": 107,
+      "away_fair_ml": 171,
+      "draw_fair_ml": 658,
+      "bov_home_reg": -102,
+      "bov_away_reg": 200,
+      "bov_draw": 325,
+      "home_reg_edge": -2.2,
+      "away_reg_edge": 3.6,
+      "proj_score": "ANA 4.37 \u2014 VGK 4.83"
+    }
+  ],
+  "totals": [],
+  "puck_line": []
+}
