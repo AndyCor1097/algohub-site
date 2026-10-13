@@ -25,7 +25,7 @@ ON_HOLD = {
     "NBA": "NBA picks start when the season tips off.",
 }
 
-CFB_CODE = "Algohubfan1"   # same access code as your CFB site
+CFB_CODE = None   # put a code in quotes here (like "Algohubfan1") to lock CFB again
 
 st.markdown(
     """
@@ -195,7 +195,7 @@ def render_nfl():
 
 # ================= CFB =================
 def render_cfb():
-    if not st.session_state.get("cfb_ok"):
+    if CFB_CODE and not st.session_state.get("cfb_ok"):
         st.markdown("**Members only.** Enter your access code to see CFB picks.")
         c1, _ = st.columns([1, 2])
         code = c1.text_input("Access code", type="password", key="cfb_code", label_visibility="collapsed",
