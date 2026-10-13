@@ -1,24 +1,38 @@
 """
 The AlgoHub: every algo, one site.
-Each tab reads the pick files that sync.py copied into data/<sport>/.
+Each tab reads the files that sync.py copied into data/.
+NFL + CFB cards use your own card designs (nfl_cards.py / cfb_cards.py, copied from your algo folders).
 """
 import json
+import math
 import re
+from datetime import date
 from pathlib import Path
 
 import pandas as pd
 import streamlit as st
+import streamlit.components.v1 as components
 
 st.set_page_config(page_title="The AlgoHub", page_icon="🎯", layout="wide")
 
-DATA = Path(__file__).resolve().parent / "data"
+ROOT = Path(__file__).resolve().parent
+DATA = ROOT / "data"
+
+# ---- flip a sport back on by deleting it from this list ----
+ON_HOLD = {
+    "MLB": "MLB algo is on break for the playoffs. Back next season.",
+    "MLB HR": "HR model is on break for the playoffs. Back next season.",
+    "NBA": "NBA picks start when the season tips off.",
+}
+
+CFB_CODE = "Algohubfan1"   # same access code as your CFB site
 
 st.markdown(
     """
     <style>
-      .block-container {padding-top: 2rem;}
-      h1 {margin-bottom: 0;}
-      .stTabs [data-baseweb="tab"] {font-size: 1.05rem; padding: 0.5rem 1rem;}
+      .block-container {padding-top: 1.6rem; max-width: 1240px;}
+      [data-testid="stMetricValue"] {font-size: 1.9rem;}
+      .stTabs [data-baseweb="tab"] {font-size: 1.05rem;}
     </style>
     """,
     unsafe_allow_html=True,
@@ -48,17 +62,20 @@ def label_from(path):
     return pd.to_datetime(m.group(0)).strftime("%a %b %d, %Y") if m else s
 
 
-def pick_file(sport, pattern="*", key=None):
+def pick_file(sport, pattern="*"):
     files = files_for(sport, pattern)
     if not files:
         return None
     labels = [label_from(f) for f in files]
-    choice = st.selectbox("Slate", labels, key=key or f"sel_{sport}")
+    c1, _ = st.columns([1, 3])
+    choice = c1.selectbox("Slate", labels, key=f"sel_{sport}", label_visibility="collapsed")
     return files[labels.index(choice)]
 
 
-def coming_soon(name):
-    st.info(f"{name} picks coming soon.")
+def stale_note(path, days=3):
+    m = re.search(r"\d{4}-\d{2}-\d{2}", path.stem)
+    if m and (date.today() - date.fromisoformat(m.group(0))).days > days:
+        st.info(f"No new slate yet. Showing the last run ({label_from(path)}).")
 
 
 def odds(x):
@@ -71,91 +88,193 @@ def odds(x):
     return f"+{x:.0f}" if x > 0 else f"{x:.0f}"
 
 
-def show(df, **kw):
-    st.dataframe(df, use_container_width=True, hide_index=True, **kw)
+def show(df):
+    st.dataframe(df, use_container_width=True, hide_index=True)
 
 
 def safe(render, name):
-    """If one sport's file format changes, only that tab breaks, not the whole site."""
+    """If one sport's files break, only that tab shows a warning, not the whole site."""
     try:
         render()
     except Exception as e:
-        st.warning(f"Couldn't load {name} picks right now ({e.__class__.__name__}).")
+        st.warning(f"Couldn't load {name} right now ({e.__class__.__name__}: {e}).")
 
 
-# ---------- NFL ----------
+def record_metrics(w, l, p, units=None):
+    cols = st.columns(4 if units is not None else 2)
+    cols[0].metric("Record", f"{w}-{l}-{p}")
+    cols[1].metric("Win %", f"{w / max(w + l, 1):.1%}")
+    if units is not None:
+        cols[2].metric("Units", f"{units:+.2f}")
+        cols[3].metric("ROI", f"{units / max(w + l, 1):+.1%}")
+
+
+# ================= NFL =================
+TIER_RANK = {"HAMMER": 3, "STRONG": 3, "PLAY": 2, "EDGE": 2, "LEAN": 1}
+
+
 def render_nfl():
     f = pick_file("nfl")
     if not f:
-        return coming_soon("NFL")
-    df = pd.read_csv(f)
-    df["Matchup"] = df.away_team + " @ " + df.home_team
-    df["Proj Score"] = (df.away_team + " " + df.proj_away.round(1).astype(str)
-                        + " — " + df.home_team + " " + df.proj_home.round(1).astype(str))
-    df["Home Win %"] = (df.home_wp * 100).round(1)
-    out = pd.DataFrame({
-        "Date": df.gameday, "Time": df.gametime, "Matchup": df.Matchup,
-        "Proj Score": df["Proj Score"], "Model Line": df.model_line, "Market": df.market_line,
-        "Spread Pick": df.sp_pick, "Spread Tier": df.sp_tier.fillna(""),
-        "Total Pick": df.tot_pick, "Total Tier": df.tot_tier.fillna(""),
-        "ML Pick": df.ml_pick, "ML Odds": df.ml_odds.map(odds), "Home Win %": df["Home Win %"],
-    })
-    tiers = df.sp_tier.fillna("").str.upper()
-    c1, c2, c3 = st.columns(3)
-    c1.metric("Games", len(df))
-    c2.metric("🔨 Hammers", int((tiers == "HAMMER").sum()))
-    c3.metric("Leans", int((tiers == "LEAN").sum()))
-    only = st.toggle("Only show spread plays", key="nfl_only")
-    if only:
-        out = out[out["Spread Tier"] != ""]
-    show(out)
+        return st.info("NFL picks coming soon.")
+    picks = pd.read_csv(f)
+    season, week = int(picks.season.iloc[0]), int(picks.week.iloc[0])
+    pf = DATA / "nfl_props" / f"props_{season}_wk{week:02d}.csv"
+    props = pd.read_csv(pf) if pf.exists() else None
 
-    props = files_for("nfl_props")
-    week = re.search(r"wk\d+", f.stem)
-    match = [p for p in props if week and week.group(0) in p.stem]
-    if match:
-        st.subheader("Player Props")
-        p = pd.read_csv(match[0])
-        p = p[p.pick.notna()].copy()
-        tiers = ["All"] + sorted(p.tier.dropna().unique().tolist())
-        t = st.selectbox("Tier", tiers, key="nfl_prop_tier")
-        if t != "All":
-            p = p[p.tier == t]
-        show(pd.DataFrame({
-            "Player": p.player, "Team": p.team, "Opp": p.opp, "Market": p.label,
-            "Proj": p.proj.round(1), "Pick": p.pick, "Odds": p.price.map(odds),
-            "Edge %": (p.edge * 100).round(1), "Tier": p.tier, "Book": p.book,
-        }).sort_values("Edge %", ascending=False))
+    t_cards, t_bets, t_posts, t_rec = st.tabs(["Cards", "Best Bets", "Posts", "Record"])
+
+    with t_cards:
+        from nfl_cards import render_cards
+        height = 330 + picks.gameday.nunique() * 70 + math.ceil(len(picks) / 3) * 960
+        st.caption("Tap **PLAYER PROPS** on any game to open its props.")
+        components.html(render_cards(picks, season, week, props), height=height, scrolling=True)
+
+    with t_bets:
+        rows = []
+        for _, r in picks.iterrows():
+            mu = f"{r.away_team} @ {r.home_team}"
+            if isinstance(r.sp_tier, str) and r.sp_tier:
+                rows.append(dict(Matchup=mu, Day=r.gameday, Market="Spread", Pick=r.sp_pick, Tier=r.sp_tier,
+                                 Edge=round(r.sp_edge, 1), Vegas=r.market_line, Model=r.model_line))
+            if isinstance(r.tot_tier, str) and r.tot_tier:
+                rows.append(dict(Matchup=mu, Day=r.gameday, Market="Total", Pick=r.tot_pick, Tier=r.tot_tier,
+                                 Edge=round(r.tot_edge, 1), Vegas=f"{r.total_line:g}", Model=f"{r.pred_total:.1f}"))
+        if props is not None and not props.empty:
+            for _, p in props[props.tier.fillna("") != ""].iterrows():
+                g = picks[picks.game_id == p.game_id]
+                mu = f"{g.away_team.iloc[0]} @ {g.home_team.iloc[0]}" if len(g) else p.team
+                is_td = p.market == "atd"
+                rows.append(dict(Matchup=mu, Day=g.gameday.iloc[0] if len(g) else "", Market=f"Prop · {p.label}",
+                                 Pick=f"{p.player} {'TD' if is_td else p.pick} ({odds(p.price)})",
+                                 Tier=p.tier, Edge=round(p.edge * 100, 1),
+                                 Vegas=odds(p.over_price) if is_td else f"{p.line:g}",
+                                 Model=f"{p.proj:.0%}" if is_td else f"{p.proj:.1f}"))
+        if rows:
+            bets = pd.DataFrame(rows)
+            bets["_r"] = bets.Tier.map(TIER_RANK).fillna(0)
+            bets = bets.sort_values(["_r", "Edge"], ascending=False).drop(columns="_r")
+            m1, m2, m3 = st.columns(3)
+            m1.metric("Hammers", int((bets.Tier == "HAMMER").sum()))
+            m2.metric("Plays", int((bets.Tier == "PLAY").sum()))
+            m3.metric("Leans", int((bets.Tier == "LEAN").sum()))
+            show(bets)
+        else:
+            st.info("No plays clear the thresholds this week.")
+
+    with t_posts:
+        imgs = sorted((DATA / "nfl_posts").glob(f"{season}_wk{week:02d}_*.png"))
+        if not imgs:
+            st.info("No post graphics for this week.")
+        else:
+            cols = st.columns(min(len(imgs), 3))
+            for i, img in enumerate(imgs):
+                with cols[i % len(cols)]:
+                    st.image(str(img), use_container_width=True)
+                    st.download_button(f"Download {img.stem.split('_')[-1]}", img.read_bytes(),
+                                       file_name=img.name, mime="image/png", key=img.name,
+                                       use_container_width=True)
+
+    with t_rec:
+        tp = DATA / "nfl_tracker.csv"
+        if not tp.exists():
+            st.info("Nothing graded yet.")
+        else:
+            t = pd.read_csv(tp)
+            t = t[t.season == t.season.max()]
+            w, l, p = (t.result == "W").sum(), (t.result == "L").sum(), (t.result == "P").sum()
+            record_metrics(w, l, p, t.units.sum())
+            st.line_chart(t.groupby("week").units.sum().cumsum().rename("Cumulative units"))
+            agg = (t.groupby(["market", "tier"])
+                   .agg(W=("result", lambda x: (x == "W").sum()), L=("result", lambda x: (x == "L").sum()),
+                        P=("result", lambda x: (x == "P").sum()), Units=("units", "sum")).reset_index())
+            agg["Win %"] = (agg.W / (agg.W + agg.L).clip(lower=1)).map("{:.1%}".format)
+            agg["Units"] = agg.Units.round(2)
+            show(agg.rename(columns={"market": "Market", "tier": "Tier"}))
 
 
-# ---------- CFB ----------
+# ================= CFB =================
 def render_cfb():
+    if not st.session_state.get("cfb_ok"):
+        st.markdown("**Members only.** Enter your access code to see CFB picks.")
+        c1, _ = st.columns([1, 2])
+        code = c1.text_input("Access code", type="password", key="cfb_code", label_visibility="collapsed",
+                             placeholder="Access code")
+        if c1.button("Unlock CFB →", type="primary", use_container_width=True):
+            if code == CFB_CODE:
+                st.session_state.cfb_ok = True
+                st.rerun()
+            else:
+                st.error("Invalid access code")
+        return
+
     f = pick_file("cfb")
     if not f:
-        return coming_soon("CFB")
-    g = pd.DataFrame(json.loads(f.read_text(encoding="utf-8"))["games"])
-    out = pd.DataFrame({
-        "Kickoff (ET)": pd.to_datetime(g.start_date).dt.tz_localize("UTC")
-                          .dt.tz_convert("America/New_York").dt.strftime("%a %m/%d %I:%M %p"),
-        "Matchup": g.away_team + " @ " + g.home_team,
-        "Proj Score": g.away_team + " " + g.pred_away.astype(str) + " — " + g.home_team + " " + g.pred_home.astype(str),
-        "Home Win %": g.home_win_prob, "Book Spread": g.book_spread, "Book Total": g.book_total,
-        "Spread Edge": g.spread_edge, "Total Edge": g.total_edge,
-        "Play": g.edge_label.fillna(""), "Pick": g.edge_pick.fillna(""),
-    })
-    c1, c2 = st.columns(2)
-    c1.metric("Games", len(out))
-    c2.metric("Plays", int((out.Pick != "").sum()))
-    if st.toggle("Only show plays", key="cfb_only"):
-        out = out[out.Pick != ""]
-    show(out)
+        return st.info("CFB picks coming soon.")
+    data = json.loads(f.read_text(encoding="utf-8"))
+    games, week = data.get("games", []), data.get("week")
+    from cfb_cards import render_cards, _spread_tier, _total_tier
+
+    t_cards, t_bets, t_rec = st.tabs(["Cards", "Best Bets", "Record"])
+
+    with t_cards:
+        n_days = len({g.get("start_date", "")[:10] for g in games})
+        height = 340 + n_days * 70 + math.ceil(len(games) / 3) * 820
+        components.html(render_cards(games, week, data.get("generated", "")), height=height, scrolling=True)
+
+    with t_bets:
+        rows = []
+        for g in games:
+            mu = f"{g['away_team']} @ {g['home_team']}"
+            se, te = g.get("spread_edge"), g.get("total_edge")
+            st_, tt_ = _spread_tier(se), _total_tier(te)
+            if st_:
+                rows.append(dict(Matchup=mu, Market="Spread", Pick=f"{'HOME' if se > 0 else 'AWAY'} {abs(se):.1f} pts",
+                                 Tier=st_, Edge=round(se, 1),
+                                 Book=f"{g['book_spread']:+.1f}" if g.get("book_spread") is not None else "-",
+                                 Model=f"{g['pred_margin']:+.1f}" if g.get("pred_margin") is not None else "-"))
+            if tt_:
+                rows.append(dict(Matchup=mu, Market="Total", Pick=f"{'OVER' if te > 0 else 'UNDER'} {abs(te):.1f}",
+                                 Tier=tt_, Edge=round(te, 1),
+                                 Book=f"{g['book_total']:.1f}" if g.get("book_total") is not None else "-",
+                                 Model=f"{g['pred_total']:.1f}" if g.get("pred_total") is not None else "-"))
+        if rows:
+            bets = pd.DataFrame(rows)
+            bets["_r"] = bets.Tier.map(TIER_RANK).fillna(0)
+            bets = bets.sort_values(["_r", "Edge"], ascending=False).drop(columns="_r")
+            m1, m2, m3 = st.columns(3)
+            m1.metric("Strong", int((bets.Tier == "STRONG").sum()))
+            m2.metric("Edge", int((bets.Tier == "EDGE").sum()))
+            m3.metric("Lean", int((bets.Tier == "LEAN").sum()))
+            show(bets)
+        else:
+            st.info("No plays clear the thresholds this week.")
+
+    with t_rec:
+        tp = DATA / "cfb_tracker.json"
+        tr = json.loads(tp.read_text(encoding="utf-8")) if tp.exists() else {}
+        sp = tr.get("overall", {}).get("spread", {})
+        if not sp.get("W", 0) + sp.get("L", 0):
+            st.info("Nothing graded yet.")
+        else:
+            record_metrics(sp.get("W", 0), sp.get("L", 0), sp.get("P", 0))
+            rows = [{"Market": m.upper(), "W": v.get("W", 0), "L": v.get("L", 0), "P": v.get("P", 0),
+                     "Win %": f"{v.get('pct', 0):.1f}%"} for m, v in tr.get("overall", {}).items()]
+            show(pd.DataFrame(rows))
+            bw = tr.get("by_week", [])
+            if isinstance(bw, list) and bw:
+                show(pd.DataFrame([{"Week": e.get("week"), "W": (e.get("spread") or {}).get("W", 0),
+                                    "L": (e.get("spread") or {}).get("L", 0),
+                                    "Win %": f"{(e.get('spread') or {}).get('pct', 0):.1f}%"}
+                                   for e in sorted(bw, key=lambda x: x.get("week", 0))]))
 
 
-# ---------- MLB ----------
+# ================= MLB (on hold) =================
 def render_mlb():
     f = pick_file("mlb")
     if not f:
-        return coming_soon("MLB")
+        return st.info("MLB picks coming soon.")
+    stale_note(f)
     g = pd.read_csv(f)
     fav = g.home_win_prob >= 0.5
     show(pd.DataFrame({
@@ -165,39 +284,33 @@ def render_mlb():
         "Model Side": g.home_abb.where(fav, g.away_abb),
         "Win %": (g[["home_win_prob", "away_win_prob"]].max(axis=1) * 100).round(1),
         "Home ML": g.home_ml.map(odds), "Away ML": g.away_ml.map(odds),
-        "Temp °F": g.temp_f, "Wind mph": g.wind_mph,
     }))
 
 
-# ---------- MLB HR ----------
 def render_hr():
     f = pick_file("mlb_hr")
     if not f:
-        return coming_soon("MLB HR")
+        return st.info("HR picks coming soon.")
+    stale_note(f)
     h = pd.read_csv(f)
     prob = "hr_probability" if "hr_probability" in h.columns else "model_prob"
-    h = h.sort_values(prob, ascending=False)
-    n = st.slider("Show top", 10, min(100, len(h)), 25, key="hr_n")
-    show(pd.DataFrame({
-        "Rank": range(1, len(h) + 1), "Player": h.player_name, "Team": h.batting_team,
-        "Vs Pitcher": h.opposing_pitcher, "HR %": (h[prob] * 100).round(1),
-        "Barrel% L15": (h.barrel_rate_last15 * 100).round(1) if "barrel_rate_last15" in h else None,
-        "Park": h.park_factor, "Wind": h.wind_label if "wind_label" in h else None,
-    }).head(n))
+    h = h.sort_values(prob, ascending=False).head(25)
+    show(pd.DataFrame({"Rank": range(1, len(h) + 1), "Player": h.player_name, "Team": h.batting_team,
+                       "Vs Pitcher": h.opposing_pitcher, "HR %": (h[prob] * 100).round(1)}))
 
 
-# ---------- NHL ----------
+# ================= NHL =================
 def render_nhl():
     f = pick_file("nhl")
     if not f:
-        return coming_soon("NHL")
+        return st.info("NHL picks coming soon.")
+    stale_note(f)
     d = json.loads(f.read_text(encoding="utf-8"))
     rows = []
     for bucket, label in [("strong", "🔥 Strong"), ("value", "Value"), ("puck_line", "Puck Line"), ("totals", "Total")]:
         for p in d.get(bucket, []):
             rows.append({"Tier": label, "Matchup": p.get("matchup"), "Pick": p.get("pick"),
-                         "Odds": odds(p.get("odds")), "Edge %": p.get("edge"),
-                         "Proj Score": p.get("proj_score")})
+                         "Odds": odds(p.get("odds")), "Edge %": p.get("edge"), "Proj Score": p.get("proj_score")})
     if rows:
         st.subheader("Plays")
         show(pd.DataFrame(rows))
@@ -207,40 +320,39 @@ def render_nhl():
         g = pd.DataFrame(games)
         show(pd.DataFrame({"Matchup": g.matchup, "Proj Score": g.proj_score,
                            "Home Reg %": g.home_prob, "Away Reg %": g.away_prob, "Draw %": g.draw_prob}))
-    if not rows and not games:
-        st.info("No NHL games on this slate.")
 
 
-# ---------- NBA ----------
+# ================= NBA (on hold) =================
 def render_nba():
     f = pick_file("nba")
     if not f:
-        return coming_soon("NBA")
-    d = json.loads(f.read_text(encoding="utf-8"))
-    st.subheader("Top Overlays")
-    t = pd.DataFrame(d.get("top_overlays", []))
-    if t.empty:
-        st.info("No NBA games on this slate.")
-        return
-    show(pd.DataFrame({
-        "Player": t.player_name, "Game": t.game, "Stat": t.stat, "Proj": t.projection.round(1),
-        "Line": t.line, "Pick": t.direction, "Edge %": t.edge_pct, "Odds": t.over_odds, "Form": t.form,
-    }))
+        return st.info("NBA picks coming soon.")
+    t = pd.DataFrame(json.loads(f.read_text(encoding="utf-8")).get("top_overlays", []))
+    if not t.empty:
+        show(pd.DataFrame({"Player": t.player_name, "Game": t.game, "Stat": t.stat,
+                           "Proj": t.projection.round(1), "Line": t.line, "Pick": t.direction,
+                           "Edge %": t.edge_pct, "Odds": t.over_odds}))
 
 
-# ---------- CBB ----------
+# ================= CBB =================
 def render_cbb():
     f = pick_file("cbb")
     if not f:
-        return coming_soon("CBB")
+        return st.info("CBB picks coming soon.")
     show(pd.read_csv(f))
 
 
 TABS = [
-    ("🏈 NFL", render_nfl), ("🏈 CFB", render_cfb), ("⚾ MLB", render_mlb), ("💣 MLB HR", render_hr),
-    ("🏒 NHL", render_nhl), ("🏀 NBA", render_nba), ("🏀 CBB", render_cbb),
+    ("🏈 NFL", "NFL", render_nfl), ("🏈 CFB", "CFB", render_cfb), ("🏒 NHL", "NHL", render_nhl),
+    ("🏀 CBB", "CBB", render_cbb), ("🏀 NBA", "NBA", render_nba),
+    ("⚾ MLB", "MLB", render_mlb), ("💣 MLB HR", "MLB HR", render_hr),
 ]
 
-for tab, (name, fn) in zip(st.tabs([t[0] for t in TABS]), TABS):
+for tab, (label, name, fn) in zip(st.tabs([t[0] for t in TABS]), TABS):
     with tab:
-        safe(fn, name)
+        if name in ON_HOLD:
+            st.info(ON_HOLD[name])
+        else:
+            safe(fn, name)
+
+st.caption("For entertainment. Not betting advice. © 2026 TheAlgoHub")
