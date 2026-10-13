@@ -61,7 +61,8 @@ def _nfl(data):
             t = r.get(f"{k}_tier")
             if isinstance(t, str) and t:
                 out.append(dict(sport="NFL", pick=r[f"{k}_pick"], odds="-110", tier=t,
-                                edge=float(r[f"{k}_edge"]), game=mu, when=when, unit="pts"))
+                                edge=float(r[f"{k}_edge"]), game=mu, when=when, unit="pts",
+                                day=str(r.get("gameday", ""))[:10]))
     return out
 
 
@@ -78,6 +79,10 @@ def _cfb(data):
     out = []
     for g in json.loads(f.read_text(encoding="utf-8")).get("games", []):
         ct = str(g.get("commence_time", ""))[:10]
+        try:   # ET game day (kickoffs are stored in UTC)
+            day = (pd.Timestamp(g["commence_time"]) - pd.Timedelta(hours=4)).strftime("%Y-%m-%d")
+        except Exception:
+            day = ct
         if ct and ct < (date.today() - timedelta(days=1)).isoformat():
             continue
         mu = f"{g['away_team']} at {g['home_team']}"
@@ -87,10 +92,10 @@ def _cfb(data):
             bs = g.get("book_spread")
             line = "" if bs is None else f" {(bs if se > 0 else -bs):+g}"
             out.append(dict(sport="CFB", pick=f"{side}{line}", odds="-110", tier=_spread_tier(se),
-                            edge=abs(se), game=mu, when="", unit="pts"))
+                            edge=abs(se), game=mu, when="", unit="pts", day=day))
         if _total_tier(te) and g.get("book_total") is not None:
             out.append(dict(sport="CFB", pick=f"{'Over' if te > 0 else 'Under'} {g['book_total']:g}", odds="-110",
-                            tier=_total_tier(te), edge=abs(te), game=mu, when="", unit="pts"))
+                            tier=_total_tier(te), edge=abs(te), game=mu, when="", unit="pts", day=day))
     return out
 
 
@@ -142,6 +147,8 @@ def collect(data: Path):
             p = []
         if p:
             counts[p[0]["sport"]] = len(p)
+            if any(x.get("day") == date.today().isoformat() for x in p):
+                counts[p[0]["sport"] + "_today"] = 1
         plays += p
     return plays, counts
 
@@ -161,7 +168,7 @@ def board_html(plays, counts):
 <header class="ah-hero">
   <div class="ah-mark"><span>The</span>AlgoHub</div>
   <div class="ah-today"><b>{today.strftime('%A, %B')} {today.day}</b>
-    <span>{n} play{'s' if n != 1 else ''} on the board across {len([s for s in counts if s != 'HR'])} sports</span></div>
+    <span>{n} play{'s' if n != 1 else ''} on the board across {len([s for s in counts if s != 'HR' and not s.endswith('_today')])} sports</span></div>
 </header>"""
     if not top:
         return head + '<p class="ah-empty">No plays posted yet today. Picks land each morning around 11.</p>'

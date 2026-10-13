@@ -391,7 +391,9 @@ _key = {"NFL": "NFL", "CFB": "CFB", "NHL": "NHL", "MLB": "MLB", "MLB HR": "HR"}
 
 
 # sports with games TODAY get a small pulsing gold dot on their tab
-_live = [i + 1 for i, t in enumerate(TABS) if _key.get(t[1]) in _counts and _key.get(t[1]) not in ("NFL", "CFB")]
+_live = [i + 1 for i, t in enumerate(TABS)
+         if (_key.get(t[1]) in ("NFL", "CFB") and f"{_key[t[1]]}_today" in _counts)
+         or (_key.get(t[1]) in _counts and _key.get(t[1]) not in ("NFL", "CFB"))]
 if _live:
     sel = ",".join(f'[data-baseweb="tab-list"]:not(.stTabs .stTabs [data-baseweb="tab-list"])>[data-baseweb="tab"]:nth-of-type({i}) p::after'
                    for i in _live)
