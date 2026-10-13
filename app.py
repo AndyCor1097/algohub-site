@@ -13,7 +13,7 @@ import pandas as pd
 import streamlit as st
 import streamlit.components.v1 as components
 
-st.set_page_config(page_title="The AlgoHub", page_icon="🎯", layout="wide")
+st.set_page_config(page_title="The AlgoHub", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
 ROOT = Path(__file__).resolve().parent
 DATA = ROOT / "data"
@@ -25,19 +25,11 @@ ON_HOLD = {
 
 CFB_CODE = None   # put a code in quotes here (like "Algohubfan1") to lock CFB again
 
-st.markdown(
-    """
-    <style>
-      .block-container {padding-top: 1.6rem; max-width: 1240px;}
-      [data-testid="stMetricValue"] {font-size: 1.9rem;}
-      .stTabs [data-baseweb="tab"] {font-size: 1.05rem;}
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
+from board import CSS, FOOT, board_html, collect
 
-st.title("🎯 The AlgoHub")
-st.caption("Algorithmic predictions across every sport · @TheAlgoHub")
+st.markdown(CSS, unsafe_allow_html=True)
+_plays, _counts = collect(DATA)
+st.markdown(board_html(_plays, _counts), unsafe_allow_html=True)
 
 
 # ---------- helpers ----------
@@ -391,16 +383,23 @@ def render_cbb():
 
 
 TABS = [
-    ("🏈 NFL", "NFL", render_nfl), ("🏈 CFB", "CFB", render_cfb), ("🏒 NHL", "NHL", render_nhl),
-    ("🏀 CBB", "CBB", render_cbb), ("🏀 NBA", "NBA", render_nba),
-    ("⚾ MLB", "MLB", render_mlb), ("💣 MLB HR", "MLB HR", render_hr),
+    ("NFL", "NFL", render_nfl), ("CFB", "CFB", render_cfb), ("NHL", "NHL", render_nhl),
+    ("MLB", "MLB", render_mlb), ("Home Runs", "MLB HR", render_hr),
+    ("CBB", "CBB", render_cbb), ("NBA", "NBA", render_nba),
 ]
+_key = {"NFL": "NFL", "CFB": "CFB", "NHL": "NHL", "MLB": "MLB", "MLB HR": "HR"}
 
-for tab, (label, name, fn) in zip(st.tabs([t[0] for t in TABS]), TABS):
+
+def _tab_label(label, name):
+    n = _counts.get(_key.get(name, ""), 0)
+    return f"{label} {n}" if n and name != "MLB HR" else label
+
+
+for tab, (label, name, fn) in zip(st.tabs([_tab_label(t[0], t[1]) for t in TABS]), TABS):
     with tab:
         if name in ON_HOLD:
             st.info(ON_HOLD[name])
         else:
             safe(fn, name)
 
-st.caption("For entertainment. Not betting advice. © 2026 TheAlgoHub")
+st.markdown(FOOT, unsafe_allow_html=True)
