@@ -19,7 +19,7 @@ SOURCES = {
     "nfl_posts": (DESKTOP / "nfl_algo" / "posts",               "2026_wk*.png",           6),
     "cfb":       (DESKTOP / "cfb_algo",                         "predictions_week*.json", 6),
     "mlb":       (DESKTOP / "algohub" / "game_algo" / "output", "all_games_*.csv",        21),
-    "mlb_hr":    (DESKTOP / "HR_Model" / "predictions",         "hr_predictions_*.csv",   14),
+    "mlb_hr":    (DESKTOP / "HR_Model" / "data",                "today.json",             1),
     "nhl":       (DESKTOP / "nhl_game_algo" / "picks",               "nhl_*.csv",              21),
     "nba":       (DESKTOP / "NBA_Model" / "data",               "nba_today.json",         1),
     "cbb":       (DESKTOP / "CBB_Model" / "picks",              "*.csv",                  14),
@@ -54,17 +54,18 @@ def main():
             print(f"  {sport:10s} no files yet")
             continue
         out.mkdir(parents=True, exist_ok=True)
-        for f in out.iterdir():                 # clear old copies in the SITE folder only
-            if f.is_file():
-                f.unlink()
+        if sport not in ("nba", "mlb_hr"):      # dated folders: keep history of the stamped ones
+            for f in out.iterdir():             # clear old copies in the SITE folder only
+                if f.is_file():
+                    f.unlink()
         for f in files:
             dest = out / f.name
-            if sport == "nba":                  # NBA overwrites one file daily, so stamp it with its date
+            if sport in ("nba", "mlb_hr"):      # these overwrite one file daily, so stamp it with its date
                 try:
                     d = json.loads(f.read_text(encoding="utf-8")).get("date", "today")
                 except Exception:
                     d = "today"
-                dest = out / f"nba_{d}.json"
+                dest = out / f"{'nba' if sport == 'nba' else 'hr'}_{d}.json"
             shutil.copy2(f, dest)
         print(f"  {sport:10s} {len(files)} file(s), latest: {files[-1].name}")
 

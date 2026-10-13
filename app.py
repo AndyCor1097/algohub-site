@@ -20,8 +20,6 @@ DATA = ROOT / "data"
 
 # ---- flip a sport back on by deleting it from this list ----
 ON_HOLD = {
-    "MLB": "MLB algo is on break for the playoffs. Back next season.",
-    "MLB HR": "HR model is on break for the playoffs. Back next season.",
     "NBA": "NBA picks start when the season tips off.",
 }
 
@@ -288,15 +286,27 @@ def render_mlb():
 
 
 def render_hr():
-    f = pick_file("mlb_hr")
+    f = pick_file("mlb_hr", "hr_*.json")
     if not f:
         return st.info("HR picks coming soon.")
-    stale_note(f)
-    h = pd.read_csv(f)
-    prob = "hr_probability" if "hr_probability" in h.columns else "model_prob"
-    h = h.sort_values(prob, ascending=False).head(25)
-    show(pd.DataFrame({"Rank": range(1, len(h) + 1), "Player": h.player_name, "Team": h.batting_team,
-                       "Vs Pitcher": h.opposing_pitcher, "HR %": (h[prob] * 100).round(1)}))
+    stale_note(f, days=1)
+    d = json.loads(f.read_text(encoding="utf-8"))
+    rows = []
+    for g in d.get("games", []):
+        for side, opp_p in (("home", "away_pitcher"), ("away", "home_pitcher")):
+            team = g.get(f"{side}_team")
+            for b in g.get(f"{side}_batters", []):
+                rows.append({"Player": b.get("player_name"), "Team": team,
+                             "Game": f"{g.get('away_team')} @ {g.get('home_team')}", "Time": g.get("game_time"),
+                             "Vs Pitcher": g.get(opp_p), "HIT Score": b.get("hit_score"), "Grade": b.get("grade"),
+                             "HR %": b.get("proj_hr_pct"), "Barrel %": b.get("barrel_rate"),
+                             "Hard Hit %": b.get("hard_hit_pct"), "Park": g.get("park_factor"),
+                             "Weather": (g.get("weather") or {}).get("wind_label", "")})
+    if not rows:
+        return st.info("No HR slate today.")
+    h = pd.DataFrame(rows).sort_values(["HIT Score", "HR %"], ascending=False).head(30)
+    h.insert(0, "Rank", range(1, len(h) + 1))
+    show(h)
 
 
 # ================= NHL =================
