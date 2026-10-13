@@ -267,22 +267,27 @@ def render_cfb():
                                    for e in sorted(bw, key=lambda x: x.get("week", 0))]))
 
 
-# ================= MLB (on hold) =================
+# ================= MLB =================
 def render_mlb():
     f = pick_file("mlb")
     if not f:
         return st.info("MLB picks coming soon.")
-    stale_note(f)
+    stale_note(f, days=1)
     g = pd.read_csv(f)
-    fav = g.home_win_prob >= 0.5
-    show(pd.DataFrame({
-        "Matchup": g.away_abb + " @ " + g.home_abb,
-        "Starters": g.away_starter_name.fillna("TBD") + " vs " + g.home_starter_name.fillna("TBD"),
-        "Proj Score": g.proj_score, "Proj Total": g.proj_total.round(1), "O/U Line": g.total_line,
-        "Model Side": g.home_abb.where(fav, g.away_abb),
-        "Win %": (g[["home_win_prob", "away_win_prob"]].max(axis=1) * 100).round(1),
-        "Home ML": g.home_ml.map(odds), "Away ML": g.away_ml.map(odds),
-    }))
+    from mlb_cards import render_game_cards
+    t_cards, t_table = st.tabs(["Cards", "Table"])
+    with t_cards:
+        components.html(render_game_cards(g), height=300 + math.ceil(len(g) / 3) * 760, scrolling=True)
+    with t_table:
+        fav = g.home_win_prob >= 0.5
+        show(pd.DataFrame({
+            "Matchup": g.away_abb + " @ " + g.home_abb,
+            "Starters": g.away_starter_name.fillna("TBD") + " vs " + g.home_starter_name.fillna("TBD"),
+            "Proj Score": g.proj_score, "Proj Total": g.proj_total.round(1), "O/U Line": g.total_line,
+            "Model Side": g.home_abb.where(fav, g.away_abb),
+            "Win %": (g[["home_win_prob", "away_win_prob"]].max(axis=1) * 100).round(1),
+            "Home ML": g.home_ml.map(odds), "Away ML": g.away_ml.map(odds),
+        }))
 
 
 def render_hr():
@@ -291,22 +296,10 @@ def render_hr():
         return st.info("HR picks coming soon.")
     stale_note(f, days=1)
     d = json.loads(f.read_text(encoding="utf-8"))
-    rows = []
-    for g in d.get("games", []):
-        for side, opp_p in (("home", "away_pitcher"), ("away", "home_pitcher")):
-            team = g.get(f"{side}_team")
-            for b in g.get(f"{side}_batters", []):
-                rows.append({"Player": b.get("player_name"), "Team": team,
-                             "Game": f"{g.get('away_team')} @ {g.get('home_team')}", "Time": g.get("game_time"),
-                             "Vs Pitcher": g.get(opp_p), "HIT Score": b.get("hit_score"), "Grade": b.get("grade"),
-                             "HR %": b.get("proj_hr_pct"), "Barrel %": b.get("barrel_rate"),
-                             "Hard Hit %": b.get("hard_hit_pct"), "Park": g.get("park_factor"),
-                             "Weather": (g.get("weather") or {}).get("wind_label", "")})
-    if not rows:
+    if not d.get("games"):
         return st.info("No HR slate today.")
-    h = pd.DataFrame(rows).sort_values(["HIT Score", "HR %"], ascending=False).head(30)
-    h.insert(0, "Rank", range(1, len(h) + 1))
-    show(h)
+    from mlb_cards import render_hr_cards
+    components.html(render_hr_cards(d, top=30), height=520 + 30 * 92, scrolling=True)
 
 
 # ================= NHL =================
