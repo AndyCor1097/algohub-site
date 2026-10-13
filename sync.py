@@ -20,7 +20,7 @@ SOURCES = {
     "cfb":       (DESKTOP / "cfb_algo",                         "predictions_week*.json", 6),
     "mlb":       (DESKTOP / "algohub" / "game_algo" / "output", "all_games_*.csv",        21),
     "mlb_hr":    (DESKTOP / "HR_Model" / "predictions",         "hr_predictions_*.csv",   14),
-    "nhl":       (DESKTOP / "NHL_Algo" / "picks",               "nhl_picks_*.json",       21),
+    "nhl":       (DESKTOP / "nhl_game_algo" / "picks",               "nhl_*.csv",              21),
     "nba":       (DESKTOP / "NBA_Model" / "data",               "nba_today.json",         1),
     "cbb":       (DESKTOP / "CBB_Model" / "picks",              "*.csv",                  14),
 }
@@ -31,6 +31,8 @@ SINGLE = [
     (DESKTOP / "cfb_algo" / "cards.py",            HERE / "cfb_cards.py"),   # your CFB card design
     (DESKTOP / "nfl_algo" / "tracker.csv",         DATA / "nfl_tracker.csv"),
     (DESKTOP / "cfb_algo" / "tracker_summary.json", DATA / "cfb_tracker.json"),
+    (DESKTOP / "nhl_game_algo" / "cards.py",            HERE / "nhl_cards.py"),   # your NHL card design
+    (DESKTOP / "nhl_game_algo" / "tracker.csv",         DATA / "nhl_tracker.csv"),
 ]
 
 

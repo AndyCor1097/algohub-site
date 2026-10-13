@@ -301,25 +301,70 @@ def render_hr():
 
 # ================= NHL =================
 def render_nhl():
-    f = pick_file("nhl")
+    f = pick_file("nhl", "nhl_*.csv")
     if not f:
         return st.info("NHL picks coming soon.")
-    stale_note(f)
-    d = json.loads(f.read_text(encoding="utf-8"))
-    rows = []
-    for bucket, label in [("strong", "🔥 Strong"), ("value", "Value"), ("puck_line", "Puck Line"), ("totals", "Total")]:
-        for p in d.get(bucket, []):
-            rows.append({"Tier": label, "Matchup": p.get("matchup"), "Pick": p.get("pick"),
-                         "Odds": odds(p.get("odds")), "Edge %": p.get("edge"), "Proj Score": p.get("proj_score")})
-    if rows:
-        st.subheader("Plays")
-        show(pd.DataFrame(rows))
-    games = d.get("reg_ml", [])
-    if games:
-        st.subheader("All Games")
-        g = pd.DataFrame(games)
-        show(pd.DataFrame({"Matchup": g.matchup, "Proj Score": g.proj_score,
-                           "Home Reg %": g.home_prob, "Away Reg %": g.away_prob, "Draw %": g.draw_prob}))
+    stale_note(f, days=1)
+    g = pd.read_csv(f)
+    t_cards, t_bets, t_rec = st.tabs(["Cards", "Best Bets", "Record"])
+
+    with t_cards:
+        from nhl_cards import render_cards
+        height = 300 + math.ceil(len(g) / 3) * 760
+        components.html(render_cards(g, str(g.date.iloc[0])), height=height, scrolling=True)
+
+    with t_bets:
+        rows = []
+        for _, r in g.iterrows():
+            mu = f"{r.away_team} @ {r.home_team}"
+            if isinstance(r.ml_tier, str) and r.ml_tier:
+                rows.append(dict(Time=r.start_et, Matchup=mu, Market="ML", Pick=f"{r.ml_pick} ML",
+                                 Odds=odds(r.ml_odds), Tier=r.ml_tier, Edge=round(r.ml_edge, 1),
+                                 Model=f"{r.ml_model:.0%}"))
+            if isinstance(r.pl_tier, str) and r.pl_tier:
+                rows.append(dict(Time=r.start_et, Matchup=mu, Market="Puck Line", Pick=r.pl_pick,
+                                 Odds=odds(r.pl_odds), Tier=r.pl_tier, Edge=round(r.pl_edge, 1),
+                                 Model=f"{r.pl_model:.0%}"))
+            if isinstance(r.tot_tier, str) and r.tot_tier:
+                rows.append(dict(Time=r.start_et, Matchup=mu, Market="Total", Pick=r.tot_pick,
+                                 Odds=odds(r.tot_odds), Tier=r.tot_tier, Edge=round(r.tot_edge, 1),
+                                 Model=f"{r.tot_model:.0%} · proj {r.pred_total:.1f}"))
+        if rows:
+            bets = pd.DataFrame(rows)
+            bets["_r"] = bets.Tier.map(TIER_RANK).fillna(0)
+            bets = bets.sort_values(["_r", "Edge"], ascending=False).drop(columns="_r")
+            m1, m2, m3 = st.columns(3)
+            m1.metric("Hammers", int((bets.Tier == "HAMMER").sum()))
+            m2.metric("Plays", int((bets.Tier == "PLAY").sum()))
+            m3.metric("Leans", int((bets.Tier == "LEAN").sum()))
+            show(bets.rename(columns={"Edge": "Edge %"}))
+        else:
+            st.info("No plays clear the thresholds today.")
+        st.caption("All games")
+        show(pd.DataFrame({
+            "Time": g.start_et, "Matchup": g.away_team + " @ " + g.home_team,
+            "Proj Score": g.away_team + " " + g.proj_away.round(1).astype(str) + " - "
+                          + g.home_team + " " + g.proj_home.round(1).astype(str),
+            "Home Win %": (g.home_wp * 100).round(1), "OT %": (g.p_ot * 100).round(1),
+            "Proj Total": g.pred_total.round(2), "O/U": g.total_line,
+            "Fair ML (A/H)": g.fair_ml_away.map(odds) + " / " + g.fair_ml_home.map(odds),
+        }))
+
+    with t_rec:
+        tp = DATA / "nhl_tracker.csv"
+        if not tp.exists():
+            st.info("Nothing graded yet.")
+        else:
+            t = pd.read_csv(tp)
+            w, l, p = (t.result == "W").sum(), (t.result == "L").sum(), (t.result == "P").sum()
+            record_metrics(w, l, p, t.units.sum())
+            st.line_chart(t.groupby("date").units.sum().cumsum().rename("Cumulative units"))
+            agg = (t.groupby(["market", "tier"])
+                   .agg(W=("result", lambda x: (x == "W").sum()), L=("result", lambda x: (x == "L").sum()),
+                        P=("result", lambda x: (x == "P").sum()), Units=("units", "sum")).reset_index())
+            agg["Win %"] = (agg.W / (agg.W + agg.L).clip(lower=1)).map("{:.1%}".format)
+            agg["Units"] = agg.Units.round(2)
+            show(agg.rename(columns={"market": "Market", "tier": "Tier"}))
 
 
 # ================= NBA (on hold) =================

@@ -1,7 +1,7 @@
 # The AlgoHub: one site, every algo
 
-This folder is its own thing. It **only reads** your algo folders (nfl_algo, cfb_algo, HR_Model,
-NHL_Algo, NBA_Model, algohub/game_algo) and never changes them. Your existing per-sport
+This folder is its own thing. It **only reads** your algo folders (nfl_algo, cfb_algo, nhl_game_algo, HR_Model,
+NBA_Model, algohub/game_algo) and never changes them. Your existing per-sport
 sites keep working exactly like before.
 
 ## Files
