@@ -390,12 +390,18 @@ TABS = [
 _key = {"NFL": "NFL", "CFB": "CFB", "NHL": "NHL", "MLB": "MLB", "MLB HR": "HR"}
 
 
-def _tab_label(label, name):
-    n = _counts.get(_key.get(name, ""), 0)
-    return f"{label} {n}" if n and name != "MLB HR" else label
+# sports with games TODAY get a small pulsing gold dot on their tab
+_live = [i + 1 for i, t in enumerate(TABS) if _key.get(t[1]) in _counts and _key.get(t[1]) not in ("NFL", "CFB")]
+if _live:
+    sel = ",".join(f'[data-baseweb="tab-list"]:not(.stTabs .stTabs [data-baseweb="tab-list"])>[data-baseweb="tab"]:nth-of-type({i}) p::after'
+                   for i in _live)
+    st.markdown(f"""<style>{sel}{{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;
+      background:#f2b134;margin-left:7px;vertical-align:5px;box-shadow:0 0 0 0 rgba(242,177,52,.6);
+      animation:ahlive 2.4s ease-out infinite}}
+      @keyframes ahlive{{0%{{box-shadow:0 0 0 0 rgba(242,177,52,.55)}}70%,100%{{box-shadow:0 0 0 7px rgba(242,177,52,0)}}}}
+      @media (prefers-reduced-motion:reduce){{{sel}{{animation:none}}}}</style>""", unsafe_allow_html=True)
 
-
-for tab, (label, name, fn) in zip(st.tabs([_tab_label(t[0], t[1]) for t in TABS]), TABS):
+for tab, (label, name, fn) in zip(st.tabs([t[0] for t in TABS]), TABS):
     with tab:
         if name in ON_HOLD:
             st.info(ON_HOLD[name])
