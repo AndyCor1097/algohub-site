@@ -128,32 +128,66 @@ h3.sub{font:800 24px "Big Shoulders Display",sans-serif;margin:22px 0 10px}
 .btn{display:block;text-align:center;padding:10px;font-weight:600;text-decoration:none;color:var(--ink);background:var(--amber)}
 .ah-hero a{text-decoration:none}
 @media (prefers-reduced-motion:reduce){.sports a.live::after{animation:none}}
+</style>
+<style>
+.tk{position:sticky;top:0;z-index:20;margin:-22px -16px 14px;background:rgba(11,14,19,.92);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);overflow:hidden}
+.tk[hidden]{display:none}
+.tk-row{display:flex;align-items:stretch}
+.tk-live{flex:none;display:flex;align-items:center;gap:7px;padding:0 14px;font:800 15px "Big Shoulders Display",sans-serif;
+  color:var(--ink);background:var(--amber);letter-spacing:.04em}
+.tk-live i{width:7px;height:7px;border-radius:50%;background:var(--ink);animation:tkb 1.4s ease-in-out infinite}
+@keyframes tkb{50%{opacity:.25}}
+.tk-view{flex:1;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent)}
+.tk-track{display:flex;width:max-content;animation:tks var(--dur,80s) linear infinite}
+.tk:hover .tk-track,.tk:focus-within .tk-track{animation-play-state:paused}
+@keyframes tks{to{transform:translateX(-50%)}}
+.tk-g{display:flex;align-items:center;gap:10px;padding:8px 18px;border-right:1px solid var(--rule);white-space:nowrap;font-size:13px}
+.tk-sp{font:700 11px Archivo,sans-serif;color:var(--dim)}
+.tk-t{display:flex;gap:6px;align-items:baseline}
+.tk-t b{font:800 17px "Big Shoulders Display",sans-serif;color:var(--chalk)}
+.tk-t span{font:800 17px "Big Shoulders Display",sans-serif;color:var(--chalk);min-width:14px;text-align:right}
+.tk-t.lose b,.tk-t.lose span{color:var(--dim)}
+.tk-st{font-size:12px;color:var(--dim)}
+.tk-st.in{color:var(--amber);font-weight:600}
+.tk-p{font:700 11px Archivo,sans-serif;padding:3px 7px;border-radius:6px;border:1px solid var(--rule);color:var(--chalk)}
+.tk-p.up{background:rgba(63,185,80,.15);border-color:rgba(63,185,80,.5);color:#7ee787}
+.tk-p.down{background:rgba(248,81,73,.12);border-color:rgba(248,81,73,.45);color:#ffa198}
+.tk-p.push{color:var(--dim)}
+.ah-live{display:inline-block;margin-top:6px;font:700 11px Archivo,sans-serif;padding:3px 8px;border-radius:6px;
+  border:1px solid var(--rule);color:var(--dim)}
+.ah-live.up{background:rgba(63,185,80,.15);border-color:rgba(63,185,80,.5);color:#7ee787}
+.ah-live.down{background:rgba(248,81,73,.12);border-color:rgba(248,81,73,.45);color:#ffa198}
+@media (prefers-reduced-motion:reduce){.tk-track{animation:none}.tk-view{overflow-x:auto;mask-image:none}.tk-live i{animation:none}}
+@media (max-width:640px){.tk-g{padding:7px 14px}.tk-live{padding:0 10px}}
 </style></head>
-<body><div class="page">
+<body><div class="page"><div class="tk" id="tk" hidden aria-label="Live scores">
+  <div class="tk-row"><div class="tk-live"><i></i>LIVE</div>
+  <div class="tk-view"><div class="tk-track" id="tk-track"></div></div></div></div>
 <header class="ah-hero">
   <a href="/" class="ah-mark" aria-label="The AlgoHub home"><span>The</span>AlgoHub</a>
   <div class="ah-today"><b>Tuesday, October 13</b>
     <span>17 plays on the board across 3 sports</span></div>
 </header><section class="ah-board" aria-label="Top plays today">
-  <div class="ah-slip s-mid">
+  <div class="ah-slip s-mid" data-sport="NHL" data-pick="SEA ML" data-game="SEA at PHI">
     <div class="ah-slip-top"><span class="ah-sport">NHL</span><span class="ah-tier">Play</span></div>
     <div class="ah-pick">SEA ML<span>-102</span></div>
     <div class="ah-sub">SEA at PHI, 7:00 PM</div>
     <div class="ah-stat"><em>+6.7</em><small>% edge</small></div>
   </div>
-  <div class="ah-slip s-mid">
+  <div class="ah-slip s-mid" data-sport="MLB" data-pick="CLE ML" data-game="CLE at TB">
     <div class="ah-slip-top"><span class="ah-sport">MLB</span><span class="ah-tier">Solid</span></div>
     <div class="ah-pick">CLE ML<span>+113</span></div>
     <div class="ah-sub">CLE at TB</div>
     <div class="ah-stat"><em>+9.0</em><small>% edge</small></div>
   </div>
-  <div class="ah-slip s-low">
+  <div class="ah-slip s-low" data-sport="CFB" data-pick="Jacksonville State -3" data-game="Florida International at Jacksonville State">
     <div class="ah-slip-top"><span class="ah-sport">CFB</span><span class="ah-tier">Lean</span></div>
     <div class="ah-pick">Jacksonville State -3<span>-110</span></div>
     <div class="ah-sub">Florida International at Jacksonville State</div>
     <div class="ah-stat"><em>+3.4</em><small>pts edge</small></div>
   </div>
-  <div class="ah-slip s-mid">
+  <div class="ah-slip s-mid" data-sport="NHL" data-pick="SEA +1.5" data-game="SEA at PHI">
     <div class="ah-slip-top"><span class="ah-sport">NHL</span><span class="ah-tier">Play</span></div>
     <div class="ah-pick">SEA +1.5<span>-258</span></div>
     <div class="ah-sub">SEA at PHI, 7:00 PM</div>
@@ -183,4 +217,70 @@ document.querySelectorAll('.panes button').forEach(b=>b.onclick=()=>{
  const fr=document.querySelector('#'+b.dataset.p+' iframe.cards'); if(fr) fit(fr);
  history.replaceState(null,'','#'+b.dataset.p);});
 const h=location.hash.slice(1); const hb=h&&document.querySelector('.panes button[data-p="'+h+'"]'); if(hb) hb.click();
+</script><script>
+(function(){
+const PICKS=[{"sport": "CFB", "pick": "Jacksonville State -3", "game": "Florida International at Jacksonville State"}, {"sport": "NHL", "pick": "DET ML", "game": "NJD at DET"}, {"sport": "NHL", "pick": "DET -1.5", "game": "NJD at DET"}, {"sport": "NHL", "pick": "BUF ML", "game": "BUF at MTL"}, {"sport": "NHL", "pick": "BUF +1.5", "game": "BUF at MTL"}, {"sport": "NHL", "pick": "CAR ML", "game": "WSH at CAR"}, {"sport": "NHL", "pick": "SEA ML", "game": "SEA at PHI"}, {"sport": "NHL", "pick": "SEA +1.5", "game": "SEA at PHI"}, {"sport": "NHL", "pick": "NYR ML", "game": "TBL at NYR"}, {"sport": "NHL", "pick": "NYR +1.5", "game": "TBL at NYR"}, {"sport": "NHL", "pick": "OTT ML", "game": "STL at OTT"}, {"sport": "NHL", "pick": "OTT +1.5", "game": "STL at OTT"}, {"sport": "NHL", "pick": "VAN ML", "game": "VAN at NYI"}, {"sport": "NHL", "pick": "VAN +1.5", "game": "VAN at NYI"}, {"sport": "NHL", "pick": "UTA ML", "game": "TOR at UTA"}, {"sport": "NHL", "pick": "UTA -1.5", "game": "TOR at UTA"}, {"sport": "MLB", "pick": "CLE ML", "game": "CLE at TB"}], SP={"CFB": ["football/college-football", "&groups=80"], "MLB": ["baseball/mlb", ""], "NHL": ["hockey/nhl", ""]};
+const ALIAS={NHL:{TBL:'TB',NJD:'NJ',SJS:'SJ',LAK:'LA',UTA:'UTAH'},MLB:{CWS:'CHW',TBR:'TB',KCR:'KC',SDP:'SD',SFG:'SF',WSN:'WSH'},NFL:{LA:'LAR',WAS:'WSH'}};
+const norm=s=>(s||'').toLowerCase().replace(/&/g,'and').replace(/\bstate\b/g,'st').replace(/\bsaint\b/g,'st').replace(/[^a-z0-9]/g,'');
+const keys=t=>[t.abbreviation,t.displayName,t.shortDisplayName,t.location,t.nickname,(t.location||'')+' '+(t.name||'')].filter(Boolean).map(norm);
+function hit(name,sport,comp){const k=norm((ALIAS[sport]||{})[name]||name); if(!k)return false;
+  const ks=keys(comp.team); return ks.includes(k)||ks.some(x=>x.length>3&&k.length>3&&(x.startsWith(k)||k.startsWith(x)));}
+function parse(p){const t=(p||'').trim();let m;
+  if(m=t.match(/^(over|under)\s+([\d.]+)/i))return{k:'tot',side:m[1].toLowerCase(),line:+m[2]};
+  if(m=t.match(/^(.*)\s+ML$/i))return{k:'ml',team:m[1]};
+  if(m=t.match(/^(.*)\s+PK$/i))return{k:'sp',team:m[1],line:0};
+  if(m=t.match(/^(.*)\s+([+-][\d.]+)$/))return{k:'sp',team:m[1],line:+m[2]};
+  return null;}
+function findEvent(pk,events){const [a,h]=(pk.game||'').split(' at ');
+  return events.find(ev=>{const c=ev.competitions[0].competitors;return c.some(x=>hit(h,pk.sport,x))&&c.some(x=>hit(a,pk.sport,x));});}
+function status(pk,ev){const pp=parse(pk.pick); if(!pp||!ev)return null;
+  const st=ev.status.type.state; if(st==='pre')return{cls:'',txt:ev.status.type.shortDetail};
+  const c=ev.competitions[0].competitors, sc=x=>+x.score||0; let v;
+  if(pp.k==='tot'){const t=sc(c[0])+sc(c[1]); v=pp.side==='over'?t-pp.line:pp.line-t;}
+  else{const me=c.find(x=>hit(pp.team,pk.sport,x)); if(!me)return null; const op=c.find(x=>x!==me);
+    v=sc(me)-sc(op)+(pp.k==='sp'?pp.line:0);}
+  const done=st==='post';
+  if(v===0)return{cls:'push',txt:done?'Push':'Even'};
+  return v>0?{cls:'up',txt:done?'Win':(pp.k==='ml'?'Winning':pp.k==='tot'?'On pace':'Covering')}
+            :{cls:'down',txt:done?'Loss':(pp.k==='ml'?'Losing':pp.k==='tot'?'Off pace':'Not covering')};}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let timer;
+async function load(){
+  const day=new Date(); const ymd=day.getFullYear()+String(day.getMonth()+1).padStart(2,'0')+String(day.getDate()).padStart(2,'0');
+  const all={}; let anyLive=false;
+  await Promise.all(Object.entries(SP).map(async([s,[path,extra]])=>{
+    try{const r=await fetch(`https://site.api.espn.com/apis/site/v2/sports/${path}/scoreboard?dates=${ymd}${extra}`);
+      if(!r.ok)return; const j=await r.json(); all[s]=j.events||[];}catch(e){}
+  }));
+  const items=[], used=new Set();
+  // picks first, with live status; then the rest of the board
+  const byEv={};
+  PICKS.forEach(pk=>{const ev=findEvent(pk,all[pk.sport]||[]); if(!ev)return;
+    if(!byEv[ev.id]){byEv[ev.id]=[pk.sport,ev,[]]; items.push(byEv[ev.id]);} byEv[ev.id][2].push([pk,status(pk,ev)]); used.add(ev.id);});
+  Object.entries(all).forEach(([s,evs])=>evs.filter(e=>!used.has(e.id)).sort((a,b)=>
+    (a.status.type.state==='in'?0:a.status.type.state==='pre'?1:2)-(b.status.type.state==='in'?0:b.status.type.state==='pre'?1:2))
+    .slice(0,s==='CBB'||s==='CFB'?25:40).forEach(ev=>items.push([s,ev,[]])));
+  // board slips
+  document.querySelectorAll('.ah-slip[data-pick]').forEach(el=>{
+    const pk={sport:el.dataset.sport,pick:el.dataset.pick,game:el.dataset.game};
+    const ev=findEvent(pk,all[pk.sport]||[]); const s=status(pk,ev); let b=el.querySelector('.ah-live');
+    if(!s||!ev||ev.status.type.state==='pre'){if(b)b.remove();return;}
+    if(!b){b=document.createElement('span');b.className='ah-live';el.appendChild(b);}
+    const c=ev.competitions[0].competitors; const sc=c.map(x=>x.team.abbreviation+' '+(x.score||0)).join(' – ');
+    b.className='ah-live '+s.cls; b.textContent=s.txt+' · '+sc+' · '+ev.status.type.shortDetail;});
+  const html=items.map(([s,ev,pks])=>{const c=ev.competitions[0].competitors.slice().sort((x,y)=>x.homeAway==='away'?-1:1);
+    const state=ev.status.type.state; if(state==='in')anyLive=true;
+    const lead=state==='pre'?null:(+c[0].score>+c[1].score?0:+c[1].score>+c[0].score?1:null);
+    const team=(x,i)=>`<span class="tk-t ${lead!==null&&lead!==i?'lose':''}"><b>${esc(x.team.abbreviation||x.team.shortDisplayName)}</b>${state==='pre'?'':`<span>${esc(x.score||0)}</span>`}</span>`;
+    const p=pks.filter(([pk,st])=>st).map(([pk,st])=>`<span class="tk-p ${st.cls}">${esc(pk.pick)}${state==='pre'?'':' · '+esc(st.txt)}</span>`).join('');
+    return `<div class="tk-g"><span class="tk-sp">${esc(s)}</span>${team(c[0],0)}${team(c[1],1)}<span class="tk-st ${state==='in'?'in':''}">${esc(ev.status.type.shortDetail)}</span>${p}</div>`;}).join('');
+  const tk=document.getElementById('tk'), tr=document.getElementById('tk-track');
+  if(!items.length){tk.hidden=true;}else{tk.hidden=false; tr.innerHTML=html+html;
+    tr.style.setProperty('--dur',Math.max(30,items.length*6)+'s');
+    document.querySelector('.tk-live').lastChild.textContent=anyLive?'LIVE':'TODAY';}
+  clearTimeout(timer); timer=setTimeout(load,anyLive?30000:300000);
+}
+load();
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)load();});
+})();
 </script></body></html>

@@ -78,11 +78,12 @@ def _cfb(data):
         return []
     out = []
     for g in json.loads(f.read_text(encoding="utf-8")).get("games", []):
-        ct = str(g.get("commence_time", ""))[:10]
+        when_utc = g.get("commence_time") or g.get("start_date") or ""
+        ct = str(when_utc)[:10]
         try:   # ET game day (kickoffs are stored in UTC)
-            day = (pd.Timestamp(g["commence_time"]) - pd.Timedelta(hours=4)).strftime("%Y-%m-%d")
+            day = (pd.Timestamp(str(when_utc).replace("Z", "")) - pd.Timedelta(hours=4)).strftime("%Y-%m-%d")
         except Exception:
-            day = ct
+            day = "unknown"
         if ct and ct < (date.today() - timedelta(days=1)).isoformat():
             continue
         mu = f"{g['away_team']} at {g['home_team']}"
@@ -126,6 +127,21 @@ def _mlb(data):
     return out
 
 
+def _cbb(data):
+    f = _latest(data / "cbb", "cbb_*.csv")
+    if not f or not _fresh(f):
+        return []
+    out = []
+    for r in pd.read_csv(f).to_dict("records"):
+        mu = f"{r['away_name']} at {r['home_name']}"
+        for k in ("sp", "tot"):
+            t = r.get(f"{k}_tier")
+            if isinstance(t, str) and t:
+                out.append(dict(sport="CBB", pick=r[f"{k}_pick"], odds="-110", tier=t, edge=abs(float(r[f"{k}_edge"])),
+                                game=mu, when=r.get("start_et", ""), unit="pts"))
+    return out
+
+
 def _hr(data):
     f = _latest(data / "mlb_hr", "hr_*.json")
     if not f or not _fresh(f):
@@ -140,7 +156,7 @@ def _hr(data):
 
 def collect(data: Path):
     plays, counts = [], {}
-    for fn in (_nfl, _cfb, _nhl, _mlb, _hr):
+    for fn in (_nfl, _cfb, _cbb, _nhl, _mlb, _hr):
         try:
             p = fn(data)
         except Exception:
@@ -161,7 +177,7 @@ def board_html(plays, counts):
     by = {}
     for p in sorted(games, key=lambda p: (TOP.get(p["tier"], 0), p["edge"]), reverse=True):
         by.setdefault(p["sport"], []).append(p)
-    order = ["NHL", "MLB", "NFL", "CFB"]
+    order = ["CBB", "NHL", "MLB", "NFL", "CFB"]
     top = [p for rnd in range(2) for sp in order for p in by.get(sp, [])[rnd:rnd + 1]]
     top += [p for p in plays if p["sport"] == "HR"][:2]
     today = date.today()
@@ -186,8 +202,10 @@ def board_html(plays, counts):
             stat = (f'<em>+{p["edge"]:.1f}</em><small>{"pts edge" if p.get("unit") == "pts" else "% edge"}</small>')
             tier = p["tier"].title()
             sub = e(p["game"]) + (f", {e(p['when'])}" if p.get("when") else "")
+        live_attrs = ("" if p["sport"] == "HR" else
+                      f' data-sport="{e(p["sport"])}" data-pick="{e(p["pick"])}" data-game="{e(p["game"])}"')
         slips.append(f"""
-  <div class="ah-slip {cls}">
+  <div class="ah-slip {cls}"{live_attrs}>
     <div class="ah-slip-top"><span class="ah-sport">{e(p['sport'])}</span><span class="ah-tier">{e(tier)}</span></div>
     <div class="ah-pick">{e(p['pick'])}<span>{e(p['odds'])}</span></div>
     <div class="ah-sub">{sub}</div>

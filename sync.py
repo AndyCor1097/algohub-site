@@ -22,7 +22,7 @@ SOURCES = {
     "mlb_hr":    (DESKTOP / "HR_Model" / "data",                "today.json",             1),
     "nhl":       (DESKTOP / "nhl_game_algo" / "picks",               "nhl_*.csv",              21),
     "nba":       (DESKTOP / "NBA_Model" / "data",               "nba_today.json",         1),
-    "cbb":       (DESKTOP / "CBB_Model" / "picks",              "*.csv",                  14),
+    "cbb":       (DESKTOP / "cbb_algo" / "picks",               "cbb_*.csv",              14),
 }
 
 # single files: (source, destination inside this site)
@@ -33,6 +33,8 @@ SINGLE = [
     (DESKTOP / "cfb_algo" / "tracker_summary.json", DATA / "cfb_tracker.json"),
     (DESKTOP / "nhl_game_algo" / "cards.py",            HERE / "nhl_cards.py"),   # your NHL card design
     (DESKTOP / "nhl_game_algo" / "tracker.csv",         DATA / "nhl_tracker.csv"),
+    (DESKTOP / "cbb_algo" / "cards.py",            HERE / "cbb_cards.py"),   # your CBB card design
+    (DESKTOP / "cbb_algo" / "tracker.csv",         DATA / "cbb_tracker.csv"),
 ]
 
 

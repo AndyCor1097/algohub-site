@@ -25,6 +25,7 @@ OUT = ROOT / "public"
 sys.path.insert(0, str(ROOT))
 
 from board import CSS as BOARD_CSS, board_html, collect  # noqa: E402
+import ticker  # noqa: E402
 
 SITE_NAME = "The AlgoHub"
 SLATES_KEPT = 14          # how many past slates per sport get their own page
@@ -33,7 +34,7 @@ ON_HOLD = {"nba": "NBA picks start when the season tips off."}
 
 SPORTS = [  # slug, tab label, board key
     ("nfl", "NFL", "NFL"), ("cfb", "CFB", "CFB"), ("nhl", "NHL", "NHL"), ("mlb", "MLB", "MLB"),
-    ("hr", "Home Runs", "HR"), ("cbb", "CBB", None), ("nba", "NBA", None),
+    ("hr", "Home Runs", "HR"), ("cbb", "CBB", "CBB"), ("nba", "NBA", None),
 ]
 e = lambda s: html.escape(str(s)) if s is not None and not (isinstance(s, float) and math.isnan(s)) else ""
 
@@ -334,7 +335,45 @@ def hr(f):
 
 
 def cbb(f):
-    return [("Picks", table(pd.read_csv(f)))]
+    from cbb_cards import render_cards
+    g = pd.read_csv(f)
+    card_rel = f"cards/cbb_{slug_from(f)}.html"
+    write(card_rel, render_cards(g, str(g.day.iloc[0])))
+    rows = []
+    for _, r in g.iterrows():
+        mu = f"{r.away_name} @ {r.home_name}"
+        if isinstance(r.sp_tier, str) and r.sp_tier:
+            rows.append(dict(Time=r.start_et, Matchup=mu, Market="Spread", Pick=r.sp_pick, Tier=r.sp_tier,
+                             Edge=round(abs(r.sp_edge), 1), Book=f"{r.spread:+g}", Model=f"{-r.pred_margin:+.1f}"))
+        if isinstance(r.tot_tier, str) and r.tot_tier:
+            rows.append(dict(Time=r.start_et, Matchup=mu, Market="Total", Pick=r.tot_pick, Tier=r.tot_tier,
+                             Edge=round(abs(r.tot_edge), 1), Book=f"{r.total:g}", Model=f"{r.pred_total:.1f}"))
+        if isinstance(r.ml_pick, str) and r.ml_pick:
+            rows.append(dict(Time=r.start_et, Matchup=mu, Market="Moneyline", Pick=f"{r.ml_pick} {odds(r.ml_odds)}",
+                             Tier="VALUE", Edge=round(r.ml_edge * 100, 1), Book=odds(r.ml_odds), Model=f"{max(r.home_wp, 1 - r.home_wp):.0%}"))
+    if rows:
+        bets = pd.DataFrame(rows)
+        bets["_r"] = bets.Tier.map(TIER_RANK).fillna(0)
+        bets = bets.sort_values(["_r", "Edge"], ascending=False).drop(columns="_r")
+        best = tiles([("Hammers", int((bets.Tier == "HAMMER").sum())), ("Plays", int((bets.Tier == "PLAY").sum())),
+                      ("Leans", int((bets.Tier == "LEAN").sum()))]) + table(bets)
+    else:
+        best = note("No plays clear the thresholds today.")
+    tp = DATA / "cbb_tracker.csv"
+    if tp.exists():
+        t = pd.read_csv(tp)
+        w, l, p = (t.result == "W").sum(), (t.result == "L").sum(), (t.result == "P").sum()
+        agg = (t.groupby(["market", "tier"]).agg(W=("result", lambda x: (x == "W").sum()),
+                                                  L=("result", lambda x: (x == "L").sum()),
+                                                  P=("result", lambda x: (x == "P").sum()),
+                                                  Units=("units", "sum")).reset_index())
+        agg["Win %"] = (agg.W / (agg.W + agg.L).clip(lower=1)).map("{:.1%}".format)
+        agg["Units"] = agg.Units.map("{:+.2f}".format)
+        rec = (record_tiles(w, l, p, t.units.sum()) + units_chart(t.groupby("date").units.sum().cumsum())
+               + table(agg.rename(columns={"market": "Market", "tier": "Tier"})))
+    else:
+        rec = note("Nothing graded yet. Results show up the morning after the first slate.")
+    return [("Cards", stale(f) + cards_frame(card_rel, "CBB cards")), ("Best bets", best), ("Record", rec)]
 
 
 def nba(f):
@@ -352,7 +391,7 @@ SOURCES = {  # slug -> (data folder, file pattern, builder, empty message)
     "nhl": ("nhl", "nhl_*.csv", nhl, "NHL picks coming soon."),
     "mlb": ("mlb", "all_games_*.csv", mlb, "MLB picks coming soon."),
     "hr": ("mlb_hr", "hr_*.json", hr, "Home run picks coming soon."),
-    "cbb": ("cbb", "*.csv", cbb, "College basketball picks start on opening day."),
+    "cbb": ("cbb", "cbb_*.csv", cbb, "College basketball picks start on opening day in early November."),
     "nba": ("nba", "nba_*.json", nba, "NBA picks start when the season tips off."),
 }
 
@@ -421,6 +460,10 @@ const h=location.hash.slice(1); const hb=h&&document.querySelector('.panes butto
 </script>"""
 
 
+def _live_picks(plays):
+    return [{"sport": p["sport"], "pick": p["pick"], "game": p["game"]} for p in plays if p["sport"] != "HR"]
+
+
 def shell(current, body, plays, counts, live, title):
     nav = "".join(
         f'<a href="/{"" if s == "home" else s + "/"}" class="{"live" if s in live else ""}"'
@@ -436,12 +479,12 @@ def shell(current, body, plays, counts, live, title):
 <meta property="og:title" content="{e(title)}"><meta property="og:description" content="Today's model picks across every sport.">
 <meta name="theme-color" content="#0b0e13">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230b0e13'/><text x='32' y='45' font-family='Arial Black,sans-serif' font-size='34' font-weight='900' text-anchor='middle' fill='%23f2b134'>A</text></svg>">
-{BOARD_CSS}{SITE_CSS}</head>
-<body><div class="page">{hero}
+{BOARD_CSS}{SITE_CSS}{ticker.CSS}</head>
+<body><div class="page">{ticker.HTML}{hero}
 <nav class="sports" aria-label="Sports">{nav}</nav>
 <main>{body}</main>
 <footer class="ah-foot"><span>Model picks for entertainment. Not betting advice.</span><span>@TheAlgoHub</span></footer>
-</div>{JS}</body></html>"""
+</div>{JS}{ticker.js(_live_picks(plays), sorted({k for k in counts if not k.endswith("_today") and k != "HR"}))}</body></html>"""
 
 
 def sport_body(slug, f, others):
@@ -489,7 +532,7 @@ def build():
             if i == 0:
                 write(f"{slug}/index.html", page)
     # home = the first sport with games today (else NFL), with the board on top
-    first = next((s for s in ("nhl", "mlb", "nfl", "cfb", "hr") if s in live), "nfl")
+    first = next((s for s in ("cbb", "nhl", "mlb", "nfl", "cfb", "hr") if s in live), "nfl")
     home = (OUT / first / "index.html").read_text(encoding="utf-8")
     home = re.sub(r"<title>.*?</title>", f"<title>{SITE_NAME}: today's picks</title>", home, count=1)
     write("index.html", home)
