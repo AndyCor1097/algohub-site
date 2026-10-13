@@ -145,6 +145,8 @@ def collect(data: Path):
             p = fn(data)
         except Exception:
             p = []
+        # the board is TODAY only: football plays for later in the week stay on their own tabs
+        p = [x for x in p if not x.get("day") or x["day"] == date.today().isoformat()]
         if p:
             counts[p[0]["sport"]] = len(p)
             if any(x.get("day") == date.today().isoformat() for x in p):
