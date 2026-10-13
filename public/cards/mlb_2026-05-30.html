@@ -1,0 +1,340 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>AlgoHub MLB 2026-05-30</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0e13;--card:#12161d;--card2:#171c25;--line:#222a35;--tx:#e6edf3;--mu:#7d8590;
+--lean:#58a6ff;--play:#3fb950;--ham:#f2b134;--neg:#f85149}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-serif;padding:28px 16px 60px}
+.wrap{max-width:1180px;margin:0 auto}
+.proj,.cols span,.top h1,.stats b,.wplab,.pick,.score,.big{font-family:"Barlow Condensed",sans-serif}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:18px}
+.top .k{color:var(--mu);font-size:12px;letter-spacing:.18em;font-weight:600}
+.top h1{font-size:44px;font-weight:800;letter-spacing:.02em;line-height:1}
+.stats{display:flex;gap:22px} .stats div{text-align:right} .stats small{display:block;color:var(--mu);font-size:11px;letter-spacing:.14em}
+.stats b{font-size:30px} .stats .h b{color:var(--ham)} .stats .p b{color:var(--play)}
+.tabs{display:flex;gap:6px;margin:18px 0;flex-wrap:wrap}
+.tabs button{background:transparent;border:1px solid var(--line);color:var(--mu);padding:7px 14px;border-radius:999px;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.08em;cursor:pointer}
+.tabs button.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;border-top:3px solid var(--line)}
+.card.b-lean{border-top-color:var(--lean)} .card.b-solid{border-top-color:var(--play)}
+.card.b-strong{border-top-color:var(--ham);box-shadow:0 0 0 1px rgba(242,177,52,.25),0 8px 30px rgba(242,177,52,.08)}
+.meta{display:flex;justify-content:space-between;gap:10px;padding:11px 16px;color:var(--mu);font-size:11px;letter-spacing:.08em;border-bottom:1px solid var(--line)}
+.team{display:flex;align-items:center;gap:12px;padding:10px 16px}
+.badge{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font:800 13px "Barlow Condensed";letter-spacing:.04em;flex:none}
+.tname{flex:1;min-width:0} .tname b{display:block;font-size:16px;font-weight:600} .tname small{color:var(--mu);font-size:12px}
+.proj{font-size:32px;font-weight:700;color:var(--mu)} .team.fav .proj{color:var(--tx)}
+.wp{padding:6px 16px 14px} .wplab{display:flex;justify-content:space-between;font-size:15px;font-weight:700;margin-bottom:6px}
+.wplab .cap{color:var(--mu);font:600 10px Inter,system-ui,sans-serif;letter-spacing:.16em;align-self:center}
+.wpbar{display:flex;height:8px;border-radius:99px;overflow:hidden;gap:2px;background:var(--line)} .wpbar i{display:block;height:100%}
+.mkt{border-top:1px solid var(--line);padding:12px 16px;background:var(--card2)}
+.mlabel{color:var(--mu);font:600 10px Inter,system-ui,sans-serif;letter-spacing:.18em;margin-bottom:8px}
+.cols{display:grid;grid-template-columns:1.2fr 1.2fr .8fr;gap:8px} .cols small{display:block;color:var(--mu);font-size:10px;letter-spacing:.14em}
+.cols span{font-size:17px;font-weight:700} .edge span{color:var(--mu)} .edge.hot span{color:var(--tx);font-size:24px}
+.pick{margin-top:10px;display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700}
+.pick small{color:var(--mu);font-size:16px}
+.pick .tier{font:800 11px Inter,system-ui,sans-serif;letter-spacing:.14em;padding:4px 8px;border-radius:6px;color:#0b0e13}
+.t-lean .tier{background:var(--lean)} .t-solid .tier{background:var(--play)} .t-strong .tier{background:var(--ham)}
+.t-strong{color:var(--ham)} .pick.none{color:#4b535d;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.16em}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:12px 16px 14px;border-top:1px solid var(--line)}
+.chip{font:600 10px Inter,system-ui,sans-serif;letter-spacing:.1em;color:#c9d1d9;border:1px solid var(--line);background:#0f1319;padding:4px 8px;border-radius:6px}
+.chip.hot{color:#ffd58a;border-color:#5a4520;background:#1d1810} .chip.cold{color:#9ecbff;border-color:#1f3a5a;background:#0f1620}
+.foot{color:var(--mu);font-size:11px;margin-top:30px;letter-spacing:.06em}
+.hide{display:none}
+/* HR board */
+.hr{display:grid;grid-template-columns:44px 44px minmax(0,1fr) 92px;align-items:center;gap:12px;padding:12px 16px;border-top:1px solid var(--line)}
+.hr:first-child{border-top:0}
+.rk{font:800 22px "Barlow Condensed";color:var(--mu);text-align:center}
+.hr.top3 .rk{color:var(--ham)}
+.who b{font-size:15px;font-weight:600} .who small{display:block;color:var(--mu);font-size:11px;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bars{display:flex;gap:14px;margin-top:6px;flex-wrap:wrap}
+.bar{font-size:10px;color:var(--mu);letter-spacing:.08em;min-width:84px}
+.bar i{display:block;height:4px;border-radius:9px;background:var(--line);margin-top:3px;position:relative;overflow:hidden}
+.bar i em{position:absolute;inset:0 auto 0 0;background:var(--play);border-radius:9px}
+.bar b{color:var(--tx);font:700 13px "Barlow Condensed"}
+.sc{text-align:right} .sc .big{display:block;font-size:30px;font-weight:800;line-height:1}
+.gr{display:inline-block;margin-top:4px;font:800 9px Inter,system-ui,sans-serif;letter-spacing:.12em;padding:3px 6px;border-radius:5px;color:#0b0e13;background:var(--mu)}
+.gr.ham{background:var(--ham)} .gr.play{background:var(--play)} .gr.lean{background:var(--lean)}
+.board{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.wx{font-size:11px;color:var(--mu);margin-left:6px}
+@media(max-width:560px){.hr{grid-template-columns:30px 36px minmax(0,1fr) 64px;gap:8px}.badge{width:34px;height:34px}.sc .big{font-size:24px}}
+</style></head><body><div class="wrap">
+  <div class="top"><div><div class="k">THE ALGOHUB · MLB GAME ALGO</div><h1>SATURDAY, MAY 30</h1></div>
+    <div class="stats"><div><small>GAMES</small><b>12</b></div>
+      <div class="p"><small>GAMES W/ PLAY</small><b>7</b></div><div class="h"><small>STRONG</small><b>4</b></div></div></div>
+  <div class="tabs"><button class="on" data-f="all">ALL</button><button data-f="plays">PLAYS ONLY</button></div>
+  <div class="grid">
+    <article class="card b-solid" data-g="all" data-play="1">
+      <header class="meta"><span>2026-05-30</span><span>PROJ 8.0 RUNS</span></header>
+      <div class="team "><span class="badge" style="background:#004687;color:#BD9B60">KC</span>
+          <div class="tname"><b>Kansas City Royals</b><small>SP Seth Lugo</small></div>
+          <div class="proj">4.1</div></div><div class="team fav"><span class="badge" style="background:#003278;color:#fff">TEX</span>
+          <div class="tname"><b>Texas Rangers</b><small>SP Kumar Rocker</small></div>
+          <div class="proj">3.9</div></div>
+      <div class="wp"><div class="wplab"><span>KC 45%</span><span class="cap">WIN PROB</span><span>TEX 55%</span></div>
+        <div class="wpbar"><i style="width:45.2%;background:#004687"></i><i style="width:54.8%;background:#003278"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">MONEYLINE</div>
+        <div class="cols"><div><small>MARKET</small><span>KC +102<br>TEX -122</span></div>
+          <div><small>MODEL</small><span>KC 45%<br>TEX 55%</span></div>
+          <div class="edge "><small>EDGE %</small><span>-0.3</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      <div class="mkt"><div class="mlabel">RUN LINE</div>
+        <div class="cols"><div><small>MARKET</small><span>KC +1.5 -210<br>TEX -1.5 +175</span></div>
+          <div><small>MODEL</small><span>KC +1.5 60%<br>TEX -1.5 40%</span></div>
+          <div class="edge hot"><small>EDGE %</small><span>+9.0</span></div></div>
+        <div class="pick t-solid"><span class="tier">SOLID</span>TEX -1.5 <small>+175</small></div></div>
+      <div class="chips"><span class="chip">O/U 8</span><span class="chip hot">PARK 1.08</span><span class="chip">94°F</span><span class="chip ">WIND 13 MPH</span></div>
+    </article>
+    <article class="card b-none" data-g="all" data-play="0">
+      <header class="meta"><span>2026-05-30</span><span>PROJ 8.5 RUNS</span></header>
+      <div class="team "><span class="badge" style="background:#002B5C;color:#fff">MIN</span>
+          <div class="tname"><b>Minnesota Twins</b><small>SP Bailey Ober</small></div>
+          <div class="proj">4.1</div></div><div class="team fav"><span class="badge" style="background:#FDB827;color:#000">PIT</span>
+          <div class="tname"><b>Pittsburgh Pirates</b><small>SP Mitch Keller</small></div>
+          <div class="proj">4.4</div></div>
+      <div class="wp"><div class="wplab"><span>MIN 43%</span><span class="cap">WIN PROB</span><span>PIT 57%</span></div>
+        <div class="wpbar"><i style="width:42.9%;background:#002B5C"></i><i style="width:57.1%;background:#FDB827"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">MONEYLINE</div>
+        <div class="cols"><div><small>MARKET</small><span>MIN +116<br>PIT -139</span></div>
+          <div><small>MODEL</small><span>MIN 43%<br>PIT 57%</span></div>
+          <div class="edge "><small>EDGE %</small><span>-1.8</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      <div class="mkt"><div class="mlabel">RUN LINE</div>
+        <div class="cols"><div><small>MARKET</small><span>MIN +1.5 -175<br>PIT -1.5 +150</span></div>
+          <div><small>MODEL</small><span>MIN +1.5 62%<br>PIT -1.5 38%</span></div>
+          <div class="edge "><small>EDGE %</small><span>-1.9</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      <div class="chips"><span class="chip">O/U 8.5</span><span class="chip cold">PARK 0.95</span><span class="chip">72°F</span><span class="chip ">WIND 11 MPH</span></div>
+    </article>
+    <article class="card b-lean" data-g="all" data-play="1">
+      <header class="meta"><span>2026-05-30</span><span>PROJ 7.5 RUNS</span></header>
+      <div class="team "><span class="badge" style="background:#2F241D;color:#FFC425">SD</span>
+          <div class="tname"><b>San Diego Padres</b><small>SP Michael King</small></div>
+          <div class="proj">3.8</div></div><div class="team fav"><span class="badge" style="background:#AB0003;color:#fff">WSH</span>
+          <div class="tname"><b>Washington Nationals</b><small>SP Foster Griffin</small></div>
+          <div class="proj">3.7</div></div>
+      <div class="wp"><div class="wplab"><span>SD 49%</span><span class="cap">WIN PROB</span><span>WSH 51%</span></div>
+        <div class="wpbar"><i style="width:49.3%;background:#2F241D"></i><i style="width:50.7%;background:#AB0003"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">MONEYLINE</div>
+        <div class="cols"><div><small>MARKET</small><span>SD -126<br>WSH +106</span></div>
+          <div><small>MODEL</small><span>SD 49%<br>WSH 51%</span></div>
+          <div class="edge hot"><small>EDGE %</small><span>+4.3</span></div></div>
+        <div class="pick t-lean"><span class="tier">LEAN</span>WSH ML <small>+106</small></div></div>
+      <div class="mkt"><div class="mlabel">RUN LINE</div>
+        <div class="cols"><div><small>MARKET</small><span>SD -1.5 +135<br>WSH +1.5 -160</span></div>
+          <div><small>MODEL</small><span>home dog:<br>not priced</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      <div class="chips"><span class="chip">O/U 7.5</span><span class="chip ">PARK 0.96</span><span class="chip">72°F</span><span class="chip ">WIND 15 MPH</span></div>
+    </article>
+    <article class="card b-none" data-g="all" data-play="0">
+      <header class="meta"><span>2026-05-30</span><span>PROJ 7.5 RUNS</span></header>
+      <div class="team fav"><span class="badge" style="background:#134A8E;color:#fff">TOR</span>
+          <div class="tname"><b>Toronto Blue Jays</b><small>SP Trey Yesavage</small></div>
+          <div class="proj">3.8</div></div><div class="team "><span class="badge" style="background:#DF4601;color:#000">BAL</span>
+          <div class="tname"><b>Baltimore Orioles</b><small>SP Brandon Young</small></div>
+          <div class="proj">3.7</div></div>
+      <div class="wp"><div class="wplab"><span>TOR 53%</span><span class="cap">WIN PROB</span><span>BAL 47%</span></div>
+        <div class="wpbar"><i style="width:53.5%;background:#134A8E"></i><i style="width:46.5%;background:#DF4601"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">MONEYLINE</div>
+        <div class="cols"><div><small>MARKET</small><span>TOR -124<br>BAL +104</span></div>
+          <div><small>MODEL</small><span>TOR 53%<br>BAL 47%</span></div>
+          <div class="edge "><small>EDGE %</small><span>-3.4</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      <div class="mkt"><div class="mlabel">RUN LINE</div>
+        <div class="cols"><div><small>MARKET</small><span>TOR -1.5 +140<br>BAL +1.5 -165</span></div>
+          <div><small>MODEL</small><span>home dog:<br>not priced</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      <div class="chips"><span class="chip">O/U 7.5</span><span class="chip cold">PARK 0.95</span><span class="chip">71°F</span><span class="chip ">WIND 16 MPH</span></div>
+    </article>
+    <article class="card b-strong" data-g="all" data-play="1">
+      <header class="meta"><span>2026-05-30</span><span>PROJ 6.5 RUNS</span></header>
+      <div class="team "><span class="badge" style="background:#BD3039;color:#fff">BOS</span>
+          <div class="tname"><b>Boston Red Sox</b><small>SP Sonny Gray</small></div>
+          <div class="proj">3.0</div></div><div class="team fav"><span class="badge" style="background:#00385D;color:#fff">CLE</span>
+          <div class="tname"><b>Cleveland Guardians</b><small>SP Parker Messick</small></div>
+          <div class="proj">3.5</div></div>
+      <div class="wp"><div class="wplab"><span>BOS 34%</span><span class="cap">WIN PROB</span><span>CLE 66%</span></div>
+        <div class="wpbar"><i style="width:34.3%;background:#BD3039"></i><i style="width:65.7%;background:#00385D"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">MONEYLINE</div>
+        <div class="cols"><div><small>MARKET</small><span>BOS +112<br>CLE -134</span></div>
+          <div><small>MODEL</small><span>BOS 34%<br>CLE 66%</span></div>
+          <div class="edge hot"><small>EDGE %</small><span>+14.7</span></div></div>
+        <div class="pick t-strong"><span class="tier">STRONG</span>CLE ML <small>-134</small></div></div>
+      <div class="mkt"><div class="mlabel">RUN LINE</div>
+        <div class="cols"><div><small>MARKET</small><span>BOS +1.5 -200<br>CLE -1.5 +170</span></div>
+          <div><small>MODEL</small><span>BOS +1.5 65%<br>CLE -1.5 35%</span></div>
+          <div class="edge "><small>EDGE %</small><span>-2.3</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      <div class="chips"><span class="chip">O/U 6.5</span><span class="chip ">PARK 1.00</span><span class="chip">64°F</span><span class="chip ">WIND 15 MPH</span></div>
+    </article>
+    <article class="card b-solid" data-g="all" data-play="1">
+      <header class="meta"><span>2026-05-30</span><span>PROJ 7.0 RUNS</span></header>
+      <div class="team "><span class="badge" style="background:#BA0021;color:#fff">LAA</span>
+          <div class="tname"><b>Los Angeles Angels</b><small>SP Reid Detmers</small></div>
+          <div class="proj">3.3</div></div><div class="team fav"><span class="badge" style="background:#092C5C;color:#8FBCE6">TB</span>
+          <div class="tname"><b>Tampa Bay Rays</b><small>SP Drew Rasmussen</small></div>
+          <div class="proj">3.7</div></div>
+      <div class="wp"><div class="wplab"><span>LAA 42%</span><span class="cap">WIN PROB</span><span>TB 58%</span></div>
+        <div class="wpbar"><i style="width:41.7%;background:#BA0021"></i><i style="width:58.3%;background:#092C5C"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">MONEYLINE</div>
+        <div class="cols"><div><small>MARKET</small><span>LAA +128<br>TB -153</span></div>
+          <div><small>MODEL</small><span>LAA 42%<br>TB 58%</span></div>
+          <div class="edge "><small>EDGE %</small><span>-3.6</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      <div class="mkt"><div class="mlabel">RUN LINE</div>
+        <div class="cols"><div><small>MARKET</small><span>LAA +1.5 -175<br>TB -1.5 +150</span></div>
+          <div><small>MODEL</small><span>LAA +1.5 57%<br>TB -1.5 43%</span></div>
+          <div class="edge hot"><small>EDGE %</small><span>+7.6</span></div></div>
+        <div class="pick t-solid"><span class="tier">SOLID</span>TB -1.5 <small>+150</small></div></div>
+      <div class="chips"><span class="chip">O/U 7</span><span class="chip ">PARK 0.98</span><span class="chip">88°F</span><span class="chip cold">WIND 8 MPH</span></div>
+    </article>
+    <article class="card b-strong" data-g="all" data-play="1">
+      <header class="meta"><span>2026-05-30</span><span>PROJ 7.0 RUNS</span></header>
+      <div class="team fav"><span class="badge" style="background:#00A3E0;color:#000">MIA</span>
+          <div class="tname"><b>Miami Marlins</b><small>SP Tyler Phillips</small></div>
+          <div class="proj">3.7</div></div><div class="team "><span class="badge" style="background:#002D72;color:#FF5910">NYM</span>
+          <div class="tname"><b>New York Mets</b><small>SP Christian Scott</small></div>
+          <div class="proj">3.3</div></div>
+      <div class="wp"><div class="wplab"><span>MIA 61%</span><span class="cap">WIN PROB</span><span>NYM 39%</span></div>
+        <div class="wpbar"><i style="width:60.6%;background:#00A3E0"></i><i style="width:39.4%;background:#002D72"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">MONEYLINE</div>
+        <div class="cols"><div><small>MARKET</small><span>MIA +110<br>NYM -132</span></div>
+          <div><small>MODEL</small><span>MIA 61%<br>NYM 39%</span></div>
+          <div class="edge hot"><small>EDGE %</small><span>+27.4</span></div></div>
+        <div class="pick t-strong"><span class="tier">STRONG</span>MIA ML <small>+110</small></div></div>
+      <div class="mkt"><div class="mlabel">RUN LINE</div>
+        <div class="cols"><div><small>MARKET</small><span>MIA +1.5 -200<br>NYM -1.5 +170</span></div>
+          <div><small>MODEL</small><span>MIA +1.5 75%<br>NYM -1.5 25%</span></div>
+          <div class="edge hot"><small>EDGE %</small><span>+11.8</span></div></div>
+        <div class="pick t-strong"><span class="tier">STRONG</span>MIA +1.5 <small>-200</small></div></div>
+      <div class="chips"><span class="chip">O/U 7</span><span class="chip ">PARK 0.99</span><span class="chip">66°F</span><span class="chip ">WIND 22 MPH</span></div>
+    </article>
+    <article class="card b-strong" data-g="all" data-play="1">
+      <header class="meta"><span>2026-05-30</span><span>PROJ 8.5 RUNS</span></header>
+      <div class="team "><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+          <div class="tname"><b>Milwaukee Brewers</b><small>SP Brandon Sproat</small></div>
+          <div class="proj">4.2</div></div><div class="team fav"><span class="badge" style="background:#002D62;color:#EB6E1F">HOU</span>
+          <div class="tname"><b>Houston Astros</b><small>SP Peter Lambert</small></div>
+          <div class="proj">4.3</div></div>
+      <div class="wp"><div class="wplab"><span>MIL 41%</span><span class="cap">WIN PROB</span><span>HOU 59%</span></div>
+        <div class="wpbar"><i style="width:41.2%;background:#12284B"></i><i style="width:58.8%;background:#002D62"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">MONEYLINE</div>
+        <div class="cols"><div><small>MARKET</small><span>MIL -112<br>HOU -108</span></div>
+          <div><small>MODEL</small><span>MIL 41%<br>HOU 59%</span></div>
+          <div class="edge hot"><small>EDGE %</small><span>+13.3</span></div></div>
+        <div class="pick t-strong"><span class="tier">STRONG</span>HOU ML <small>-108</small></div></div>
+      <div class="mkt"><div class="mlabel">RUN LINE</div>
+        <div class="cols"><div><small>MARKET</small><span>MIL -1.5 +150<br>HOU +1.5 -175</span></div>
+          <div><small>MODEL</small><span>home dog:<br>not priced</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      <div class="chips"><span class="chip">O/U 8.5</span><span class="chip ">PARK 1.03</span><span class="chip">87°F</span><span class="chip ">WIND 8 MPH</span></div>
+    </article>
+    <article class="card b-none" data-g="all" data-play="0">
+      <header class="meta"><span>2026-05-30</span><span>PROJ 9.5 RUNS</span></header>
+      <div class="team fav"><span class="badge" style="background:#13274F;color:#fff">ATL</span>
+          <div class="tname"><b>Atlanta Braves</b><small>SP Martín Pérez</small></div>
+          <div class="proj">5.0</div></div><div class="team "><span class="badge" style="background:#BD3039;color:#fff">BOS</span>
+          <div class="tname"><b>Cincinnati Reds</b><small>SP TBD</small></div>
+          <div class="proj">4.5</div></div>
+      <div class="wp"><div class="wplab"><span>ATL 56%</span><span class="cap">WIN PROB</span><span>BOS 44%</span></div>
+        <div class="wpbar"><i style="width:56.1%;background:#13274F"></i><i style="width:43.9%;background:#BD3039"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">MONEYLINE</div>
+        <div class="cols"><div><small>MARKET</small><span>ATL -135<br>BOS +113</span></div>
+          <div><small>MODEL</small><span>ATL 56%<br>BOS 44%</span></div>
+          <div class="edge "><small>EDGE %</small><span>-2.3</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      <div class="mkt"><div class="mlabel">RUN LINE</div>
+        <div class="cols"><div><small>MARKET</small><span>ATL -1.5 +120<br>BOS +1.5 -140</span></div>
+          <div><small>MODEL</small><span>home dog:<br>not priced</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      <div class="chips"><span class="chip">O/U 9.5</span><span class="chip hot">PARK 1.07</span><span class="chip">58°F</span><span class="chip ">WIND 24 MPH</span></div>
+    </article>
+    <article class="card b-none" data-g="all" data-play="0">
+      <header class="meta"><span>2026-05-30</span><span>PROJ 8.0 RUNS</span></header>
+      <div class="team fav"><span class="badge" style="background:#0E3386;color:#fff">CHC</span>
+          <div class="tname"><b>Chicago Cubs</b><small>SP Ben Brown</small></div>
+          <div class="proj">4.0</div></div><div class="team "><span class="badge" style="background:#C41E3A;color:#fff">STL</span>
+          <div class="tname"><b>St. Louis Cardinals</b><small>SP Kyle Leahy</small></div>
+          <div class="proj">4.0</div></div>
+      <div class="wp"><div class="wplab"><span>CHC 54%</span><span class="cap">WIN PROB</span><span>STL 46%</span></div>
+        <div class="wpbar"><i style="width:54.0%;background:#0E3386"></i><i style="width:46.0%;background:#C41E3A"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">MONEYLINE</div>
+        <div class="cols"><div><small>MARKET</small><span>CHC -140<br>STL +117</span></div>
+          <div><small>MODEL</small><span>CHC 54%<br>STL 46%</span></div>
+          <div class="edge "><small>EDGE %</small><span>-0.1</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      <div class="mkt"><div class="mlabel">RUN LINE</div>
+        <div class="cols"><div><small>MARKET</small><span>CHC -1.5 +125<br>STL +1.5 -145</span></div>
+          <div><small>MODEL</small><span>home dog:<br>not priced</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      <div class="chips"><span class="chip">O/U 8</span><span class="chip ">PARK 1.00</span><span class="chip">85°F</span><span class="chip hot">WIND 7 MPH</span></div>
+    </article>
+    <article class="card b-strong" data-g="all" data-play="1">
+      <header class="meta"><span>2026-05-30</span><span>PROJ 9.5 RUNS</span></header>
+      <div class="team "><span class="badge" style="background:#002D72;color:#FF5910">NYM</span>
+          <div class="tname"><b>New York Yankees</b><small>SP TBD</small></div>
+          <div class="proj">4.5</div></div><div class="team fav"><span class="badge" style="background:#003831;color:#EFB21E">OAK</span>
+          <div class="tname"><b>Athletics</b><small>SP J.T. Ginn</small></div>
+          <div class="proj">5.0</div></div>
+      <div class="wp"><div class="wplab"><span>NYM 39%</span><span class="cap">WIN PROB</span><span>OAK 61%</span></div>
+        <div class="wpbar"><i style="width:38.6%;background:#002D72"></i><i style="width:61.4%;background:#003831"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">MONEYLINE</div>
+        <div class="cols"><div><small>MARKET</small><span>NYM -152<br>OAK +127</span></div>
+          <div><small>MODEL</small><span>NYM 39%<br>OAK 61%</span></div>
+          <div class="edge hot"><small>EDGE %</small><span>+39.4</span></div></div>
+        <div class="pick t-strong"><span class="tier">STRONG</span>OAK ML <small>+127</small></div></div>
+      <div class="mkt"><div class="mlabel">RUN LINE</div>
+        <div class="cols"><div><small>MARKET</small><span>NYM -1.5 +105<br>OAK +1.5 -125</span></div>
+          <div><small>MODEL</small><span>home dog:<br>not priced</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      <div class="chips"><span class="chip">O/U 9.5</span><span class="chip ">PARK 0.97</span><span class="chip">72°F</span><span class="chip cold">WIND 10 MPH</span></div>
+    </article>
+    <article class="card b-none" data-g="all" data-play="0">
+      <header class="meta"><span>2026-05-30</span><span>PROJ 7.0 RUNS</span></header>
+      <div class="team "><span class="badge" style="background:#A71930;color:#fff">ARI</span>
+          <div class="tname"><b>Arizona Diamondbacks</b><small>SP Ryne Nelson</small></div>
+          <div class="proj">3.4</div></div><div class="team fav"><span class="badge" style="background:#0C2C56;color:#005C5C">SEA</span>
+          <div class="tname"><b>Seattle Mariners</b><small>SP Bryan Woo</small></div>
+          <div class="proj">3.6</div></div>
+      <div class="wp"><div class="wplab"><span>ARI 44%</span><span class="cap">WIN PROB</span><span>SEA 56%</span></div>
+        <div class="wpbar"><i style="width:44.3%;background:#A71930"></i><i style="width:55.7%;background:#0C2C56"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">MONEYLINE</div>
+        <div class="cols"><div><small>MARKET</small><span>ARI +130<br>SEA -155</span></div>
+          <div><small>MODEL</small><span>ARI 44%<br>SEA 56%</span></div>
+          <div class="edge "><small>EDGE %</small><span>+1.8</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      <div class="mkt"><div class="mlabel">RUN LINE</div>
+        <div class="cols"><div><small>MARKET</small><span>ARI +1.5 -170<br>SEA -1.5 +145</span></div>
+          <div><small>MODEL</small><span>ARI +1.5 58%<br>SEA -1.5 42%</span></div>
+          <div class="edge "><small>EDGE %</small><span>+1.7</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      <div class="chips"><span class="chip">O/U 7</span><span class="chip ">PARK 0.97</span><span class="chip">61°F</span><span class="chip ">WIND 9 MPH</span></div>
+    </article></div>
+  <p class="foot">Edge = model win prob × payout − 1. LEAN 4%+ / SOLID 7%+ / STRONG 10%+. Not betting advice.</p>
+</div><script>
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
+  const f=b.dataset.f;
+  document.querySelectorAll('[data-g]').forEach(c=>c.classList.toggle('hide',
+    f==='plays'?c.dataset.play!=='1':(f!=='all'&&c.dataset.g!==f)));
+});
+</script></body></html>

@@ -30,7 +30,10 @@ def _kick(g):
     day_long = "TBD"
     kickoff = ""
 
-    ct = g.get("commence_time", "")
+    ct = g.get("commence_time", "") or ""
+    sd = str(g.get("start_date", "") or "")
+    if not ct and len(sd) >= 16 and sd[4] == "-":     # CFBD start_date is UTC "YYYY-MM-DD HH:MM:SS"
+        ct = sd.replace(" ", "T")[:19] + "Z"
     if ct:
         try:
             dt_utc = datetime.fromisoformat(ct.replace("Z", "+00:00"))

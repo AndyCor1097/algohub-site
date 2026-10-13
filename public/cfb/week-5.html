@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CFB picks, Week 5 | The AlgoHub</title>
+<meta name="description" content="Algorithmic picks for NFL, college football, NHL, MLB and home run props. Updated every morning.">
+<meta property="og:title" content="CFB picks, Week 5 | The AlgoHub"><meta property="og:description" content="Today's model picks across every sport.">
+<meta name="theme-color" content="#0b0e13">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230b0e13'/><text x='32' y='45' font-family='Arial Black,sans-serif' font-size='34' font-weight='900' text-anchor='middle' fill='%23f2b134'>A</text></svg>">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Archivo:wght@400;500;600;700&display=swap');
+:root{--ink:#0b0e13;--panel:#121821;--rule:#232c39;--chalk:#eef2f6;--dim:#8792a2;
+      --amber:#f2b134;--turf:#3fb950;--ice:#58a6ff;--red:#f85149}
+html,body,.stApp{background:var(--ink)!important}
+.stApp{background:
+  radial-gradient(1200px 380px at 50% -140px, rgba(242,177,52,.10), transparent 70%),
+  var(--ink)!important}
+[data-testid="stHeader"],[data-testid="stToolbar"],#MainMenu,footer,.stDeployButton,[data-testid="stDecoration"]{display:none!important}
+.block-container{padding-top:1.4rem!important;max-width:1240px}
+html,body,[class*="st-"],.stMarkdown,p,div,span,label{font-family:Archivo,system-ui,sans-serif}
+
+/* hero */
+.ah-hero{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;
+  padding:6px 0 18px;border-bottom:1px solid var(--rule)}
+.ah-mark{font:900 clamp(56px,9vw,104px)/.82 "Big Shoulders Display",sans-serif;color:var(--chalk);letter-spacing:-.01em}
+.ah-mark span{display:block;font-size:.3em;font-weight:600;color:var(--amber);letter-spacing:.02em;line-height:1.1}
+.ah-today{text-align:right;color:var(--dim);font-size:14px;line-height:1.5}
+.ah-today b{display:block;color:var(--chalk);font:800 28px/1 "Big Shoulders Display",sans-serif;margin-bottom:4px}
+.ah-empty{color:var(--dim);padding:18px 0}
+
+/* the board: bet slips */
+.ah-board{display:flex;gap:12px;overflow-x:auto;padding:18px 2px 22px;scroll-snap-type:x mandatory;scrollbar-width:thin}
+.ah-slip{flex:0 0 212px;scroll-snap-align:start;position:relative;background:var(--panel);border:1px solid var(--rule);
+  border-radius:12px;padding:12px 14px 12px;display:flex;flex-direction:column;gap:4px;
+  -webkit-mask:radial-gradient(circle 7px at 0 62%,transparent 98%,#000) left/51% 100% no-repeat,
+                radial-gradient(circle 7px at 100% 62%,transparent 98%,#000) right/51% 100% no-repeat;
+          mask:radial-gradient(circle 7px at 0 62%,transparent 98%,#000) left/51% 100% no-repeat,
+                radial-gradient(circle 7px at 100% 62%,transparent 98%,#000) right/51% 100% no-repeat}
+.ah-slip-top{display:flex;justify-content:space-between;font-size:12px;color:var(--dim)}
+.ah-sport{font-weight:700;color:var(--chalk)}
+.ah-tier{font-weight:600}
+.ah-pick{font:800 26px/1.05 "Big Shoulders Display",sans-serif;color:var(--chalk);margin-top:2px}
+.ah-pick span{font:600 15px Archivo,sans-serif;color:var(--dim);margin-left:8px;vertical-align:3px}
+.ah-sub{font-size:12px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  padding-bottom:8px;border-bottom:1px dashed var(--rule)}
+.ah-stat{display:flex;align-items:baseline;gap:6px;padding-top:4px}
+.ah-stat em{font:800 24px "Big Shoulders Display",sans-serif;font-style:normal}
+.ah-stat small{font-size:12px;color:var(--dim)}
+.s-top{background:linear-gradient(180deg,rgba(242,177,52,.16),var(--panel) 60%);border-color:rgba(242,177,52,.45)}
+.s-top .ah-tier,.s-top .ah-stat em{color:var(--amber)}
+.s-mid .ah-tier,.s-mid .ah-stat em{color:var(--turf)}
+.s-low .ah-tier,.s-low .ah-stat em{color:var(--ice)}
+.s-hr .ah-tier,.s-hr .ah-stat em{color:#ff8a5c}
+
+/* sport tabs = scoreboard */
+.stTabs [data-baseweb="tab-list"]{gap:4px;border-bottom:1px solid var(--rule);background:transparent}
+.stTabs [data-baseweb="tab"]{font:800 22px "Big Shoulders Display",sans-serif!important;color:var(--dim);
+  padding:10px 16px 8px!important;background:transparent;border-radius:8px 8px 0 0;height:auto}
+.stTabs [data-baseweb="tab"] p{font:inherit!important;letter-spacing:.02em;white-space:nowrap}
+.stTabs [data-baseweb="tab-list"]{overflow-x:auto;scrollbar-width:none}
+.stTabs [data-baseweb="tab"]:hover{color:var(--chalk);background:rgba(255,255,255,.03)}
+.stTabs [aria-selected="true"]{color:var(--chalk)!important}
+.stTabs [data-baseweb="tab-highlight"]{background:var(--amber)!important;height:3px}
+.stTabs [data-baseweb="tab-border"]{display:none}
+/* inner tabs (Cards / Best Bets / Record) stay small */
+.stTabs .stTabs [data-baseweb="tab"]{font:600 14px Archivo,sans-serif!important;padding:6px 12px!important}
+.stTabs .stTabs [data-baseweb="tab-highlight"]{background:var(--chalk)!important;height:2px}
+
+/* metrics, tables, notes */
+[data-testid="stMetric"]{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:12px 16px}
+[data-testid="stMetricLabel"] p{color:var(--dim)!important;font-size:13px!important}
+[data-testid="stMetricValue"]{font:800 34px "Big Shoulders Display",sans-serif!important;color:var(--chalk)}
+[data-testid="stDataFrame"]{border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+[data-testid="stAlert"]{background:var(--panel)!important;border:1px solid var(--rule)!important;border-radius:12px;color:var(--dim)}
+[data-testid="stSelectbox"] [data-baseweb="select"]>div{background:var(--panel);border-color:var(--rule);border-radius:10px}
+iframe{border-radius:14px}
+.ah-foot{color:var(--dim);font-size:12px;border-top:1px solid var(--rule);margin-top:28px;padding-top:14px;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.ah-foot a{color:var(--chalk);text-decoration:none;font-weight:600}
+@media (max-width:640px){.ah-today{text-align:left}.stTabs [data-baseweb="tab"]{font-size:19px!important;padding:8px 10px 6px!important}}
+@media (prefers-reduced-motion:reduce){.ah-board{scroll-behavior:auto}}
+</style>
+
+<style>
+body{margin:0;background:var(--ink);color:var(--chalk);font:15px/1.5 Archivo,system-ui,sans-serif}
+.page{max-width:1240px;margin:0 auto;padding:22px 16px 40px}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:6px}
+.sports{display:flex;gap:4px;border-bottom:1px solid var(--rule);overflow-x:auto;scrollbar-width:none;margin-top:6px}
+.sports a{position:relative;font:800 22px "Big Shoulders Display",sans-serif;color:var(--dim);text-decoration:none;
+  padding:10px 16px 9px;white-space:nowrap;border-radius:8px 8px 0 0}
+.sports a:hover{color:var(--chalk);background:rgba(255,255,255,.03)}
+.sports a[aria-current="page"]{color:var(--chalk)}
+.sports a[aria-current="page"]::before{content:"";position:absolute;left:12px;right:12px;bottom:-1px;height:3px;background:var(--amber);border-radius:3px}
+.sports a.live::after{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--amber);
+  margin-left:7px;vertical-align:5px;animation:ahlive 2.4s ease-out infinite}
+@keyframes ahlive{0%{box-shadow:0 0 0 0 rgba(242,177,52,.55)}70%,100%{box-shadow:0 0 0 7px rgba(242,177,52,0)}}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:14px 0 6px}
+.panes{display:flex;gap:4px;border-bottom:1px solid var(--rule)}
+.panes button{background:none;border:0;color:var(--dim);font:600 14px Archivo,sans-serif;padding:8px 12px;cursor:pointer;
+  border-bottom:2px solid transparent;margin-bottom:-1px}
+.panes button[aria-selected="true"]{color:var(--chalk);border-color:var(--chalk)}
+.slate select{background:var(--panel);color:var(--chalk);border:1px solid var(--rule);border-radius:10px;
+  padding:8px 34px 8px 12px;font:600 14px Archivo,sans-serif;appearance:none;cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,var(--dim) 50%),linear-gradient(135deg,var(--dim) 50%,transparent 50%);
+  background-position:calc(100% - 17px) 55%,calc(100% - 12px) 55%;background-size:5px 5px;background-repeat:no-repeat}
+.pane{padding-top:14px} .pane[hidden]{display:none}
+iframe.cards{width:100%;border:0;border-radius:14px;min-height:600px;display:block;background:var(--ink)}
+.hint{color:var(--dim);font-size:13px;margin:0 0 8px}
+.note{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:12px 16px;color:var(--dim);margin:0 0 12px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
+.tile{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:12px 16px}
+.tile small{display:block;color:var(--dim);font-size:13px}
+.tile b{font:800 34px/1.1 "Big Shoulders Display",sans-serif}
+.tbl{overflow-x:auto;border:1px solid var(--rule);border-radius:12px;margin-bottom:16px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;color:var(--dim);font-weight:600;font-size:12px;padding:10px 12px;background:var(--panel);
+  position:sticky;top:0;white-space:nowrap}
+td{padding:9px 12px;border-top:1px solid var(--rule);white-space:nowrap}
+tbody tr:hover{background:rgba(255,255,255,.025)}
+.tg{font-weight:700;font-size:12px;padding:3px 8px;border-radius:6px;color:#0b0e13}
+.tg-3{background:var(--amber)} .tg-2{background:var(--turf)} .tg-1{background:var(--ice)} .tg-0{background:var(--dim)}
+h3.sub{font:800 24px "Big Shoulders Display",sans-serif;margin:22px 0 10px}
+.chart{margin:0 0 16px;background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:12px 14px}
+.chart figcaption{color:var(--dim);font-size:13px;margin-bottom:6px} .chart svg{width:100%;height:auto;display:block}
+.posts{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.post{margin:0;background:var(--panel);border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+.post img{width:100%;display:block}
+.btn{display:block;text-align:center;padding:10px;font-weight:600;text-decoration:none;color:var(--ink);background:var(--amber)}
+.ah-hero a{text-decoration:none}
+@media (prefers-reduced-motion:reduce){.sports a.live::after{animation:none}}
+</style></head>
+<body><div class="page">
+<header class="ah-hero">
+  <a href="/" class="ah-mark" aria-label="The AlgoHub home"><span>The</span>AlgoHub</a>
+  <div class="ah-today"><b>Tuesday, October 13</b>
+    <span>70 plays on the board across 4 sports</span></div>
+</header><section class="ah-board" aria-label="Top plays today">
+  <div class="ah-slip s-mid">
+    <div class="ah-slip-top"><span class="ah-sport">NHL</span><span class="ah-tier">Play</span></div>
+    <div class="ah-pick">SEA ML<span>-102</span></div>
+    <div class="ah-sub">SEA at PHI, 7:00 PM</div>
+    <div class="ah-stat"><em>+6.7</em><small>% edge</small></div>
+  </div>
+  <div class="ah-slip s-mid">
+    <div class="ah-slip-top"><span class="ah-sport">MLB</span><span class="ah-tier">Solid</span></div>
+    <div class="ah-pick">CLE ML<span>+113</span></div>
+    <div class="ah-sub">CLE at TB</div>
+    <div class="ah-stat"><em>+9.0</em><small>% edge</small></div>
+  </div>
+  <div class="ah-slip s-top">
+    <div class="ah-slip-top"><span class="ah-sport">NFL</span><span class="ah-tier">Hammer</span></div>
+    <div class="ah-pick">JAX -2.5<span>-110</span></div>
+    <div class="ah-sub">HOU at JAX, Sun</div>
+    <div class="ah-stat"><em>+7.3</em><small>pts edge</small></div>
+  </div>
+  <div class="ah-slip s-top">
+    <div class="ah-slip-top"><span class="ah-sport">CFB</span><span class="ah-tier">Strong</span></div>
+    <div class="ah-pick">Indiana +3.5<span>-110</span></div>
+    <div class="ah-sub">Ohio State at Indiana</div>
+    <div class="ah-stat"><em>+9.3</em><small>pts edge</small></div>
+  </div>
+  <div class="ah-slip s-mid">
+    <div class="ah-slip-top"><span class="ah-sport">NHL</span><span class="ah-tier">Play</span></div>
+    <div class="ah-pick">SEA +1.5<span>-258</span></div>
+    <div class="ah-sub">SEA at PHI, 7:00 PM</div>
+    <div class="ah-stat"><em>+6.5</em><small>% edge</small></div>
+  </div>
+  <div class="ah-slip s-top">
+    <div class="ah-slip-top"><span class="ah-sport">NFL</span><span class="ah-tier">Hammer</span></div>
+    <div class="ah-pick">ARI +12.5<span>-110</span></div>
+    <div class="ah-sub">ARI at LA, Sun</div>
+    <div class="ah-stat"><em>+6.5</em><small>pts edge</small></div>
+  </div>
+  <div class="ah-slip s-top">
+    <div class="ah-slip-top"><span class="ah-sport">CFB</span><span class="ah-tier">Strong</span></div>
+    <div class="ah-pick">Sacramento State +15.5<span>-110</span></div>
+    <div class="ah-sub">Ohio at Sacramento State</div>
+    <div class="ah-stat"><em>+9.3</em><small>pts edge</small></div>
+  </div>
+  <div class="ah-slip s-hr">
+    <div class="ah-slip-top"><span class="ah-sport">HR</span><span class="ah-tier">Home run</span></div>
+    <div class="ah-pick">Patrick Bailey<span></span></div>
+    <div class="ah-sub">CLE at TBR, 25.2% to homer</div>
+    <div class="ah-stat"><em>83</em><small>hit score</small></div>
+  </div>
+  <div class="ah-slip s-hr">
+    <div class="ah-slip-top"><span class="ah-sport">HR</span><span class="ah-tier">Home run</span></div>
+    <div class="ah-pick">Cedric Mullins<span></span></div>
+    <div class="ah-sub">CLE at TBR, 16.9% to homer</div>
+    <div class="ah-stat"><em>74</em><small>hit score</small></div>
+  </div></section>
+<nav class="sports" aria-label="Sports"><a href="/nfl/" class="">NFL</a><a href="/cfb/" class="live" aria-current=page>CFB</a><a href="/nhl/" class="live">NHL</a><a href="/mlb/" class="live">MLB</a><a href="/hr/" class="live">Home Runs</a><a href="/cbb/" class="">CBB</a><a href="/nba/" class="">NBA</a></nav>
+<main><div class="bar"><div class="panes" role="tablist"><button role="tab" data-p="p-cards" aria-selected="true">Cards</button><button role="tab" data-p="p-bestbets" aria-selected="false">Best bets</button><button role="tab" data-p="p-record" aria-selected="false">Record</button></div><label class="slate">Slate <select onchange="location=this.value" aria-label="Pick a slate"><option value="/cfb/week-7.html">Week 7</option><option value="/cfb/week-6.html">Week 6</option><option value="/cfb/week-5.html" selected>Week 5</option><option value="/cfb/week-4.html">Week 4</option><option value="/cfb/week-3.html">Week 3</option><option value="/cfb/week-2.html">Week 2</option></select></label></div><section class="pane" id="p-cards"><iframe class="cards" src="/cards/cfb_week-5.html" title="CFB week 5" loading="lazy" onload="fit(this)"></iframe></section><section class="pane" id="p-bestbets" hidden><div class="tiles"><div class="tile"><small>Strong</small><b>12</b></div><div class="tile"><small>Edge</small><b>11</b></div><div class="tile"><small>Lean</small><b>15</b></div></div><div class="tbl"><table><thead><tr><th>Matchup</th><th>Market</th><th>Pick</th><th>Tier</th><th>Edge</th><th>Book</th><th>Model</th></tr></thead><tbody><tr><td>Syracuse @ Connecticut</td><td>Spread</td><td>Home 16.4 pts</td><td><span class="tg tg-3">Strong</span></td><td>16.4</td><td>+6.5</td><td>+9.9</td></tr><tr><td>Western Michigan @ Buffalo</td><td>Spread</td><td>Home 14.4 pts</td><td><span class="tg tg-3">Strong</span></td><td>14.4</td><td>+16.5</td><td>-2.1</td></tr><tr><td>West Virginia @ Iowa State</td><td>Spread</td><td>Home 10.9 pts</td><td><span class="tg tg-3">Strong</span></td><td>10.9</td><td>-1.5</td><td>+12.4</td></tr><tr><td>Ohio State @ Iowa</td><td>Spread</td><td>Home 9.2 pts</td><td><span class="tg tg-3">Strong</span></td><td>9.2</td><td>+14.5</td><td>-5.3</td></tr><tr><td>Akron @ Central Michigan</td><td>Spread</td><td>Home 8.9 pts</td><td><span class="tg tg-3">Strong</span></td><td>8.9</td><td>-5.5</td><td>+14.4</td></tr><tr><td>Old Dominion @ Georgia State</td><td>Spread</td><td>Home 8.0 pts</td><td><span class="tg tg-3">Strong</span></td><td>8.0</td><td>+1.5</td><td>+6.5</td></tr><tr><td>Memphis @ Charlotte</td><td>Spread</td><td>Home 7.3 pts</td><td><span class="tg tg-3">Strong</span></td><td>7.3</td><td>+21.5</td><td>-14.2</td></tr><tr><td>California @ Nevada Las Vegas</td><td>Spread</td><td>Home 7.2 pts</td><td><span class="tg tg-3">Strong</span></td><td>7.2</td><td>-1.5</td><td>+8.7</td></tr><tr><td>Oregon State @ Colorado State</td><td>Spread</td><td>Home 7.0 pts</td><td><span class="tg tg-3">Strong</span></td><td>7.0</td><td>+4.0</td><td>+3.0</td></tr><tr><td>Wyoming @ North Dakota State</td><td>Spread</td><td>Away 7.7 pts</td><td><span class="tg tg-3">Strong</span></td><td>-7.7</td><td>-21.0</td><td>+13.3</td></tr><tr><td>Middle Tennessee @ Kansas</td><td>Spread</td><td>Away 8.7 pts</td><td><span class="tg tg-3">Strong</span></td><td>-8.7</td><td>-21.0</td><td>+12.3</td></tr><tr><td>North Texas @ Tulsa</td><td>Spread</td><td>Away 11.6 pts</td><td><span class="tg tg-3">Strong</span></td><td>-11.6</td><td>-1.5</td><td>-10.1</td></tr><tr><td>Kentucky @ South Carolina</td><td>Spread</td><td>Home 6.0 pts</td><td><span class="tg tg-2">Edge</span></td><td>6.0</td><td>-3.5</td><td>+9.5</td></tr><tr><td>Maryland @ Nebraska</td><td>Spread</td><td>Home 5.7 pts</td><td><span class="tg tg-2">Edge</span></td><td>5.7</td><td>-13.5</td><td>+19.2</td></tr><tr><td>Brigham Young @ Texas Christian</td><td>Spread</td><td>Home 5.7 pts</td><td><span class="tg tg-2">Edge</span></td><td>5.7</td><td>+6.5</td><td>-0.8</td></tr><tr><td>Temple @ South Florida</td><td>Spread</td><td>Home 5.0 pts</td><td><span class="tg tg-2">Edge</span></td><td>5.0</td><td>-5.5</td><td>+10.5</td></tr><tr><td>Virginia @ Florida State</td><td>Spread</td><td>Home 4.7 pts</td><td><span class="tg tg-2">Edge</span></td><td>4.7</td><td>+3.0</td><td>+1.7</td></tr><tr><td>Florida @ Missouri</td><td>Spread</td><td>Home 4.4 pts</td><td><span class="tg tg-2">Edge</span></td><td>4.4</td><td>+4.5</td><td>-0.1</td></tr><tr><td>UTSA @ Rice</td><td>Spread</td><td>Home 4.2 pts</td><td><span class="tg tg-2">Edge</span></td><td>4.2</td><td>+12.5</td><td>-8.3</td></tr><tr><td>Purdue @ Illinois</td><td>Spread</td><td>Home 4.0 pts</td><td><span class="tg tg-2">Edge</span></td><td>4.0</td><td>-10.0</td><td>+14.0</td></tr><tr><td>Pittsburgh @ Virginia Tech</td><td>Spread</td><td>Away 4.8 pts</td><td><span class="tg tg-2">Edge</span></td><td>-4.8</td><td>-5.5</td><td>+0.7</td></tr><tr><td>Bowling Green @ Miami Ohio</td><td>Spread</td><td>Away 5.0 pts</td><td><span class="tg tg-2">Edge</span></td><td>-5.0</td><td>-15.5</td><td>+10.5</td></tr><tr><td>Vanderbilt @ Georgia</td><td>Spread</td><td>Away 6.6 pts</td><td><span class="tg tg-2">Edge</span></td><td>-6.6</td><td>-24.5</td><td>+17.9</td></tr><tr><td>Notre Dame @ North Carolina</td><td>Spread</td><td>Home 3.7 pts</td><td><span class="tg tg-1">Lean</span></td><td>3.7</td><td>+23.5</td><td>-19.8</td></tr><tr><td>Louisville @ North Carolina State</td><td>Spread</td><td>Home 3.6 pts</td><td><span class="tg tg-1">Lean</span></td><td>3.6</td><td>+5.5</td><td>-1.9</td></tr><tr><td>Texas State @ San Diego State</td><td>Spread</td><td>Home 3.0 pts</td><td><span class="tg tg-1">Lean</span></td><td>3.0</td><td>+4.5</td><td>-1.5</td></tr><tr><td>Toledo @ Ball State</td><td>Spread</td><td>Home 2.9 pts</td><td><span class="tg tg-1">Lean</span></td><td>2.9</td><td>+17.5</td><td>-14.6</td></tr><tr><td>Marshall @ James Madison</td><td>Spread</td><td>Home 2.6 pts</td><td><span class="tg tg-1">Lean</span></td><td>2.6</td><td>-14.0</td><td>+16.6</td></tr><tr><td>Western Kentucky @ New Mexico State</td><td>Spread</td><td>Home 2.4 pts</td><td><span class="tg tg-1">Lean</span></td><td>2.4</td><td>-1.5</td><td>+3.9</td></tr><tr><td>Indiana @ Rutgers</td><td>Spread</td><td>Home 2.4 pts</td><td><span class="tg tg-1">Lean</span></td><td>2.4</td><td>+23.5</td><td>-21.1</td></tr><tr><td>Michigan @ Minnesota</td><td>Spread</td><td>Home 2.3 pts</td><td><span class="tg tg-1">Lean</span></td><td>2.3</td><td>+6.5</td><td>-4.2</td></tr><tr><td>Eastern Michigan @ Massachusetts</td><td>Spread</td><td>Home 2.1 pts</td><td><span class="tg tg-1">Lean</span></td><td>2.1</td><td>-3.0</td><td>+5.1</td></tr><tr><td>Louisiana Monroe @ South Alabama</td><td>Spread</td><td>Home 2.0 pts</td><td><span class="tg tg-1">Lean</span></td><td>2.0</td><td>-14.5</td><td>+16.5</td></tr><tr><td>Miami @ Clemson</td><td>Spread</td><td>Away 2.3 pts</td><td><span class="tg tg-1">Lean</span></td><td>-2.3</td><td>+7.0</td><td>-9.3</td></tr><tr><td>Liberty @ Delaware</td><td>Spread</td><td>Away 2.7 pts</td><td><span class="tg tg-1">Lean</span></td><td>-2.7</td><td>+7.0</td><td>-9.7</td></tr><tr><td>Arkansas @ Texas A&amp;M</td><td>Spread</td><td>Away 2.8 pts</td><td><span class="tg tg-1">Lean</span></td><td>-2.8</td><td>-14.5</td><td>+11.7</td></tr><tr><td>Boston College @ Southern Methodist</td><td>Spread</td><td>Away 3.2 pts</td><td><span class="tg tg-1">Lean</span></td><td>-3.2</td><td>-21.0</td><td>+17.8</td></tr><tr><td>Utah State @ Boise State</td><td>Spread</td><td>Away 3.6 pts</td><td><span class="tg tg-1">Lean</span></td><td>-3.6</td><td>-20.5</td><td>+16.9</td></tr></tbody></table></div></section><section class="pane" id="p-record" hidden><div class="tiles"><div class="tile"><small>Record</small><b>163-151-6</b></div><div class="tile"><small>Win rate</small><b>51.9%</b></div></div><div class="tbl"><table><thead><tr><th>Market</th><th>W</th><th>L</th><th>P</th><th>Win %</th></tr></thead><tbody><tr><td>SPREAD</td><td>163</td><td>151</td><td>6</td><td>51.9%</td></tr><tr><td>TOTAL</td><td>115</td><td>98</td><td>0</td><td>54.0%</td></tr><tr><td>ML</td><td>74</td><td>80</td><td>0</td><td>48.1%</td></tr></tbody></table></div><div class="tbl"><table><thead><tr><th>Week</th><th>W</th><th>L</th><th>Win %</th></tr></thead><tbody><tr><td>1</td><td>22</td><td>28</td><td>44.0%</td></tr><tr><td>2</td><td>26</td><td>23</td><td>53.1%</td></tr><tr><td>3</td><td>29</td><td>27</td><td>51.8%</td></tr><tr><td>4</td><td>22</td><td>28</td><td>44.0%</td></tr><tr><td>5</td><td>35</td><td>19</td><td>64.8%</td></tr><tr><td>6</td><td>29</td><td>26</td><td>52.7%</td></tr></tbody></table></div></section></main>
+<footer class="ah-foot"><span>Model picks for entertainment. Not betting advice.</span><span>@TheAlgoHub</span></footer>
+</div><script>
+function fit(f){try{const d=f.contentDocument,set=()=>{f.style.height=(d.documentElement.scrollHeight+4)+'px'};
+ set();new ResizeObserver(set).observe(d.body);}catch(e){f.style.height='2400px'}}
+document.querySelectorAll('.panes button').forEach(b=>b.onclick=()=>{
+ document.querySelectorAll('.panes button').forEach(x=>x.setAttribute('aria-selected',x===b));
+ document.querySelectorAll('.pane').forEach(p=>p.hidden=p.id!==b.dataset.p);
+ const fr=document.querySelector('#'+b.dataset.p+' iframe.cards'); if(fr) fit(fr);
+ history.replaceState(null,'','#'+b.dataset.p);});
+const h=location.hash.slice(1); const hb=h&&document.querySelector('.panes button[data-p="'+h+'"]'); if(hb) hb.click();
+</script></body></html>

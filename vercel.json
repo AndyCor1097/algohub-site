@@ -1,0 +1,7 @@
+{
+  "framework": null,
+  "installCommand": "echo skip",
+  "buildCommand": "echo static site",
+  "outputDirectory": "public",
+  "cleanUrls": true
+}

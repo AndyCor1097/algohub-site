@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The AlgoHub: today's picks</title>
+<meta name="description" content="Algorithmic picks for NFL, college football, NHL, MLB and home run props. Updated every morning.">
+<meta property="og:title" content="NHL picks, Tue Oct 13 | The AlgoHub"><meta property="og:description" content="Today's model picks across every sport.">
+<meta name="theme-color" content="#0b0e13">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230b0e13'/><text x='32' y='45' font-family='Arial Black,sans-serif' font-size='34' font-weight='900' text-anchor='middle' fill='%23f2b134'>A</text></svg>">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Archivo:wght@400;500;600;700&display=swap');
+:root{--ink:#0b0e13;--panel:#121821;--rule:#232c39;--chalk:#eef2f6;--dim:#8792a2;
+      --amber:#f2b134;--turf:#3fb950;--ice:#58a6ff;--red:#f85149}
+html,body,.stApp{background:var(--ink)!important}
+.stApp{background:
+  radial-gradient(1200px 380px at 50% -140px, rgba(242,177,52,.10), transparent 70%),
+  var(--ink)!important}
+[data-testid="stHeader"],[data-testid="stToolbar"],#MainMenu,footer,.stDeployButton,[data-testid="stDecoration"]{display:none!important}
+.block-container{padding-top:1.4rem!important;max-width:1240px}
+html,body,[class*="st-"],.stMarkdown,p,div,span,label{font-family:Archivo,system-ui,sans-serif}
+
+/* hero */
+.ah-hero{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;
+  padding:6px 0 18px;border-bottom:1px solid var(--rule)}
+.ah-mark{font:900 clamp(56px,9vw,104px)/.82 "Big Shoulders Display",sans-serif;color:var(--chalk);letter-spacing:-.01em}
+.ah-mark span{display:block;font-size:.3em;font-weight:600;color:var(--amber);letter-spacing:.02em;line-height:1.1}
+.ah-today{text-align:right;color:var(--dim);font-size:14px;line-height:1.5}
+.ah-today b{display:block;color:var(--chalk);font:800 28px/1 "Big Shoulders Display",sans-serif;margin-bottom:4px}
+.ah-empty{color:var(--dim);padding:18px 0}
+
+/* the board: bet slips */
+.ah-board{display:flex;gap:12px;overflow-x:auto;padding:18px 2px 22px;scroll-snap-type:x mandatory;scrollbar-width:thin}
+.ah-slip{flex:0 0 212px;scroll-snap-align:start;position:relative;background:var(--panel);border:1px solid var(--rule);
+  border-radius:12px;padding:12px 14px 12px;display:flex;flex-direction:column;gap:4px;
+  -webkit-mask:radial-gradient(circle 7px at 0 62%,transparent 98%,#000) left/51% 100% no-repeat,
+                radial-gradient(circle 7px at 100% 62%,transparent 98%,#000) right/51% 100% no-repeat;
+          mask:radial-gradient(circle 7px at 0 62%,transparent 98%,#000) left/51% 100% no-repeat,
+                radial-gradient(circle 7px at 100% 62%,transparent 98%,#000) right/51% 100% no-repeat}
+.ah-slip-top{display:flex;justify-content:space-between;font-size:12px;color:var(--dim)}
+.ah-sport{font-weight:700;color:var(--chalk)}
+.ah-tier{font-weight:600}
+.ah-pick{font:800 26px/1.05 "Big Shoulders Display",sans-serif;color:var(--chalk);margin-top:2px}
+.ah-pick span{font:600 15px Archivo,sans-serif;color:var(--dim);margin-left:8px;vertical-align:3px}
+.ah-sub{font-size:12px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  padding-bottom:8px;border-bottom:1px dashed var(--rule)}
+.ah-stat{display:flex;align-items:baseline;gap:6px;padding-top:4px}
+.ah-stat em{font:800 24px "Big Shoulders Display",sans-serif;font-style:normal}
+.ah-stat small{font-size:12px;color:var(--dim)}
+.s-top{background:linear-gradient(180deg,rgba(242,177,52,.16),var(--panel) 60%);border-color:rgba(242,177,52,.45)}
+.s-top .ah-tier,.s-top .ah-stat em{color:var(--amber)}
+.s-mid .ah-tier,.s-mid .ah-stat em{color:var(--turf)}
+.s-low .ah-tier,.s-low .ah-stat em{color:var(--ice)}
+.s-hr .ah-tier,.s-hr .ah-stat em{color:#ff8a5c}
+
+/* sport tabs = scoreboard */
+.stTabs [data-baseweb="tab-list"]{gap:4px;border-bottom:1px solid var(--rule);background:transparent}
+.stTabs [data-baseweb="tab"]{font:800 22px "Big Shoulders Display",sans-serif!important;color:var(--dim);
+  padding:10px 16px 8px!important;background:transparent;border-radius:8px 8px 0 0;height:auto}
+.stTabs [data-baseweb="tab"] p{font:inherit!important;letter-spacing:.02em;white-space:nowrap}
+.stTabs [data-baseweb="tab-list"]{overflow-x:auto;scrollbar-width:none}
+.stTabs [data-baseweb="tab"]:hover{color:var(--chalk);background:rgba(255,255,255,.03)}
+.stTabs [aria-selected="true"]{color:var(--chalk)!important}
+.stTabs [data-baseweb="tab-highlight"]{background:var(--amber)!important;height:3px}
+.stTabs [data-baseweb="tab-border"]{display:none}
+/* inner tabs (Cards / Best Bets / Record) stay small */
+.stTabs .stTabs [data-baseweb="tab"]{font:600 14px Archivo,sans-serif!important;padding:6px 12px!important}
+.stTabs .stTabs [data-baseweb="tab-highlight"]{background:var(--chalk)!important;height:2px}
+
+/* metrics, tables, notes */
+[data-testid="stMetric"]{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:12px 16px}
+[data-testid="stMetricLabel"] p{color:var(--dim)!important;font-size:13px!important}
+[data-testid="stMetricValue"]{font:800 34px "Big Shoulders Display",sans-serif!important;color:var(--chalk)}
+[data-testid="stDataFrame"]{border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+[data-testid="stAlert"]{background:var(--panel)!important;border:1px solid var(--rule)!important;border-radius:12px;color:var(--dim)}
+[data-testid="stSelectbox"] [data-baseweb="select"]>div{background:var(--panel);border-color:var(--rule);border-radius:10px}
+iframe{border-radius:14px}
+.ah-foot{color:var(--dim);font-size:12px;border-top:1px solid var(--rule);margin-top:28px;padding-top:14px;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.ah-foot a{color:var(--chalk);text-decoration:none;font-weight:600}
+@media (max-width:640px){.ah-today{text-align:left}.stTabs [data-baseweb="tab"]{font-size:19px!important;padding:8px 10px 6px!important}}
+@media (prefers-reduced-motion:reduce){.ah-board{scroll-behavior:auto}}
+</style>
+
+<style>
+body{margin:0;background:var(--ink);color:var(--chalk);font:15px/1.5 Archivo,system-ui,sans-serif}
+.page{max-width:1240px;margin:0 auto;padding:22px 16px 40px}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:6px}
+.sports{display:flex;gap:4px;border-bottom:1px solid var(--rule);overflow-x:auto;scrollbar-width:none;margin-top:6px}
+.sports a{position:relative;font:800 22px "Big Shoulders Display",sans-serif;color:var(--dim);text-decoration:none;
+  padding:10px 16px 9px;white-space:nowrap;border-radius:8px 8px 0 0}
+.sports a:hover{color:var(--chalk);background:rgba(255,255,255,.03)}
+.sports a[aria-current="page"]{color:var(--chalk)}
+.sports a[aria-current="page"]::before{content:"";position:absolute;left:12px;right:12px;bottom:-1px;height:3px;background:var(--amber);border-radius:3px}
+.sports a.live::after{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--amber);
+  margin-left:7px;vertical-align:5px;animation:ahlive 2.4s ease-out infinite}
+@keyframes ahlive{0%{box-shadow:0 0 0 0 rgba(242,177,52,.55)}70%,100%{box-shadow:0 0 0 7px rgba(242,177,52,0)}}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:14px 0 6px}
+.panes{display:flex;gap:4px;border-bottom:1px solid var(--rule)}
+.panes button{background:none;border:0;color:var(--dim);font:600 14px Archivo,sans-serif;padding:8px 12px;cursor:pointer;
+  border-bottom:2px solid transparent;margin-bottom:-1px}
+.panes button[aria-selected="true"]{color:var(--chalk);border-color:var(--chalk)}
+.slate select{background:var(--panel);color:var(--chalk);border:1px solid var(--rule);border-radius:10px;
+  padding:8px 34px 8px 12px;font:600 14px Archivo,sans-serif;appearance:none;cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,var(--dim) 50%),linear-gradient(135deg,var(--dim) 50%,transparent 50%);
+  background-position:calc(100% - 17px) 55%,calc(100% - 12px) 55%;background-size:5px 5px;background-repeat:no-repeat}
+.pane{padding-top:14px} .pane[hidden]{display:none}
+iframe.cards{width:100%;border:0;border-radius:14px;min-height:600px;display:block;background:var(--ink)}
+.hint{color:var(--dim);font-size:13px;margin:0 0 8px}
+.note{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:12px 16px;color:var(--dim);margin:0 0 12px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
+.tile{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:12px 16px}
+.tile small{display:block;color:var(--dim);font-size:13px}
+.tile b{font:800 34px/1.1 "Big Shoulders Display",sans-serif}
+.tbl{overflow-x:auto;border:1px solid var(--rule);border-radius:12px;margin-bottom:16px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;color:var(--dim);font-weight:600;font-size:12px;padding:10px 12px;background:var(--panel);
+  position:sticky;top:0;white-space:nowrap}
+td{padding:9px 12px;border-top:1px solid var(--rule);white-space:nowrap}
+tbody tr:hover{background:rgba(255,255,255,.025)}
+.tg{font-weight:700;font-size:12px;padding:3px 8px;border-radius:6px;color:#0b0e13}
+.tg-3{background:var(--amber)} .tg-2{background:var(--turf)} .tg-1{background:var(--ice)} .tg-0{background:var(--dim)}
+h3.sub{font:800 24px "Big Shoulders Display",sans-serif;margin:22px 0 10px}
+.chart{margin:0 0 16px;background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:12px 14px}
+.chart figcaption{color:var(--dim);font-size:13px;margin-bottom:6px} .chart svg{width:100%;height:auto;display:block}
+.posts{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.post{margin:0;background:var(--panel);border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+.post img{width:100%;display:block}
+.btn{display:block;text-align:center;padding:10px;font-weight:600;text-decoration:none;color:var(--ink);background:var(--amber)}
+.ah-hero a{text-decoration:none}
+@media (prefers-reduced-motion:reduce){.sports a.live::after{animation:none}}
+</style></head>
+<body><div class="page">
+<header class="ah-hero">
+  <a href="/" class="ah-mark" aria-label="The AlgoHub home"><span>The</span>AlgoHub</a>
+  <div class="ah-today"><b>Tuesday, October 13</b>
+    <span>70 plays on the board across 4 sports</span></div>
+</header><section class="ah-board" aria-label="Top plays today">
+  <div class="ah-slip s-mid">
+    <div class="ah-slip-top"><span class="ah-sport">NHL</span><span class="ah-tier">Play</span></div>
+    <div class="ah-pick">SEA ML<span>-102</span></div>
+    <div class="ah-sub">SEA at PHI, 7:00 PM</div>
+    <div class="ah-stat"><em>+6.7</em><small>% edge</small></div>
+  </div>
+  <div class="ah-slip s-mid">
+    <div class="ah-slip-top"><span class="ah-sport">MLB</span><span class="ah-tier">Solid</span></div>
+    <div class="ah-pick">CLE ML<span>+113</span></div>
+    <div class="ah-sub">CLE at TB</div>
+    <div class="ah-stat"><em>+9.0</em><small>% edge</small></div>
+  </div>
+  <div class="ah-slip s-top">
+    <div class="ah-slip-top"><span class="ah-sport">NFL</span><span class="ah-tier">Hammer</span></div>
+    <div class="ah-pick">JAX -2.5<span>-110</span></div>
+    <div class="ah-sub">HOU at JAX, Sun</div>
+    <div class="ah-stat"><em>+7.3</em><small>pts edge</small></div>
+  </div>
+  <div class="ah-slip s-top">
+    <div class="ah-slip-top"><span class="ah-sport">CFB</span><span class="ah-tier">Strong</span></div>
+    <div class="ah-pick">Indiana +3.5<span>-110</span></div>
+    <div class="ah-sub">Ohio State at Indiana</div>
+    <div class="ah-stat"><em>+9.3</em><small>pts edge</small></div>
+  </div>
+  <div class="ah-slip s-mid">
+    <div class="ah-slip-top"><span class="ah-sport">NHL</span><span class="ah-tier">Play</span></div>
+    <div class="ah-pick">SEA +1.5<span>-258</span></div>
+    <div class="ah-sub">SEA at PHI, 7:00 PM</div>
+    <div class="ah-stat"><em>+6.5</em><small>% edge</small></div>
+  </div>
+  <div class="ah-slip s-top">
+    <div class="ah-slip-top"><span class="ah-sport">NFL</span><span class="ah-tier">Hammer</span></div>
+    <div class="ah-pick">ARI +12.5<span>-110</span></div>
+    <div class="ah-sub">ARI at LA, Sun</div>
+    <div class="ah-stat"><em>+6.5</em><small>pts edge</small></div>
+  </div>
+  <div class="ah-slip s-top">
+    <div class="ah-slip-top"><span class="ah-sport">CFB</span><span class="ah-tier">Strong</span></div>
+    <div class="ah-pick">Sacramento State +15.5<span>-110</span></div>
+    <div class="ah-sub">Ohio at Sacramento State</div>
+    <div class="ah-stat"><em>+9.3</em><small>pts edge</small></div>
+  </div>
+  <div class="ah-slip s-hr">
+    <div class="ah-slip-top"><span class="ah-sport">HR</span><span class="ah-tier">Home run</span></div>
+    <div class="ah-pick">Patrick Bailey<span></span></div>
+    <div class="ah-sub">CLE at TBR, 25.2% to homer</div>
+    <div class="ah-stat"><em>83</em><small>hit score</small></div>
+  </div>
+  <div class="ah-slip s-hr">
+    <div class="ah-slip-top"><span class="ah-sport">HR</span><span class="ah-tier">Home run</span></div>
+    <div class="ah-pick">Cedric Mullins<span></span></div>
+    <div class="ah-sub">CLE at TBR, 16.9% to homer</div>
+    <div class="ah-stat"><em>74</em><small>hit score</small></div>
+  </div></section>
+<nav class="sports" aria-label="Sports"><a href="/nfl/" class="">NFL</a><a href="/cfb/" class="live">CFB</a><a href="/nhl/" class="live" aria-current=page>NHL</a><a href="/mlb/" class="live">MLB</a><a href="/hr/" class="live">Home Runs</a><a href="/cbb/" class="">CBB</a><a href="/nba/" class="">NBA</a></nav>
+<main><div class="bar"><div class="panes" role="tablist"><button role="tab" data-p="p-cards" aria-selected="true">Cards</button><button role="tab" data-p="p-bestbets" aria-selected="false">Best bets</button><button role="tab" data-p="p-record" aria-selected="false">Record</button></div></div><section class="pane" id="p-cards"><iframe class="cards" src="/cards/nhl_2026-10-13.html" title="NHL cards" loading="lazy" onload="fit(this)"></iframe></section><section class="pane" id="p-bestbets" hidden><div class="tiles"><div class="tile"><small>Hammers</small><b>0</b></div><div class="tile"><small>Plays</small><b>3</b></div><div class="tile"><small>Leans</small><b>12</b></div></div><div class="tbl"><table><thead><tr><th>Time</th><th>Matchup</th><th>Market</th><th>Pick</th><th>Odds</th><th>Tier</th><th>Edge %</th><th>Model</th></tr></thead><tbody><tr><td>7:00 PM</td><td>SEA @ PHI</td><td>Moneyline</td><td>SEA ML</td><td>-102</td><td><span class="tg tg-2">Play</span></td><td>6.7</td><td>55%</td></tr><tr><td>7:00 PM</td><td>SEA @ PHI</td><td>Puck line</td><td>SEA +1.5</td><td>-258</td><td><span class="tg tg-2">Play</span></td><td>6.5</td><td>76%</td></tr><tr><td>6:00 PM</td><td>NJD @ DET</td><td>Moneyline</td><td>DET ML</td><td>-110</td><td><span class="tg tg-2">Play</span></td><td>5.8</td><td>56%</td></tr><tr><td>7:15 PM</td><td>TBL @ NYR</td><td>Puck line</td><td>NYR +1.5</td><td>-185</td><td><span class="tg tg-1">Lean</span></td><td>5.0</td><td>68%</td></tr><tr><td>9:00 PM</td><td>TOR @ UTA</td><td>Moneyline</td><td>UTA ML</td><td>-160</td><td><span class="tg tg-1">Lean</span></td><td>5.0</td><td>64%</td></tr><tr><td>7:15 PM</td><td>TBL @ NYR</td><td>Moneyline</td><td>NYR ML</td><td>+137</td><td><span class="tg tg-1">Lean</span></td><td>4.9</td><td>45%</td></tr><tr><td>7:45 PM</td><td>VAN @ NYI</td><td>Puck line</td><td>VAN +1.5</td><td>-142</td><td><span class="tg tg-1">Lean</span></td><td>4.7</td><td>61%</td></tr><tr><td>9:00 PM</td><td>TOR @ UTA</td><td>Puck line</td><td>UTA -1.5</td><td>+150</td><td><span class="tg tg-1">Lean</span></td><td>4.6</td><td>43%</td></tr><tr><td>6:30 PM</td><td>BUF @ MTL</td><td>Puck line</td><td>BUF +1.5</td><td>-188</td><td><span class="tg tg-1">Lean</span></td><td>4.2</td><td>67%</td></tr><tr><td>7:30 PM</td><td>STL @ OTT</td><td>Puck line</td><td>OTT +1.5</td><td>-265</td><td><span class="tg tg-1">Lean</span></td><td>4.2</td><td>74%</td></tr><tr><td>6:00 PM</td><td>NJD @ DET</td><td>Puck line</td><td>DET -1.5</td><td>+222</td><td><span class="tg tg-1">Lean</span></td><td>4.0</td><td>34%</td></tr><tr><td>6:45 PM</td><td>WSH @ CAR</td><td>Moneyline</td><td>CAR ML</td><td>-151</td><td><span class="tg tg-1">Lean</span></td><td>4.0</td><td>62%</td></tr><tr><td>6:30 PM</td><td>BUF @ MTL</td><td>Moneyline</td><td>BUF ML</td><td>+132</td><td><span class="tg tg-1">Lean</span></td><td>3.5</td><td>45%</td></tr><tr><td>7:45 PM</td><td>VAN @ NYI</td><td>Moneyline</td><td>VAN ML</td><td>+172</td><td><span class="tg tg-1">Lean</span></td><td>3.5</td><td>39%</td></tr><tr><td>7:30 PM</td><td>STL @ OTT</td><td>Moneyline</td><td>OTT ML</td><td>-105</td><td><span class="tg tg-1">Lean</span></td><td>3.4</td><td>53%</td></tr></tbody></table></div><h3 class="sub">Every game</h3><div class="tbl"><table><thead><tr><th>Time</th><th>Matchup</th><th>Proj score</th><th>Home win %</th><th>OT %</th><th>Proj total</th><th>O/U</th><th>Fair ML</th></tr></thead><tbody><tr><td>6:00 PM</td><td>NJD @ DET</td><td>NJD 2.7, DET 3.3</td><td>58.9</td><td>22.3</td><td>6.03</td><td>6.0</td><td>NJD +143 / DET -143</td></tr><tr><td>6:15 PM</td><td>FLA @ CBJ</td><td>FLA 2.7, CBJ 3.2</td><td>58.0</td><td>22.6</td><td>5.95</td><td>6.0</td><td>FLA +138 / CBJ -138</td></tr><tr><td>6:30 PM</td><td>BUF @ MTL</td><td>BUF 3.0, MTL 3.2</td><td>53.1</td><td>22.6</td><td>6.16</td><td>6.5</td><td>BUF +113 / MTL -113</td></tr><tr><td>6:45 PM</td><td>WSH @ CAR</td><td>WSH 2.7, CAR 3.6</td><td>64.3</td><td>20.9</td><td>6.33</td><td>6.5</td><td>WSH +180 / CAR -180</td></tr><tr><td>7:00 PM</td><td>SEA @ PHI</td><td>SEA 3.4, PHI 2.8</td><td>41.4</td><td>21.9</td><td>6.26</td><td>6.0</td><td>SEA -142 / PHI +142</td></tr><tr><td>7:15 PM</td><td>TBL @ NYR</td><td>TBL 3.0, NYR 2.8</td><td>48.0</td><td>23.2</td><td>5.87</td><td>6.0</td><td>TBL -108 / NYR +108</td></tr><tr><td>7:30 PM</td><td>STL @ OTT</td><td>STL 2.7, OTT 3.0</td><td>54.5</td><td>23.2</td><td>5.8</td><td>5.5</td><td>STL +120 / OTT -120</td></tr><tr><td>7:45 PM</td><td>VAN @ NYI</td><td>VAN 2.8, NYI 3.4</td><td>59.5</td><td>21.9</td><td>6.2</td><td>6.0</td><td>VAN +147 / NYI -147</td></tr><tr><td>8:00 PM</td><td>PIT @ CHI</td><td>PIT 3.6, CHI 2.9</td><td>40.1</td><td>21.2</td><td>6.54</td><td>6.5</td><td>PIT -149 / CHI +149</td></tr><tr><td>8:15 PM</td><td>MIN @ WPG</td><td>MIN 3.1, WPG 3.1</td><td>50.7</td><td>22.6</td><td>6.22</td><td>6.0</td><td>MIN +103 / WPG -103</td></tr><tr><td>8:30 PM</td><td>COL @ DAL</td><td>COL 3.0, DAL 3.0</td><td>50.0</td><td>22.8</td><td>6.09</td><td>6.0</td><td>COL +100 / DAL -100</td></tr><tr><td>8:45 PM</td><td>VGK @ NSH</td><td>VGK 3.2, NSH 2.9</td><td>44.7</td><td>22.5</td><td>6.13</td><td>6.0</td><td>VGK -124 / NSH +124</td></tr><tr><td>9:00 PM</td><td>TOR @ UTA</td><td>TOR 2.7, UTA 3.9</td><td>66.9</td><td>19.7</td><td>6.69</td><td>6.5</td><td>TOR +202 / UTA -202</td></tr><tr><td>9:45 PM</td><td>CGY @ ANA</td><td>CGY 2.7, ANA 3.7</td><td>63.7</td><td>20.8</td><td>6.44</td><td>6.0</td><td>CGY +175 / ANA -175</td></tr><tr><td>10:30 PM</td><td>EDM @ LAK</td><td>EDM 3.3, LAK 2.9</td><td>45.1</td><td>22.4</td><td>6.21</td><td>6.0</td><td>EDM -122 / LAK +122</td></tr><tr><td>11:00 PM</td><td>BOS @ SJS</td><td>BOS 3.2, SJS 3.0</td><td>46.5</td><td>22.4</td><td>6.27</td><td>6.0</td><td>BOS -115 / SJS +115</td></tr></tbody></table></div></section><section class="pane" id="p-record" hidden><p class="note">Nothing graded yet. Results show up the morning after the first slate.</p></section></main>
+<footer class="ah-foot"><span>Model picks for entertainment. Not betting advice.</span><span>@TheAlgoHub</span></footer>
+</div><script>
+function fit(f){try{const d=f.contentDocument,set=()=>{f.style.height=(d.documentElement.scrollHeight+4)+'px'};
+ set();new ResizeObserver(set).observe(d.body);}catch(e){f.style.height='2400px'}}
+document.querySelectorAll('.panes button').forEach(b=>b.onclick=()=>{
+ document.querySelectorAll('.panes button').forEach(x=>x.setAttribute('aria-selected',x===b));
+ document.querySelectorAll('.pane').forEach(p=>p.hidden=p.id!==b.dataset.p);
+ const fr=document.querySelector('#'+b.dataset.p+' iframe.cards'); if(fr) fit(fr);
+ history.replaceState(null,'','#'+b.dataset.p);});
+const h=location.hash.slice(1); const hb=h&&document.querySelector('.panes button[data-p="'+h+'"]'); if(hb) hb.click();
+</script></body></html>
