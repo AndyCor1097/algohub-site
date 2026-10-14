@@ -1,0 +1,258 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>AlgoHub HR 2026-10-14</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0e13;--card:#12161d;--card2:#171c25;--line:#222a35;--tx:#e6edf3;--mu:#7d8590;
+--lean:#58a6ff;--play:#3fb950;--ham:#f2b134;--neg:#f85149}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-serif;padding:28px 16px 60px}
+.wrap{max-width:1180px;margin:0 auto}
+.proj,.cols span,.top h1,.stats b,.wplab,.pick,.score,.big{font-family:"Barlow Condensed",sans-serif}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:18px}
+.top .k{color:var(--mu);font-size:12px;letter-spacing:.18em;font-weight:600}
+.top h1{font-size:44px;font-weight:800;letter-spacing:.02em;line-height:1}
+.stats{display:flex;gap:22px} .stats div{text-align:right} .stats small{display:block;color:var(--mu);font-size:11px;letter-spacing:.14em}
+.stats b{font-size:30px} .stats .h b{color:var(--ham)} .stats .p b{color:var(--play)}
+.tabs{display:flex;gap:6px;margin:18px 0;flex-wrap:wrap}
+.tabs button{background:transparent;border:1px solid var(--line);color:var(--mu);padding:7px 14px;border-radius:999px;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.08em;cursor:pointer}
+.tabs button.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;border-top:3px solid var(--line)}
+.card.b-lean{border-top-color:var(--lean)} .card.b-solid{border-top-color:var(--play)}
+.card.b-strong{border-top-color:var(--ham);box-shadow:0 0 0 1px rgba(242,177,52,.25),0 8px 30px rgba(242,177,52,.08)}
+.meta{display:flex;justify-content:space-between;gap:10px;padding:11px 16px;color:var(--mu);font-size:11px;letter-spacing:.08em;border-bottom:1px solid var(--line)}
+.team{display:flex;align-items:center;gap:12px;padding:10px 16px}
+.badge{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font:800 13px "Barlow Condensed";letter-spacing:.04em;flex:none}
+.tname{flex:1;min-width:0} .tname b{display:block;font-size:16px;font-weight:600} .tname small{color:var(--mu);font-size:12px}
+.proj{font-size:32px;font-weight:700;color:var(--mu)} .team.fav .proj{color:var(--tx)}
+.wp{padding:6px 16px 14px} .wplab{display:flex;justify-content:space-between;font-size:15px;font-weight:700;margin-bottom:6px}
+.wplab .cap{color:var(--mu);font:600 10px Inter,system-ui,sans-serif;letter-spacing:.16em;align-self:center}
+.wpbar{display:flex;height:8px;border-radius:99px;overflow:hidden;gap:2px;background:var(--line)} .wpbar i{display:block;height:100%}
+.mkt{border-top:1px solid var(--line);padding:12px 16px;background:var(--card2)}
+.mlabel{color:var(--mu);font:600 10px Inter,system-ui,sans-serif;letter-spacing:.18em;margin-bottom:8px}
+.cols{display:grid;grid-template-columns:1.2fr 1.2fr .8fr;gap:8px} .cols small{display:block;color:var(--mu);font-size:10px;letter-spacing:.14em}
+.cols span{font-size:17px;font-weight:700} .edge span{color:var(--mu)} .edge.hot span{color:var(--tx);font-size:24px}
+.pick{margin-top:10px;display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700}
+.pick small{color:var(--mu);font-size:16px}
+.pick .tier{font:800 11px Inter,system-ui,sans-serif;letter-spacing:.14em;padding:4px 8px;border-radius:6px;color:#0b0e13}
+.t-lean .tier{background:var(--lean)} .t-solid .tier{background:var(--play)} .t-strong .tier{background:var(--ham)}
+.t-strong{color:var(--ham)} .pick.none{color:#4b535d;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.16em}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:12px 16px 14px;border-top:1px solid var(--line)}
+.chip{font:600 10px Inter,system-ui,sans-serif;letter-spacing:.1em;color:#c9d1d9;border:1px solid var(--line);background:#0f1319;padding:4px 8px;border-radius:6px}
+.chip.hot{color:#ffd58a;border-color:#5a4520;background:#1d1810} .chip.cold{color:#9ecbff;border-color:#1f3a5a;background:#0f1620}
+.foot{color:var(--mu);font-size:11px;margin-top:30px;letter-spacing:.06em}
+.hide{display:none}
+/* HR board */
+.hr{display:grid;grid-template-columns:44px 44px minmax(0,1fr) 92px;align-items:center;gap:12px;padding:12px 16px;border-top:1px solid var(--line)}
+.hr:first-child{border-top:0}
+.rk{font:800 22px "Barlow Condensed";color:var(--mu);text-align:center}
+.hr.top3 .rk{color:var(--ham)}
+.who b{font-size:15px;font-weight:600} .who small{display:block;color:var(--mu);font-size:11px;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bars{display:flex;gap:14px;margin-top:6px;flex-wrap:wrap}
+.bar{font-size:10px;color:var(--mu);letter-spacing:.08em;min-width:84px}
+.bar i{display:block;height:4px;border-radius:9px;background:var(--line);margin-top:3px;position:relative;overflow:hidden}
+.bar i em{position:absolute;inset:0 auto 0 0;background:var(--play);border-radius:9px}
+.bar b{color:var(--tx);font:700 13px "Barlow Condensed"}
+.sc{text-align:right} .sc .big{display:block;font-size:30px;font-weight:800;line-height:1}
+.gr{display:inline-block;margin-top:4px;font:800 9px Inter,system-ui,sans-serif;letter-spacing:.12em;padding:3px 6px;border-radius:5px;color:#0b0e13;background:var(--mu)}
+.gr.ham{background:var(--ham)} .gr.play{background:var(--play)} .gr.lean{background:var(--lean)}
+.board{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.wx{font-size:11px;color:var(--mu);margin-left:6px}
+@media(max-width:560px){.hr{grid-template-columns:30px 36px minmax(0,1fr) 64px;gap:8px}.badge{width:34px;height:34px}.sc .big{font-size:24px}}
+</style></head><body><div class="wrap">
+  <div class="top"><div><div class="k">THE ALGOHUB · HOME RUN MODEL</div><h1>WEDNESDAY, OCTOBER 14</h1></div>
+    <div class="stats"><div><small>GAMES</small><b>1</b></div>
+      <div class="h"><small>ELITE</small><b>4</b></div></div></div>
+  <div class="tabs"><button class="on" data-f="all">TOP 26</button><button data-f="MIL @ LAD">MIL @ LAD</button></div>
+  <div class="board">
+      <div class="hr top3" data-g="MIL @ LAD" data-play="1">
+        <div class="rk">1</div><span class="badge" style="background:#005A9C;color:#fff">LAD</span>
+        <div class="who"><b>Max Muncy</b>
+          <small>3B · vs Robert Gasser (LHP) · MIL @ LAD · 8:00 PM ET<span class="wx">🌡️ 80°F ⬇️ 10mph IN</span></small>
+          <div class="bars"><span class="bar">HR <b>18.2%</b><i><em style="width:52%"></em></i></span><span class="bar">BARREL <b>15.9%</b><i><em style="width:53%"></em></i></span><span class="bar">HARD HIT <b>36.4%</b><i><em style="width:52%"></em></i></span></div></div>
+        <div class="sc"><span class="big">73.7</span><span class="gr ham">ELITE</span></div>
+      </div>
+      <div class="hr top3" data-g="MIL @ LAD" data-play="1">
+        <div class="rk">2</div><span class="badge" style="background:#005A9C;color:#fff">LAD</span>
+        <div class="who"><b>Andy Pages</b>
+          <small>CF · vs Robert Gasser (LHP) · MIL @ LAD · 8:00 PM ET<span class="wx">🌡️ 80°F ⬇️ 10mph IN</span></small>
+          <div class="bars"><span class="bar">HR <b>17.1%</b><i><em style="width:49%"></em></i></span><span class="bar">BARREL <b>11.5%</b><i><em style="width:38%"></em></i></span><span class="bar">HARD HIT <b>46.2%</b><i><em style="width:66%"></em></i></span></div></div>
+        <div class="sc"><span class="big">70.7</span><span class="gr ham">ELITE</span></div>
+      </div>
+      <div class="hr top3" data-g="MIL @ LAD" data-play="1">
+        <div class="rk">3</div><span class="badge" style="background:#005A9C;color:#fff">LAD</span>
+        <div class="who"><b>Enrique Hernández</b>
+          <small>3B · vs Robert Gasser (LHP) · MIL @ LAD · 8:00 PM ET<span class="wx">🌡️ 80°F ⬇️ 10mph IN</span></small>
+          <div class="bars"><span class="bar">HR <b>20.5%</b><i><em style="width:59%"></em></i></span><span class="bar">BARREL <b>16.0%</b><i><em style="width:53%"></em></i></span><span class="bar">HARD HIT <b>32.0%</b><i><em style="width:46%"></em></i></span></div></div>
+        <div class="sc"><span class="big">66.7</span><span class="gr ham">ELITE</span></div>
+      </div>
+      <div class="hr " data-g="MIL @ LAD" data-play="1">
+        <div class="rk">4</div><span class="badge" style="background:#005A9C;color:#fff">LAD</span>
+        <div class="who"><b>Teoscar Hernández</b>
+          <small>LF · vs Robert Gasser (LHP) · MIL @ LAD · 8:00 PM ET<span class="wx">🌡️ 80°F ⬇️ 10mph IN</span></small>
+          <div class="bars"><span class="bar">HR <b>21.5%</b><i><em style="width:61%"></em></i></span><span class="bar">BARREL <b>12.5%</b><i><em style="width:42%"></em></i></span><span class="bar">HARD HIT <b>45.8%</b><i><em style="width:65%"></em></i></span></div></div>
+        <div class="sc"><span class="big">66.2</span><span class="gr ham">ELITE</span></div>
+      </div>
+      <div class="hr " data-g="MIL @ LAD" data-play="1">
+        <div class="rk">5</div><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+        <div class="who"><b>William Contreras</b>
+          <small>C · vs Blake Snell (LHP) · MIL @ LAD · 8:00 PM ET<span class="wx">🌡️ 80°F ⬇️ 10mph IN</span></small>
+          <div class="bars"><span class="bar">HR <b>25.6%</b><i><em style="width:73%"></em></i></span><span class="bar">BARREL <b>13.5%</b><i><em style="width:45%"></em></i></span><span class="bar">HARD HIT <b>46.2%</b><i><em style="width:66%"></em></i></span></div></div>
+        <div class="sc"><span class="big">63.4</span><span class="gr play">STRONG</span></div>
+      </div>
+      <div class="hr " data-g="MIL @ LAD" data-play="1">
+        <div class="rk">6</div><span class="badge" style="background:#005A9C;color:#fff">LAD</span>
+        <div class="who"><b>Miguel Rojas</b>
+          <small>2B · vs Robert Gasser (LHP) · MIL @ LAD · 8:00 PM ET<span class="wx">🌡️ 80°F ⬇️ 10mph IN</span></small>
+          <div class="bars"><span class="bar">HR <b>7.9%</b><i><em style="width:23%"></em></i></span><span class="bar">BARREL <b>8.3%</b><i><em style="width:28%"></em></i></span><span class="bar">HARD HIT <b>50.0%</b><i><em style="width:71%"></em></i></span></div></div>
+        <div class="sc"><span class="big">61.6</span><span class="gr play">STRONG</span></div>
+      </div>
+      <div class="hr " data-g="MIL @ LAD" data-play="1">
+        <div class="rk">7</div><span class="badge" style="background:#005A9C;color:#fff">LAD</span>
+        <div class="who"><b>Will Smith</b>
+          <small>C · vs Robert Gasser (LHP) · MIL @ LAD · 8:00 PM ET<span class="wx">🌡️ 80°F ⬇️ 10mph IN</span></small>
+          <div class="bars"><span class="bar">HR <b>20.5%</b><i><em style="width:59%"></em></i></span><span class="bar">BARREL <b>15.0%</b><i><em style="width:50%"></em></i></span><span class="bar">HARD HIT <b>42.5%</b><i><em style="width:61%"></em></i></span></div></div>
+        <div class="sc"><span class="big">59.0</span><span class="gr play">STRONG</span></div>
+      </div>
+      <div class="hr " data-g="MIL @ LAD" data-play="1">
+        <div class="rk">8</div><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+        <div class="who"><b>Jackson Chourio</b>
+          <small>LF · vs Blake Snell (LHP) · MIL @ LAD · 8:00 PM ET<span class="wx">🌡️ 80°F ⬇️ 10mph IN</span></small>
+          <div class="bars"><span class="bar">HR <b>17.1%</b><i><em style="width:49%"></em></i></span><span class="bar">BARREL <b>13.2%</b><i><em style="width:44%"></em></i></span><span class="bar">HARD HIT <b>47.2%</b><i><em style="width:67%"></em></i></span></div></div>
+        <div class="sc"><span class="big">58.7</span><span class="gr play">STRONG</span></div>
+      </div>
+      <div class="hr " data-g="MIL @ LAD" data-play="1">
+        <div class="rk">9</div><span class="badge" style="background:#005A9C;color:#fff">LAD</span>
+        <div class="who"><b>Mookie Betts</b>
+          <small>SS · vs Robert Gasser (LHP) · MIL @ LAD · 8:00 PM ET<span class="wx">🌡️ 80°F ⬇️ 10mph IN</span></small>
+          <div class="bars"><span class="bar">HR <b>17.1%</b><i><em style="width:49%"></em></i></span><span class="bar">BARREL <b>13.6%</b><i><em style="width:45%"></em></i></span><span class="bar">HARD HIT <b>37.3%</b><i><em style="width:53%"></em></i></span></div></div>
+        <div class="sc"><span class="big">55.1</span><span class="gr play">STRONG</span></div>
+      </div>
+      <div class="hr " data-g="MIL @ LAD" data-play="1">
+        <div class="rk">10</div><span class="badge" style="background:#005A9C;color:#fff">LAD</span>
+        <div class="who"><b>Freddie Freeman</b>
+          <small>1B · vs Robert Gasser (LHP) · MIL @ LAD · 8:00 PM ET<span class="wx">🌡️ 80°F ⬇️ 10mph IN</span></small>
+          <div class="bars"><span class="bar">HR <b>9.6%</b><i><em style="width:27%"></em></i></span><span class="bar">BARREL <b>20.8%</b><i><em style="width:69%"></em></i></span><span class="bar">HARD HIT <b>52.8%</b><i><em style="width:75%"></em></i></span></div></div>
+        <div class="sc"><span class="big">54.7</span><span class="gr play">STRONG</span></div>
+      </div>
+      <div class="hr " data-g="MIL @ LAD" data-play="1">
+        <div class="rk">11</div><span class="badge" style="background:#005A9C;color:#fff">LAD</span>
+        <div class="who"><b>Kyle Tucker</b>
+          <small>RF · vs Robert Gasser (LHP) · MIL @ LAD · 8:00 PM ET<span class="wx">🌡️ 80°F ⬇️ 10mph IN</span></small>
+          <div class="bars"><span class="bar">HR <b>17.2%</b><i><em style="width:49%"></em></i></span><span class="bar">BARREL <b>12.7%</b><i><em style="width:42%"></em></i></span><span class="bar">HARD HIT <b>29.1%</b><i><em style="width:42%"></em></i></span></div></div>
+        <div class="sc"><span class="big">52.4</span><span class="gr play">STRONG</span></div>
+      </div>
+      <div class="hr " data-g="MIL @ LAD" data-play="1">
+        <div class="rk">12</div><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+        <div class="who"><b>Brice Turang</b>
+          <small>2B · vs Blake Snell (LHP) · MIL @ LAD · 8:00 PM ET<span class="wx">🌡️ 80°F ⬇️ 10mph IN</span></small>
+          <div class="bars"><span class="bar">HR <b>14.4%</b><i><em style="width:41%"></em></i></span><span class="bar">BARREL <b>15.9%</b><i><em style="width:53%"></em></i></span><span class="bar">HARD HIT <b>43.2%</b><i><em style="width:62%"></em></i></span></div></div>
+        <div class="sc"><span class="big">44.6</span><span class="gr ">MODERATE</span></div>
+      </div>
+      <div class="hr " data-g="MIL @ LAD" data-play="1">
+        <div class="rk">13</div><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+        <div class="who"><b>Christian Yelich</b>
+          <small>DH · vs Blake Snell (LHP) · MIL @ LAD · 8:00 PM ET<span class="wx">🌡️ 80°F ⬇️ 10mph IN</span></small>
+          <div class="bars"><span class="bar">HR <b>5.8%</b><i><em style="width:17%"></em></i></span><span class="bar">BARREL <b>8.3%</b><i><em style="width:28%"></em></i></span><span class="bar">HARD HIT <b>41.7%</b><i><em style="width:60%"></em></i></span></div></div>
+        <div class="sc"><span class="big">39.8</span><span class="gr ">MODERATE</span></div>
+      </div>
+      <div class="hr " data-g="MIL @ LAD" data-play="1">
+        <div class="rk">14</div><span class="badge" style="background:#005A9C;color:#fff">LAD</span>
+        <div class="who"><b>Shohei Ohtani</b>
+          <small>TWP · vs Robert Gasser (LHP) · MIL @ LAD · 8:00 PM ET<span class="wx">🌡️ 80°F ⬇️ 10mph IN</span></small>
+          <div class="bars"><span class="bar">HR <b>0.0%</b><i><em style="width:0%"></em></i></span><span class="bar">BARREL <b>19.2%</b><i><em style="width:64%"></em></i></span><span class="bar">HARD HIT <b>53.8%</b><i><em style="width:77%"></em></i></span></div></div>
+        <div class="sc"><span class="big">32.7</span><span class="gr ">FADE</span></div>
+      </div>
+      <div class="hr " data-g="MIL @ LAD" data-play="1">
+        <div class="rk">15</div><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+        <div class="who"><b>Gary Sánchez</b>
+          <small>C · vs Blake Snell (LHP) · MIL @ LAD · 8:00 PM ET<span class="wx">🌡️ 80°F ⬇️ 10mph IN</span></small>
+          <div class="bars"><span class="bar">HR <b>17.1%</b><i><em style="width:49%"></em></i></span><span class="bar">BARREL <b>9.1%</b><i><em style="width:30%"></em></i></span><span class="bar">HARD HIT <b>27.3%</b><i><em style="width:39%"></em></i></span></div></div>
+        <div class="sc"><span class="big">27.0</span><span class="gr ">FADE</span></div>
+      </div>
+      <div class="hr " data-g="MIL @ LAD" data-play="1">
+        <div class="rk">16</div><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+        <div class="who"><b>David Hamilton</b>
+          <small>3B · vs Blake Snell (LHP) · MIL @ LAD · 8:00 PM ET<span class="wx">🌡️ 80°F ⬇️ 10mph IN</span></small>
+          <div class="bars"><span class="bar">HR <b>0.0%</b><i><em style="width:0%"></em></i></span><span class="bar">BARREL <b>13.0%</b><i><em style="width:43%"></em></i></span><span class="bar">HARD HIT <b>21.7%</b><i><em style="width:31%"></em></i></span></div></div>
+        <div class="sc"><span class="big">25.6</span><span class="gr ">FADE</span></div>
+      </div>
+      <div class="hr " data-g="MIL @ LAD" data-play="1">
+        <div class="rk">17</div><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+        <div class="who"><b>Jake Bauers</b>
+          <small>1B · vs Blake Snell (LHP) · MIL @ LAD · 8:00 PM ET<span class="wx">🌡️ 80°F ⬇️ 10mph IN</span></small>
+          <div class="bars"><span class="bar">HR <b>0.0%</b><i><em style="width:0%"></em></i></span><span class="bar">BARREL <b>14.8%</b><i><em style="width:49%"></em></i></span><span class="bar">HARD HIT <b>37.0%</b><i><em style="width:53%"></em></i></span></div></div>
+        <div class="sc"><span class="big">25.6</span><span class="gr ">FADE</span></div>
+      </div>
+      <div class="hr " data-g="MIL @ LAD" data-play="1">
+        <div class="rk">18</div><span class="badge" style="background:#005A9C;color:#fff">LAD</span>
+        <div class="who"><b>Josue De Paula</b>
+          <small>DH · vs Robert Gasser (LHP) · MIL @ LAD · 8:00 PM ET<span class="wx">🌡️ 80°F ⬇️ 10mph IN</span></small>
+          <div class="bars"><span class="bar">HR <b>0.0%</b><i><em style="width:0%"></em></i></span><span class="bar">BARREL <b>10.0%</b><i><em style="width:33%"></em></i></span><span class="bar">HARD HIT <b>40.0%</b><i><em style="width:57%"></em></i></span></div></div>
+        <div class="sc"><span class="big">24.3</span><span class="gr ">FADE</span></div>
+      </div>
+      <div class="hr " data-g="MIL @ LAD" data-play="1">
+        <div class="rk">19</div><span class="badge" style="background:#005A9C;color:#fff">LAD</span>
+        <div class="who"><b>Tommy Edman</b>
+          <small>2B · vs Robert Gasser (LHP) · MIL @ LAD · 8:00 PM ET<span class="wx">🌡️ 80°F ⬇️ 10mph IN</span></small>
+          <div class="bars"><span class="bar">HR <b>11.5%</b><i><em style="width:33%"></em></i></span><span class="bar">BARREL <b>9.1%</b><i><em style="width:30%"></em></i></span><span class="bar">HARD HIT <b>18.2%</b><i><em style="width:26%"></em></i></span></div></div>
+        <div class="sc"><span class="big">24.2</span><span class="gr ">FADE</span></div>
+      </div>
+      <div class="hr " data-g="MIL @ LAD" data-play="1">
+        <div class="rk">20</div><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+        <div class="who"><b>Andrew Vaughn</b>
+          <small>1B · vs Blake Snell (LHP) · MIL @ LAD · 8:00 PM ET<span class="wx">🌡️ 80°F ⬇️ 10mph IN</span></small>
+          <div class="bars"><span class="bar">HR <b>0.0%</b><i><em style="width:0%"></em></i></span><span class="bar">BARREL <b>8.3%</b><i><em style="width:28%"></em></i></span><span class="bar">HARD HIT <b>41.7%</b><i><em style="width:60%"></em></i></span></div></div>
+        <div class="sc"><span class="big">24.2</span><span class="gr ">FADE</span></div>
+      </div>
+      <div class="hr " data-g="MIL @ LAD" data-play="1">
+        <div class="rk">21</div><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+        <div class="who"><b>Joey Ortiz</b>
+          <small>SS · vs Blake Snell (LHP) · MIL @ LAD · 8:00 PM ET<span class="wx">🌡️ 80°F ⬇️ 10mph IN</span></small>
+          <div class="bars"><span class="bar">HR <b>0.0%</b><i><em style="width:0%"></em></i></span><span class="bar">BARREL <b>6.5%</b><i><em style="width:22%"></em></i></span><span class="bar">HARD HIT <b>41.9%</b><i><em style="width:60%"></em></i></span></div></div>
+        <div class="sc"><span class="big">20.7</span><span class="gr ">FADE</span></div>
+      </div>
+      <div class="hr " data-g="MIL @ LAD" data-play="1">
+        <div class="rk">22</div><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+        <div class="who"><b>Luis Lara</b>
+          <small>RF · vs Blake Snell (LHP) · MIL @ LAD · 8:00 PM ET<span class="wx">🌡️ 80°F ⬇️ 10mph IN</span></small>
+          <div class="bars"><span class="bar">HR <b>0.0%</b><i><em style="width:0%"></em></i></span><span class="bar">BARREL <b>6.5%</b><i><em style="width:22%"></em></i></span><span class="bar">HARD HIT <b>35.5%</b><i><em style="width:51%"></em></i></span></div></div>
+        <div class="sc"><span class="big">15.3</span><span class="gr ">FADE</span></div>
+      </div>
+      <div class="hr " data-g="MIL @ LAD" data-play="1">
+        <div class="rk">23</div><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+        <div class="who"><b>Cooper Pratt</b>
+          <small>SS · vs Blake Snell (LHP) · MIL @ LAD · 8:00 PM ET<span class="wx">🌡️ 80°F ⬇️ 10mph IN</span></small>
+          <div class="bars"><span class="bar">HR <b>0.0%</b><i><em style="width:0%"></em></i></span><span class="bar">BARREL <b>2.4%</b><i><em style="width:8%"></em></i></span><span class="bar">HARD HIT <b>31.0%</b><i><em style="width:44%"></em></i></span></div></div>
+        <div class="sc"><span class="big">13.5</span><span class="gr ">FADE</span></div>
+      </div>
+      <div class="hr " data-g="MIL @ LAD" data-play="1">
+        <div class="rk">24</div><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+        <div class="who"><b>Sal Frelick</b>
+          <small>RF · vs Blake Snell (LHP) · MIL @ LAD · 8:00 PM ET<span class="wx">🌡️ 80°F ⬇️ 10mph IN</span></small>
+          <div class="bars"><span class="bar">HR <b>0.0%</b><i><em style="width:0%"></em></i></span><span class="bar">BARREL <b>6.5%</b><i><em style="width:22%"></em></i></span><span class="bar">HARD HIT <b>16.1%</b><i><em style="width:23%"></em></i></span></div></div>
+        <div class="sc"><span class="big">13.4</span><span class="gr ">FADE</span></div>
+      </div>
+      <div class="hr " data-g="MIL @ LAD" data-play="1">
+        <div class="rk">25</div><span class="badge" style="background:#005A9C;color:#fff">LAD</span>
+        <div class="who"><b>Hunter Feduccia</b>
+          <small>C · vs Robert Gasser (LHP) · MIL @ LAD · 8:00 PM ET<span class="wx">🌡️ 80°F ⬇️ 10mph IN</span></small>
+          <div class="bars"><span class="bar">HR <b>0.0%</b><i><em style="width:0%"></em></i></span><span class="bar">BARREL <b>0.0%</b><i><em style="width:0%"></em></i></span><span class="bar">HARD HIT <b>30.8%</b><i><em style="width:44%"></em></i></span></div></div>
+        <div class="sc"><span class="big">12.3</span><span class="gr ">FADE</span></div>
+      </div>
+      <div class="hr " data-g="MIL @ LAD" data-play="1">
+        <div class="rk">26</div><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+        <div class="who"><b>Garrett Mitchell</b>
+          <small>CF · vs Blake Snell (LHP) · MIL @ LAD · 8:00 PM ET<span class="wx">🌡️ 80°F ⬇️ 10mph IN</span></small>
+          <div class="bars"><span class="bar">HR <b>0.0%</b><i><em style="width:0%"></em></i></span><span class="bar">BARREL <b>5.7%</b><i><em style="width:19%"></em></i></span><span class="bar">HARD HIT <b>45.7%</b><i><em style="width:65%"></em></i></span></div></div>
+        <div class="sc"><span class="big">9.1</span><span class="gr ">FADE</span></div>
+      </div></div>
+  <p class="foot">HIT score blends barrel %, hard-hit %, xwOBA, launch angle, pitch-type matchup, platoon, park and weather. HR % = projected chance to homer. Not betting advice.</p>
+</div><script>
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
+  const f=b.dataset.f;
+  document.querySelectorAll('[data-g]').forEach(c=>c.classList.toggle('hide',
+    f==='plays'?c.dataset.play!=='1':(f!=='all'&&c.dataset.g!==f)));
+});
+</script></body></html>
