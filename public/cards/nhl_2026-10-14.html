@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AlgoHub NHL 2026-10-14</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0e13;--card:#12161d;--card2:#171c25;--line:#222a35;--tx:#e6edf3;--mu:#7d8590;
+--lean:#58a6ff;--play:#3fb950;--ham:#f2b134;--neg:#f85149}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-serif;padding:28px 16px 60px}
+.wrap{max-width:1180px;margin:0 auto}
+.proj,.cols span,.top h1,.stats b,.wplab,.pick,.frow i{font-family:"Barlow Condensed",sans-serif}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:18px}
+.top .k{color:var(--mu);font-size:12px;letter-spacing:.18em;font-weight:600}
+.top h1{font-size:44px;font-weight:800;letter-spacing:.02em;line-height:1}
+.stats{display:flex;gap:22px} .stats div{text-align:right} .stats small{display:block;color:var(--mu);font-size:11px;letter-spacing:.14em}
+.stats b{font-size:30px} .stats .h b{color:var(--ham)} .stats .p b{color:var(--play)}
+.tabs{display:flex;gap:6px;margin:18px 0 18px;flex-wrap:wrap}
+.tabs button{background:transparent;border:1px solid var(--line);color:var(--mu);padding:7px 14px;border-radius:999px;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.08em;cursor:pointer}
+.tabs button.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;border-top:3px solid var(--line)}
+.card.b-lean{border-top-color:var(--lean)} .card.b-play{border-top-color:var(--play)}
+.card.b-hammer{border-top-color:var(--ham);box-shadow:0 0 0 1px rgba(242,177,52,.25),0 8px 30px rgba(242,177,52,.08)}
+.meta{display:flex;justify-content:space-between;gap:10px;padding:11px 16px;color:var(--mu);font-size:11px;letter-spacing:.08em;border-bottom:1px solid var(--line)}
+.meta span:last-child{text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.team{display:flex;align-items:center;gap:12px;padding:10px 16px}
+.badge{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font:800 13px "Barlow Condensed";letter-spacing:.04em;flex:none}
+.tname{flex:1;min-width:0} .tname b{display:block;font-size:16px;font-weight:600} .tname small{color:var(--mu);font-size:12px}
+.proj{font-size:32px;font-weight:700;color:var(--mu)} .team.fav .proj{color:var(--tx)}
+.wp{padding:6px 16px 14px} .wplab{display:flex;justify-content:space-between;font-size:15px;font-weight:700;margin-bottom:6px}
+.wplab .cap{color:var(--mu);font:600 10px Inter,system-ui,sans-serif;letter-spacing:.16em;align-self:center}
+.wpbar{display:flex;height:8px;border-radius:99px;overflow:hidden;gap:2px;background:var(--line)} .wpbar i{display:block;height:100%}
+.mkt{border-top:1px solid var(--line);padding:12px 16px;background:var(--card2)}
+.mlabel{color:var(--mu);font:600 10px Inter,system-ui,sans-serif;letter-spacing:.18em;margin-bottom:8px} .mlabel em{font-style:normal;letter-spacing:.04em;opacity:.7}
+.cols{display:grid;grid-template-columns:1.3fr 1.3fr .7fr;gap:8px} .cols small{display:block;color:var(--mu);font-size:10px;letter-spacing:.14em}
+.cols span{font-size:17px;font-weight:700} .edge span{color:var(--mu)} .edge.hot span{color:var(--tx);font-size:24px}
+.pick{margin-top:10px;display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700;letter-spacing:.02em}
+.pick small{color:var(--mu);font-size:16px}
+.pick .tier{font:800 11px Inter,system-ui,sans-serif;letter-spacing:.14em;padding:4px 8px;border-radius:6px;color:#0b0e13}
+.t-lean .tier{background:var(--lean)} .t-play .tier{background:var(--play)} .t-hammer .tier{background:var(--ham)}
+.t-hammer{color:var(--ham)} .pick.none{color:#4b535d;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.16em}
+.strip{border-top:1px solid var(--line);padding:12px 16px}
+.frow{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:11px;color:var(--mu);letter-spacing:.06em;padding:3px 0;align-items:baseline}
+.frow b{color:var(--tx);width:36px;font-size:12px} .frow i{font-style:normal;color:var(--tx);font-size:14px;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 14px}
+.chip{font:600 10px Inter,system-ui,sans-serif;letter-spacing:.1em;color:#c9d1d9;border:1px solid var(--line);background:#0f1319;padding:4px 8px;border-radius:6px}
+.chip.inj{color:#ffb4ab;border-color:#5a2a27;background:#1d1212}
+.foot{color:var(--mu);font-size:11px;margin-top:30px;letter-spacing:.06em}
+.hide{display:none}
+</style></head><body><div class="wrap">
+  <div class="top">
+    <div><div class="k">THE ALGOHUB · NHL GAME ALGO</div><h1>WEDNESDAY, OCTOBER 14</h1></div>
+    <div class="stats">
+      <div><small>GAMES</small><b>2</b></div>
+      <div class="p"><small>PLAYS</small><b>2</b></div>
+      <div class="h"><small>HAMMERS</small><b>0</b></div>
+    </div>
+  </div>
+  <div class="tabs"><button class="on" data-f="all">ALL</button><button data-f="plays">PLAYS ONLY</button></div>
+  <div class="grid">
+    <article class="card b-lean" data-play="1" data-rank="1">
+      <header class="meta"><span>7:30 PM ET</span><span>Capital One Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#AF1E2D;color:#fff">MTL</span>
+        <div class="tname"><b>Canadiens</b><small>3-2-1 · B2B</small></div>
+        <div class="proj">3.1</div>
+      </div>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#C8102E;color:#fff">WSH</span>
+        <div class="tname"><b>Capitals</b><small>3-3-0 · B2B</small></div>
+        <div class="proj">3.1</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>MTL 49%</span><span class="cap">WIN PROB · OT 22%</span><span>WSH 51%</span></div>
+        <div class="wpbar"><i style="width:49.2%;background:#AF1E2D"></i><i style="width:50.8%;background:#C8102E"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MONEYLINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>MTL -100<br>WSH -120</span></div>
+          <div><small>MODEL</small><span>MTL +103<br>WSH -103</span></div>
+          <div class="edge "><small>EDGE %</small><span>+0.9</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">PUCK LINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>WSH -1.5</span></div>
+          <div><small>MODEL</small><span>WSH -1.5 29%</span></div>
+          <div class="edge "><small>EDGE %</small><span>+2.1</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>6.5</span></div>
+          <div><small>MODEL</small><span>6.29</span></div>
+          <div class="edge hot"><small>EDGE %</small><span>+4.1</span></div>
+        </div>
+        <div class="pick t-lean"><span class="tier">LEAN</span>UNDER 6.5 <small>-102</small></div>
+      </div>
+      <div class="strip"><div class="mlabel">FORM <em>(per game, shrunk to last season early on)</em></div>
+          <div class="frow"><b>MTL</b>
+            <span>GF <i>3.15</i></span><span>GA <i>3.27</i></span>
+            <span>SF <i>27.4</i></span><span>SA <i>27.1</i></span>
+            <span>PP <i>20%</i></span><span>PK <i>80%</i></span>
+            <span>SV <i>0.884</i></span></div>
+          <div class="frow"><b>WSH</b>
+            <span>GF <i>3.16</i></span><span>GA <i>2.97</i></span>
+            <span>SF <i>27.4</i></span><span>SA <i>28.7</i></span>
+            <span>PP <i>16%</i></span><span>PK <i>81%</i></span>
+            <span>SV <i>0.895</i></span></div></div>
+      <div class="chips"><span class="chip inj">MTL B2B</span><span class="chip inj">WSH B2B</span></div>
+    </article>
+    <article class="card b-lean" data-play="1" data-rank="1">
+      <header class="meta"><span>8:30 PM ET</span><span>Ball Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#006847;color:#fff">DAL</span>
+        <div class="tname"><b>Stars</b><small>2-3-1 · B2B</small></div>
+        <div class="proj">2.7</div>
+      </div>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#6F263D;color:#fff">COL</span>
+        <div class="tname"><b>Avalanche</b><small>4-2-0 · B2B</small></div>
+        <div class="proj">3.1</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>DAL 44%</span><span class="cap">WIN PROB · OT 23%</span><span>COL 56%</span></div>
+        <div class="wpbar"><i style="width:43.8%;background:#006847"></i><i style="width:56.2%;background:#6F263D"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MONEYLINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>DAL +132<br>COL -155</span></div>
+          <div><small>MODEL</small><span>DAL +128<br>COL -128</span></div>
+          <div class="edge "><small>EDGE %</small><span>+1.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">PUCK LINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>COL -1.5</span></div>
+          <div><small>MODEL</small><span>COL -1.5 33%</span></div>
+          <div class="edge "><small>EDGE %</small><span>+2.3</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>6</span></div>
+          <div><small>MODEL</small><span>5.79</span></div>
+          <div class="edge hot"><small>EDGE %</small><span>+5.5</span></div>
+        </div>
+        <div class="pick t-lean"><span class="tier">LEAN</span>UNDER 6 <small>-104</small></div>
+      </div>
+      <div class="strip"><div class="mlabel">FORM <em>(per game, shrunk to last season early on)</em></div>
+          <div class="frow"><b>DAL</b>
+            <span>GF <i>2.89</i></span><span>GA <i>2.44</i></span>
+            <span>SF <i>25.6</i></span><span>SA <i>24.9</i></span>
+            <span>PP <i>25%</i></span><span>PK <i>82%</i></span>
+            <span>SV <i>0.900</i></span></div>
+          <div class="frow"><b>COL</b>
+            <span>GF <i>3.92</i></span><span>GA <i>2.79</i></span>
+            <span>SF <i>31.6</i></span><span>SA <i>26.2</i></span>
+            <span>PP <i>17%</i></span><span>PK <i>81%</i></span>
+            <span>SV <i>0.897</i></span></div></div>
+      <div class="chips"><span class="chip inj">DAL B2B</span><span class="chip inj">COL B2B</span></div>
+    </article></div>
+  <p class="foot">Poisson goal model on in-season team form, shrunk toward last season. Edges = win-prob points vs. no-vig consensus. LEAN / PLAY / HAMMER tiers. Not betting advice.</p>
+</div>
+<script>
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
+  const f=b.dataset.f;
+  document.querySelectorAll('.card').forEach(c=>c.classList.toggle('hide',f==='plays'&&c.dataset.play!=='1'));
+});
+</script></body></html>
