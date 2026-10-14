@@ -167,25 +167,19 @@ h3.sub{font:800 24px "Big Shoulders Display",sans-serif;margin:22px 0 10px}
 <header class="ah-hero">
   <a href="/" class="ah-mark" aria-label="The AlgoHub home"><span>The</span>AlgoHub</a>
   <div class="ah-today"><b>Wednesday, October 14</b>
-    <span>3 plays on the board across 2 sports</span></div>
+    <span>2 plays on the board across 2 sports</span></div>
 </header><section class="ah-board" aria-label="Top plays today">
   <div class="ah-slip s-low" data-sport="NHL" data-pick="UNDER 6" data-game="DAL at COL">
     <div class="ah-slip-top"><span class="ah-sport">NHL</span><span class="ah-tier">Lean</span></div>
     <div class="ah-pick">UNDER 6<span>-104</span></div>
     <div class="ah-sub">DAL at COL, 8:30 PM</div>
-    <div class="ah-stat"><em>+5.5</em><small>% edge</small></div>
+    <div class="ah-stat"><em>+5.3</em><small>% edge</small></div>
   </div>
   <div class="ah-slip s-mid" data-sport="CFB" data-pick="Missouri State +3" data-game="Kennesaw State at Missouri State">
     <div class="ah-slip-top"><span class="ah-sport">CFB</span><span class="ah-tier">Edge</span></div>
     <div class="ah-pick">Missouri State +3<span>-110</span></div>
     <div class="ah-sub">Kennesaw State at Missouri State</div>
     <div class="ah-stat"><em>+4.6</em><small>pts edge</small></div>
-  </div>
-  <div class="ah-slip s-low" data-sport="NHL" data-pick="UNDER 6.5" data-game="MTL at WSH">
-    <div class="ah-slip-top"><span class="ah-sport">NHL</span><span class="ah-tier">Lean</span></div>
-    <div class="ah-pick">UNDER 6.5<span>-102</span></div>
-    <div class="ah-sub">MTL at WSH, 7:30 PM</div>
-    <div class="ah-stat"><em>+4.1</em><small>% edge</small></div>
   </div></section>
 <nav class="sports" aria-label="Sports"><a href="/nfl/" class="">NFL</a><a href="/cfb/" class="live">CFB</a><a href="/nhl/" class="live">NHL</a><a href="/mlb/" class="">MLB</a><a href="/hr/" class="">Home Runs</a><a href="/cbb/" class="" aria-current=page>CBB</a><a href="/nba/" class="">NBA</a></nav>
 <main><p class="note">College basketball picks start on opening day in early November.</p></main>
@@ -201,7 +195,7 @@ document.querySelectorAll('.panes button').forEach(b=>b.onclick=()=>{
 const h=location.hash.slice(1); const hb=h&&document.querySelector('.panes button[data-p="'+h+'"]'); if(hb) hb.click();
 </script><script>
 (function(){
-const PICKS=[{"sport": "CFB", "pick": "Missouri State +3", "game": "Kennesaw State at Missouri State"}, {"sport": "NHL", "pick": "UNDER 6.5", "game": "MTL at WSH"}, {"sport": "NHL", "pick": "UNDER 6", "game": "DAL at COL"}], SP={"CFB": ["football/college-football", "&groups=80"], "NHL": ["hockey/nhl", ""]};
+const PICKS=[{"sport": "CFB", "pick": "Missouri State +3", "game": "Kennesaw State at Missouri State"}, {"sport": "NHL", "pick": "UNDER 6", "game": "DAL at COL"}], SP={"CFB": ["football/college-football", "&groups=80"], "NHL": ["hockey/nhl", ""]};
 const ALIAS={NHL:{TBL:'TB',NJD:'NJ',SJS:'SJ',LAK:'LA',UTA:'UTAH'},MLB:{CWS:'CHW',TBR:'TB',KCR:'KC',SDP:'SD',SFG:'SF',WSN:'WSH'},NFL:{LA:'LAR',WAS:'WSH'}};
 const norm=s=>(s||'').toLowerCase().replace(/&/g,'and').replace(/\bstate\b/g,'st').replace(/\bsaint\b/g,'st').replace(/[^a-z0-9]/g,'');
 const keys=t=>[t.abbreviation,t.displayName,t.shortDisplayName,t.location,t.nickname,(t.location||'')+' '+(t.name||'')].filter(Boolean).map(norm);
