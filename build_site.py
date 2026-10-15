@@ -214,7 +214,54 @@ def nfl(f):
     else:
         rec = note("Nothing graded yet.")
     return [("Cards", '<p class="hint">Tap Player Props on any game to open its props.</p>' + cards_frame(card_rel, f"NFL week {week}")),
-            ("Best bets", best), ("Posts", posts), ("Record", rec)]
+            ("Best bets", best), ("Matchups", nfl_matchups_html(season, week)), ("Posts", posts), ("Record", rec)]
+
+
+# ---- NFL matchups: what each defense allows to WR1/WR2/TE1/RB1..., ranked 1-32 (made by nfl_matchups.py)
+MU_STATS = [("tgt", "Tgt"), ("rec", "Rec"), ("rec_yds", "Rec yds"), ("rush_yds", "Rush yds"), ("td", "TD"), ("ppr", "PPR")]
+
+
+def _mu_cell(val, rk, show_rank=False):
+    """Cell shaded by rank: 1 = defense gives up the most (green), 32 = shuts it down (red)."""
+    if rk is None or (isinstance(rk, float) and math.isnan(rk)):
+        return f"<td>{val:.1f}</td>"
+    t = (float(rk) - 1) / 31
+    bg = (f"rgba(63,185,80,{0.5 * (1 - t / .5):.2f})" if t <= .5 else f"rgba(248,81,73,{0.5 * ((t - .5) / .5):.2f})")
+    txt = f"{val:.1f}" + (f' <small class="rk">{int(rk)}</small>' if show_rank else "")
+    return f'<td style="background:{bg}" title="Rank {int(rk)} of 32">{txt}</td>'
+
+
+def nfl_matchups_html(season, week):
+    f = DATA / "nfl_matchups" / f"{season}_wk{week:02d}.json"
+    if not f.exists():
+        return note("Matchups for this week aren't built yet. Run update_site.bat.")
+    d = json.loads(f.read_text(encoding="utf-8"))
+    head = "".join(f"<th>{lab}</th>" for _, lab in MU_STATS)
+    out = ['<p class="hint">What each defense allows per game to the role, ranked 1-32 (1 = gives up the most). '
+           '<span class="mu-key g">soft matchup</span> <span class="mu-key r">tough matchup</span> '
+           'Player rows are his season per-game line, shaded by what this defense allows to his role. Tap a game to open it.</p>']
+    for i, g in enumerate(d["games"]):
+        sides = []
+        for s in g["sides"]:
+            al = "".join(f'<tr><td><b>{e(a["group"])}</b></td>'
+                         + "".join(_mu_cell(a[k], a.get(f"{k}_rk"), True) for k, _ in MU_STATS) + "</tr>"
+                         for a in s["allowed"])
+            pl = "".join(f'<tr><td class="mu-role">{e(p["role"])}</td><td>{e(p["player"])}'
+                         + (f' <span class="mu-tag">{e(p["tag"])}</span>' if p["tag"] else "")
+                         + f'</td><td>{p["gp"]}</td>'
+                         + "".join(_mu_cell(p[k], p.get(f"{k}_rk")) for k, _ in MU_STATS) + "</tr>"
+                         for p in s["players"])
+            sides.append(
+                f'<h4 class="mu-h">{e(s["offense"])} offense vs {e(s["defense"])} defense</h4>'
+                f'<p class="hint">{e(s["defense"])} allows per game ({s["def_gp"]} GP), rank in small print</p>'
+                f'<div class="tbl"><table><thead><tr><th>Vs</th>{head}</tr></thead><tbody>{al}</tbody></table></div>'
+                f'<p class="hint">{e(s["offense"])} players, season per game</p>'
+                f'<div class="tbl"><table><thead><tr><th>Role</th><th>Player</th><th>GP</th>{head}</tr></thead>'
+                f'<tbody>{pl}</tbody></table></div>')
+        when = " ".join(x for x in (str(g.get("day") or ""), str(g.get("time") or "")) if x)
+        out.append(f'<details class="mu"{" open" if i == 0 else ""}><summary><b>{e(g["matchup"])}</b>'
+                   f'<span>{e(when)}</span></summary>{"".join(sides)}</details>')
+    return "".join(out)
 
 
 def cfb(f):
@@ -445,6 +492,13 @@ h3.sub{font:800 24px "Big Shoulders Display",sans-serif;margin:22px 0 10px}
 .post img{width:100%;display:block}
 .btn{display:block;text-align:center;padding:10px;font-weight:600;text-decoration:none;color:var(--ink);background:var(--amber)}
 .ah-hero a{text-decoration:none}
+details.mu{background:var(--panel);border:1px solid var(--rule);border-radius:12px;margin-bottom:10px;padding:0 14px}
+details.mu summary{cursor:pointer;padding:12px 0;display:flex;justify-content:space-between;gap:10px;font-size:16px}
+details.mu summary span{color:var(--dim);font-size:13px} details.mu[open] summary{border-bottom:1px solid var(--rule);margin-bottom:6px}
+details.mu .tbl{background:var(--ink)} h4.mu-h{font:800 20px "Big Shoulders Display",sans-serif;margin:14px 0 2px}
+.mu-role{font-weight:700;color:var(--dim)} .mu-tag{font-size:11px;font-weight:700;color:var(--ink);background:var(--dim);border-radius:4px;padding:1px 5px}
+td small.rk{color:var(--dim);font-size:11px;margin-left:3px}
+.mu-key{font-size:12px;font-weight:600;padding:1px 6px;border-radius:4px} .mu-key.g{background:rgba(63,185,80,.45)} .mu-key.r{background:rgba(248,81,73,.45)}
 @media (prefers-reduced-motion:reduce){.sports a.live::after{animation:none}}
 </style>"""
 

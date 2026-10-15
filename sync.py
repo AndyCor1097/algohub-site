@@ -77,6 +77,11 @@ def main():
             shutil.copy2(src, dest)
             print(f"  copied     {src.parent.name}/{src.name}")
     print("Done. Site data is up to date.")
+    try:                                         # NFL matchups (defense vs WR1/TE1/RB1...)
+        import nfl_matchups
+        nfl_matchups.main()
+    except Exception as ex:
+        print(f"  ! matchups skipped: {ex}")
     try:                                         # rebuild the real website in public/
         import build_site
         build_site.build()
