@@ -167,6 +167,27 @@ td small.rk{color:var(--dim);font-size:11px;margin-left:3px}
 .ah-live.down{background:rgba(248,81,73,.12);border-color:rgba(248,81,73,.45);color:#ffa198}
 @media (prefers-reduced-motion:reduce){.tk-track{animation:none}.tk-view{overflow-x:auto;mask-image:none}.tk-live i{animation:none}}
 @media (max-width:640px){.tk-g{padding:7px 14px}.tk-live{padding:0 10px}}
+</style>
+<style>
+.st{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(11,14,19,.94);backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);border-top:1px solid var(--rule);overflow:hidden}
+.st[hidden]{display:none}
+.st-row{display:flex;align-items:stretch}
+.st-tag{flex:none;display:flex;align-items:center;gap:7px;padding:0 14px;font:800 15px "Big Shoulders Display",sans-serif;
+  color:var(--ink);background:var(--turf);letter-spacing:.04em}
+.st-view{flex:1;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent)}
+.st-track{display:flex;width:max-content;animation:sts var(--dur,70s) linear infinite}
+.st:hover .st-track,.st:focus-within .st-track{animation-play-state:paused}
+@keyframes sts{to{transform:translateX(-50%)}}
+.st-g{display:flex;align-items:center;gap:9px;padding:8px 18px;border-right:1px solid var(--rule);white-space:nowrap;font-size:13px}
+.st-sp{font:700 11px Archivo,sans-serif;color:var(--dim)}
+.st-amt{font:800 18px "Big Shoulders Display",sans-serif;color:#7ee787}
+.st-amt.hot{color:var(--amber)}
+.st-side{font-weight:700;color:var(--chalk)}
+.st-mu,.st-ago{color:var(--dim);font-size:12px}
+body{padding-bottom:46px}
+@media (prefers-reduced-motion:reduce){.st-track{animation:none}.st-view{overflow-x:auto;mask-image:none}}
+@media (max-width:640px){.st-g{padding:7px 14px}.st-tag{padding:0 10px}}
 </style></head>
 <body><div class="page"><div class="tk" id="tk" hidden aria-label="Live scores">
   <div class="tk-row"><div class="tk-live"><i></i>LIVE</div>
@@ -189,13 +210,15 @@ td small.rk{color:var(--dim);font-size:11px;margin-left:3px}
     <div class="ah-stat"><em>+4.7</em><small>pts edge</small></div>
   </div></section>
 <nav class="sports" aria-label="Sports"><a href="/nfl/" class="">NFL</a><a href="/cfb/" class="live">CFB</a><a href="/nhl/" class="" aria-current=page>NHL</a><a href="/mlb/" class="">MLB</a><a href="/hr/" class="">Home Runs</a><a href="/cbb/" class="">CBB</a><a href="/nba/" class="">NBA</a></nav>
-<main><div class="bar"><div class="panes" role="tablist"><button role="tab" data-p="p-cards" aria-selected="true">Cards</button><button role="tab" data-p="p-bestbets" aria-selected="false">Best bets</button><button role="tab" data-p="p-vsnovig" aria-selected="false">Vs Novig</button><button role="tab" data-p="p-record" aria-selected="false">Record</button></div><label class="slate">Slate <select onchange="location=this.value" aria-label="Pick a slate"><option value="/nhl/2026-10-15.html">Thu Oct 15</option><option value="/nhl/2026-10-14.html" selected>Wed Oct 14</option><option value="/nhl/2026-10-13.html">Tue Oct 13</option></select></label></div><section class="pane" id="p-cards"><p class="note">No new slate yet. This is the last run (Wed Oct 14).</p><iframe class="cards" src="/cards/nhl_2026-10-14.html" title="NHL cards" loading="lazy" onload="fit(this)"></iframe></section><section class="pane" id="p-bestbets" hidden><div class="tiles"><div class="tile"><small>Hammers</small><b>0</b></div><div class="tile"><small>Plays</small><b>0</b></div><div class="tile"><small>Leans</small><b>1</b></div></div><div class="tbl"><table><thead><tr><th>Time</th><th>Matchup</th><th>Market</th><th>Pick</th><th>Odds</th><th>Tier</th><th>Edge %</th><th>Model</th></tr></thead><tbody><tr><td>8:30 PM</td><td>DAL @ COL</td><td>Total</td><td>UNDER 6</td><td>-104</td><td><span class="tg tg-1">Lean</span></td><td>5.3</td><td>54%, proj 5.8</td></tr></tbody></table></div><h3 class="sub">Every game</h3><div class="tbl"><table><thead><tr><th>Time</th><th>Matchup</th><th>Proj score</th><th>Home win %</th><th>OT %</th><th>Proj total</th><th>O/U</th><th>Fair ML</th></tr></thead><tbody><tr><td>7:30 PM</td><td>MTL @ WSH</td><td>MTL 3.1, WSH 3.2</td><td>50.7</td><td>22.4</td><td>6.3</td><td>6.5</td><td>MTL +103 / WSH -103</td></tr><tr><td>8:30 PM</td><td>DAL @ COL</td><td>DAL 2.7, COL 3.1</td><td>56.1</td><td>23.1</td><td>5.81</td><td>6.0</td><td>DAL +128 / COL -128</td></tr></tbody></table></div></section><section class="pane" id="p-vsnovig" hidden><p class="note">Novig prices for this slate aren&#x27;t pulled yet. Run update_site.bat.</p></section><section class="pane" id="p-record" hidden><div class="tiles"><div class="tile"><small>Record</small><b>9-7-0</b></div><div class="tile"><small>Win rate</small><b>56.2%</b></div><div class="tile"><small>Units</small><b>-0.24</b></div><div class="tile"><small>ROI</small><b>-1.5%</b></div></div><figure class="chart"><figcaption>Units over the season, -0.24 so far</figcaption>
+<main><div class="bar"><div class="panes" role="tablist"><button role="tab" data-p="p-cards" aria-selected="true">Cards</button><button role="tab" data-p="p-bestbets" aria-selected="false">Best bets</button><button role="tab" data-p="p-sharpbets" aria-selected="false">Sharp bets</button><button role="tab" data-p="p-record" aria-selected="false">Record</button></div><label class="slate">Slate <select onchange="location=this.value" aria-label="Pick a slate"><option value="/nhl/2026-10-15.html">Thu Oct 15</option><option value="/nhl/2026-10-14.html" selected>Wed Oct 14</option><option value="/nhl/2026-10-13.html">Tue Oct 13</option></select></label></div><section class="pane" id="p-cards"><p class="note">No new slate yet. This is the last run (Wed Oct 14).</p><iframe class="cards" src="/cards/nhl_2026-10-14.html" title="NHL cards" loading="lazy" onload="fit(this)"></iframe></section><section class="pane" id="p-bestbets" hidden><div class="tiles"><div class="tile"><small>Hammers</small><b>0</b></div><div class="tile"><small>Plays</small><b>0</b></div><div class="tile"><small>Leans</small><b>1</b></div></div><div class="tbl"><table><thead><tr><th>Time</th><th>Matchup</th><th>Market</th><th>Pick</th><th>Odds</th><th>Tier</th><th>Edge %</th><th>Model</th></tr></thead><tbody><tr><td>8:30 PM</td><td>DAL @ COL</td><td>Total</td><td>UNDER 6</td><td>-104</td><td><span class="tg tg-1">Lean</span></td><td>5.3</td><td>54%, proj 5.8</td></tr></tbody></table></div><h3 class="sub">Every game</h3><div class="tbl"><table><thead><tr><th>Time</th><th>Matchup</th><th>Proj score</th><th>Home win %</th><th>OT %</th><th>Proj total</th><th>O/U</th><th>Fair ML</th></tr></thead><tbody><tr><td>7:30 PM</td><td>MTL @ WSH</td><td>MTL 3.1, WSH 3.2</td><td>50.7</td><td>22.4</td><td>6.3</td><td>6.5</td><td>MTL +103 / WSH -103</td></tr><tr><td>8:30 PM</td><td>DAL @ COL</td><td>DAL 2.7, COL 3.1</td><td>56.1</td><td>23.1</td><td>5.81</td><td>6.0</td><td>DAL +128 / COL -128</td></tr></tbody></table></div></section><section class="pane" id="p-sharpbets" hidden><p class="note">Sharp prices for this slate aren&#x27;t pulled yet. Run update_site.bat.</p></section><section class="pane" id="p-record" hidden><div class="tiles"><div class="tile"><small>Record</small><b>9-7-0</b></div><div class="tile"><small>Win rate</small><b>56.2%</b></div><div class="tile"><small>Units</small><b>-0.24</b></div><div class="tile"><small>ROI</small><b>-1.5%</b></div></div><figure class="chart"><figcaption>Units over the season, -0.24 so far</figcaption>
 <svg viewBox="0 0 900 220" role="img" aria-label="Cumulative units, now -0.24">
 <line x1="28" x2="872" y1="28.0" y2="28.0" stroke="#2a3443" stroke-dasharray="4 4"/>
 <polyline points="28.0,192.0 872.0,60.4" fill="none" stroke="#f85149" stroke-width="3" stroke-linejoin="round"/>
 <circle cx="872.0" cy="60.4" r="5" fill="#f85149"/></svg></figure><div class="tbl"><table><thead><tr><th>Market</th><th>Tier</th><th>W</th><th>L</th><th>P</th><th>Units</th><th>Win %</th></tr></thead><tbody><tr><td>ML</td><td><span class="tg tg-1">Lean</span></td><td>3</td><td>3</td><td>0</td><td>-0.34</td><td>50.0%</td></tr><tr><td>ML</td><td><span class="tg tg-2">Play</span></td><td>1</td><td>1</td><td>0</td><td>-0.02</td><td>50.0%</td></tr><tr><td>PUCK LINE</td><td><span class="tg tg-1">Lean</span></td><td>3</td><td>3</td><td>0</td><td>-1.22</td><td>50.0%</td></tr><tr><td>PUCK LINE</td><td><span class="tg tg-2">Play</span></td><td>1</td><td>0</td><td>0</td><td>+0.39</td><td>100.0%</td></tr><tr><td>TOTAL</td><td><span class="tg tg-1">Lean</span></td><td>1</td><td>0</td><td>0</td><td>+0.96</td><td>100.0%</td></tr></tbody></table></div></section></main>
 <footer class="ah-foot"><span>Model picks for entertainment. Not betting advice.</span><span>@TheAlgoHub</span></footer>
-</div><script>
+</div><div class="st" id="st" hidden aria-label="Big bets on the Novig exchange">
+  <div class="st-row"><div class="st-tag" title="Big trades on the Novig betting exchange">SHARP $</div>
+  <div class="st-view"><div class="st-track" id="st-track"></div></div></div></div><script>
 function fit(f){try{const d=f.contentDocument,set=()=>{f.style.height=(d.documentElement.scrollHeight+4)+'px'};
  set();new ResizeObserver(set).observe(d.body);}catch(e){f.style.height='2400px'}}
 document.querySelectorAll('.panes button').forEach(b=>b.onclick=()=>{
@@ -266,6 +289,29 @@ async function load(){
     tr.style.setProperty('--dur',Math.max(30,items.length*6)+'s');
     document.querySelector('.tk-live').lastChild.textContent=anyLive?'LIVE':'TODAY';}
   clearTimeout(timer); timer=setTimeout(load,anyLive?30000:300000);
+}
+load();
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)load();});
+})();
+</script><script>
+(function(){
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ago=ms=>{const m=Math.round((Date.now()-ms)/60000);return m<1?'just now':m<60?m+'m ago':Math.round(m/60)+'h ago';};
+const money=n=>'$'+n.toLocaleString('en-US');
+let timer;
+async function load(){
+  try{
+    const r=await fetch('/api/sharp',{cache:'no-store'}); if(!r.ok)throw 0;
+    const j=await r.json(), t=j.trades||[], el=document.getElementById('st'), tr=document.getElementById('st-track');
+    if(!t.length){el.hidden=true;}
+    else{
+      const html=t.map(x=>`<div class="st-g"><span class="st-sp">${esc(x.sport)}</span>`+
+        `<span class="st-amt ${x.staked>=5000?'hot':''}">${x.staked>=5000?'&#128293; ':''}${money(x.staked)}</span>`+
+        `<span class="st-side">${esc(x.side||x.market)}</span><span class="st-mu">@ ${Math.round(x.price*100)}&cent; &middot; ${esc(x.matchup)}</span>`+
+        `<span class="st-ago">${ago(x.ts)}</span></div>`).join('');
+      tr.innerHTML=html+html; tr.style.setProperty('--dur',Math.max(25,t.length*7)+'s'); el.hidden=false;}
+  }catch(e){document.getElementById('st').hidden=true;}
+  clearTimeout(timer); timer=setTimeout(load,60000);
 }
 load();
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)load();});

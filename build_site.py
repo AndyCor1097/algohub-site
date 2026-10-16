@@ -26,6 +26,7 @@ sys.path.insert(0, str(ROOT))
 
 from board import CSS as BOARD_CSS, board_html, collect  # noqa: E402
 import ticker  # noqa: E402
+import sharp  # noqa: E402
 
 SITE_NAME = "The AlgoHub"
 SLATES_KEPT = 14          # how many past slates per sport get their own page
@@ -214,7 +215,7 @@ def nfl(f):
     else:
         rec = note("Nothing graded yet.")
     return [("Cards", '<p class="hint">Tap Player Props on any game to open its props.</p>' + cards_frame(card_rel, f"NFL week {week}")),
-            ("Best bets", best), ("Vs Novig", nfl_novig_html(season, week)),
+            ("Best bets", best), ("Sharp bets", nfl_novig_html(season, week)),
             ("Matchups", nfl_matchups_html(season, week)), ("Posts", posts), ("Record", rec)]
 
 
@@ -222,25 +223,49 @@ def nfl_novig_html(season, week):
     return novig_html(DATA / "nfl_novig" / f"{season}_wk{week:02d}.csv")
 
 
-def novig_html(f, min_edge=0.03):
-    """Model vs Novig's exchange price for every main line (made by nfl_novig.py / nhl_novig.py)."""
+SHARP_TIERS = [(0.08, "HAMMER"), (0.05, "PLAY"), (0.03, "LEAN")]   # edge vs Novig, in win-chance points
+
+
+def _sharp_tier(edge):
+    for cut, name in SHARP_TIERS:
+        if edge >= cut:
+            return name
+    return ""
+
+
+def novig_html(f):
+    """'Sharp bets' pane: where the model beats Novig's no-vig price, in plain words (data from *_novig.py)."""
     if not f.exists():
-        return note("Novig prices for this slate aren't pulled yet. Run update_site.bat.")
+        return note("Sharp prices for this slate aren't pulled yet. Run update_site.bat.")
     d = pd.read_csv(f)
-    pct = lambda s: s.map(lambda v: "" if pd.isna(v) else f"{v:.1%}")
-    view = lambda x: pd.DataFrame({
-        "Matchup": x.matchup, "Market": x.market, "Side": x.side, "Model": pct(x.model),
-        "Novig fair": pct(x.novig_fair), "Buy at": pct(x.novig_ask),
-        "Edge": x.edge.map(lambda v: "" if pd.isna(v) else f"{v * 100:+.1f}"),
-        "Available": x.ask_qty.map(lambda q: f"${q:,.0f}" if q else "")})
-    plays = d[d.edge >= min_edge].sort_values("edge", ascending=False)
-    intro = ('<p class="hint">Novig is a betting exchange with no vig, so its price is the sharp number. '
-             '<b>Buy at</b> is the cheapest price on Novig right now; <b>Edge</b> = your model minus that, in points. '
-             '<b>Available</b> = max payout sitting at that price. Spread and total model % come from the projected '
-             'margin/total.</p>')
-    top = (tiles([("Sides beating Novig", len(plays)), ("Best edge", f"{plays.edge.max() * 100:+.1f}" if len(plays) else "-")])
-           + table(view(plays)) if len(plays) else note(f"No side beats Novig by {min_edge:.0%} or more right now."))
-    return intro + top + '<h3 class="sub">Every main line</h3>' + table(view(d.sort_values(["matchup", "market", "side"])))
+    d = d[d.novig_ask.notna() & d.edge.notna()]
+    d["tier"] = d.edge.map(_sharp_tier)
+    plays = d[d.tier != ""].copy()
+    plays["_r"] = plays.tier.map(TIER_RANK)
+    plays = plays.sort_values(["_r", "edge"], ascending=False)
+
+    def why(r):
+        return (f"Our model gives {r.side} a {r.model:.0%} chance. The sharp market (Novig) has it at {r.novig_ask:.0%}. "
+                f"That's {r.edge * 100:.0f} points in our favor.")
+
+    intro = ('<p class="hint"><b>How to read this:</b> Novig is a betting exchange with no house cut, so its price is the '
+             '"true" sharp number. When our model is more confident than the sharp market, that bet shows up here. '
+             '<b>HAMMER</b> = 8+ points better than the market, <b>PLAY</b> = 5 to 8, <b>LEAN</b> = 3 to 5. '
+             'Bet it at whichever sportsbook gives the best price.</p>')
+    if len(plays):
+        top = (tiles([("Hammers", int((plays.tier == "HAMMER").sum())), ("Plays", int((plays.tier == "PLAY").sum())),
+                      ("Leans", int((plays.tier == "LEAN").sum()))])
+               + table(pd.DataFrame({"Tier": plays.tier, "Bet": plays.side, "Game": plays.matchup,
+                                     "Why": plays.apply(why, axis=1)})))
+    else:
+        top = note("No bets right now. Our model and the sharp market agree on every line (within 3 points).")
+    pct = lambda s: s.map(lambda v: "" if pd.isna(v) else f"{v:.0%}")
+    full = pd.DataFrame({"Game": d.matchup, "Market": d.market, "Side": d.side, "Our model": pct(d.model),
+                         "Sharp market": pct(d.novig_ask),
+                         "Edge (pts)": d.edge.map(lambda v: f"{v * 100:+.0f}"),
+                         "Tier": d.tier}).sort_values(["Game", "Market", "Side"])
+    return (intro + top + '<details class="mu"><summary><b>See every line</b><span>both sides of every game</span></summary>'
+            + table(full) + "</details>")
 
 
 # ---- NFL matchups: what each defense allows to WR1/WR2/TE1/RB1..., ranked 1-32 (made by nfl_matchups.py)
@@ -335,7 +360,7 @@ def cfb(f):
     else:
         rec = note("Nothing graded yet.")
     return [("Cards", cards_frame(card_rel, f"CFB week {week}")), ("Best bets", best),
-            ("Vs Novig", novig_html(DATA / "cfb_novig" / f"cfb_week{week}.csv")), ("Record", rec)]
+            ("Sharp bets", novig_html(DATA / "cfb_novig" / f"cfb_week{week}.csv")), ("Record", rec)]
 
 
 def nhl(f):
@@ -383,7 +408,7 @@ def nhl(f):
     else:
         rec = note("Nothing graded yet. Results show up the morning after the first slate.")
     return [("Cards", stale(f) + cards_frame(card_rel, "NHL cards")), ("Best bets", best),
-            ("Vs Novig", novig_html(DATA / "nhl_novig" / f.name)), ("Record", rec)]
+            ("Sharp bets", novig_html(DATA / "nhl_novig" / f.name)), ("Record", rec)]
 
 
 def mlb(f):
@@ -561,12 +586,12 @@ def shell(current, body, plays, counts, live, title):
 <meta property="og:title" content="{e(title)}"><meta property="og:description" content="Today's model picks across every sport.">
 <meta name="theme-color" content="#0b0e13">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230b0e13'/><text x='32' y='45' font-family='Arial Black,sans-serif' font-size='34' font-weight='900' text-anchor='middle' fill='%23f2b134'>A</text></svg>">
-{BOARD_CSS}{SITE_CSS}{ticker.CSS}</head>
+{BOARD_CSS}{SITE_CSS}{ticker.CSS}{sharp.CSS}</head>
 <body><div class="page">{ticker.HTML}{hero}
 <nav class="sports" aria-label="Sports">{nav}</nav>
 <main>{body}</main>
 <footer class="ah-foot"><span>Model picks for entertainment. Not betting advice.</span><span>@TheAlgoHub</span></footer>
-</div>{JS}{ticker.js(_live_picks(plays), sorted({k for k in counts if not k.endswith("_today") and k != "HR"}))}</body></html>"""
+</div>{sharp.HTML}{JS}{ticker.js(_live_picks(plays), sorted({k for k in counts if not k.endswith("_today") and k != "HR"}))}{sharp.JS}</body></html>"""
 
 
 def sport_body(slug, f, others):
@@ -620,6 +645,7 @@ def build():
     write("index.html", home)
     write("404.html", shell("", note("That page doesn't exist. Pick a sport above."), plays, counts, live,
                             f"Not found | {SITE_NAME}"))
+    write("sharp_markets.json", sharp.markets_json(DATA))   # markets the bottom "Sharp $" tape watches
     print(f"site built -> {OUT}  ({sum(1 for _ in OUT.rglob('*.html'))} pages)")
 
 

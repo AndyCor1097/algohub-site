@@ -167,6 +167,27 @@ td small.rk{color:var(--dim);font-size:11px;margin-left:3px}
 .ah-live.down{background:rgba(248,81,73,.12);border-color:rgba(248,81,73,.45);color:#ffa198}
 @media (prefers-reduced-motion:reduce){.tk-track{animation:none}.tk-view{overflow-x:auto;mask-image:none}.tk-live i{animation:none}}
 @media (max-width:640px){.tk-g{padding:7px 14px}.tk-live{padding:0 10px}}
+</style>
+<style>
+.st{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(11,14,19,.94);backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);border-top:1px solid var(--rule);overflow:hidden}
+.st[hidden]{display:none}
+.st-row{display:flex;align-items:stretch}
+.st-tag{flex:none;display:flex;align-items:center;gap:7px;padding:0 14px;font:800 15px "Big Shoulders Display",sans-serif;
+  color:var(--ink);background:var(--turf);letter-spacing:.04em}
+.st-view{flex:1;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent)}
+.st-track{display:flex;width:max-content;animation:sts var(--dur,70s) linear infinite}
+.st:hover .st-track,.st:focus-within .st-track{animation-play-state:paused}
+@keyframes sts{to{transform:translateX(-50%)}}
+.st-g{display:flex;align-items:center;gap:9px;padding:8px 18px;border-right:1px solid var(--rule);white-space:nowrap;font-size:13px}
+.st-sp{font:700 11px Archivo,sans-serif;color:var(--dim)}
+.st-amt{font:800 18px "Big Shoulders Display",sans-serif;color:#7ee787}
+.st-amt.hot{color:var(--amber)}
+.st-side{font-weight:700;color:var(--chalk)}
+.st-mu,.st-ago{color:var(--dim);font-size:12px}
+body{padding-bottom:46px}
+@media (prefers-reduced-motion:reduce){.st-track{animation:none}.st-view{overflow-x:auto;mask-image:none}}
+@media (max-width:640px){.st-g{padding:7px 14px}.st-tag{padding:0 10px}}
 </style></head>
 <body><div class="page"><div class="tk" id="tk" hidden aria-label="Live scores">
   <div class="tk-row"><div class="tk-live"><i></i>LIVE</div>
@@ -191,7 +212,9 @@ td small.rk{color:var(--dim);font-size:11px;margin-left:3px}
 <nav class="sports" aria-label="Sports"><a href="/nfl/" class="">NFL</a><a href="/cfb/" class="live">CFB</a><a href="/nhl/" class="">NHL</a><a href="/mlb/" class="" aria-current=page>MLB</a><a href="/hr/" class="">Home Runs</a><a href="/cbb/" class="">CBB</a><a href="/nba/" class="">NBA</a></nav>
 <main><div class="bar"><div class="panes" role="tablist"><button role="tab" data-p="p-cards" aria-selected="true">Cards</button><button role="tab" data-p="p-table" aria-selected="false">Table</button></div><label class="slate">Slate <select onchange="location=this.value" aria-label="Pick a slate"><option value="/mlb/2026-10-15.html">Thu Oct 15</option><option value="/mlb/2026-10-14.html">Wed Oct 14</option><option value="/mlb/2026-10-13.html">Tue Oct 13</option><option value="/mlb/2026-08-24.html">Mon Aug 24</option><option value="/mlb/2026-07-27.html">Mon Jul 27</option><option value="/mlb/2026-06-30.html">Tue Jun 30</option><option value="/mlb/2026-05-30.html">Sat May 30</option><option value="/mlb/2026-05-25.html">Mon May 25</option><option value="/mlb/2026-05-23.html">Sat May 23</option><option value="/mlb/2026-05-22.html">Fri May 22</option><option value="/mlb/2026-05-14.html" selected>Thu May 14</option><option value="/mlb/2026-05-13.html">Wed May 13</option><option value="/mlb/2026-05-12.html">Tue May 12</option><option value="/mlb/2026-05-11.html">Mon May 11</option></select></label></div><section class="pane" id="p-cards"><p class="note">No new slate yet. This is the last run (Thu May 14).</p><iframe class="cards" src="/cards/mlb_2026-05-14.html" title="MLB cards" loading="lazy" onload="fit(this)"></iframe></section><section class="pane" id="p-table" hidden><div class="tbl"><table><thead><tr><th>Matchup</th><th>Starters</th><th>Proj score</th><th>O/U</th><th>Model side</th><th>Win %</th><th>Home ML</th><th>Away ML</th></tr></thead><tbody><tr><td>DET @ NYM</td><td>Keider Montero vs Nolan McLean</td><td>DET 6.3 — NYM 7.2</td><td>13.5</td><td>NYM</td><td>61.4</td><td>-5000</td><td>+1400</td></tr><tr><td>MIA @ MIN</td><td>Braxton Garrett vs Zebby Matthews</td><td>MIA 4.0 — MIN 4.5</td><td>8.5</td><td>MIN</td><td>59.9</td><td>-5000</td><td>+1400</td></tr><tr><td>SD @ MIL</td><td>Griffin Canning vs Kyle Harrison</td><td>SD 4.9 — MIL 5.6</td><td>10.5</td><td>MIL</td><td>63.0</td><td>-3300</td><td>+1200</td></tr><tr><td>SEA @ HOU</td><td>Luis Castillo vs Mike Burrows</td><td>SEA 5.0 — HOU 5.5</td><td>10.5</td><td>HOU</td><td>60.2</td><td>+700</td><td>-1400</td></tr><tr><td>STL @ OAK</td><td>Michael McGreevy vs Jacob Lopez</td><td>STL 4.6 — OAK 4.4</td><td>9.0</td><td>STL</td><td>51.5</td><td>-230</td><td>+175</td></tr><tr><td>PHI @ BOS</td><td>Jesús Luzardo vs Ranger Suarez</td><td>PHI 3.3 — BOS 3.7</td><td>7.0</td><td>BOS</td><td>62.3</td><td>-114</td><td>-106</td></tr><tr><td>CHC @ ATL</td><td>Ben Brown vs Chris Sale</td><td>CHC 3.8 — ATL 3.7</td><td>7.5</td><td>CHC</td><td>51.2</td><td>-184</td><td>+152</td></tr><tr><td>KC @ BOS</td><td>Kris Bubic vs Ranger Suarez</td><td>KC 3.8 — BOS 4.2</td><td>8.0</td><td>BOS</td><td>52.7</td><td>+118</td><td>-141</td></tr><tr><td>SD @ LAA</td><td>Griffin Canning vs TBD</td><td>SD 3.8 — LAA 4.2</td><td>8.0</td><td>LAA</td><td>60.8</td><td>-180</td><td>+148</td></tr></tbody></table></div></section></main>
 <footer class="ah-foot"><span>Model picks for entertainment. Not betting advice.</span><span>@TheAlgoHub</span></footer>
-</div><script>
+</div><div class="st" id="st" hidden aria-label="Big bets on the Novig exchange">
+  <div class="st-row"><div class="st-tag" title="Big trades on the Novig betting exchange">SHARP $</div>
+  <div class="st-view"><div class="st-track" id="st-track"></div></div></div></div><script>
 function fit(f){try{const d=f.contentDocument,set=()=>{f.style.height=(d.documentElement.scrollHeight+4)+'px'};
  set();new ResizeObserver(set).observe(d.body);}catch(e){f.style.height='2400px'}}
 document.querySelectorAll('.panes button').forEach(b=>b.onclick=()=>{
@@ -262,6 +285,29 @@ async function load(){
     tr.style.setProperty('--dur',Math.max(30,items.length*6)+'s');
     document.querySelector('.tk-live').lastChild.textContent=anyLive?'LIVE':'TODAY';}
   clearTimeout(timer); timer=setTimeout(load,anyLive?30000:300000);
+}
+load();
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)load();});
+})();
+</script><script>
+(function(){
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ago=ms=>{const m=Math.round((Date.now()-ms)/60000);return m<1?'just now':m<60?m+'m ago':Math.round(m/60)+'h ago';};
+const money=n=>'$'+n.toLocaleString('en-US');
+let timer;
+async function load(){
+  try{
+    const r=await fetch('/api/sharp',{cache:'no-store'}); if(!r.ok)throw 0;
+    const j=await r.json(), t=j.trades||[], el=document.getElementById('st'), tr=document.getElementById('st-track');
+    if(!t.length){el.hidden=true;}
+    else{
+      const html=t.map(x=>`<div class="st-g"><span class="st-sp">${esc(x.sport)}</span>`+
+        `<span class="st-amt ${x.staked>=5000?'hot':''}">${x.staked>=5000?'&#128293; ':''}${money(x.staked)}</span>`+
+        `<span class="st-side">${esc(x.side||x.market)}</span><span class="st-mu">@ ${Math.round(x.price*100)}&cent; &middot; ${esc(x.matchup)}</span>`+
+        `<span class="st-ago">${ago(x.ts)}</span></div>`).join('');
+      tr.innerHTML=html+html; tr.style.setProperty('--dur',Math.max(25,t.length*7)+'s'); el.hidden=false;}
+  }catch(e){document.getElementById('st').hidden=true;}
+  clearTimeout(timer); timer=setTimeout(load,60000);
 }
 load();
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)load();});

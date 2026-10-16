@@ -128,7 +128,7 @@ def main():
                     "matchup": f"{a} @ {h}", "day": g.gameday, "market": market, "side": label,
                     "model": round(float(model), 4), "novig_fair": fair, "novig_ask": ask,
                     "edge": round(float(model) - ask, 4) if ask is not None else None,
-                    "ask_qty": ask_qty, "bid": bid,
+                    "ask_qty": ask_qty, "bid": bid, "market_id": m["marketId"], "outcome_id": me["outcomeId"],
                 })
     OUT.mkdir(parents=True, exist_ok=True)
     f = OUT / f"{season}_wk{week:02d}.csv"

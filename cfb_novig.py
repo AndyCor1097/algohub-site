@@ -114,7 +114,7 @@ def main():
                              "market": market, "side": label, "model": round(float(model), 4),
                              "novig_fair": fair, "novig_ask": ask,
                              "edge": round(float(model) - ask, 4) if ask is not None else None,
-                             "ask_qty": ask_qty, "bid": bid})
+                             "ask_qty": ask_qty, "bid": bid, "market_id": x["marketId"], "outcome_id": me["outcomeId"]})
     OUT.mkdir(parents=True, exist_ok=True)
     out = OUT / f"cfb_week{week}.csv"
     if rows:
