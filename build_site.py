@@ -608,12 +608,38 @@ def _live_picks(plays):
     return [{"sport": p["sport"], "pick": p["pick"], "game": p["game"]} for p in plays if p["sport"] != "HR"]
 
 
+LOCK_CSS = """<style>
+.ah-locked .ah-pick,.ah-locked .ah-sub,.ah-locked .ah-stat{filter:blur(7px);user-select:none;pointer-events:none}
+.ah-locked::after{content:"Sign up free to unlock";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  font:700 13px Archivo,sans-serif;color:var(--ink);background:var(--amber);padding:6px 12px;border-radius:8px;white-space:nowrap}
+</style>"""
+
+
+def _lock_board(hero):
+    """Sign-in page: first pick stays visible as a teaser; the rest are replaced with placeholder text, then blurred
+    (replaced, not just blurred, so the real picks aren't sitting in the page source)."""
+    parts = re.split(r'(?=<div class="ah-slip[ "])', hero)
+    out = parts[:2]
+    for chunk in parts[2:]:
+        chunk = chunk.replace('<div class="ah-slip ', '<div class="ah-slip ah-locked ', 1).replace(
+            '<div class="ah-slip"', '<div class="ah-slip ah-locked"', 1)
+        chunk = re.sub(r'(<div class="ah-pick">).*?(</div>)', r'\1Locked pick +0.0<span>-110</span>\2', chunk, 1, re.S)
+        chunk = re.sub(r'(<div class="ah-sub">).*?(</div>)', r'\1Team at Team\2', chunk, 1, re.S)
+        chunk = re.sub(r'(<div class="ah-stat">).*?(</div>)', r'\1+0.0 pts edge\2', chunk, 1, re.S)
+        chunk = re.sub(r' data-pick="[^"]*"| data-game="[^"]*"', "", chunk)
+        out.append(chunk)
+    return LOCK_CSS + "".join(out)
+
+
 def shell(current, body, plays, counts, live, title, members=True):
     nav = "".join(
         f'<a href="/{"" if s == "home" else s + "/"}" class="{"live" if s in live else ""}"'
         f'{" aria-current=page" if s == current else ""}>{e(lab)}</a>'
         for s, lab, _ in SPORTS)
-    hero = board_html(plays, counts).replace(
+    hero = board_html(plays, counts)
+    if not members:
+        hero = _lock_board(hero)
+    hero = hero.replace(
         '<div class="ah-mark"><span>The</span>AlgoHub</div>',
         '<a href="/" class="ah-mark" aria-label="The AlgoHub home"><span>The</span>AlgoHub</a>')
     return f"""<!doctype html>
@@ -628,7 +654,7 @@ def shell(current, body, plays, counts, live, title, members=True):
 <nav class="sports" aria-label="Sports">{nav}</nav>
 <main>{body}</main>
 <footer class="ah-foot"><span>Model picks for entertainment. Not betting advice.</span><span>@TheAlgoHub</span></footer>
-</div>{sharp.HTML}{JS}{ticker.js(_live_picks(plays), sorted({k for k in counts if not k.endswith("_today") and k != "HR"}))}{sharp.JS}</body></html>"""
+</div>{sharp.HTML}{JS}{ticker.js(_live_picks(plays) if members else [], sorted({k for k in counts if not k.endswith("_today") and k != "HR"}))}{sharp.JS}</body></html>"""
 
 
 def sport_body(slug, f, others):

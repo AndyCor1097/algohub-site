@@ -191,7 +191,11 @@ body{padding-bottom:46px}
 </style></head>
 <body><div class="page"><div class="tk" id="tk" hidden aria-label="Live scores">
   <div class="tk-row"><div class="tk-live"><i></i>LIVE</div>
-  <div class="tk-view"><div class="tk-track" id="tk-track"></div></div></div></div>
+  <div class="tk-view"><div class="tk-track" id="tk-track"></div></div></div></div><style>
+.ah-locked .ah-pick,.ah-locked .ah-sub,.ah-locked .ah-stat{filter:blur(7px);user-select:none;pointer-events:none}
+.ah-locked::after{content:"Sign up free to unlock";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  font:700 13px Archivo,sans-serif;color:var(--ink);background:var(--amber);padding:6px 12px;border-radius:8px;white-space:nowrap}
+</style>
 <header class="ah-hero">
   <a href="/" class="ah-mark" aria-label="The AlgoHub home"><span>The</span>AlgoHub</a>
   <div class="ah-today"><b>Friday, October 16</b>
@@ -203,11 +207,11 @@ body{padding-bottom:46px}
     <div class="ah-sub">Appalachian State at Coastal Carolina</div>
     <div class="ah-stat"><em>+5.3</em><small>pts edge</small></div>
   </div>
-  <div class="ah-slip s-mid" data-sport="CFB" data-pick="Tulane +7" data-game="Memphis at Tulane">
+  <div class="ah-slip ah-locked s-mid" data-sport="CFB">
     <div class="ah-slip-top"><span class="ah-sport">CFB</span><span class="ah-tier">Edge</span></div>
-    <div class="ah-pick">Tulane +7<span>-110</span></div>
-    <div class="ah-sub">Memphis at Tulane</div>
-    <div class="ah-stat"><em>+4.7</em><small>pts edge</small></div>
+    <div class="ah-pick">Locked pick +0.0<span>-110</span></div>
+    <div class="ah-sub">Team at Team</div>
+    <div class="ah-stat">+0.0 pts edge</div>
   </div></section>
 <nav class="sports" aria-label="Sports"><a href="/nfl/" class="">NFL</a><a href="/cfb/" class="live">CFB</a><a href="/nhl/" class="">NHL</a><a href="/mlb/" class="">MLB</a><a href="/hr/" class="">Home Runs</a><a href="/cbb/" class="">CBB</a><a href="/nba/" class="">NBA</a></nav>
 <main><style>
@@ -288,7 +292,7 @@ document.querySelectorAll('.panes button').forEach(b=>b.onclick=()=>{
 const h=location.hash.slice(1); const hb=h&&document.querySelector('.panes button[data-p="'+h+'"]'); if(hb) hb.click();
 </script><script>
 (function(){
-const PICKS=[{"sport": "CFB", "pick": "Tulane +7", "game": "Memphis at Tulane"}, {"sport": "CFB", "pick": "Coastal Carolina +1.5", "game": "Appalachian State at Coastal Carolina"}, {"sport": "CFB", "pick": "Washington +3.5", "game": "Washington at Purdue"}], SP={"CFB": ["football/college-football", "&groups=80"]};
+const PICKS=[], SP={"CFB": ["football/college-football", "&groups=80"]};
 const ALIAS={NHL:{TBL:'TB',NJD:'NJ',SJS:'SJ',LAK:'LA',UTA:'UTAH'},MLB:{CWS:'CHW',TBR:'TB',KCR:'KC',SDP:'SD',SFG:'SF',WSN:'WSH'},NFL:{LA:'LAR',WAS:'WSH'}};
 const norm=s=>(s||'').toLowerCase().replace(/&/g,'and').replace(/\bstate\b/g,'st').replace(/\bsaint\b/g,'st').replace(/[^a-z0-9]/g,'');
 const keys=t=>[t.abbreviation,t.displayName,t.shortDisplayName,t.location,t.nickname,(t.location||'')+' '+(t.name||'')].filter(Boolean).map(norm);
