@@ -27,6 +27,7 @@ sys.path.insert(0, str(ROOT))
 from board import CSS as BOARD_CSS, board_html, collect  # noqa: E402
 import ticker  # noqa: E402
 import sharp  # noqa: E402
+import auth  # noqa: E402
 
 SITE_NAME = "The AlgoHub"
 SLATES_KEPT = 14          # how many past slates per sport get their own page
@@ -607,7 +608,7 @@ def _live_picks(plays):
     return [{"sport": p["sport"], "pick": p["pick"], "game": p["game"]} for p in plays if p["sport"] != "HR"]
 
 
-def shell(current, body, plays, counts, live, title):
+def shell(current, body, plays, counts, live, title, members=True):
     nav = "".join(
         f'<a href="/{"" if s == "home" else s + "/"}" class="{"live" if s in live else ""}"'
         f'{" aria-current=page" if s == current else ""}>{e(lab)}</a>'
@@ -622,7 +623,7 @@ def shell(current, body, plays, counts, live, title):
 <meta property="og:title" content="{e(title)}"><meta property="og:description" content="Today's model picks across every sport.">
 <meta name="theme-color" content="#0b0e13">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230b0e13'/><text x='32' y='45' font-family='Arial Black,sans-serif' font-size='34' font-weight='900' text-anchor='middle' fill='%23f2b134'>A</text></svg>">
-{BOARD_CSS}{SITE_CSS}{ticker.CSS}{sharp.CSS}</head>
+{BOARD_CSS}{SITE_CSS}{ticker.CSS}{sharp.CSS}{auth.page_js() if members else ""}</head>
 <body><div class="page">{ticker.HTML}{hero}
 <nav class="sports" aria-label="Sports">{nav}</nav>
 <main>{body}</main>
@@ -682,6 +683,14 @@ def build():
     write("404.html", shell("", note("That page doesn't exist. Pick a sport above."), plays, counts, live,
                             f"Not found | {SITE_NAME}"))
     write("sharp_markets.json", sharp.markets_json(DATA))   # markets the bottom "Sharp $" tape watches
+    # free accounts: login page + the lock (middleware.js) when auth_config.json is filled in
+    write("login.html", shell("", auth.login_body(), plays, counts, live, f"Sign in | {SITE_NAME}", members=False))
+    mw = auth.middleware_js()
+    mwf = ROOT / "middleware.js"
+    if mw:
+        mwf.write_text(mw, encoding="utf-8")
+    elif mwf.exists():
+        mwf.unlink()                                          # no config = site stays open
     print(f"site built -> {OUT}  ({sum(1 for _ in OUT.rglob('*.html'))} pages)")
 
 
