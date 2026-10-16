@@ -12,8 +12,11 @@ const MAX_ITEMS = 40;
 
 async function trades(marketId) {
   try {
+    const ctl = new AbortController();
+    const kill = setTimeout(() => ctl.abort(), 5000);      // one slow market can't stall the whole tape
     const r = await fetch(`${NOVIG}/v3/public/catalog/markets/${marketId}/trades?limit=100`,
-                          { headers: { Accept: "application/json" } });
+                          { headers: { Accept: "application/json" }, signal: ctl.signal });
+    clearTimeout(kill);
     if (!r.ok) return [];
     const j = await r.json();
     return j.items || [];
@@ -34,7 +37,18 @@ module.exports = async (req, res) => {
     const mr = await fetch(`https://${host}/sharp_markets.json`);
     const markets = mr.ok ? await mr.json() : [];
     const now = Date.now();
-    const lists = await pool(markets, 16, m => trades(m.market_id));
+    const lists = await pool(markets, 32, m => trades(m.market_id));
+    // what got checked, per sport (open /api/sharp in a browser to see it)
+    const checked = {}, fills = {}, biggest = {};
+    markets.forEach((m, i) => {
+      checked[m.sport] = (checked[m.sport] || 0) + 1;
+      (lists[i] || []).forEach(t => {
+        if (now - Number(t.ts) > WINDOW_MS) return;
+        fills[m.sport] = (fills[m.sport] || 0) + 1;
+        const st = Math.round(Number(t.qty) * parseFloat(t.price));
+        if (st > (biggest[m.sport] || 0)) biggest[m.sport] = st;
+      });
+    });
     const big = [];
     markets.forEach((m, i) => {
       (lists[i] || []).forEach(t => {
@@ -58,7 +72,7 @@ module.exports = async (req, res) => {
     const shown = picked.concat(rest).slice(0, MAX_ITEMS).sort((a, b) => b.ts - a.ts);
     res.setHeader("Cache-Control", "s-maxage=60, stale-while-revalidate=120");
     res.setHeader("Content-Type", "application/json");
-    res.status(200).send(JSON.stringify({ asOf: now, trades: shown }));
+    res.status(200).send(JSON.stringify({ asOf: now, checked, fills_12h: fills, biggest_12h: biggest, trades: shown }));
   } catch (e) {
     res.status(200).json({ asOf: Date.now(), trades: [], error: String(e) });
   }

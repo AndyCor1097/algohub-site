@@ -3,5 +3,10 @@
   "installCommand": "echo skip",
   "buildCommand": "echo static site",
   "outputDirectory": "public",
-  "cleanUrls": true
+  "cleanUrls": true,
+  "functions": {
+    "api/sharp.js": {
+      "maxDuration": 30
+    }
+  }
 }
