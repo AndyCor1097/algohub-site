@@ -210,7 +210,70 @@ body{padding-bottom:46px}
     <div class="ah-stat"><em>+4.7</em><small>pts edge</small></div>
   </div></section>
 <nav class="sports" aria-label="Sports"><a href="/nfl/" class="">NFL</a><a href="/cfb/" class="live">CFB</a><a href="/nhl/" class="">NHL</a><a href="/mlb/" class="">MLB</a><a href="/hr/" class="">Home Runs</a><a href="/cbb/" class="">CBB</a><a href="/nba/" class="">NBA</a></nav>
-<main><p class="note">Accounts aren't set up yet.</p></main>
+<main><style>
+.lg{max-width:460px;margin:26px auto 40px;background:var(--panel);border:1px solid var(--rule);border-radius:16px;padding:26px 24px}
+.lg h2{font:800 34px/1.05 "Big Shoulders Display",sans-serif;margin:0 0 6px}
+.lg p{color:var(--dim);margin:0 0 16px}
+.lg ul{margin:0 0 18px;padding-left:18px;color:var(--chalk)} .lg li{margin:4px 0}
+.lg input{width:100%;box-sizing:border-box;background:var(--ink);color:var(--chalk);border:1px solid var(--rule);border-radius:10px;
+  padding:12px 14px;font:500 16px Archivo,sans-serif;margin-bottom:10px}
+.lg button{width:100%;border:0;border-radius:10px;padding:12px 14px;font:700 16px Archivo,sans-serif;cursor:pointer;
+  background:var(--amber);color:var(--ink)}
+.lg button[disabled]{opacity:.6;cursor:default}
+.lg .msg{margin-top:12px;font-size:14px;color:var(--chalk)} .lg .msg.err{color:#ffa198}
+.lg small{display:block;margin-top:14px;color:var(--dim);font-size:12px}
+</style>
+<section class="lg" aria-labelledby="lg-h">
+  <h2 id="lg-h">Get in free</h2>
+  <p>Create a free account to see every algo: picks, cards, sharp bets and matchups across every sport.</p>
+  <ul><li>Daily model picks for NFL, CFB, NHL and more</li><li>Sharp money tracker</li><li>Full public record, wins and losses</li></ul>
+  <form id="lg-f">
+    <label for="lg-e" class="hint">Email</label>
+    <input id="lg-e" type="email" required autocomplete="email" placeholder="you@email.com">
+    <button id="lg-b" type="submit">Email me a sign-in link</button>
+  </form>
+  <div id="lg-m" class="msg" role="status" aria-live="polite"></div>
+  <small>No password. We email you a link, tap it and you're in. Same link signs you up or back in.</small>
+</section><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+window.AH = (function(){
+  const sb = supabase.createClient("https://egqzxbvmbbrusbxinffj.supabase.co", "sb_publishable_DS9iJ4ddhoo57C4hROp2lA_UAU8TFln",
+    {auth: {flowType: 'implicit', persistSession: true, autoRefreshToken: true, detectSessionInUrl: true}});
+  function setCookie(s){
+    if (s && s.access_token) {
+      const age = Math.max(60, (s.expires_at || 0) - Math.floor(Date.now()/1000));
+      document.cookie = 'ah_at=' + s.access_token + '; Path=/; Max-Age=' + age + '; SameSite=Lax; Secure';
+    } else {
+      document.cookie = 'ah_at=; Path=/; Max-Age=0; SameSite=Lax; Secure';
+    }
+  }
+  sb.auth.onAuthStateChange((_e, s) => setCookie(s));
+  sb.auth.getSession().then(r => setCookie(r.data.session));
+  return {sb, setCookie,
+    async signOut(){ await sb.auth.signOut(); setCookie(null); location.href = '/login'; }};
+})();
+</script><script>
+(async function(){
+  const p = new URLSearchParams(location.search), next = p.get('next') || '/';
+  const safeNext = next.startsWith('/') && !next.startsWith('//') ? next : '/';
+  const m = document.getElementById('lg-m');
+  // already signed in (or just tapped the email link): set the cookie and go
+  const go = s => { AH.setCookie(s); location.replace(safeNext); };
+  const r = await AH.sb.auth.getSession();
+  if (r.data.session) return go(r.data.session);
+  AH.sb.auth.onAuthStateChange((e, s) => { if (s) go(s); });
+  document.getElementById('lg-f').onsubmit = async ev => {
+    ev.preventDefault();
+    const b = document.getElementById('lg-b'), email = document.getElementById('lg-e').value.trim();
+    b.disabled = true; m.className = 'msg'; m.textContent = 'Sending...';
+    const { error } = await AH.sb.auth.signInWithOtp({ email,
+      options: { emailRedirectTo: location.origin + '/login?next=' + encodeURIComponent(safeNext) } });
+    b.disabled = false;
+    if (error) { m.className = 'msg err'; m.textContent = error.message; }
+    else { m.textContent = 'Check your email (and spam) for the sign-in link. You can close this tab.'; }
+  };
+})();
+</script></main>
 <footer class="ah-foot"><span>Model picks for entertainment. Not betting advice.</span><span>@TheAlgoHub</span></footer>
 </div><div class="st" id="st" hidden aria-label="Big bets on the Novig exchange">
   <div class="st-row"><div class="st-tag" title="Big trades on the Novig betting exchange">SHARP $</div>
