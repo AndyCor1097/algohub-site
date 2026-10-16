@@ -167,7 +167,19 @@ def _card(g):
       {_wp(g)}
       {_market("SPREAD", sp_str, ms_str, spread_edge, sp_tier, sp_pick)}
       {_market("TOTAL", ou_str, pt_str, total_edge, tot_tier, tot_pick)}
+      {_wx(g)}
     </article>"""
+
+
+def _wx(g):
+    """Kickoff weather chip (from cfb_weather.py); shows how much it shaded the total."""
+    lab = g.get("weather") or ""
+    if not lab:
+        return ""
+    sh = g.get("wx_shade") or 0
+    note = f" · total {sh:+.1f}" if sh else ""
+    windy = (g.get("wx_wind") or 0) >= 15
+    return f'<div class="wx{" windy" if windy else ""}">{e(lab)}{e(note)}</div>'
 
 
 def render_cards(games, week, generated=""):
@@ -231,6 +243,8 @@ body{{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-se
 .team{{flex:1;min-width:0}} .team.fav .tname b{{color:var(--tx)}} .team.fav .proj{{color:var(--tx)}}
 .tname b{{display:block;font-size:15px;font-weight:600;color:var(--mu)}} .tname small{{color:var(--mu);font-size:11px;opacity:.7}}
 .proj{{font-size:36px;font-weight:700;color:var(--mu);font-family:"Barlow Condensed",sans-serif;line-height:1}}
+.wx{{margin:0 16px 14px;display:inline-block;padding:4px 10px;border:1px solid var(--line);border-radius:999px;color:var(--mu);font-size:11px;letter-spacing:.06em}}
+.wx.windy{{color:#58a6ff;border-color:#58a6ff}}
 .at{{color:var(--mu);font-size:12px;letter-spacing:.1em;font-weight:600;flex:none;padding:0 4px}}
 .wp{{padding:6px 16px 14px}} .wplab{{display:flex;justify-content:space-between;font-size:15px;font-weight:700;margin-bottom:6px}}
 .wplab .cap{{color:var(--mu);font:600 10px Inter,system-ui,sans-serif;letter-spacing:.16em;align-self:center}}

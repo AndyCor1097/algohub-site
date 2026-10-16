@@ -7,6 +7,7 @@ run_all.py: runs every active algo, then rebuilds + pushes the site. This is wha
 Turn a sport on/off in ACTIVE below (MLB/NBA are on hold, CBB starts in November).
 Log for each day: AlgoHub_Site\\logs\\run_all_<date>.log
 """
+import os
 import subprocess
 import sys
 import traceback
@@ -33,8 +34,11 @@ def run(cwd, *args, timeout=1800):
     """Run one command in an algo folder; log its output; never stop the whole run on an error."""
     log(f"  > {Path(cwd).name}: python {' '.join(args)}")
     try:
+        # force UTF-8 output: when output is captured, Windows defaults to cp1252 and any emoji
+        # in an algo's print() (CFB's edge labels, weather arrows) crashes the script
+        env = {**os.environ, "PYTHONIOENCODING": "utf-8", "PYTHONUTF8": "1"}
         r = subprocess.run([PY, *args], cwd=cwd, capture_output=True, text=True, timeout=timeout,
-                           encoding="utf-8", errors="replace")
+                           encoding="utf-8", errors="replace", env=env)
         out = (r.stdout + ("\n" + r.stderr if r.stderr.strip() else "")).strip()
         for ln in out.splitlines()[-25:]:
             log("    " + ln)

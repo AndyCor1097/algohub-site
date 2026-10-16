@@ -210,11 +210,18 @@ def _game_card(r):
     if not _na(r.get("park_factor")):
         pf = float(r["park_factor"])
         chips.append(f'<span class="chip {"hot" if pf >= 1.05 else "cold" if pf <= .95 else ""}">PARK {pf:.2f}</span>')
-    if not _na(r.get("temp_f")):
-        chips.append(f'<span class="chip">{float(r["temp_f"]):.0f}°F</span>')
-    if not _na(r.get("wind_mph")):
-        wb = float(r.get("wind_boost") or 0)
-        chips.append(f'<span class="chip {"hot" if wb > .05 else "cold" if wb < -.05 else ""}">WIND {float(r["wind_mph"]):.0f} MPH</span>')
+    wx = r.get("wx_label")
+    wb = 0.0 if _na(r.get("wind_boost")) else float(r.get("wind_boost") or 0)
+    if isinstance(wx, str) and wx.strip():
+        # first-pitch forecast: temp, wind in/out for this park, extra carry
+        chips.append(f'<span class="chip {"hot" if wb > .03 else "cold" if wb < -.03 else ""}">{e(wx.replace("🌡️ ", ""))}</span>')
+        if abs(wb) >= 0.01:
+            chips.append(f'<span class="chip {"hot" if wb > 0 else "cold"}">RUNS {wb:+.0%}</span>')
+    else:
+        if not _na(r.get("temp_f")):
+            chips.append(f'<span class="chip">{float(r["temp_f"]):.0f}°F</span>')
+        if not _na(r.get("wind_mph")):
+            chips.append(f'<span class="chip {"hot" if wb > .05 else "cold" if wb < -.05 else ""}">WIND {float(r["wind_mph"]):.0f} MPH</span>')
     return RANK[best], f"""
     <article class="card b-{best.lower() or 'none'}" data-g="all" data-play="{1 if best else 0}">
       <header class="meta"><span>{e(time_) or e(r.get('game_date'))}</span><span>PROJ {float(r['proj_total']):.1f} RUNS</span></header>
