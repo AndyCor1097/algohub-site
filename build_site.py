@@ -187,6 +187,15 @@ def nfl(f):
                       ("Leans", int((bets.Tier == "LEAN").sum()))]) + table(bets)
     else:
         best = note("No plays clear the thresholds this week.")
+    # Lotto TDs: fun longshots, separate from the plays and from the record
+    if props is not None and "lotto" in props and (props.lotto.fillna(0) == 1).any():
+        lt = props[props.lotto.fillna(0) == 1].copy()
+        lt["_g"] = lt.game_id.map(lambda g: (lambda x: f"{x.away_team.iloc[0]} @ {x.home_team.iloc[0]}" if len(x) else "")(picks[picks.game_id == g]))
+        best += ('<h3 class="sub">🎰 Lotto TDs</h3><p class="hint">Just for fun: the longshots our model likes most vs. the price. '
+                 'Longshots lose as a group, so these are small sprinkles, tracked separately, not plays.</p>'
+                 + table(pd.DataFrame({"Player": lt.player + " (" + lt.position + ", " + lt.team + ")", "Game": lt._g,
+                                       "Odds": lt.over_price.map(odds), "Model TD %": lt.proj.map("{:.0%}".format),
+                                       "Market %": lt.fair.map("{:.0%}".format)})))
 
     imgs = sorted((DATA / "nfl_posts").glob(f"{season}_wk{week:02d}_*.png"))
     if imgs:
@@ -204,6 +213,8 @@ def nfl(f):
     if tp.exists():
         t = pd.read_csv(tp)
         t = t[t.season == t.season.max()]
+        lot = t[t.tier == "LOTTO"]
+        t = t[t.tier != "LOTTO"]
         w, l, p = (t.result == "W").sum(), (t.result == "L").sum(), (t.result == "P").sum()
         agg = (t.groupby(["market", "tier"]).agg(W=("result", lambda x: (x == "W").sum()),
                                                   L=("result", lambda x: (x == "L").sum()),
@@ -213,6 +224,10 @@ def nfl(f):
         agg["Units"] = agg.Units.map("{:+.2f}".format)
         rec = (record_tiles(w, l, p, t.units.sum()) + units_chart(t.groupby("week").units.sum().cumsum())
                + table(agg.rename(columns={"market": "Market", "tier": "Tier"})))
+        if len(lot):
+            lw, ll_ = (lot.result == "W").sum(), (lot.result == "L").sum()
+            rec += ('<h3 class="sub">🎰 Lotto TDs (separate)</h3>' + tiles([
+                ("Hit", f"{lw}-{ll_}"), ("Units", f"{lot.units.sum():+.2f}")]))
     else:
         rec = note("Nothing graded yet.")
     return [("Cards", '<p class="hint">Tap Player Props on any game to open its props.</p>' + cards_frame(card_rel, f"NFL week {week}")),

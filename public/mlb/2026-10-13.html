@@ -329,19 +329,30 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 const ago=ms=>{const m=Math.round((Date.now()-ms)/60000);return m<1?'just now':m<60?m+'m ago':Math.round(m/60)+'h ago';};
 const money=n=>'$'+n.toLocaleString('en-US');
 let timer;
+const PER_SPORT=10, MAX_ITEMS=40;
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+async function part(i){const r=await fetch('/api/sharp?part='+i,{cache:'no-store'}); if(!r.ok)throw 0; return r.json();}
+function show(all){
+  const el=document.getElementById('st'), tr=document.getElementById('st-track');
+  all.sort((a,b)=>b.ts-a.ts);
+  // each sport gets up to PER_SPORT spots so a busy NFL Sunday can't crowd everything else off
+  const n={}, pick=[], rest=[]; all.forEach(t=>{n[t.sport]=(n[t.sport]||0)+1;(n[t.sport]<=PER_SPORT?pick:rest).push(t);});
+  const t=pick.concat(rest).slice(0,MAX_ITEMS).sort((a,b)=>b.ts-a.ts);
+  if(!t.length){el.hidden=true;return;}
+  const html=t.map(x=>`<div class="st-g"><span class="st-sp">${esc(x.sport)}</span>`+
+    `<span class="st-amt ${x.staked>=5000?'hot':''}">${x.staked>=5000?'&#128293; ':''}${money(x.staked)}</span>`+
+    `<span class="st-side">${esc(x.side||x.market)}</span><span class="st-mu">@ ${Math.round(x.price*100)}&cent; &middot; ${esc(x.matchup)}</span>`+
+    `<span class="st-ago">${ago(x.ts)}</span></div>`).join('');
+  tr.innerHTML=html+html; tr.style.setProperty('--dur',Math.max(25,t.length*7)+'s'); el.hidden=false;}
 async function load(){
   try{
-    const r=await fetch('/api/sharp',{cache:'no-store'}); if(!r.ok)throw 0;
-    const j=await r.json(), t=j.trades||[], el=document.getElementById('st'), tr=document.getElementById('st-track');
-    if(!t.length){el.hidden=true;}
-    else{
-      const html=t.map(x=>`<div class="st-g"><span class="st-sp">${esc(x.sport)}</span>`+
-        `<span class="st-amt ${x.staked>=5000?'hot':''}">${x.staked>=5000?'&#128293; ':''}${money(x.staked)}</span>`+
-        `<span class="st-side">${esc(x.side||x.market)}</span><span class="st-mu">@ ${Math.round(x.price*100)}&cent; &middot; ${esc(x.matchup)}</span>`+
-        `<span class="st-ago">${ago(x.ts)}</span></div>`).join('');
-      tr.innerHTML=html+html; tr.style.setProperty('--dur',Math.max(25,t.length*7)+'s'); el.hidden=false;}
+    const first=await part(0); let all=first.trades||[]; show(all.slice());
+    for(let i=1;i<(first.parts||1);i++){            // the rest, a second apart (Novig rate limits)
+      await sleep(1000);
+      try{const j=await part(i); all=all.concat(j.trades||[]); show(all.slice());}catch(e){}
+    }
   }catch(e){document.getElementById('st').hidden=true;}
-  clearTimeout(timer); timer=setTimeout(load,60000);
+  clearTimeout(timer); timer=setTimeout(load,90000);
 }
 load();
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)load();});

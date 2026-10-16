@@ -127,7 +127,7 @@ def _ou_mkt(r):
 def _strip(r):
     h, a = info(r["home_team"])[0], info(r["away_team"])[0]
     return f"""
-      <div class="strip"><div class="mlabel">MODEL <em>(attack / defense: 1.00 = league average, lower defense = better)</em></div>
+      <div class="strip"><div class="mlabel">MODEL <em>(big numbers up top = model's projected goals; win % = model blended with market) · (attack / defense: 1.00 = league average, lower defense = better)</em></div>
         <div class="frow"><b>{e(h)}</b><span>ATT <i>{r['h_att']:.2f}</i></span><span>DEF <i>{r['h_def']:.2f}</i></span></div>
         <div class="frow"><b>{e(a)}</b><span>ATT <i>{r['a_att']:.2f}</i></span><span>DEF <i>{r['a_def']:.2f}</i></span></div>
         <div class="frow"><span>MOST LIKELY <i>{e(r['top_score'])}</i> ({r['p_top_score']:.0%})</span><span>BOTH SCORE <i>{r['p_btts']:.0%}</i></span></div>
@@ -137,7 +137,9 @@ def _strip(r):
 def _card(r):
     tiers = [_s(r.get(k)) for k in ("res_tier", "ou_tier")]
     best = max(tiers, key=lambda x: TIER_RANK.get(x, 0))
-    fav = "h" if r["p_home"] >= r["p_away"] else "a"
+    # highlight follows the projected score (the big numbers): that's what the model itself says.
+    # The win % bar is model + market blended, so the two can point different ways on close games.
+    fav = "h" if r["xg_home"] >= r["xg_away"] else "a"
     d = pd.Timestamp(r["date"])
     return f"""
     <article class="card b-{best.lower() or 'none'}" data-day="{e(r['date'])}" data-play="{1 if best else 0}">
