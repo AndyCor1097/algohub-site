@@ -407,6 +407,7 @@ def nhl(f):
                + table(agg.rename(columns={"market": "Market", "tier": "Tier"})))
     else:
         rec = note("Nothing graded yet. Results show up the morning after the first slate.")
+    rec += nhl_every_game()
     return [("Cards", stale(f) + cards_frame(card_rel, "NHL cards")), ("Best bets", best),
             ("Sharp bets", novig_html(DATA / "nhl_novig" / f.name)), ("Record", rec)]
 
@@ -474,6 +475,41 @@ def cbb(f):
     else:
         rec = note("Nothing graded yet. Results show up the morning after the first slate.")
     return [("Cards", stale(f) + cards_frame(card_rel, "CBB cards")), ("Best bets", best), ("Record", rec)]
+
+
+def nhl_every_game():
+    """The model's side in EVERY game, straight up (not just the official plays)."""
+    tp = DATA / "nhl_tracker_all.csv"
+    if not tp.exists():
+        return ""
+    t = pd.read_csv(tp)
+    if t.empty:
+        return ""
+    w, l = int((t.result == "W").sum()), int((t.result == "L").sum())
+    out = ('<h3 class="sub">Every game: the model\'s side straight up</h3>'
+           '<p class="hint">Not just the plays above: the team the model favored in every game, win or lose. '
+           'This is the hit rate that matters for parlays.</p>'
+           + tiles([("Record", f"{w}-{l}"), ("Hit rate", f"{w / max(w + l, 1):.1%}"),
+                    ("Games to OT/SO", int((t.ot == "Y").sum()))]))
+    bands = []
+    for lo, hi, lab in ((50, 55, "50-55% sure"), (55, 60, "55-60% sure"), (60, 101, "60%+ sure")):
+        g = t[(t.model_pct >= lo) & (t.model_pct < hi)]
+        if len(g):
+            gw = int((g.result == "W").sum())
+            bands.append({"Model confidence": lab, "Record": f"{gw}-{len(g) - gw}", "Hit rate": f"{gw / len(g):.1%}"})
+    if "total_result" in t:
+        tt = t.dropna(subset=["total_result"])
+        tw, tl = int((tt.total_result == "W").sum()), int((tt.total_result == "L").sum())
+        bands.append({"Model confidence": "Totals lean (over/under)", "Record": f"{tw}-{tl}",
+                      "Hit rate": f"{tw / max(tw + tl, 1):.1%}"})
+    out += table(pd.DataFrame(bands))
+    recent = t.sort_values(["date", "game_id"], ascending=False).head(30)
+    out += ('<details class="mu"><summary><b>Recent games</b><span>last 30</span></summary>'
+            + table(pd.DataFrame({"Date": recent.date, "Game": recent.matchup, "Final": recent.score,
+                                  "Model pick": recent.pick + " (" + recent.model_pct.map("{:.0f}%".format) + ")",
+                                  "Result": recent.result.map({"W": "✅ W", "L": "❌ L"})}))
+            + "</details>")
+    return out
 
 
 def nba(f):

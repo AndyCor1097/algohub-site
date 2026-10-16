@@ -33,6 +33,7 @@ SINGLE = [
     (DESKTOP / "cfb_algo" / "tracker_summary.json", DATA / "cfb_tracker.json"),
     (DESKTOP / "nhl_game_algo" / "cards.py",            HERE / "nhl_cards.py"),   # your NHL card design
     (DESKTOP / "nhl_game_algo" / "tracker.csv",         DATA / "nhl_tracker.csv"),
+    (DESKTOP / "nhl_game_algo" / "tracker_all.csv",     DATA / "nhl_tracker_all.csv"),   # every game
     (DESKTOP / "cbb_algo" / "cards.py",            HERE / "cbb_cards.py"),   # your CBB card design
     (DESKTOP / "cbb_algo" / "tracker.csv",         DATA / "cbb_tracker.csv"),
 ]
