@@ -16,6 +16,63 @@ def _newest(folder):
     return fs[-1] if fs else None
 
 
+# Leagues with no "vs Novig" file of their own (or only a few main lines): pull their game markets
+# straight from Novig so their big bets show on the tape too. (Novig league code, tape label)
+DIRECT = [("MLB", "MLB"), ("NHL", "NHL"), ("NBA", "NBA"), ("NCAAB", "CBB")]
+DIRECT_HOURS = 30          # games starting in the next 30 hours (plus ones that started in the last 4)
+PER_EVENT = 8              # markets per game: moneyline first, then spreads / totals
+MAX_DIRECT = 220           # keep the tape's serverless check fast
+
+
+def _short(desc):
+    """'Tampa Bay Rays at Cleveland Guardians' -> 'Tampa Bay Rays @ Cleveland Guardians'."""
+    for sep in (" at ", " @ ", " vs. ", " vs "):
+        if sep in desc:
+            a, h = desc.split(sep, 1)
+            return f"{a.strip()} @ {h.strip()}"
+    return desc
+
+
+def direct_markets():
+    import sys
+    import time
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "novig"))
+    try:
+        import novig
+    except Exception as ex:
+        print(f"  sharp tape: novig client not found ({ex})")
+        return []
+    now = time.time() * 1000
+    out = []
+    for lg, label in DIRECT:
+        try:
+            evs = novig.events(lg)
+            ms = novig.markets(lg)
+        except Exception as ex:
+            print(f"  sharp tape: {lg} skipped ({type(ex).__name__})")
+            continue
+        by_ev = {}
+        for m in ms:
+            st = m.get("startsTs") or 0
+            if not (now - 4 * 3600e3 <= st <= now + DIRECT_HOURS * 3600e3):
+                continue
+            if m.get("marketType") not in ("MONEY", "SPREAD", "TOTAL") or len(m.get("outcomes", [])) != 2:
+                continue
+            by_ev.setdefault(m["eventId"], []).append(m)
+        n = 0
+        for eid, lst in by_ev.items():
+            lst.sort(key=lambda m: (m["marketType"] != "MONEY", m["marketType"]))
+            mu = _short((evs.get(eid) or {}).get("description", "") or lst[0].get("description", ""))
+            for m in lst[:PER_EVENT]:
+                kind = {"MONEY": "Moneyline", "SPREAD": "Spread", "TOTAL": "Total"}[m["marketType"]]
+                outs = {o["outcomeId"]: (o["name"] + (" ML" if m["marketType"] == "MONEY" else "")) for o in m["outcomes"]}
+                out.append({"market_id": m["marketId"], "sport": label, "matchup": mu, "market": kind, "outcomes": outs})
+                n += 1
+        print(f"  sharp tape: {label} {len(by_ev)} games, {n} markets")
+    return out[:MAX_DIRECT]
+
+
 def markets_json(data_dir):
     """One entry per Novig market on the current slates, with a readable name for each side."""
     out = {}
@@ -30,6 +87,8 @@ def markets_json(data_dir):
             m = out.setdefault(r.market_id, {"market_id": r.market_id, "sport": sport, "matchup": r.matchup,
                                               "market": r.market, "outcomes": {}})
             m["outcomes"][r.outcome_id] = r.side
+    for m in direct_markets():
+        out.setdefault(m["market_id"], m)
     return json.dumps(list(out.values()))
 
 
