@@ -25,9 +25,36 @@ ALIAS = {"TB": "TBL", "NJ": "NJD", "LA": "LAK", "SJ": "SJS", "WAS": "WSH", "MON"
          "UTA": "UTA", "ARI": "UTA", "VGS": "VGK", "NAS": "NSH", "CAL": "CGY", "WIN": "WPG"}
 
 
+FULL = {  # Novig sometimes writes full team names
+    "Anaheim Ducks": "ANA", "Boston Bruins": "BOS", "Buffalo Sabres": "BUF", "Calgary Flames": "CGY",
+    "Carolina Hurricanes": "CAR", "Chicago Blackhawks": "CHI", "Colorado Avalanche": "COL",
+    "Columbus Blue Jackets": "CBJ", "Dallas Stars": "DAL", "Detroit Red Wings": "DET", "Edmonton Oilers": "EDM",
+    "Florida Panthers": "FLA", "Los Angeles Kings": "LAK", "Minnesota Wild": "MIN", "Montreal Canadiens": "MTL",
+    "Montréal Canadiens": "MTL", "Nashville Predators": "NSH", "New Jersey Devils": "NJD",
+    "New York Islanders": "NYI", "New York Rangers": "NYR", "Ottawa Senators": "OTT",
+    "Philadelphia Flyers": "PHI", "Pittsburgh Penguins": "PIT", "San Jose Sharks": "SJS", "Seattle Kraken": "SEA",
+    "St. Louis Blues": "STL", "St Louis Blues": "STL", "Tampa Bay Lightning": "TBL", "Toronto Maple Leafs": "TOR",
+    "Utah Hockey Club": "UTA", "Utah Mammoth": "UTA", "Utah": "UTA", "Vancouver Canucks": "VAN",
+    "Vegas Golden Knights": "VGK", "Washington Capitals": "WSH", "Winnipeg Jets": "WPG",
+}
+
+
 def team(s):
-    t = (s or "").strip().split()[0].upper() if s else ""
+    s = (s or "").strip()
+    if s in FULL:
+        return FULL[s]
+    t = s.split()[0].upper() if s else ""
     return ALIAS.get(t, t)
+
+
+def teams_from_markets(ms):
+    """Backup: Novig's totals read like 'PIT @ COL t6.5', so the abbreviations are right there."""
+    for m in ms:
+        d = m.get("description", "")
+        mt = re.match(r"^\s*([A-Z]{2,4})\s*@\s*([A-Z]{2,4})\b", d)
+        if mt:
+            return team(mt.group(1)), team(mt.group(2))
+    return None
 
 
 def line_of(name):
@@ -58,11 +85,17 @@ def main():
         return
     g_all = pd.read_csv(f)
     evs = novig.events("NHL")
-    by_game = {}
+    by_event = {}
     for m in novig.markets("NHL"):
-        a, h = novig.split_teams(evs.get(m["eventId"], {}).get("description", ""))
-        if a and h:
-            by_game.setdefault((team(a), team(h)), []).append(m)
+        by_event.setdefault(m["eventId"], []).append(m)
+    by_game = {}
+    for eid, ms in by_event.items():
+        a, h = novig.split_teams(evs.get(eid, {}).get("description", ""))
+        key = (team(a), team(h)) if a and h else None
+        if not key or len(key[0]) > 4 or len(key[1]) > 4:      # name didn't translate: read the markets
+            key = teams_from_markets(ms) or key
+        if key:
+            by_game.setdefault(key, []).extend(ms)
 
     rows, missing = [], []
     for _, g in g_all.iterrows():
@@ -115,6 +148,8 @@ def main():
             w = csv.DictWriter(fh, fieldnames=list(rows[0]))
             w.writeheader()
             w.writerows(rows)
+    if missing and not rows:
+        print("  novig nhl  Novig games seen:", sorted(by_game)[:12])
     print(f"  novig nhl  {len(rows)} sides priced"
           + (f", no Novig market for: {', '.join(missing)}" if missing else "") + f" -> {out.name}")
 
