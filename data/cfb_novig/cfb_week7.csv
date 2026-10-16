@@ -1,0 +1,209 @@
+matchup,day,market,side,model,novig_fair,novig_ask,edge,ask_qty,bid
+Memphis @ Tulane,2026-10-16,Moneyline,Tulane ML,0.425,0.2975,0.3,0.125,1084671,0.295
+Memphis @ Tulane,2026-10-16,Moneyline,Memphis ML,0.575,0.7025,0.705,-0.13,5789687,0.7
+Memphis @ Tulane,2026-10-16,Spread,Tulane +7.5,0.6314,0.5575,0.56,0.0714,415981,0.555
+Memphis @ Tulane,2026-10-16,Spread,Memphis -7.5,0.3686,0.4425,0.445,-0.0764,732612,0.44
+Appalachian State @ Coastal Carolina,2026-10-17,Moneyline,Coastal Carolina ML,0.624,0.4825,0.485,0.139,4087217,0.48
+Appalachian State @ Coastal Carolina,2026-10-17,Moneyline,Appalachian State ML,0.376,0.5175,0.52,-0.144,639907,0.515
+Appalachian State @ Coastal Carolina,2026-10-17,Spread,Coastal Carolina +1.5,0.6338,0.5075,0.51,0.1238,4126421,0.505
+Appalachian State @ Coastal Carolina,2026-10-17,Spread,Appalachian State -1.5,0.3662,0.4925,0.495,-0.1288,1057694,0.49
+Washington @ Purdue,2026-10-17,Moneyline,Purdue ML,0.459,0.5975,0.6,-0.141,1212305,0.595
+Washington @ Purdue,2026-10-17,Moneyline,Washington ML,0.541,0.4025,0.405,0.136,691396,0.4
+Washington @ Purdue,2026-10-17,Spread,Purdue -3.5,0.3809,0.4625,0.465,-0.0841,2387645,0.46
+Washington @ Purdue,2026-10-17,Spread,Washington +3.5,0.6191,0.5375,0.54,0.0791,521087,0.535
+Nebraska @ Oregon,2026-10-17,Moneyline,Oregon ML,0.671,0.6925,0.695,-0.024,622748,0.69
+Nebraska @ Oregon,2026-10-17,Moneyline,Nebraska ML,0.329,0.3075,0.31,0.019,571820,0.305
+Nebraska @ Oregon,2026-10-17,Spread,Oregon -7.5,0.4436,0.4525,0.455,-0.0114,850919,0.45
+Nebraska @ Oregon,2026-10-17,Spread,Nebraska +7.5,0.5564,0.5475,0.55,0.0064,437500,0.545
+Wisconsin @ UCLA,2026-10-17,Moneyline,UCLA ML,0.63,0.565,0.57,0.06,849828,0.56
+Wisconsin @ UCLA,2026-10-17,Moneyline,Wisconsin ML,0.37,0.435,0.44,-0.07,1255376,0.43
+Wisconsin @ UCLA,2026-10-17,Spread,UCLA -2.5,0.5385,0.515,0.52,0.0185,398834,0.51
+Wisconsin @ UCLA,2026-10-17,Spread,Wisconsin +2.5,0.4615,0.485,0.49,-0.0285,78901,0.48
+Florida Atlantic @ Army,2026-10-17,Moneyline,Army ML,0.821,0.5475,0.55,0.271,695637,0.545
+Florida Atlantic @ Army,2026-10-17,Moneyline,Florida Atlantic ML,0.179,0.4525,0.455,-0.276,3575074,0.45
+Florida Atlantic @ Army,2026-10-17,Spread,Army -2.5,0.7171,0.4925,0.495,0.2221,1376640,0.49
+Florida Atlantic @ Army,2026-10-17,Spread,Florida Atlantic +2.5,0.2829,0.5075,0.51,-0.2271,4069069,0.505
+Pittsburgh @ Boston College,2026-10-17,Moneyline,Boston College ML,0.337,0.3225,0.325,0.012,299596,0.32
+Pittsburgh @ Boston College,2026-10-17,Moneyline,Pittsburgh ML,0.663,0.6775,0.68,-0.017,5360,0.675
+Pittsburgh @ Boston College,2026-10-17,Spread,Boston College +6.5,0.536,0.4975,0.5,0.036,543900,0.495
+Pittsburgh @ Boston College,2026-10-17,Spread,Pittsburgh -6.5,0.464,0.5025,0.505,-0.041,316188,0.5
+Ball State @ Bowling Green,2026-10-17,Moneyline,Bowling Green ML,0.754,0.6825,0.685,0.069,5710004,0.68
+Ball State @ Bowling Green,2026-10-17,Moneyline,Ball State ML,0.246,0.3175,0.32,-0.074,607145,0.315
+Ball State @ Bowling Green,2026-10-17,Spread,Bowling Green -6.5,0.5488,0.49,0.495,0.0538,3750243,0.485
+Ball State @ Bowling Green,2026-10-17,Spread,Ball State +6.5,0.4512,0.51,0.515,-0.0638,1241824,0.505
+Ohio State @ Indiana,2026-10-17,Moneyline,Indiana ML,0.683,0.4125,0.415,0.268,390952,0.41
+Ohio State @ Indiana,2026-10-17,Moneyline,Ohio State ML,0.317,0.5875,0.59,-0.273,2903576,0.585
+Ohio State @ Indiana,2026-10-17,Spread,Indiana +3.5,0.7257,0.55,0.555,0.1707,267837,0.545
+Ohio State @ Indiana,2026-10-17,Spread,Ohio State -3.5,0.2743,0.45,0.455,-0.1807,642002,0.445
+Georgia State @ James Madison,2026-10-17,Moneyline,James Madison ML,0.918,0.785,0.79,0.128,6569391,0.78
+Georgia State @ James Madison,2026-10-17,Moneyline,Georgia State ML,0.082,0.215,0.22,-0.138,321413,0.21
+Georgia State @ James Madison,2026-10-17,Spread,James Madison -12.5,0.6411,0.4525,0.455,0.1861,303162,0.45
+Georgia State @ James Madison,2026-10-17,Spread,Georgia State +12.5,0.3589,0.5475,0.55,-0.1911,57500,0.545
+Kansas @ Kansas State,2026-10-17,Moneyline,Kansas State ML,0.687,0.635,0.64,0.047,1717178,0.63
+Kansas @ Kansas State,2026-10-17,Moneyline,Kansas ML,0.313,0.365,0.37,-0.057,602190,0.36
+Kansas @ Kansas State,2026-10-17,Spread,Kansas State -4.5,0.536,0.495,0.5,0.036,1246500,0.49
+Kansas @ Kansas State,2026-10-17,Spread,Kansas +4.5,0.464,0.505,0.51,-0.046,457500,0.5
+Mississippi State @ Louisiana State,2026-10-17,Moneyline,Louisiana State ML,0.827,0.8475,0.85,-0.023,576495,0.845
+Mississippi State @ Louisiana State,2026-10-17,Moneyline,Mississippi State ML,0.173,0.1525,0.155,0.018,31811,0.15
+Mississippi State @ Louisiana State,2026-10-17,Spread,Louisiana State -13.5,0.4538,0.58,0.585,-0.1312,35757,0.575
+Mississippi State @ Louisiana State,2026-10-17,Spread,Mississippi State +13.5,0.5462,0.42,0.425,0.1212,218126,0.415
+Northwestern @ Michigan State,2026-10-17,Moneyline,Michigan State ML,0.29,0.2725,0.275,0.015,60639,0.27
+Northwestern @ Michigan State,2026-10-17,Moneyline,Northwestern ML,0.71,0.7275,0.73,-0.02,540981,0.725
+Northwestern @ Michigan State,2026-10-17,Spread,Michigan State +7.5,0.5206,0.5225,0.525,-0.0044,931140,0.52
+Northwestern @ Michigan State,2026-10-17,Spread,Northwestern -7.5,0.4794,0.4775,0.48,-0.0006,241334,0.475
+Virginia @ Southern Methodist,2026-10-17,Moneyline,Southern Methodist ML,0.759,0.7575,0.76,-0.001,830716,0.755
+Virginia @ Southern Methodist,2026-10-17,Moneyline,Virginia ML,0.241,0.2425,0.245,-0.004,40000,0.24
+Virginia @ Southern Methodist,2026-10-17,Spread,Southern Methodist -8.5,0.5026,0.5225,0.525,-0.0224,240041,0.52
+Virginia @ Southern Methodist,2026-10-17,Spread,Virginia +8.5,0.4974,0.4775,0.48,0.0174,153100,0.475
+Florida @ Texas,2026-10-17,Moneyline,Texas ML,0.839,0.795,0.8,0.039,917921,0.79
+Florida @ Texas,2026-10-17,Moneyline,Florida ML,0.161,0.205,0.21,-0.049,576085,0.2
+Florida @ Texas,2026-10-17,Spread,Texas -10.5,0.5488,0.5175,0.52,0.0288,418145,0.515
+Florida @ Texas,2026-10-17,Spread,Florida +10.5,0.4512,0.4825,0.485,-0.0338,272139,0.48
+Cincinnati @ West Virginia,2026-10-17,Moneyline,West Virginia ML,0.525,0.5275,0.53,-0.005,4761358,0.525
+Cincinnati @ West Virginia,2026-10-17,Moneyline,Cincinnati ML,0.475,0.4725,0.475,0.0,869984,0.47
+Cincinnati @ West Virginia,2026-10-17,Spread,West Virginia -1.5,0.482,0.5025,0.505,-0.023,840062,0.5
+Cincinnati @ West Virginia,2026-10-17,Spread,Cincinnati +1.5,0.518,0.4975,0.5,0.018,1027615,0.495
+Rutgers @ Maryland,2026-10-17,Moneyline,Maryland ML,0.531,0.6525,0.655,-0.124,410000,0.65
+Rutgers @ Maryland,2026-10-17,Moneyline,Rutgers ML,0.469,0.3475,0.35,0.119,76692,0.345
+Rutgers @ Maryland,2026-10-17,Spread,Maryland -5.5,0.3833,0.5025,0.505,-0.1217,285180,0.5
+Rutgers @ Maryland,2026-10-17,Spread,Rutgers +5.5,0.6167,0.4975,0.5,0.1167,220800,0.495
+Massachusetts @ Buffalo,2026-10-17,Moneyline,Buffalo ML,0.836,0.6975,0.7,0.136,739600,0.695
+Massachusetts @ Buffalo,2026-10-17,Moneyline,Massachusetts ML,0.164,0.3025,0.305,-0.141,712310,0.3
+Massachusetts @ Buffalo,2026-10-17,Spread,Buffalo -6.5,0.6435,0.5375,0.54,0.1035,242935,0.535
+Massachusetts @ Buffalo,2026-10-17,Spread,Massachusetts +6.5,0.3565,0.4625,0.465,-0.1085,651774,0.46
+Charlotte @ Temple,2026-10-17,Moneyline,Temple ML,0.943,0.925,0.93,0.013,247270,0.92
+Charlotte @ Temple,2026-10-17,Moneyline,Charlotte ML,0.057,0.075,0.08,-0.023,2982803,0.07
+Charlotte @ Temple,2026-10-17,Spread,Temple -21.5,0.4871,0.4625,0.47,0.0171,198285,0.455
+Charlotte @ Temple,2026-10-17,Spread,Charlotte +21.5,0.5129,0.5375,0.545,-0.0321,208856,0.53
+Western Michigan @ Central Michigan,2026-10-17,Moneyline,Central Michigan ML,0.344,0.3025,0.305,0.039,419234,0.3
+Western Michigan @ Central Michigan,2026-10-17,Moneyline,Western Michigan ML,0.656,0.6975,0.7,-0.044,21320,0.695
+Western Michigan @ Central Michigan,2026-10-17,Spread,Central Michigan +6.5,0.5437,0.4675,0.47,0.0737,1881674,0.465
+Western Michigan @ Central Michigan,2026-10-17,Spread,Western Michigan -6.5,0.4563,0.5325,0.535,-0.0787,761731,0.53
+Nevada Las Vegas @ Air Force,2026-10-17,Moneyline,Air Force ML,0.614,0.495,0.5,0.114,4541400,0.49
+Nevada Las Vegas @ Air Force,2026-10-17,Moneyline,Nevada Las Vegas ML,0.386,0.505,0.51,-0.124,148558,0.5
+Nevada Las Vegas @ Air Force,2026-10-17,Spread,Air Force +1.5,0.6265,0.515,0.52,0.1065,286578,0.51
+Nevada Las Vegas @ Air Force,2026-10-17,Spread,Nevada Las Vegas -1.5,0.3735,0.485,0.49,-0.1165,512216,0.48
+North Carolina @ Duke,2026-10-17,Moneyline,Duke ML,0.806,0.5825,0.585,0.221,4056950,0.58
+North Carolina @ Duke,2026-10-17,Moneyline,North Carolina ML,0.194,0.4175,0.42,-0.226,894999,0.415
+North Carolina @ Duke,2026-10-17,Spread,Duke -2.5,0.7016,0.5425,0.55,0.1516,882015,0.535
+North Carolina @ Duke,2026-10-17,Spread,North Carolina +2.5,0.2984,0.4575,0.465,-0.1666,142685,0.45
+Toledo @ Eastern Michigan,2026-10-17,Moneyline,Eastern Michigan ML,0.311,0.31,0.315,-0.004,447534,0.305
+Toledo @ Eastern Michigan,2026-10-17,Moneyline,Toledo ML,0.689,0.69,0.695,-0.006,345410,0.685
+Toledo @ Eastern Michigan,2026-10-17,Spread,Eastern Michigan +6.5,0.5129,0.4875,0.49,0.0229,1136131,0.485
+Toledo @ Eastern Michigan,2026-10-17,Spread,Toledo -6.5,0.4871,0.5125,0.515,-0.0279,91588,0.51
+Auburn @ Georgia,2026-10-17,Moneyline,Georgia ML,0.946,0.9075,0.91,0.036,28045,0.905
+Auburn @ Georgia,2026-10-17,Moneyline,Auburn ML,0.054,0.0925,0.095,-0.041,252563,0.09
+Auburn @ Georgia,2026-10-17,Spread,Georgia -20.5,0.5257,0.4725,0.48,0.0457,493896,0.465
+Auburn @ Georgia,2026-10-17,Spread,Auburn +20.5,0.4743,0.5275,0.535,-0.0607,343718,0.52
+Akron @ Miami Ohio,2026-10-17,Moneyline,Miami Ohio ML,0.886,0.765,0.77,0.116,1204469,0.76
+Akron @ Miami Ohio,2026-10-17,Moneyline,Akron ML,0.114,0.235,0.24,-0.126,138161,0.23
+Akron @ Miami Ohio,2026-10-17,Spread,Miami Ohio -9.5,0.6483,0.4975,0.5,0.1483,4114800,0.495
+Akron @ Miami Ohio,2026-10-17,Spread,Akron +9.5,0.3517,0.5025,0.505,-0.1533,353013,0.5
+Penn State @ Michigan,2026-10-17,Moneyline,Michigan ML,0.601,0.67,0.675,-0.074,6130601,0.665
+Penn State @ Michigan,2026-10-17,Moneyline,Penn State ML,0.399,0.33,0.335,0.064,33433,0.325
+Penn State @ Michigan,2026-10-17,Spread,Michigan -6.5,0.4132,0.4825,0.49,-0.0768,1695213,0.475
+Penn State @ Michigan,2026-10-17,Spread,Penn State +6.5,0.5868,0.5175,0.525,0.0618,297406,0.51
+Missouri @ Mississippi,2026-10-17,Moneyline,Missouri ML,0.257,0.6525,0.655,-0.398,608997,0.65
+Missouri @ Mississippi,2026-10-17,Moneyline,Mississippi ML,0.743,0.3475,0.35,0.393,437253,0.345
+Missouri @ Mississippi,2026-10-17,Spread,Missouri +6.5,0.4615,0.8025,0.81,-0.3485,195863,0.795
+Missouri @ Mississippi,2026-10-17,Spread,Mississippi -6.5,0.5385,0.1975,0.205,0.3335,100000,0.19
+Alabama @ Tennessee,2026-10-17,Moneyline,Tennessee ML,0.383,0.2525,0.255,0.128,2801,0.25
+Alabama @ Tennessee,2026-10-17,Moneyline,Alabama ML,0.617,0.7475,0.75,-0.133,2854099,0.745
+Alabama @ Tennessee,2026-10-17,Spread,Tennessee +8.5,0.624,0.5275,0.53,0.094,165723,0.525
+Alabama @ Tennessee,2026-10-17,Spread,Alabama -8.5,0.376,0.4725,0.475,-0.099,281294,0.47
+Arizona State @ Texas Tech,2026-10-17,Moneyline,Texas Tech ML,0.918,0.8475,0.85,0.068,43915,0.845
+Arizona State @ Texas Tech,2026-10-17,Moneyline,Arizona State ML,0.082,0.1525,0.155,-0.073,3342797,0.15
+Arizona State @ Texas Tech,2026-10-17,Spread,Texas Tech -14.5,0.5918,0.525,0.53,0.0618,186864,0.52
+Arizona State @ Texas Tech,2026-10-17,Spread,Arizona State +14.5,0.4082,0.475,0.48,-0.0718,67092,0.47
+Georgia Tech @ Virginia Tech,2026-10-17,Moneyline,Virginia Tech ML,0.665,0.7675,0.77,-0.105,575891,0.765
+Georgia Tech @ Virginia Tech,2026-10-17,Moneyline,Georgia Tech ML,0.335,0.2325,0.235,0.1,40000,0.23
+Georgia Tech @ Virginia Tech,2026-10-17,Spread,Virginia Tech -10.5,0.3662,0.445,0.45,-0.0838,518000,0.44
+Georgia Tech @ Virginia Tech,2026-10-17,Spread,Georgia Tech +10.5,0.6338,0.555,0.56,0.0738,223409,0.55
+Northern Illinois @ Wyoming,2026-10-17,Moneyline,Wyoming ML,0.783,0.7425,0.75,0.033,621919,0.735
+Northern Illinois @ Wyoming,2026-10-17,Moneyline,Northern Illinois ML,0.217,0.2575,0.265,-0.048,225372,0.25
+Northern Illinois @ Wyoming,2026-10-17,Spread,Wyoming -8.5,0.5283,0.49,0.495,0.0333,159906,0.485
+Northern Illinois @ Wyoming,2026-10-17,Spread,Northern Illinois +8.5,0.4717,0.51,0.515,-0.0433,1787216,0.505
+Tulsa @ Rice,2026-10-17,Moneyline,Rice ML,0.524,0.36,0.365,0.159,226138,0.355
+Tulsa @ Rice,2026-10-17,Moneyline,Tulsa ML,0.476,0.64,0.645,-0.169,323823,0.635
+Tulsa @ Rice,2026-10-17,Spread,Rice +4.5,0.6314,0.505,0.51,0.1214,433442,0.5
+Tulsa @ Rice,2026-10-17,Spread,Tulsa -4.5,0.3686,0.495,0.5,-0.1314,423000,0.49
+Troy @ Louisiana,2026-10-17,Moneyline,Louisiana ML,0.619,0.59,0.595,0.024,444425,0.585
+Troy @ Louisiana,2026-10-17,Moneyline,Troy ML,0.381,0.41,0.415,-0.034,222987,0.405
+Troy @ Louisiana,2026-10-17,Spread,Louisiana -4.5,0.4768,0.4425,0.45,0.0268,4122735,0.435
+Troy @ Louisiana,2026-10-17,Spread,Troy +4.5,0.5232,0.5575,0.565,-0.0418,293979,0.55
+Washington State @ Oregon State,2026-10-17,Moneyline,Oregon State ML,0.84,0.89,0.895,-0.055,705738,0.885
+Washington State @ Oregon State,2026-10-17,Moneyline,Washington State ML,0.16,0.11,0.115,0.045,340852,0.105
+Washington State @ Oregon State,2026-10-17,Spread,Oregon State -17.5,0.3735,0.525,0.53,-0.1565,1394946,0.52
+Washington State @ Oregon State,2026-10-17,Spread,Washington State +17.5,0.6265,0.475,0.48,0.1465,499977,0.47
+Texas Christian @ Baylor,2026-10-17,Moneyline,Baylor ML,0.738,0.6675,0.675,0.063,4788230,0.66
+Texas Christian @ Baylor,2026-10-17,Moneyline,Texas Christian ML,0.262,0.3325,0.34,-0.078,121529,0.325
+Texas Christian @ Baylor,2026-10-17,Spread,Baylor -5.5,0.559,0.5075,0.51,0.049,1126690,0.505
+Texas Christian @ Baylor,2026-10-17,Spread,Texas Christian +5.5,0.441,0.4925,0.495,-0.054,216040,0.49
+Florida State @ Miami,2026-10-17,Moneyline,Miami ML,0.916,0.9275,0.93,-0.014,2021150,0.925
+Florida State @ Miami,2026-10-17,Moneyline,Florida State ML,0.084,0.0725,0.075,0.009,35000,0.07
+Florida State @ Miami,2026-10-17,Spread,Miami -20.5,0.4334,0.5275,0.53,-0.0966,852857,0.525
+Florida State @ Miami,2026-10-17,Spread,Florida State +20.5,0.5666,0.4725,0.475,0.0916,3609,0.47
+Nevada @ North Dakota State,2026-10-17,Moneyline,North Dakota State ML,0.777,0.8525,0.855,-0.078,25862,0.85
+Nevada @ North Dakota State,2026-10-17,Moneyline,Nevada ML,0.223,0.1475,0.15,0.073,584046,0.145
+Nevada @ North Dakota State,2026-10-17,Spread,North Dakota State -15.5,0.347,0.475,0.48,-0.133,415384,0.47
+Nevada @ North Dakota State,2026-10-17,Spread,Nevada +15.5,0.653,0.525,0.53,0.123,173300,0.52
+Kent State @ South Florida,2026-10-17,Moneyline,South Florida ML,0.958,0.9175,0.92,0.038,553949,0.915
+Kent State @ South Florida,2026-10-17,Moneyline,Kent State ML,0.042,0.0825,0.085,-0.043,23657,0.08
+Kent State @ South Florida,2026-10-17,Spread,South Florida -20.5,0.5767,0.505,0.51,0.0667,1706677,0.5
+Kent State @ South Florida,2026-10-17,Spread,Kent State +20.5,0.4233,0.495,0.5,-0.0767,88358,0.49
+Arkansas State @ Southern Miss,2026-10-17,Moneyline,Southern Miss ML,0.484,0.3225,0.325,0.159,250080,0.32
+Arkansas State @ Southern Miss,2026-10-17,Moneyline,Arkansas State ML,0.516,0.6775,0.68,-0.164,15000,0.675
+Arkansas State @ Southern Miss,2026-10-17,Spread,Southern Miss +6.5,0.6507,0.4975,0.5,0.1507,902400,0.495
+Arkansas State @ Southern Miss,2026-10-17,Spread,Arkansas State -6.5,0.3493,0.5025,0.505,-0.1557,3936565,0.5
+Arkansas @ Vanderbilt,2026-10-17,Moneyline,Vanderbilt ML,0.745,0.675,0.68,0.065,5053100,0.67
+Arkansas @ Vanderbilt,2026-10-17,Moneyline,Arkansas ML,0.255,0.325,0.33,-0.075,1307499,0.32
+Arkansas @ Vanderbilt,2026-10-17,Spread,Vanderbilt -5.5,0.5641,0.52,0.525,0.0391,372842,0.515
+Arkansas @ Vanderbilt,2026-10-17,Spread,Arkansas +5.5,0.4359,0.48,0.485,-0.0491,519138,0.475
+Notre Dame @ Brigham Young,2026-10-17,Moneyline,Brigham Young ML,0.232,0.215,0.22,0.012,2231090,0.21
+Notre Dame @ Brigham Young,2026-10-17,Moneyline,Notre Dame ML,0.768,0.785,0.79,-0.022,421152,0.78
+Notre Dame @ Brigham Young,2026-10-17,Spread,Brigham Young +10.5,0.5385,0.4925,0.495,0.0435,779558,0.49
+Notre Dame @ Brigham Young,2026-10-17,Spread,Notre Dame -10.5,0.4615,0.5075,0.51,-0.0485,447744,0.505
+Oklahoma State @ Houston,2026-10-17,Moneyline,Houston ML,0.858,0.6325,0.635,0.223,144057,0.63
+Oklahoma State @ Houston,2026-10-17,Moneyline,Oklahoma State ML,0.142,0.3675,0.37,-0.228,450000,0.365
+Oklahoma State @ Houston,2026-10-17,Spread,Houston -4.5,0.7193,0.4875,0.49,0.2293,1277253,0.485
+Oklahoma State @ Houston,2026-10-17,Spread,Oklahoma State +4.5,0.2807,0.5125,0.515,-0.2343,790111,0.51
+Kentucky @ Oklahoma,2026-10-17,Moneyline,Oklahoma ML,0.755,0.685,0.69,0.065,306409,0.68
+Kentucky @ Oklahoma,2026-10-17,Moneyline,Kentucky ML,0.245,0.315,0.32,-0.075,437344,0.31
+Kentucky @ Oklahoma,2026-10-17,Spread,Oklahoma -7.5,0.5232,0.425,0.43,0.0932,331032,0.42
+Kentucky @ Oklahoma,2026-10-17,Spread,Kentucky +7.5,0.4768,0.575,0.58,-0.1032,730151,0.57
+Louisville @ Syracuse,2026-10-17,Moneyline,Syracuse ML,0.163,0.1525,0.155,0.008,155810,0.15
+Louisville @ Syracuse,2026-10-17,Moneyline,Louisville ML,0.837,0.8475,0.85,-0.013,232728,0.845
+Louisville @ Syracuse,2026-10-17,Spread,Syracuse +14.5,0.5564,0.4875,0.49,0.0664,119607,0.485
+Louisville @ Syracuse,2026-10-17,Spread,Louisville -14.5,0.4436,0.5125,0.515,-0.0714,283603,0.51
+Louisiana Tech @ Louisiana Monroe,2026-10-18,Moneyline,Louisiana Monroe ML,0.263,0.1475,0.155,0.108,515370,0.14
+Louisiana Tech @ Louisiana Monroe,2026-10-18,Moneyline,Louisiana Tech ML,0.737,0.8525,0.86,-0.123,928186,0.845
+Louisiana Tech @ Louisiana Monroe,2026-10-18,Spread,Louisiana Monroe +15.5,0.6926,0.4975,0.505,0.1876,715151,0.49
+Louisiana Tech @ Louisiana Monroe,2026-10-18,Spread,Louisiana Tech -15.5,0.3074,0.5025,0.51,-0.2026,393112,0.495
+Navy @ UTSA,2026-10-18,Moneyline,UTSA ML,0.697,0.7025,0.705,-0.008,10803,0.7
+Navy @ UTSA,2026-10-18,Moneyline,Navy ML,0.303,0.2975,0.3,0.003,85260,0.295
+Navy @ UTSA,2026-10-18,Spread,UTSA -6.5,0.4923,0.525,0.53,-0.0377,3378986,0.52
+Navy @ UTSA,2026-10-18,Spread,Navy +6.5,0.5077,0.475,0.48,0.0277,456349,0.47
+San José State @ UTEP,2026-10-18,Moneyline,UTEP ML,0.241,0.285,0.29,-0.049,2285232,0.28
+San José State @ UTEP,2026-10-18,Moneyline,San José State ML,0.759,0.715,0.72,0.039,972925,0.71
+San José State @ UTEP,2026-10-18,Spread,UTEP +7.5,0.4717,0.5475,0.555,-0.0833,116180,0.54
+San José State @ UTEP,2026-10-18,Spread,San José State -7.5,0.5283,0.4525,0.46,0.0683,363734,0.445
+Ohio @ Sacramento State,2026-10-18,Moneyline,Sacramento State ML,0.305,0.145,0.15,0.155,168412,0.14
+Ohio @ Sacramento State,2026-10-18,Moneyline,Ohio ML,0.695,0.855,0.86,-0.165,15683,0.85
+Ohio @ Sacramento State,2026-10-18,Spread,Sacramento State +15.5,0.7257,0.495,0.5,0.2257,281000,0.49
+Ohio @ Sacramento State,2026-10-18,Spread,Ohio -15.5,0.2743,0.505,0.51,-0.2357,328529,0.5
+Utah @ Colorado,2026-10-18,Moneyline,Colorado ML,0.078,0.1375,0.14,-0.062,119895,0.135
+Utah @ Colorado,2026-10-18,Moneyline,Utah ML,0.922,0.8625,0.865,0.057,370551,0.86
+Utah @ Colorado,2026-10-18,Spread,Colorado +15.5,0.4233,0.5225,0.525,-0.1017,235368,0.52
+Utah @ Colorado,2026-10-18,Spread,Utah -15.5,0.5767,0.4775,0.48,0.0967,232309,0.475
+Wake Forest @ California,2026-10-18,Moneyline,California ML,0.222,0.23,0.235,-0.013,24016,0.225
+Wake Forest @ California,2026-10-18,Moneyline,Wake Forest ML,0.778,0.77,0.775,0.003,1377951,0.765
+Wake Forest @ California,2026-10-18,Spread,California +9.5,0.5026,0.48,0.49,0.0126,1190237,0.47
+Wake Forest @ California,2026-10-18,Spread,Wake Forest -9.5,0.4974,0.52,0.53,-0.0326,1219431,0.51
+New Mexico @ Hawai'i,2026-10-18,Moneyline,Hawai'i ML,0.264,0.1475,0.15,0.114,11331,0.145
+New Mexico @ Hawai'i,2026-10-18,Moneyline,New Mexico ML,0.736,0.8525,0.855,-0.119,268964,0.85
+New Mexico @ Hawai'i,2026-10-18,Spread,Hawai'i +14.5,0.6696,0.505,0.51,0.1596,477830,0.5
+New Mexico @ Hawai'i,2026-10-18,Spread,New Mexico -14.5,0.3304,0.495,0.5,-0.1696,511500,0.49
+Fresno State @ San Diego State,2026-10-18,Moneyline,San Diego State ML,0.217,0.28,0.285,-0.068,389355,0.275
+Fresno State @ San Diego State,2026-10-18,Moneyline,Fresno State ML,0.783,0.72,0.725,0.058,291565,0.715
+Fresno State @ San Diego State,2026-10-18,Spread,San Diego State +7.5,0.4461,0.5125,0.52,-0.0739,404723,0.505
+Fresno State @ San Diego State,2026-10-18,Spread,Fresno State -7.5,0.5539,0.4875,0.495,0.0589,86400,0.48

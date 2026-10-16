@@ -334,7 +334,8 @@ def cfb(f):
                                        for x in sorted(bw, key=lambda x: x.get("week", 0))]))
     else:
         rec = note("Nothing graded yet.")
-    return [("Cards", cards_frame(card_rel, f"CFB week {week}")), ("Best bets", best), ("Record", rec)]
+    return [("Cards", cards_frame(card_rel, f"CFB week {week}")), ("Best bets", best),
+            ("Vs Novig", novig_html(DATA / "cfb_novig" / f"cfb_week{week}.csv")), ("Record", rec)]
 
 
 def nhl(f):

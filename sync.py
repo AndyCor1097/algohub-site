@@ -87,6 +87,11 @@ def main():
         nfl_novig.main()
     except Exception as ex:
         print(f"  ! novig nfl skipped: {ex}")
+    try:                                         # CFB model vs Novig
+        import cfb_novig
+        cfb_novig.main()
+    except Exception as ex:
+        print(f"  ! novig cfb skipped: {ex}")
     try:                                         # NHL model vs Novig
         import nhl_novig
         nhl_novig.main()
