@@ -82,6 +82,16 @@ def main():
         nfl_matchups.main()
     except Exception as ex:
         print(f"  ! matchups skipped: {ex}")
+    try:                                         # NFL model vs Novig exchange prices
+        import nfl_novig
+        nfl_novig.main()
+    except Exception as ex:
+        print(f"  ! novig nfl skipped: {ex}")
+    try:                                         # NHL model vs Novig
+        import nhl_novig
+        nhl_novig.main()
+    except Exception as ex:
+        print(f"  ! novig nhl skipped: {ex}")
     try:                                         # rebuild the real website in public/
         import build_site
         build_site.build()

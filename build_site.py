@@ -214,7 +214,33 @@ def nfl(f):
     else:
         rec = note("Nothing graded yet.")
     return [("Cards", '<p class="hint">Tap Player Props on any game to open its props.</p>' + cards_frame(card_rel, f"NFL week {week}")),
-            ("Best bets", best), ("Matchups", nfl_matchups_html(season, week)), ("Posts", posts), ("Record", rec)]
+            ("Best bets", best), ("Vs Novig", nfl_novig_html(season, week)),
+            ("Matchups", nfl_matchups_html(season, week)), ("Posts", posts), ("Record", rec)]
+
+
+def nfl_novig_html(season, week):
+    return novig_html(DATA / "nfl_novig" / f"{season}_wk{week:02d}.csv")
+
+
+def novig_html(f, min_edge=0.03):
+    """Model vs Novig's exchange price for every main line (made by nfl_novig.py / nhl_novig.py)."""
+    if not f.exists():
+        return note("Novig prices for this slate aren't pulled yet. Run update_site.bat.")
+    d = pd.read_csv(f)
+    pct = lambda s: s.map(lambda v: "" if pd.isna(v) else f"{v:.1%}")
+    view = lambda x: pd.DataFrame({
+        "Matchup": x.matchup, "Market": x.market, "Side": x.side, "Model": pct(x.model),
+        "Novig fair": pct(x.novig_fair), "Buy at": pct(x.novig_ask),
+        "Edge": x.edge.map(lambda v: "" if pd.isna(v) else f"{v * 100:+.1f}"),
+        "Available": x.ask_qty.map(lambda q: f"${q:,.0f}" if q else "")})
+    plays = d[d.edge >= min_edge].sort_values("edge", ascending=False)
+    intro = ('<p class="hint">Novig is a betting exchange with no vig, so its price is the sharp number. '
+             '<b>Buy at</b> is the cheapest price on Novig right now; <b>Edge</b> = your model minus that, in points. '
+             '<b>Available</b> = max payout sitting at that price. Spread and total model % come from the projected '
+             'margin/total.</p>')
+    top = (tiles([("Sides beating Novig", len(plays)), ("Best edge", f"{plays.edge.max() * 100:+.1f}" if len(plays) else "-")])
+           + table(view(plays)) if len(plays) else note(f"No side beats Novig by {min_edge:.0%} or more right now."))
+    return intro + top + '<h3 class="sub">Every main line</h3>' + table(view(d.sort_values(["matchup", "market", "side"])))
 
 
 # ---- NFL matchups: what each defense allows to WR1/WR2/TE1/RB1..., ranked 1-32 (made by nfl_matchups.py)
@@ -355,7 +381,8 @@ def nhl(f):
                + table(agg.rename(columns={"market": "Market", "tier": "Tier"})))
     else:
         rec = note("Nothing graded yet. Results show up the morning after the first slate.")
-    return [("Cards", stale(f) + cards_frame(card_rel, "NHL cards")), ("Best bets", best), ("Record", rec)]
+    return [("Cards", stale(f) + cards_frame(card_rel, "NHL cards")), ("Best bets", best),
+            ("Vs Novig", novig_html(DATA / "nhl_novig" / f.name)), ("Record", rec)]
 
 
 def mlb(f):
