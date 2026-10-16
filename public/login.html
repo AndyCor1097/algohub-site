@@ -225,7 +225,7 @@ body{padding-bottom:46px}
     <div class="ah-sub">Team at Team</div>
     <div class="ah-stat">+0.0 pts edge</div>
   </div></section>
-<nav class="sports" aria-label="Sports"><a href="/nfl/" class="">NFL</a><a href="/cfb/" class="live">CFB</a><a href="/nhl/" class="">NHL</a><a href="/mlb/" class="">MLB</a><a href="/hr/" class="live">Home Runs</a><a href="/cbb/" class="">CBB</a><a href="/nba/" class="">NBA</a></nav>
+<nav class="sports" aria-label="Sports"><a href="/nfl/" class="">NFL</a><a href="/cfb/" class="live">CFB</a><a href="/nhl/" class="">NHL</a><a href="/mlb/" class="">MLB</a><a href="/hr/" class="live">Home Runs</a><a href="/epl/" class="">Premier League</a><a href="/cbb/" class="">CBB</a><a href="/nba/" class="">NBA</a></nav>
 <main><style>
 .lg{max-width:460px;margin:26px auto 40px;background:var(--panel);border:1px solid var(--rule);border-radius:16px;padding:26px 24px}
 .lg h2{font:800 34px/1.05 "Big Shoulders Display",sans-serif;margin:0 0 6px}
@@ -316,7 +316,7 @@ const h=location.hash.slice(1); const hb=h&&document.querySelector('.panes butto
 </script><script>
 (function(){
 const PICKS=[], SP={"CFB": ["football/college-football", "&groups=80"]};
-const ALIAS={NHL:{TBL:'TB',NJD:'NJ',SJS:'SJ',LAK:'LA',UTA:'UTAH'},MLB:{CWS:'CHW',TBR:'TB',KCR:'KC',SDP:'SD',SFG:'SF',WSN:'WSH'},NFL:{LA:'LAR',WAS:'WSH'}};
+const ALIAS={NHL:{TBL:'TB',NJD:'NJ',SJS:'SJ',LAK:'LA',UTA:'UTAH'},MLB:{CWS:'CHW',TBR:'TB',KCR:'KC',SDP:'SD',SFG:'SF',WSN:'WSH'},NFL:{LA:'LAR',WAS:'WSH'},EPL:{'Man United':'Manchester United','Man City':'Manchester City',"Nott'm Forest":'Nottingham Forest',Wolves:'Wolverhampton Wanderers'}};
 const norm=s=>(s||'').toLowerCase().replace(/&/g,'and').replace(/\bstate\b/g,'st').replace(/\bsaint\b/g,'st').replace(/[^a-z0-9]/g,'');
 const keys=t=>[t.abbreviation,t.displayName,t.shortDisplayName,t.location,t.nickname,(t.location||'')+' '+(t.name||'')].filter(Boolean).map(norm);
 function hit(name,sport,comp){const k=norm((ALIAS[sport]||{})[name]||name); if(!k)return false;

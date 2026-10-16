@@ -23,6 +23,7 @@ SOURCES = {
     "nhl":       (DESKTOP / "nhl_game_algo" / "picks",               "nhl_*.csv",              21),
     "nba":       (DESKTOP / "NBA_Model" / "data",               "nba_today.json",         1),
     "cbb":       (DESKTOP / "cbb_algo" / "picks",               "cbb_*.csv",              14),
+    "epl":       (DESKTOP / "epl_algo" / "picks",               "epl_*.csv",              21),
 }
 
 # single files: (source, destination inside this site)
@@ -36,6 +37,9 @@ SINGLE = [
     (DESKTOP / "nhl_game_algo" / "tracker_all.csv",     DATA / "nhl_tracker_all.csv"),   # every game
     (DESKTOP / "cbb_algo" / "cards.py",            HERE / "cbb_cards.py"),   # your CBB card design
     (DESKTOP / "cbb_algo" / "tracker.csv",         DATA / "cbb_tracker.csv"),
+    (DESKTOP / "epl_algo" / "cards.py",            HERE / "epl_cards.py"),   # Premier League card design
+    (DESKTOP / "epl_algo" / "tracker.csv",         DATA / "epl_tracker.csv"),
+    (DESKTOP / "epl_algo" / "tracker_all.csv",     DATA / "epl_tracker_all.csv"),   # every match
 ]
 
 

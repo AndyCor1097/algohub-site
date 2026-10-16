@@ -19,7 +19,7 @@ DESK = HERE.parent
 LOGS = HERE / "logs"
 PY = sys.executable
 
-ACTIVE = ["nfl", "cfb", "nhl"]          # add "cbb", "nba", "mlb" when their seasons are live
+ACTIVE = ["nfl", "cfb", "nhl", "epl"]          # add "cbb", "nba", "mlb" when their seasons are live
 
 
 def log(msg):
@@ -103,6 +103,11 @@ def nhl():
     run(DESK / "nhl_game_algo", "nhl_algo.py", "auto", "--no-push")
 
 
+def epl():
+    # grades finished matches, then picks for the next 8 days (Premier League)
+    run(DESK / "epl_algo", "epl_algo.py", "auto")
+
+
 def site():
     log("SITE: sync + build")
     run(HERE, "sync.py")
@@ -113,7 +118,7 @@ def site():
     log("  site push: " + ("done, live in ~1 min" if r.returncode == 0 else "FAILED " + (r.stderr or r.stdout)[-300:]))
 
 
-SPORTS = {"nfl": nfl, "cfb": cfb, "nhl": nhl}
+SPORTS = {"nfl": nfl, "cfb": cfb, "nhl": nhl, "epl": epl}
 
 if __name__ == "__main__":
     pick = [a.lower() for a in sys.argv[1:]] or ACTIVE

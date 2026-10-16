@@ -11,6 +11,7 @@ ESPN = {  # board sport key -> ESPN scoreboard path + extra params
     "MLB": ("baseball/mlb", ""),
     "CBB": ("basketball/mens-college-basketball", "&groups=50&limit=400"),
     "NBA": ("basketball/nba", ""),
+    "EPL": ("soccer/eng.1", ""),
 }
 
 CSS = """
@@ -57,7 +58,7 @@ def js(picks, sports):
     return """<script>
 (function(){
 const PICKS=%s, SP=%s;
-const ALIAS={NHL:{TBL:'TB',NJD:'NJ',SJS:'SJ',LAK:'LA',UTA:'UTAH'},MLB:{CWS:'CHW',TBR:'TB',KCR:'KC',SDP:'SD',SFG:'SF',WSN:'WSH'},NFL:{LA:'LAR',WAS:'WSH'}};
+const ALIAS={NHL:{TBL:'TB',NJD:'NJ',SJS:'SJ',LAK:'LA',UTA:'UTAH'},MLB:{CWS:'CHW',TBR:'TB',KCR:'KC',SDP:'SD',SFG:'SF',WSN:'WSH'},NFL:{LA:'LAR',WAS:'WSH'},EPL:{'Man United':'Manchester United','Man City':'Manchester City',"Nott'm Forest":'Nottingham Forest',Wolves:'Wolverhampton Wanderers'}};
 const norm=s=>(s||'').toLowerCase().replace(/&/g,'and').replace(/\\bstate\\b/g,'st').replace(/\\bsaint\\b/g,'st').replace(/[^a-z0-9]/g,'');
 const keys=t=>[t.abbreviation,t.displayName,t.shortDisplayName,t.location,t.nickname,(t.location||'')+' '+(t.name||'')].filter(Boolean).map(norm);
 function hit(name,sport,comp){const k=norm((ALIAS[sport]||{})[name]||name); if(!k)return false;

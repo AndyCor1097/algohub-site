@@ -36,7 +36,7 @@ ON_HOLD = {"nba": "NBA picks start when the season tips off."}
 
 SPORTS = [  # slug, tab label, board key
     ("nfl", "NFL", "NFL"), ("cfb", "CFB", "CFB"), ("nhl", "NHL", "NHL"), ("mlb", "MLB", "MLB"),
-    ("hr", "Home Runs", "HR"), ("cbb", "CBB", "CBB"), ("nba", "NBA", None),
+    ("hr", "Home Runs", "HR"), ("epl", "Premier League", "EPL"), ("cbb", "CBB", "CBB"), ("nba", "NBA", None),
 ]
 e = lambda s: html.escape(str(s)) if s is not None and not (isinstance(s, float) and math.isnan(s)) else ""
 
@@ -436,6 +436,65 @@ def hr(f):
     return [("Top bats", stale(f) + cards_frame(card_rel, "Home run board"))]
 
 
+def epl(f):
+    from epl_cards import render_cards
+    g = pd.read_csv(f)
+    day = re.search(r"\d{4}-\d{2}-\d{2}", f.stem).group(0)
+    card_rel = f"cards/epl_{slug_from(f)}.html"
+    write(card_rel, render_cards(g, day))
+    rows = []
+    for _, r in g.iterrows():
+        mu = f"{r.away_team} @ {r.home_team}"
+        when = f"{pd.Timestamp(r.date):%a} {r.start_et}"
+        if isinstance(r.res_tier, str) and r.res_tier:
+            rows.append(dict(When=when, Matchup=mu, Market="Result", Pick=r.res_pick, Odds=odds(r.res_odds),
+                             Tier=r.res_tier, Edge=r.res_edge,
+                             Ours=f"{(r.p_draw if r.res_pick == 'Draw' else r.p_home if r.res_pick == r.home_team + ' ML' else r.p_away):.0%}"))
+        if isinstance(r.ou_tier, str) and r.ou_tier:
+            rows.append(dict(When=when, Matchup=mu, Market="Total 2.5", Pick=r.ou_pick, Odds=odds(r.ou_odds),
+                             Tier=r.ou_tier, Edge=r.ou_edge, Ours=f"Over {r.p_over25:.0%}"))
+    if rows:
+        bets = pd.DataFrame(rows)
+        bets["_r"] = bets.Tier.map(TIER_RANK).fillna(0)
+        bets = bets.sort_values(["_r", "Edge"], ascending=False).drop(columns="_r")
+        best = tiles([("Hammers", int((bets.Tier == "HAMMER").sum())), ("Plays", int((bets.Tier == "PLAY").sum())),
+                      ("Leans", int((bets.Tier == "LEAN").sum()))]) + table(bets)
+    else:
+        best = note("No plays clear the thresholds for these matches.")
+    allg = pd.DataFrame({
+        "When": [f"{pd.Timestamp(d):%a} {t}" for d, t in zip(g.date, g.start_et)],
+        "Matchup": g.away_team + " @ " + g.home_team,
+        "Proj goals": g.home_team + " " + g.xg_home.map("{:.1f}".format) + ", " + g.away_team + " " + g.xg_away.map("{:.1f}".format),
+        "Home %": (g.p_home * 100).round().astype(int), "Draw %": (g.p_draw * 100).round().astype(int),
+        "Away %": (g.p_away * 100).round().astype(int), "Over 2.5 %": (g.p_over25 * 100).round().astype(int),
+        "BTTS %": (g.p_btts * 100).round().astype(int), "Likely score": g.top_score})
+    best += '<h3 class="sub">Every match</h3>' + table(allg)
+    tp, ta = DATA / "epl_tracker.csv", DATA / "epl_tracker_all.csv"
+    rec = ""
+    if tp.exists():
+        t = pd.read_csv(tp)
+        w, l = (t.result == "W").sum(), (t.result == "L").sum()
+        agg = (t.groupby(["market", "tier"]).agg(W=("result", lambda x: (x == "W").sum()),
+                                                  L=("result", lambda x: (x == "L").sum()),
+                                                  Units=("units", "sum")).reset_index())
+        agg["Win %"] = (agg.W / (agg.W + agg.L).clip(lower=1)).map("{:.1%}".format)
+        agg["Units"] = agg.Units.map("{:+.2f}".format)
+        rec = (record_tiles(w, l, 0, t.units.sum()) + units_chart(t.groupby("date").units.sum().cumsum())
+               + table(agg.rename(columns={"market": "Market", "tier": "Tier"})))
+    if ta.exists():
+        a = pd.read_csv(ta)
+        n = len(a)
+        rec += '<h3 class="sub">Every match: projected result</h3>' + tiles([
+            ("Result", f"{int(a.hit.sum())}-{n - int(a.hit.sum())}"), ("Hit %", f"{a.hit.mean():.0%}" if n else "-"),
+            ("Exact score", f"{int(a.exact.sum())}/{n}"), ("O/U 2.5 lean", f"{int(a.ou_hit.sum())}-{n - int(a.ou_hit.sum())}")])
+        rec += table(a.sort_values("date", ascending=False).head(30)[["date", "matchup", "score", "proj", "proj_result", "actual", "top_score"]]
+                     .rename(columns={"date": "Date", "matchup": "Match", "score": "Final (away-home)", "proj": "Proj goals",
+                                      "proj_result": "Proj", "actual": "Result", "top_score": "Likely score"}))
+    if not rec:
+        rec = note("Nothing graded yet. Results show up the morning after each match.")
+    return [("Cards", stale(f) + cards_frame(card_rel, "Premier League cards")), ("Best bets", best), ("Record", rec)]
+
+
 def cbb(f):
     from cbb_cards import render_cards
     g = pd.read_csv(f)
@@ -529,6 +588,7 @@ SOURCES = {  # slug -> (data folder, file pattern, builder, empty message)
     "mlb": ("mlb", "all_games_*.csv", mlb, "MLB picks coming soon."),
     "hr": ("mlb_hr", "hr_*.json", hr, "Home run picks coming soon."),
     "cbb": ("cbb", "cbb_*.csv", cbb, "College basketball picks start on opening day in early November."),
+    "epl": ("epl", "epl_*.csv", epl, "Premier League picks show up when the next matchweek's odds are posted."),
     "nba": ("nba", "nba_*.json", nba, "NBA picks start when the season tips off."),
 }
 
@@ -702,7 +762,7 @@ def build():
             if i == 0:
                 write(f"{slug}/index.html", page)
     # home = the first sport with games today (else NFL), with the board on top
-    first = next((s for s in ("cbb", "nhl", "mlb", "nfl", "cfb", "hr") if s in live), "nfl")
+    first = next((s for s in ("cbb", "nhl", "mlb", "nfl", "cfb", "epl", "hr") if s in live), "nfl")
     home = (OUT / first / "index.html").read_text(encoding="utf-8")
     home = re.sub(r"<title>.*?</title>", f"<title>{SITE_NAME}: today's picks</title>", home, count=1)
     write("index.html", home)

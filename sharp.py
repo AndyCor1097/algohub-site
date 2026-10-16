@@ -18,7 +18,7 @@ def _newest(folder):
 
 # Leagues with no "vs Novig" file of their own (or only a few main lines): pull their game markets
 # straight from Novig so their big bets show on the tape too. (Novig league code, tape label)
-DIRECT = [("MLB", "MLB"), ("NHL", "NHL"), ("NBA", "NBA"), ("NCAAB", "CBB")]
+DIRECT = [("MLB", "MLB"), ("NHL", "NHL"), ("NBA", "NBA"), ("NCAAB", "CBB"), ("EPL", "EPL")]
 DIRECT_HOURS = 30          # games starting in the next 30 hours (plus ones that started in the last 4)
 PER_EVENT = 8              # markets per game: moneyline first, then spreads / totals
 MAX_DIRECT = 220           # keep the tape's serverless check fast

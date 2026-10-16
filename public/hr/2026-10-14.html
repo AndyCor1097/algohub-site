@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded',()=>{const f=document.querySelector
     <div class="ah-sub">TBR at CLE, 9.7% to homer</div>
     <div class="ah-stat"><em>49</em><small>hit score</small></div>
   </div></section>
-<nav class="sports" aria-label="Sports"><a href="/nfl/" class="">NFL</a><a href="/cfb/" class="live">CFB</a><a href="/nhl/" class="">NHL</a><a href="/mlb/" class="">MLB</a><a href="/hr/" class="live" aria-current=page>Home Runs</a><a href="/cbb/" class="">CBB</a><a href="/nba/" class="">NBA</a></nav>
+<nav class="sports" aria-label="Sports"><a href="/nfl/" class="">NFL</a><a href="/cfb/" class="live">CFB</a><a href="/nhl/" class="">NHL</a><a href="/mlb/" class="">MLB</a><a href="/hr/" class="live" aria-current=page>Home Runs</a><a href="/epl/" class="">Premier League</a><a href="/cbb/" class="">CBB</a><a href="/nba/" class="">NBA</a></nav>
 <main><div class="bar"><div class="panes" role="tablist"><button role="tab" data-p="p-topbats" aria-selected="true">Top bats</button></div><label class="slate">Slate <select onchange="location=this.value" aria-label="Pick a slate"><option value="/hr/2026-10-16.html">Fri Oct 16</option><option value="/hr/2026-10-15.html">Thu Oct 15</option><option value="/hr/2026-10-14.html" selected>Wed Oct 14</option><option value="/hr/2026-10-13.html">Tue Oct 13</option></select></label></div><section class="pane" id="p-topbats"><p class="note">No new slate yet. This is the last run (Wed Oct 14).</p><iframe class="cards" src="/cards/hr_2026-10-14.html" title="Home run board" loading="lazy" onload="fit(this)"></iframe></section></main>
 <footer class="ah-foot"><span>Model picks for entertainment. Not betting advice.</span><span>@TheAlgoHub</span></footer>
 </div><div class="st" id="st" hidden aria-label="Big bets on the Novig exchange">
@@ -260,7 +260,7 @@ const h=location.hash.slice(1); const hb=h&&document.querySelector('.panes butto
 </script><script>
 (function(){
 const PICKS=[{"sport": "CFB", "pick": "Tulane +6.5", "game": "Memphis at Tulane"}, {"sport": "CFB", "pick": "Coastal Carolina +1.5", "game": "Appalachian State at Coastal Carolina"}, {"sport": "CFB", "pick": "Washington +3", "game": "Washington at Purdue"}, {"sport": "CFB", "pick": "Under 50.5", "game": "Washington at Purdue"}], SP={"CFB": ["football/college-football", "&groups=80"]};
-const ALIAS={NHL:{TBL:'TB',NJD:'NJ',SJS:'SJ',LAK:'LA',UTA:'UTAH'},MLB:{CWS:'CHW',TBR:'TB',KCR:'KC',SDP:'SD',SFG:'SF',WSN:'WSH'},NFL:{LA:'LAR',WAS:'WSH'}};
+const ALIAS={NHL:{TBL:'TB',NJD:'NJ',SJS:'SJ',LAK:'LA',UTA:'UTAH'},MLB:{CWS:'CHW',TBR:'TB',KCR:'KC',SDP:'SD',SFG:'SF',WSN:'WSH'},NFL:{LA:'LAR',WAS:'WSH'},EPL:{'Man United':'Manchester United','Man City':'Manchester City',"Nott'm Forest":'Nottingham Forest',Wolves:'Wolverhampton Wanderers'}};
 const norm=s=>(s||'').toLowerCase().replace(/&/g,'and').replace(/\bstate\b/g,'st').replace(/\bsaint\b/g,'st').replace(/[^a-z0-9]/g,'');
 const keys=t=>[t.abbreviation,t.displayName,t.shortDisplayName,t.location,t.nickname,(t.location||'')+' '+(t.name||'')].filter(Boolean).map(norm);
 function hit(name,sport,comp){const k=norm((ALIAS[sport]||{})[name]||name); if(!k)return false;
