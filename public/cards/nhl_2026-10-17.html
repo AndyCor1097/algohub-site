@@ -1,0 +1,938 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AlgoHub NHL 2026-10-17</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0e13;--card:#12161d;--card2:#171c25;--line:#222a35;--tx:#e6edf3;--mu:#7d8590;
+--lean:#58a6ff;--play:#3fb950;--ham:#f2b134;--neg:#f85149}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-serif;padding:28px 16px 60px}
+.wrap{max-width:1180px;margin:0 auto}
+.proj,.cols span,.top h1,.stats b,.wplab,.pick,.frow i{font-family:"Barlow Condensed",sans-serif}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:18px}
+.top .k{color:var(--mu);font-size:12px;letter-spacing:.18em;font-weight:600}
+.top h1{font-size:44px;font-weight:800;letter-spacing:.02em;line-height:1}
+.stats{display:flex;gap:22px} .stats div{text-align:right} .stats small{display:block;color:var(--mu);font-size:11px;letter-spacing:.14em}
+.stats b{font-size:30px} .stats .h b{color:var(--ham)} .stats .p b{color:var(--play)}
+.tabs{display:flex;gap:6px;margin:18px 0 18px;flex-wrap:wrap}
+.tabs button{background:transparent;border:1px solid var(--line);color:var(--mu);padding:7px 14px;border-radius:999px;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.08em;cursor:pointer}
+.tabs button.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;border-top:3px solid var(--line)}
+.card.b-lean{border-top-color:var(--lean)} .card.b-play{border-top-color:var(--play)}
+.card.b-hammer{border-top-color:var(--ham);box-shadow:0 0 0 1px rgba(242,177,52,.25),0 8px 30px rgba(242,177,52,.08)}
+.meta{display:flex;justify-content:space-between;gap:10px;padding:11px 16px;color:var(--mu);font-size:11px;letter-spacing:.08em;border-bottom:1px solid var(--line)}
+.meta span:last-child{text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.team{display:flex;align-items:center;gap:12px;padding:10px 16px}
+.badge{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font:800 13px "Barlow Condensed";letter-spacing:.04em;flex:none}
+.tname{flex:1;min-width:0} .tname b{display:block;font-size:16px;font-weight:600} .tname small{color:var(--mu);font-size:12px}
+.proj{font-size:32px;font-weight:700;color:var(--mu)} .team.fav .proj{color:var(--tx)}
+.wp{padding:6px 16px 14px} .wplab{display:flex;justify-content:space-between;font-size:15px;font-weight:700;margin-bottom:6px}
+.wplab .cap{color:var(--mu);font:600 10px Inter,system-ui,sans-serif;letter-spacing:.16em;align-self:center}
+.wpbar{display:flex;height:8px;border-radius:99px;overflow:hidden;gap:2px;background:var(--line)} .wpbar i{display:block;height:100%}
+.mkt{border-top:1px solid var(--line);padding:12px 16px;background:var(--card2)}
+.mlabel{color:var(--mu);font:600 10px Inter,system-ui,sans-serif;letter-spacing:.18em;margin-bottom:8px} .mlabel em{font-style:normal;letter-spacing:.04em;opacity:.7}
+.cols{display:grid;grid-template-columns:1.3fr 1.3fr .7fr;gap:8px} .cols small{display:block;color:var(--mu);font-size:10px;letter-spacing:.14em}
+.cols span{font-size:17px;font-weight:700} .edge span{color:var(--mu)} .edge.hot span{color:var(--tx);font-size:24px}
+.pick{margin-top:10px;display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700;letter-spacing:.02em}
+.pick small{color:var(--mu);font-size:16px}
+.pick .tier{font:800 11px Inter,system-ui,sans-serif;letter-spacing:.14em;padding:4px 8px;border-radius:6px;color:#0b0e13}
+.t-lean .tier{background:var(--lean)} .t-play .tier{background:var(--play)} .t-hammer .tier{background:var(--ham)}
+.t-hammer{color:var(--ham)} .pick.none{color:#4b535d;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.16em}
+.strip{border-top:1px solid var(--line);padding:12px 16px}
+.frow{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:11px;color:var(--mu);letter-spacing:.06em;padding:3px 0;align-items:baseline}
+.frow b{color:var(--tx);width:36px;font-size:12px} .frow i{font-style:normal;color:var(--tx);font-size:14px;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 14px}
+.chip{font:600 10px Inter,system-ui,sans-serif;letter-spacing:.1em;color:#c9d1d9;border:1px solid var(--line);background:#0f1319;padding:4px 8px;border-radius:6px}
+.chip.inj{color:#ffb4ab;border-color:#5a2a27;background:#1d1212}
+.foot{color:var(--mu);font-size:11px;margin-top:30px;letter-spacing:.06em}
+.hide{display:none}
+</style></head><body><div class="wrap">
+  <div class="top">
+    <div><div class="k">THE ALGOHUB · NHL GAME ALGO</div><h1>SATURDAY, OCTOBER 17</h1></div>
+    <div class="stats">
+      <div><small>GAMES</small><b>14</b></div>
+      <div class="p"><small>PLAYS</small><b>0</b></div>
+      <div class="h"><small>HAMMERS</small><b>0</b></div>
+    </div>
+  </div>
+  <div class="tabs"><button class="on" data-f="all">ALL</button><button data-f="plays">PLAYS ONLY</button></div>
+  <div class="grid">
+    <article class="card b-none" data-play="0" data-rank="0">
+      <header class="meta"><span>1:00 PM ET</span><span>Capital One Arena</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#CE1126;color:#fff">NJD</span>
+        <div class="tname"><b>Devils</b><small>4-3-0</small></div>
+        <div class="proj">3.3</div>
+      </div>
+      
+      <div class="team ">
+        <span class="badge" style="background:#C8102E;color:#fff">WSH</span>
+        <div class="tname"><b>Capitals</b><small>4-3-0</small></div>
+        <div class="proj">3.1</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>NJD 52%</span><span class="cap">WIN PROB · OT 22%</span><span>WSH 48%</span></div>
+        <div class="wpbar"><i style="width:51.9%;background:#CE1126"></i><i style="width:48.1%;background:#C8102E"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MONEYLINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>NJD -108<br>WSH +108</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">PUCK LINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>NJD -1.5 30%</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>6.45</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      <div class="strip"><div class="mlabel">FORM <em>(per game, shrunk to last season early on)</em></div>
+          <div class="frow"><b>NJD</b>
+            <span>GF <i>3.01</i></span><span>GA <i>3.16</i></span>
+            <span>SF <i>32.1</i></span><span>SA <i>26.3</i></span>
+            <span>PP <i>23%</i></span><span>PK <i>79%</i></span>
+            <span>SV <i>0.883</i></span></div>
+          <div class="frow"><b>WSH</b>
+            <span>GF <i>3.25</i></span><span>GA <i>3.02</i></span>
+            <span>SF <i>27.2</i></span><span>SA <i>28.7</i></span>
+            <span>PP <i>17%</i></span><span>PK <i>80%</i></span>
+            <span>SV <i>0.894</i></span></div></div>
+      
+    </article>
+    <article class="card b-none" data-play="0" data-rank="0">
+      <header class="meta"><span>3:30 PM ET</span><span>Canada Life Centre</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#CC0000;color:#fff">CAR</span>
+        <div class="tname"><b>Hurricanes</b><small>6-1-1</small></div>
+        <div class="proj">3.5</div>
+      </div>
+      
+      <div class="team ">
+        <span class="badge" style="background:#041E42;color:#fff">WPG</span>
+        <div class="tname"><b>Jets</b><small>4-1-2</small></div>
+        <div class="proj">2.7</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>CAR 61%</span><span class="cap">WIN PROB · OT 22%</span><span>WPG 39%</span></div>
+        <div class="wpbar"><i style="width:61.3%;background:#CC0000"></i><i style="width:38.7%;background:#041E42"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MONEYLINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>CAR -158<br>WPG +158</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">PUCK LINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>CAR -1.5 39%</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>6.18</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      <div class="strip"><div class="mlabel">FORM <em>(per game, shrunk to last season early on)</em></div>
+          <div class="frow"><b>CAR</b>
+            <span>GF <i>3.60</i></span><span>GA <i>2.71</i></span>
+            <span>SF <i>31.6</i></span><span>SA <i>23.3</i></span>
+            <span>PP <i>24%</i></span><span>PK <i>83%</i></span>
+            <span>SV <i>0.884</i></span></div>
+          <div class="frow"><b>WPG</b>
+            <span>GF <i>2.92</i></span><span>GA <i>3.07</i></span>
+            <span>SF <i>27.0</i></span><span>SA <i>28.0</i></span>
+            <span>PP <i>22%</i></span><span>PK <i>81%</i></span>
+            <span>SV <i>0.889</i></span></div></div>
+      
+    </article>
+    <article class="card b-none" data-play="0" data-rank="0">
+      <header class="meta"><span>4:00 PM ET</span><span>Benchmark International Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#00205B;color:#fff">VAN</span>
+        <div class="tname"><b>Canucks</b><small>2-6-1</small></div>
+        <div class="proj">2.5</div>
+      </div>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#002868;color:#fff">TBL</span>
+        <div class="tname"><b>Lightning</b><small>5-2-0</small></div>
+        <div class="proj">3.8</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>VAN 31%</span><span class="cap">WIN PROB · OT 20%</span><span>TBL 69%</span></div>
+        <div class="wpbar"><i style="width:31.4%;background:#00205B"></i><i style="width:68.6%;background:#002868"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MONEYLINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>VAN +219<br>TBL -219</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">PUCK LINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>TBL -1.5 47%</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>6.37</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      <div class="strip"><div class="mlabel">FORM <em>(per game, shrunk to last season early on)</em></div>
+          <div class="frow"><b>VAN</b>
+            <span>GF <i>2.89</i></span><span>GA <i>4.01</i></span>
+            <span>SF <i>24.1</i></span><span>SA <i>30.9</i></span>
+            <span>PP <i>21%</i></span><span>PK <i>69%</i></span>
+            <span>SV <i>0.871</i></span></div>
+          <div class="frow"><b>TBL</b>
+            <span>GF <i>3.23</i></span><span>GA <i>2.82</i></span>
+            <span>SF <i>29.1</i></span><span>SA <i>25.8</i></span>
+            <span>PP <i>18%</i></span><span>PK <i>80%</i></span>
+            <span>SV <i>0.892</i></span></div></div>
+      
+    </article>
+    <article class="card b-none" data-play="0" data-rank="0">
+      <header class="meta"><span>6:00 PM ET</span><span>Amerant Bank Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#001628;color:#99D9D9">SEA</span>
+        <div class="tname"><b>Kraken</b><small>5-2-1</small></div>
+        <div class="proj">2.9</div>
+      </div>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#041E42;color:#C8102E">FLA</span>
+        <div class="tname"><b>Panthers</b><small>4-2-2</small></div>
+        <div class="proj">3.3</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>SEA 43%</span><span class="cap">WIN PROB · OT 22%</span><span>FLA 57%</span></div>
+        <div class="wpbar"><i style="width:43.1%;background:#001628"></i><i style="width:56.9%;background:#041E42"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MONEYLINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>SEA +132<br>FLA -132</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">PUCK LINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>FLA -1.5 34%</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>6.25</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      <div class="strip"><div class="mlabel">FORM <em>(per game, shrunk to last season early on)</em></div>
+          <div class="frow"><b>SEA</b>
+            <span>GF <i>3.25</i></span><span>GA <i>3.02</i></span>
+            <span>SF <i>26.6</i></span><span>SA <i>30.0</i></span>
+            <span>PP <i>22%</i></span><span>PK <i>77%</i></span>
+            <span>SV <i>0.897</i></span></div>
+          <div class="frow"><b>FLA</b>
+            <span>GF <i>2.91</i></span><span>GA <i>3.06</i></span>
+            <span>SF <i>28.2</i></span><span>SA <i>25.6</i></span>
+            <span>PP <i>19%</i></span><span>PK <i>80%</i></span>
+            <span>SV <i>0.881</i></span></div></div>
+      
+    </article>
+    <article class="card b-none" data-play="0" data-rank="0">
+      <header class="meta"><span>7:00 PM ET</span><span>Scotiabank Arena</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#00539B;color:#F47D30">NYI</span>
+        <div class="tname"><b>Islanders</b><small>3-3-1</small></div>
+        <div class="proj">3.3</div>
+      </div>
+      
+      <div class="team ">
+        <span class="badge" style="background:#00205B;color:#fff">TOR</span>
+        <div class="tname"><b>Maple Leafs</b><small>3-3-2</small></div>
+        <div class="proj">3.1</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>NYI 53%</span><span class="cap">WIN PROB · OT 22%</span><span>TOR 47%</span></div>
+        <div class="wpbar"><i style="width:52.7%;background:#00539B"></i><i style="width:47.3%;background:#00205B"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MONEYLINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>NYI -111<br>TOR +111</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">PUCK LINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>NYI -1.5 31%</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>6.51</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      <div class="strip"><div class="mlabel">FORM <em>(per game, shrunk to last season early on)</em></div>
+          <div class="frow"><b>NYI</b>
+            <span>GF <i>2.87</i></span><span>GA <i>2.70</i></span>
+            <span>SF <i>26.9</i></span><span>SA <i>26.9</i></span>
+            <span>PP <i>18%</i></span><span>PK <i>82%</i></span>
+            <span>SV <i>0.898</i></span></div>
+          <div class="frow"><b>TOR</b>
+            <span>GF <i>3.25</i></span><span>GA <i>3.42</i></span>
+            <span>SF <i>27.3</i></span><span>SA <i>30.8</i></span>
+            <span>PP <i>22%</i></span><span>PK <i>84%</i></span>
+            <span>SV <i>0.889</i></span></div></div>
+      
+    </article>
+    <article class="card b-none" data-play="0" data-rank="0">
+      <header class="meta"><span>7:00 PM ET</span><span>Centre Bell</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#003087;color:#FFB81C">BUF</span>
+        <div class="tname"><b>Sabres</b><small>4-3-1</small></div>
+        <div class="proj">3.1</div>
+      </div>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#AF1E2D;color:#fff">MTL</span>
+        <div class="tname"><b>Canadiens</b><small>3-3-1</small></div>
+        <div class="proj">3.2</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>BUF 48%</span><span class="cap">WIN PROB · OT 22%</span><span>MTL 52%</span></div>
+        <div class="wpbar"><i style="width:48.3%;background:#003087"></i><i style="width:51.7%;background:#AF1E2D"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MONEYLINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>BUF +107<br>MTL -107</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">PUCK LINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>MTL -1.5 30%</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>6.33</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      <div class="strip"><div class="mlabel">FORM <em>(per game, shrunk to last season early on)</em></div>
+          <div class="frow"><b>BUF</b>
+            <span>GF <i>3.20</i></span><span>GA <i>3.23</i></span>
+            <span>SF <i>27.5</i></span><span>SA <i>26.7</i></span>
+            <span>PP <i>15%</i></span><span>PK <i>76%</i></span>
+            <span>SV <i>0.886</i></span></div>
+          <div class="frow"><b>MTL</b>
+            <span>GF <i>3.19</i></span><span>GA <i>3.36</i></span>
+            <span>SF <i>27.5</i></span><span>SA <i>26.9</i></span>
+            <span>PP <i>21%</i></span><span>PK <i>80%</i></span>
+            <span>SV <i>0.881</i></span></div></div>
+      
+    </article>
+    <article class="card b-none" data-play="0" data-rank="0">
+      <header class="meta"><span>7:00 PM ET</span><span>Little Caesars Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#006D75;color:#fff">SJS</span>
+        <div class="tname"><b>Sharks</b><small>4-3-0</small></div>
+        <div class="proj">2.8</div>
+      </div>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#CE1126;color:#fff">DET</span>
+        <div class="tname"><b>Red Wings</b><small>2-3-2</small></div>
+        <div class="proj">3.4</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>SJS 41%</span><span class="cap">WIN PROB · OT 22%</span><span>DET 59%</span></div>
+        <div class="wpbar"><i style="width:40.8%;background:#006D75"></i><i style="width:59.2%;background:#CE1126"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MONEYLINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>SJS +145<br>DET -145</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">PUCK LINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>DET -1.5 37%</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>6.18</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      <div class="strip"><div class="mlabel">FORM <em>(per game, shrunk to last season early on)</em></div>
+          <div class="frow"><b>SJS</b>
+            <span>GF <i>2.87</i></span><span>GA <i>3.46</i></span>
+            <span>SF <i>26.5</i></span><span>SA <i>28.4</i></span>
+            <span>PP <i>20%</i></span><span>PK <i>80%</i></span>
+            <span>SV <i>0.880</i></span></div>
+          <div class="frow"><b>DET</b>
+            <span>GF <i>2.71</i></span><span>GA <i>3.01</i></span>
+            <span>SF <i>29.5</i></span><span>SA <i>26.9</i></span>
+            <span>PP <i>20%</i></span><span>PK <i>74%</i></span>
+            <span>SV <i>0.889</i></span></div></div>
+      
+    </article>
+    <article class="card b-none" data-play="0" data-rank="0">
+      <header class="meta"><span>7:00 PM ET</span><span>Xfinity Mobile Arena</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#C52032;color:#fff">OTT</span>
+        <div class="tname"><b>Senators</b><small>6-2-0</small></div>
+        <div class="proj">3.2</div>
+      </div>
+      
+      <div class="team ">
+        <span class="badge" style="background:#F74902;color:#000">PHI</span>
+        <div class="tname"><b>Flyers</b><small>0-6-3</small></div>
+        <div class="proj">2.4</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>OTT 62%</span><span class="cap">WIN PROB · OT 23%</span><span>PHI 38%</span></div>
+        <div class="wpbar"><i style="width:61.7%;background:#C52032"></i><i style="width:38.3%;background:#F74902"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MONEYLINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>OTT -161<br>PHI +161</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">PUCK LINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>OTT -1.5 38%</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>5.69</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      <div class="strip"><div class="mlabel">FORM <em>(per game, shrunk to last season early on)</em></div>
+          <div class="frow"><b>OTT</b>
+            <span>GF <i>3.01</i></span><span>GA <i>2.81</i></span>
+            <span>SF <i>25.7</i></span><span>SA <i>25.7</i></span>
+            <span>PP <i>20%</i></span><span>PK <i>79%</i></span>
+            <span>SV <i>0.887</i></span></div>
+          <div class="frow"><b>PHI</b>
+            <span>GF <i>2.22</i></span><span>GA <i>3.22</i></span>
+            <span>SF <i>23.1</i></span><span>SA <i>30.1</i></span>
+            <span>PP <i>13%</i></span><span>PK <i>80%</i></span>
+            <span>SV <i>0.889</i></span></div></div>
+      
+    </article>
+    <article class="card b-none" data-play="0" data-rank="0">
+      <header class="meta"><span>7:00 PM ET</span><span>Nationwide Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#0038A8;color:#fff">NYR</span>
+        <div class="tname"><b>Rangers</b><small>6-3-0</small></div>
+        <div class="proj">2.9</div>
+      </div>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#002654;color:#fff">CBJ</span>
+        <div class="tname"><b>Blue Jackets</b><small>2-3-0</small></div>
+        <div class="proj">3.1</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>NYR 48%</span><span class="cap">WIN PROB · OT 23%</span><span>CBJ 52%</span></div>
+        <div class="wpbar"><i style="width:47.8%;background:#0038A8"></i><i style="width:52.2%;background:#002654"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MONEYLINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>NYR +109<br>CBJ -109</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">PUCK LINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>CBJ -1.5 30%</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>6.00</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      <div class="strip"><div class="mlabel">FORM <em>(per game, shrunk to last season early on)</em></div>
+          <div class="frow"><b>NYR</b>
+            <span>GF <i>3.01</i></span><span>GA <i>2.74</i></span>
+            <span>SF <i>24.3</i></span><span>SA <i>26.5</i></span>
+            <span>PP <i>24%</i></span><span>PK <i>84%</i></span>
+            <span>SV <i>0.896</i></span></div>
+          <div class="frow"><b>CBJ</b>
+            <span>GF <i>3.02</i></span><span>GA <i>3.40</i></span>
+            <span>SF <i>28.5</i></span><span>SA <i>27.9</i></span>
+            <span>PP <i>18%</i></span><span>PK <i>76%</i></span>
+            <span>SV <i>0.883</i></span></div></div>
+      
+    </article>
+    <article class="card b-none" data-play="0" data-rank="0">
+      <header class="meta"><span>7:00 PM ET</span><span>United Center</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#006847;color:#fff">DAL</span>
+        <div class="tname"><b>Stars</b><small>3-3-1</small></div>
+        <div class="proj">3.3</div>
+      </div>
+      
+      <div class="team ">
+        <span class="badge" style="background:#CF0A2C;color:#fff">CHI</span>
+        <div class="tname"><b>Blackhawks</b><small>3-5-0</small></div>
+        <div class="proj">2.5</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>DAL 62%</span><span class="cap">WIN PROB · OT 22%</span><span>CHI 38%</span></div>
+        <div class="wpbar"><i style="width:62.0%;background:#006847"></i><i style="width:38.0%;background:#CF0A2C"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MONEYLINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>DAL -163<br>CHI +163</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">PUCK LINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>DAL -1.5 39%</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>5.76</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      <div class="strip"><div class="mlabel">FORM <em>(per game, shrunk to last season early on)</em></div>
+          <div class="frow"><b>DAL</b>
+            <span>GF <i>2.85</i></span><span>GA <i>2.41</i></span>
+            <span>SF <i>25.4</i></span><span>SA <i>25.0</i></span>
+            <span>PP <i>24%</i></span><span>PK <i>83%</i></span>
+            <span>SV <i>0.901</i></span></div>
+          <div class="frow"><b>CHI</b>
+            <span>GF <i>2.68</i></span><span>GA <i>3.54</i></span>
+            <span>SF <i>23.7</i></span><span>SA <i>29.8</i></span>
+            <span>PP <i>18%</i></span><span>PK <i>79%</i></span>
+            <span>SV <i>0.884</i></span></div></div>
+      
+    </article>
+    <article class="card b-none" data-play="0" data-rank="0">
+      <header class="meta"><span>8:00 PM ET</span><span>Bridgestone Arena</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#002F87;color:#FCB514">STL</span>
+        <div class="tname"><b>Blues</b><small>3-3-1</small></div>
+        <div class="proj">3.2</div>
+      </div>
+      
+      <div class="team ">
+        <span class="badge" style="background:#FFB81C;color:#041E42">NSH</span>
+        <div class="tname"><b>Predators</b><small>2-2-3</small></div>
+        <div class="proj">3.1</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>STL 51%</span><span class="cap">WIN PROB · OT 22%</span><span>NSH 49%</span></div>
+        <div class="wpbar"><i style="width:51.1%;background:#002F87"></i><i style="width:48.9%;background:#FFB81C"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MONEYLINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>STL -104<br>NSH +104</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">PUCK LINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>STL -1.5 29%</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>6.33</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      <div class="strip"><div class="mlabel">FORM <em>(per game, shrunk to last season early on)</em></div>
+          <div class="frow"><b>STL</b>
+            <span>GF <i>3.14</i></span><span>GA <i>3.16</i></span>
+            <span>SF <i>26.0</i></span><span>SA <i>27.4</i></span>
+            <span>PP <i>19%</i></span><span>PK <i>81%</i></span>
+            <span>SV <i>0.886</i></span></div>
+          <div class="frow"><b>NSH</b>
+            <span>GF <i>2.84</i></span><span>GA <i>3.08</i></span>
+            <span>SF <i>26.3</i></span><span>SA <i>29.3</i></span>
+            <span>PP <i>26%</i></span><span>PK <i>83%</i></span>
+            <span>SV <i>0.893</i></span></div></div>
+      
+    </article>
+    <article class="card b-none" data-play="0" data-rank="0">
+      <header class="meta"><span>9:00 PM ET</span><span>Crypto.com Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#FFB81C;color:#000">BOS</span>
+        <div class="tname"><b>Bruins</b><small>6-2-0 · B2B</small></div>
+        <div class="proj">2.8</div>
+      </div>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#111111;color:#A2AAAD">LAK</span>
+        <div class="tname"><b>Kings</b><small>0-3-2</small></div>
+        <div class="proj">3.2</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>BOS 44%</span><span class="cap">WIN PROB · OT 23%</span><span>LAK 56%</span></div>
+        <div class="wpbar"><i style="width:43.7%;background:#FFB81C"></i><i style="width:56.3%;background:#111111"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MONEYLINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>BOS +129<br>LAK -129</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">PUCK LINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>LAK -1.5 33%</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>5.97</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      <div class="strip"><div class="mlabel">FORM <em>(per game, shrunk to last season early on)</em></div>
+          <div class="frow"><b>BOS</b>
+            <span>GF <i>3.43</i></span><span>GA <i>2.72</i></span>
+            <span>SF <i>26.2</i></span><span>SA <i>28.9</i></span>
+            <span>PP <i>22%</i></span><span>PK <i>78%</i></span>
+            <span>SV <i>0.903</i></span></div>
+          <div class="frow"><b>LAK</b>
+            <span>GF <i>2.63</i></span><span>GA <i>3.32</i></span>
+            <span>SF <i>29.0</i></span><span>SA <i>27.1</i></span>
+            <span>PP <i>20%</i></span><span>PK <i>71%</i></span>
+            <span>SV <i>0.883</i></span></div></div>
+      <div class="chips"><span class="chip inj">BOS B2B</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-rank="0">
+      <header class="meta"><span>10:00 PM ET</span><span>Delta Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#041E42;color:#FF4C00">EDM</span>
+        <div class="tname"><b>Oilers</b><small>5-1-1</small></div>
+        <div class="proj">2.9</div>
+      </div>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#6CACE4;color:#000">UTA</span>
+        <div class="tname"><b>Mammoth</b><small>6-2-0</small></div>
+        <div class="proj">3.4</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>EDM 43%</span><span class="cap">WIN PROB · OT 22%</span><span>UTA 57%</span></div>
+        <div class="wpbar"><i style="width:43.0%;background:#041E42"></i><i style="width:57.0%;background:#6CACE4"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MONEYLINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>EDM +132<br>UTA -132</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">PUCK LINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>UTA -1.5 34%</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>6.28</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      <div class="strip"><div class="mlabel">FORM <em>(per game, shrunk to last season early on)</em></div>
+          <div class="frow"><b>EDM</b>
+            <span>GF <i>3.74</i></span><span>GA <i>3.17</i></span>
+            <span>SF <i>27.2</i></span><span>SA <i>26.5</i></span>
+            <span>PP <i>25%</i></span><span>PK <i>76%</i></span>
+            <span>SV <i>0.881</i></span></div>
+          <div class="frow"><b>UTA</b>
+            <span>GF <i>3.48</i></span><span>GA <i>2.83</i></span>
+            <span>SF <i>29.1</i></span><span>SA <i>24.9</i></span>
+            <span>PP <i>26%</i></span><span>PK <i>79%</i></span>
+            <span>SV <i>0.888</i></span></div></div>
+      
+    </article>
+    <article class="card b-none" data-play="0" data-rank="0">
+      <header class="meta"><span>10:00 PM ET</span><span>T-Mobile Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#FCB514;color:#000">PIT</span>
+        <div class="tname"><b>Penguins</b><small>3-4-1 · B2B</small></div>
+        <div class="proj">2.7</div>
+      </div>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#B4975A;color:#000">VGK</span>
+        <div class="tname"><b>Golden Knights</b><small>7-2-0</small></div>
+        <div class="proj">3.8</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>PIT 34%</span><span class="cap">WIN PROB · OT 20%</span><span>VGK 66%</span></div>
+        <div class="wpbar"><i style="width:33.6%;background:#FCB514"></i><i style="width:66.4%;background:#B4975A"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MONEYLINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>PIT +197<br>VGK -197</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">PUCK LINE</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>VGK -1.5 45%</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>MARKET</small><span>-</span></div>
+          <div><small>MODEL</small><span>6.52</span></div>
+          <div class="edge "><small>EDGE %</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      <div class="strip"><div class="mlabel">FORM <em>(per game, shrunk to last season early on)</em></div>
+          <div class="frow"><b>PIT</b>
+            <span>GF <i>3.34</i></span><span>GA <i>3.18</i></span>
+            <span>SF <i>28.6</i></span><span>SA <i>28.1</i></span>
+            <span>PP <i>19%</i></span><span>PK <i>83%</i></span>
+            <span>SV <i>0.886</i></span></div>
+          <div class="frow"><b>VGK</b>
+            <span>GF <i>3.48</i></span><span>GA <i>2.76</i></span>
+            <span>SF <i>29.9</i></span><span>SA <i>25.5</i></span>
+            <span>PP <i>24%</i></span><span>PK <i>77%</i></span>
+            <span>SV <i>0.888</i></span></div></div>
+      <div class="chips"><span class="chip inj">PIT B2B</span></div>
+    </article></div>
+  <p class="foot">Poisson goal model on in-season team form, shrunk toward last season. Edges = win-prob points vs. no-vig consensus. LEAN / PLAY / HAMMER tiers. Not betting advice.</p>
+</div>
+<script>
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
+  const f=b.dataset.f;
+  document.querySelectorAll('.card').forEach(c=>c.classList.toggle('hide',f==='plays'&&c.dataset.play!=='1'));
+});
+</script></body></html>

@@ -1,6 +1,6 @@
 {
   "week": 7,
-  "generated": "2026-10-16 17:42",
+  "generated": "2026-10-17 12:40",
   "model": "CSV-based opponent-adjusted metrics (85% ratings / 15% market)",
   "games": [
     {
@@ -241,9 +241,9 @@
       "start_date": "2026-10-16 23:30:00",
       "neutral_site": false,
       "pred_home": 26,
-      "pred_away": 28,
+      "pred_away": 29,
       "pred_margin": -2.2,
-      "pred_total": 54,
+      "pred_total": 55,
       "ratings_margin": -1.4,
       "home_win_prob": 42.8,
       "home_field_adv": 2.2,
@@ -254,7 +254,7 @@
       "home_moneyline_book": 215.0,
       "away_moneyline_book": -266.5,
       "spread_edge": 4.3,
-      "total_edge": -1.0,
+      "total_edge": 0.0,
       "ml_edge": 0.111,
       "edge_label": "\u2705 EDGE",
       "edge_pick": "Tulane",
@@ -262,10 +262,10 @@
       "home_elo": 1516,
       "away_elo": 1665,
       "commence_time": "2026-10-16T23:30:00Z",
-      "weather": "\ud83d\udca8 74\u00b0F \u00b7 15 MPH",
-      "wx_wind": 15,
-      "wx_temp": 74,
-      "wx_shade": -1.0
+      "weather": "",
+      "wx_wind": null,
+      "wx_temp": null,
+      "wx_shade": 0.0
     },
     {
       "week": 7,
@@ -295,10 +295,10 @@
       "home_elo": 1281,
       "away_elo": 1297,
       "commence_time": "2026-10-17T00:00:00Z",
-      "weather": "74\u00b0F \u00b7 8 MPH",
-      "wx_wind": 8,
-      "wx_temp": 74,
-      "wx_shade": -0.0
+      "weather": "",
+      "wx_wind": null,
+      "wx_temp": null,
+      "wx_shade": 0.0
     },
     {
       "week": 7,
@@ -306,10 +306,10 @@
       "away_team": "Washington",
       "start_date": "2026-10-17 00:00:00",
       "neutral_site": false,
-      "pred_home": 24,
-      "pred_away": 25,
+      "pred_home": 25,
+      "pred_away": 26,
       "pred_margin": -1.3,
-      "pred_total": 49,
+      "pred_total": 51,
       "ratings_margin": -2.1,
       "home_win_prob": 45.6,
       "home_field_adv": 2.2,
@@ -320,7 +320,7 @@
       "home_moneyline_book": -164.0,
       "away_moneyline_book": 137.0,
       "spread_edge": -4.3,
-      "total_edge": -1.5,
+      "total_edge": 0.5,
       "ml_edge": -0.165,
       "edge_label": "\u2705 EDGE",
       "edge_pick": "Washington",
@@ -328,10 +328,10 @@
       "home_elo": 1425,
       "away_elo": 1702,
       "commence_time": "2026-10-17T00:00:00Z",
-      "weather": "50\u00b0F \u00b7 13 MPH",
-      "wx_wind": 13,
-      "wx_temp": 50,
-      "wx_shade": -1.6
+      "weather": "",
+      "wx_wind": null,
+      "wx_temp": null,
+      "wx_shade": 0.0
     },
     {
       "week": 7,
@@ -361,10 +361,10 @@
       "home_elo": 1831,
       "away_elo": 1767,
       "commence_time": "2026-10-18T03:00:00Z",
-      "weather": "56\u00b0F \u00b7 4 MPH",
-      "wx_wind": 4,
-      "wx_temp": 56,
-      "wx_shade": -0.0
+      "weather": "",
+      "wx_wind": null,
+      "wx_temp": null,
+      "wx_shade": 0.0
     },
     {
       "week": 7,
@@ -394,10 +394,10 @@
       "home_elo": 1673,
       "away_elo": 1673,
       "commence_time": "2026-10-17T23:30:00Z",
-      "weather": "78\u00b0F \u00b7 8 MPH",
-      "wx_wind": 8,
-      "wx_temp": 78,
-      "wx_shade": -0.0
+      "weather": "",
+      "wx_wind": null,
+      "wx_temp": null,
+      "wx_shade": 0.0
     },
     {
       "week": 7,
@@ -406,9 +406,9 @@
       "start_date": "2026-10-17 16:00:00",
       "neutral_site": false,
       "pred_home": 33,
-      "pred_away": 21,
+      "pred_away": 22,
       "pred_margin": 11.3,
-      "pred_total": 54,
+      "pred_total": 55,
       "ratings_margin": 13.0,
       "home_win_prob": 81.8,
       "home_field_adv": 2.2,
@@ -419,7 +419,7 @@
       "home_moneyline_book": -123.5,
       "away_moneyline_book": 103.5,
       "spread_edge": 9.8,
-      "total_edge": -1.0,
+      "total_edge": 0.0,
       "ml_edge": 0.265,
       "edge_label": "\ud83d\udd25 STRONG",
       "edge_pick": "Army",
@@ -427,10 +427,10 @@
       "home_elo": 1523,
       "away_elo": 1300,
       "commence_time": "2026-10-17T16:00:00Z",
-      "weather": "\ud83d\udca8 45\u00b0F \u00b7 15 MPH",
-      "wx_wind": 15,
-      "wx_temp": 45,
-      "wx_shade": -1.0
+      "weather": "50\u00b0F \u00b7 13 MPH",
+      "wx_wind": 13,
+      "wx_temp": 50,
+      "wx_shade": -0.6
     },
     {
       "week": 7,
@@ -460,9 +460,9 @@
       "home_elo": 1381,
       "away_elo": 1645,
       "commence_time": "2026-10-17T16:00:00Z",
-      "weather": "\ud83d\udca8 45\u00b0F \u00b7 15 MPH",
+      "weather": "\ud83d\udca8 49\u00b0F \u00b7 15 MPH",
       "wx_wind": 15,
-      "wx_temp": 45,
+      "wx_temp": 49,
       "wx_shade": -1.0
     },
     {
@@ -493,9 +493,9 @@
       "home_elo": 1245,
       "away_elo": 1054,
       "commence_time": "2026-10-17T16:00:00Z",
-      "weather": "46\u00b0F \u00b7 7 MPH",
-      "wx_wind": 7,
-      "wx_temp": 46,
+      "weather": "48\u00b0F \u00b7 5 MPH",
+      "wx_wind": 5,
+      "wx_temp": 48,
       "wx_shade": -0.0
     },
     {
@@ -526,8 +526,8 @@
       "home_elo": 2098,
       "away_elo": 2060,
       "commence_time": "2026-10-17T16:00:00Z",
-      "weather": "49\u00b0F \u00b7 10 MPH",
-      "wx_wind": 10,
+      "weather": "49\u00b0F \u00b7 8 MPH",
+      "wx_wind": 8,
       "wx_temp": 49,
       "wx_shade": -0.0
     },
@@ -559,10 +559,10 @@
       "home_elo": 1800,
       "away_elo": 1402,
       "commence_time": "2026-10-17T16:00:00Z",
-      "weather": "48\u00b0F \u00b7 14 MPH",
-      "wx_wind": 14,
-      "wx_temp": 48,
-      "wx_shade": -0.8
+      "weather": "\ud83d\udca8 51\u00b0F \u00b7 16 MPH",
+      "wx_wind": 16,
+      "wx_temp": 51,
+      "wx_shade": -1.2
     },
     {
       "week": 7,
@@ -592,9 +592,9 @@
       "home_elo": 1617,
       "away_elo": 1614,
       "commence_time": "2026-10-17T16:00:00Z",
-      "weather": "52\u00b0F \u00b7 8 MPH",
-      "wx_wind": 8,
-      "wx_temp": 52,
+      "weather": "51\u00b0F \u00b7 7 MPH",
+      "wx_wind": 7,
+      "wx_temp": 51,
       "wx_shade": -0.0
     },
     {
@@ -625,10 +625,10 @@
       "home_elo": 1859,
       "away_elo": 1612,
       "commence_time": "2026-10-17T16:00:00Z",
-      "weather": "\ud83d\udca8 65\u00b0F \u00b7 16 MPH",
-      "wx_wind": 16,
+      "weather": "\ud83d\udca8 65\u00b0F \u00b7 15 MPH",
+      "wx_wind": 15,
       "wx_temp": 65,
-      "wx_shade": -1.2
+      "wx_shade": -1.0
     },
     {
       "week": 7,
@@ -658,9 +658,9 @@
       "home_elo": 1452,
       "away_elo": 1731,
       "commence_time": "2026-10-17T16:00:00Z",
-      "weather": "46\u00b0F \u00b7 4 MPH",
-      "wx_wind": 4,
-      "wx_temp": 46,
+      "weather": "47\u00b0F \u00b7 5 MPH",
+      "wx_wind": 5,
+      "wx_temp": 47,
       "wx_shade": -0.0
     },
     {
@@ -691,9 +691,9 @@
       "home_elo": 1689,
       "away_elo": 1592,
       "commence_time": "2026-10-17T16:00:00Z",
-      "weather": "59\u00b0F \u00b7 8 MPH",
-      "wx_wind": 8,
-      "wx_temp": 59,
+      "weather": "61\u00b0F \u00b7 7 MPH",
+      "wx_wind": 7,
+      "wx_temp": 61,
       "wx_shade": -0.0
     },
     {
@@ -724,10 +724,10 @@
       "home_elo": 1914,
       "away_elo": 1619,
       "commence_time": "2026-10-17T16:00:00Z",
-      "weather": "60\u00b0F \u00b7 11 MPH",
-      "wx_wind": 11,
-      "wx_temp": 60,
-      "wx_shade": -0.2
+      "weather": "62\u00b0F \u00b7 10 MPH",
+      "wx_wind": 10,
+      "wx_temp": 62,
+      "wx_shade": -0.0
     },
     {
       "week": 7,
@@ -757,9 +757,9 @@
       "home_elo": 1338,
       "away_elo": 1469,
       "commence_time": "2026-10-17T16:00:00Z",
-      "weather": "46\u00b0F \u00b7 13 MPH",
+      "weather": "49\u00b0F \u00b7 13 MPH",
       "wx_wind": 13,
-      "wx_temp": 46,
+      "wx_temp": 49,
       "wx_shade": -0.6
     },
     {
@@ -790,10 +790,10 @@
       "home_elo": 1301,
       "away_elo": 1383,
       "commence_time": "2026-10-17T16:30:00Z",
-      "weather": "\ud83d\udca8 52\u00b0F \u00b7 15 MPH",
-      "wx_wind": 15,
-      "wx_temp": 52,
-      "wx_shade": -1.0
+      "weather": "54\u00b0F \u00b7 14 MPH",
+      "wx_wind": 14,
+      "wx_temp": 54,
+      "wx_shade": -0.8
     },
     {
       "week": 7,
@@ -823,10 +823,10 @@
       "home_elo": 1363,
       "away_elo": 1129,
       "commence_time": "2026-10-17T17:00:00Z",
-      "weather": "43\u00b0F \u00b7 11 MPH",
-      "wx_wind": 11,
-      "wx_temp": 43,
-      "wx_shade": -0.2
+      "weather": "44\u00b0F \u00b7 9 MPH",
+      "wx_wind": 9,
+      "wx_temp": 44,
+      "wx_shade": -0.0
     },
     {
       "week": 7,
@@ -856,10 +856,10 @@
       "home_elo": 1342,
       "away_elo": 982,
       "commence_time": "2026-10-17T17:00:00Z",
-      "weather": "\ud83d\udca8 49\u00b0F \u00b7 15 MPH",
-      "wx_wind": 15,
-      "wx_temp": 49,
-      "wx_shade": -1.0
+      "weather": "53\u00b0F \u00b7 13 MPH",
+      "wx_wind": 13,
+      "wx_temp": 53,
+      "wx_shade": -0.6
     },
     {
       "week": 7,
@@ -889,10 +889,10 @@
       "home_elo": 1216,
       "away_elo": 1493,
       "commence_time": "2026-10-17T17:30:00Z",
-      "weather": "51\u00b0F \u00b7 11 MPH",
-      "wx_wind": 11,
+      "weather": "51\u00b0F \u00b7 12 MPH",
+      "wx_wind": 12,
       "wx_temp": 51,
-      "wx_shade": -0.2
+      "wx_shade": -0.4
     },
     {
       "week": 7,
@@ -922,10 +922,10 @@
       "home_elo": 1464,
       "away_elo": 1509,
       "commence_time": "2026-10-17T19:30:00Z",
-      "weather": "68\u00b0F \u00b7 11 MPH",
-      "wx_wind": 11,
-      "wx_temp": 68,
-      "wx_shade": -0.2
+      "weather": "70\u00b0F \u00b7 10 MPH",
+      "wx_wind": 10,
+      "wx_temp": 70,
+      "wx_shade": -0.0
     },
     {
       "week": 7,
@@ -955,10 +955,10 @@
       "home_elo": 1653,
       "away_elo": 1449,
       "commence_time": "2026-10-17T19:30:00Z",
-      "weather": "54\u00b0F \u00b7 13 MPH",
-      "wx_wind": 13,
-      "wx_temp": 54,
-      "wx_shade": -0.6
+      "weather": "53\u00b0F \u00b7 12 MPH",
+      "wx_wind": 12,
+      "wx_temp": 53,
+      "wx_shade": -0.4
     },
     {
       "week": 7,
@@ -988,9 +988,9 @@
       "home_elo": 1235,
       "away_elo": 1529,
       "commence_time": "2026-10-17T19:30:00Z",
-      "weather": "50\u00b0F \u00b7 7 MPH",
-      "wx_wind": 7,
-      "wx_temp": 50,
+      "weather": "52\u00b0F \u00b7 6 MPH",
+      "wx_wind": 6,
+      "wx_temp": 52,
       "wx_shade": -0.0
     },
     {
@@ -1021,10 +1021,10 @@
       "home_elo": 2053,
       "away_elo": 1669,
       "commence_time": "2026-10-17T19:30:00Z",
-      "weather": "66\u00b0F \u00b7 14 MPH",
-      "wx_wind": 14,
-      "wx_temp": 66,
-      "wx_shade": -0.8
+      "weather": "67\u00b0F \u00b7 13 MPH",
+      "wx_wind": 13,
+      "wx_temp": 67,
+      "wx_shade": -0.6
     },
     {
       "week": 7,
@@ -1054,9 +1054,9 @@
       "home_elo": 1248,
       "away_elo": 879,
       "commence_time": "2026-10-17T19:30:00Z",
-      "weather": "50\u00b0F \u00b7 8 MPH",
-      "wx_wind": 8,
-      "wx_temp": 50,
+      "weather": "52\u00b0F \u00b7 6 MPH",
+      "wx_wind": 6,
+      "wx_temp": 52,
       "wx_shade": -0.0
     },
     {
@@ -1087,9 +1087,9 @@
       "home_elo": 1719,
       "away_elo": 1802,
       "commence_time": "2026-10-17T19:30:00Z",
-      "weather": "49\u00b0F \u00b7 7 MPH",
-      "wx_wind": 7,
-      "wx_temp": 49,
+      "weather": "52\u00b0F \u00b7 6 MPH",
+      "wx_wind": 6,
+      "wx_temp": 52,
       "wx_shade": -0.0
     },
     {
@@ -1120,10 +1120,10 @@
       "home_elo": 1868,
       "away_elo": 1814,
       "commence_time": "2026-10-17T19:30:00Z",
-      "weather": "64\u00b0F \u00b7 14 MPH",
-      "wx_wind": 14,
+      "weather": "64\u00b0F \u00b7 13 MPH",
+      "wx_wind": 13,
       "wx_temp": 64,
-      "wx_shade": -0.8
+      "wx_shade": -0.6
     },
     {
       "week": 7,
@@ -1153,9 +1153,9 @@
       "home_elo": 1776,
       "away_elo": 1990,
       "commence_time": "2026-10-17T19:30:00Z",
-      "weather": "57\u00b0F \u00b7 12 MPH",
+      "weather": "58\u00b0F \u00b7 12 MPH",
       "wx_wind": 12,
-      "wx_temp": 57,
+      "wx_temp": 58,
       "wx_shade": -0.4
     },
     {
@@ -1219,10 +1219,10 @@
       "home_elo": 1489,
       "away_elo": 1496,
       "commence_time": "2026-10-17T19:30:00Z",
-      "weather": "49\u00b0F \u00b7 14 MPH",
-      "wx_wind": 14,
-      "wx_temp": 49,
-      "wx_shade": -0.8
+      "weather": "50\u00b0F \u00b7 13 MPH",
+      "wx_wind": 13,
+      "wx_temp": 50,
+      "wx_shade": -0.6
     },
     {
       "week": 7,
@@ -1252,9 +1252,9 @@
       "home_elo": 1292,
       "away_elo": 1167,
       "commence_time": "2026-10-17T19:30:00Z",
-      "weather": "66\u00b0F \u00b7 6 MPH",
+      "weather": "67\u00b0F \u00b7 6 MPH",
       "wx_wind": 6,
-      "wx_temp": 66,
+      "wx_temp": 67,
       "wx_shade": -0.0
     },
     {
@@ -1318,9 +1318,9 @@
       "home_elo": 1439,
       "away_elo": 1428,
       "commence_time": "2026-10-17T21:00:00Z",
-      "weather": "69\u00b0F \u00b7 12 MPH",
+      "weather": "68\u00b0F \u00b7 12 MPH",
       "wx_wind": 12,
-      "wx_temp": 69,
+      "wx_temp": 68,
       "wx_shade": -0.4
     },
     {
@@ -1329,10 +1329,10 @@
       "away_team": "Washington State",
       "start_date": "2026-10-17 22:00:00",
       "neutral_site": false,
-      "pred_home": 32,
+      "pred_home": 33,
       "pred_away": 20,
       "pred_margin": 12.6,
-      "pred_total": 52,
+      "pred_total": 53,
       "ratings_margin": 11.6,
       "home_win_prob": 84.3,
       "home_field_adv": 2.2,
@@ -1343,7 +1343,7 @@
       "home_moneyline_book": -1075.0,
       "away_moneyline_book": 677.5,
       "spread_edge": -5.9,
-      "total_edge": -0.5,
+      "total_edge": 0.5,
       "ml_edge": -0.072,
       "edge_label": "\u2705 EDGE",
       "edge_pick": "Washington State",
@@ -1351,10 +1351,10 @@
       "home_elo": 1581,
       "away_elo": 1476,
       "commence_time": "2026-10-17T22:00:00Z",
-      "weather": "64\u00b0F \u00b7 11 MPH",
-      "wx_wind": 11,
-      "wx_temp": 64,
-      "wx_shade": -0.2
+      "weather": "65\u00b0F \u00b7 10 MPH",
+      "wx_wind": 10,
+      "wx_temp": 65,
+      "wx_shade": -0.0
     },
     {
       "week": 7,
@@ -1417,9 +1417,9 @@
       "home_elo": 1993,
       "away_elo": 1598,
       "commence_time": "2026-10-17T23:00:00Z",
-      "weather": "73\u00b0F \u00b7 3 MPH \u00b7 RAIN 56%",
-      "wx_wind": 3,
-      "wx_temp": 73,
+      "weather": "77\u00b0F \u00b7 4 MPH \u00b7 RAIN 61%",
+      "wx_wind": 4,
+      "wx_temp": 77,
       "wx_shade": -0.0
     },
     {
@@ -1483,9 +1483,9 @@
       "home_elo": 1606,
       "away_elo": 1014,
       "commence_time": "2026-10-17T23:00:00Z",
-      "weather": "63\u00b0F \u00b7 10 MPH",
+      "weather": "67\u00b0F \u00b7 10 MPH",
       "wx_wind": 10,
-      "wx_temp": 63,
+      "wx_temp": 67,
       "wx_shade": -0.0
     },
     {
@@ -1516,9 +1516,9 @@
       "home_elo": 1194,
       "away_elo": 1310,
       "commence_time": "2026-10-17T23:00:00Z",
-      "weather": "61\u00b0F \u00b7 8 MPH",
+      "weather": "62\u00b0F \u00b7 8 MPH",
       "wx_wind": 8,
-      "wx_temp": 61,
+      "wx_temp": 62,
       "wx_shade": -0.0
     },
     {
@@ -1549,9 +1549,9 @@
       "home_elo": 1610,
       "away_elo": 1482,
       "commence_time": "2026-10-17T23:00:00Z",
-      "weather": "54\u00b0F \u00b7 7 MPH",
-      "wx_wind": 7,
-      "wx_temp": 54,
+      "weather": "55\u00b0F \u00b7 6 MPH",
+      "wx_wind": 6,
+      "wx_temp": 55,
       "wx_shade": -0.0
     },
     {
@@ -1582,8 +1582,8 @@
       "home_elo": 1725,
       "away_elo": 2097,
       "commence_time": "2026-10-17T23:30:00Z",
-      "weather": "64\u00b0F \u00b7 3 MPH",
-      "wx_wind": 3,
+      "weather": "64\u00b0F \u00b7 4 MPH",
+      "wx_wind": 4,
       "wx_temp": 64,
       "wx_shade": -0.0
     },
@@ -1615,9 +1615,9 @@
       "home_elo": 1612,
       "away_elo": 1373,
       "commence_time": "2026-10-17T23:30:00Z",
-      "weather": "64\u00b0F \u00b7 5 MPH",
+      "weather": "63\u00b0F \u00b7 5 MPH",
       "wx_wind": 5,
-      "wx_temp": 64,
+      "wx_temp": 63,
       "wx_shade": -0.0
     },
     {
@@ -1648,9 +1648,9 @@
       "home_elo": 1747,
       "away_elo": 1568,
       "commence_time": "2026-10-17T23:30:00Z",
-      "weather": "51\u00b0F \u00b7 4 MPH",
-      "wx_wind": 4,
-      "wx_temp": 51,
+      "weather": "53\u00b0F \u00b7 3 MPH",
+      "wx_wind": 3,
+      "wx_temp": 53,
       "wx_shade": -0.0
     },
     {
@@ -1780,8 +1780,8 @@
       "home_elo": 986,
       "away_elo": 1386,
       "commence_time": "2026-10-18T01:00:00Z",
-      "weather": "58\u00b0F \u00b7 10 MPH",
-      "wx_wind": 10,
+      "weather": "58\u00b0F \u00b7 7 MPH",
+      "wx_wind": 7,
       "wx_temp": 58,
       "wx_shade": -0.0
     },
@@ -1813,9 +1813,9 @@
       "home_elo": 1110,
       "away_elo": 1339,
       "commence_time": "2026-10-18T02:00:00Z",
-      "weather": "75\u00b0F \u00b7 6 MPH",
-      "wx_wind": 6,
-      "wx_temp": 75,
+      "weather": "74\u00b0F \u00b7 4 MPH",
+      "wx_wind": 4,
+      "wx_temp": 74,
       "wx_shade": -0.0
     },
     {
@@ -1879,8 +1879,8 @@
       "home_elo": 1347,
       "away_elo": 1715,
       "commence_time": "2026-10-18T02:30:00Z",
-      "weather": "67\u00b0F \u00b7 3 MPH",
-      "wx_wind": 3,
+      "weather": "67\u00b0F \u00b7 2 MPH",
+      "wx_wind": 2,
       "wx_temp": 67,
       "wx_shade": -0.0
     },
@@ -1945,9 +1945,9 @@
       "home_elo": 1254,
       "away_elo": 1635,
       "commence_time": "2026-10-18T02:30:00Z",
-      "weather": "73\u00b0F \u00b7 4 MPH",
+      "weather": "77\u00b0F \u00b7 4 MPH",
       "wx_wind": 4,
-      "wx_temp": 73,
+      "wx_temp": 77,
       "wx_shade": -0.0
     }
   ]
