@@ -275,6 +275,9 @@ def td_board_html(props, picks, season, week):
         t["over_price"] = [a.over_price.get(k, float("nan")) for k in key]
         t["book"] = [a.book.get(k, "") for k in key]
         t["mkt"] = [a.fair.get(k, float("nan")) for k in key]
+        if "fair_v" not in a or a.fair_v.isna().all():   # older props file: flat /1.20 de-vig -> log-odds de-vig
+            t["mkt"] = t.mkt.map(lambda f: f if pd.isna(f) else
+                                 1 / (1 + math.exp(-(math.log(min(f * 1.2, .99) / (1 - min(f * 1.2, .99))) - 0.18))))
     be = t.over_price.map(lambda x: 100 / (x + 100) if x > 0 else -x / (-x + 100) if pd.notna(x) else 1)
     t["value"] = (t.pct - be >= 0.04) & (t.pct >= 0.10)
     info = {r.game_id: r for r in picks.itertuples()}
