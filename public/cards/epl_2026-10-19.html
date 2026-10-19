@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AlgoHub EPL 2026-10-19</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0e13;--card:#12161d;--card2:#171c25;--line:#222a35;--tx:#e6edf3;--mu:#7d8590;
+--lean:#58a6ff;--play:#3fb950;--ham:#f2b134;--neg:#f85149}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-serif;padding:28px 16px 60px}
+.wrap{max-width:1180px;margin:0 auto}
+.proj,.cols span,.top h1,.stats b,.wplab,.pick,.frow i{font-family:"Barlow Condensed",sans-serif}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:18px}
+.top .k{color:var(--mu);font-size:12px;letter-spacing:.18em;font-weight:600}
+.top h1{font-size:44px;font-weight:800;letter-spacing:.02em;line-height:1}
+.stats{display:flex;gap:22px} .stats div{text-align:right} .stats small{display:block;color:var(--mu);font-size:11px;letter-spacing:.14em}
+.stats b{font-size:30px} .stats .h b{color:var(--ham)} .stats .p b{color:var(--play)}
+.tabs{display:flex;gap:6px;margin:18px 0 18px;flex-wrap:wrap}
+.tabs button{background:transparent;border:1px solid var(--line);color:var(--mu);padding:7px 14px;border-radius:999px;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.08em;cursor:pointer}
+.tabs button.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;border-top:3px solid var(--line)}
+.card.b-lean{border-top-color:var(--lean)} .card.b-play{border-top-color:var(--play)}
+.card.b-hammer{border-top-color:var(--ham);box-shadow:0 0 0 1px rgba(242,177,52,.25),0 8px 30px rgba(242,177,52,.08)}
+.meta{display:flex;justify-content:space-between;gap:10px;padding:11px 16px;color:var(--mu);font-size:11px;letter-spacing:.08em;border-bottom:1px solid var(--line)}
+.meta span:last-child{text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.team{display:flex;align-items:center;gap:12px;padding:10px 16px}
+.badge{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font:800 13px "Barlow Condensed";letter-spacing:.04em;flex:none}
+.tname{flex:1;min-width:0} .tname b{display:block;font-size:16px;font-weight:600} .tname small{color:var(--mu);font-size:12px}
+.proj{font-size:32px;font-weight:700;color:var(--mu)} .team.fav .proj{color:var(--tx)}
+.wp{padding:6px 16px 14px} .wplab{display:flex;justify-content:space-between;font-size:15px;font-weight:700;margin-bottom:6px}
+.wplab .cap{color:var(--mu);font:600 10px Inter,system-ui,sans-serif;letter-spacing:.16em;align-self:center}
+.wpbar{display:flex;height:8px;border-radius:99px;overflow:hidden;gap:2px;background:var(--line)} .wpbar i{display:block;height:100%}
+.mkt{border-top:1px solid var(--line);padding:12px 16px;background:var(--card2)}
+.mlabel{color:var(--mu);font:600 10px Inter,system-ui,sans-serif;letter-spacing:.18em;margin-bottom:8px} .mlabel em{font-style:normal;letter-spacing:.04em;opacity:.7}
+.cols{display:grid;grid-template-columns:1.3fr 1.3fr .7fr;gap:8px} .cols small{display:block;color:var(--mu);font-size:10px;letter-spacing:.14em}
+.cols span{font-size:17px;font-weight:700} .edge span{color:var(--mu)} .edge.hot span{color:var(--tx);font-size:24px}
+.pick{margin-top:10px;display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700;letter-spacing:.02em}
+.pick small{color:var(--mu);font-size:16px}
+.pick .tier{font:800 11px Inter,system-ui,sans-serif;letter-spacing:.14em;padding:4px 8px;border-radius:6px;color:#0b0e13}
+.t-lean .tier{background:var(--lean)} .t-play .tier{background:var(--play)} .t-hammer .tier{background:var(--ham)}
+.t-hammer{color:var(--ham)} .pick.none{color:#4b535d;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.16em}
+.strip{border-top:1px solid var(--line);padding:12px 16px}
+.frow{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:11px;color:var(--mu);letter-spacing:.06em;padding:3px 0;align-items:baseline}
+.frow b{color:var(--tx);width:36px;font-size:12px} .frow i{font-style:normal;color:var(--tx);font-size:14px;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 14px}
+.chip{font:600 10px Inter,system-ui,sans-serif;letter-spacing:.1em;color:#c9d1d9;border:1px solid var(--line);background:#0f1319;padding:4px 8px;border-radius:6px}
+.chip.inj{color:#ffb4ab;border-color:#5a2a27;background:#1d1212}
+.res3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:2px}
+.res3 div{background:#0f1319;border:1px solid var(--line);border-radius:8px;padding:6px 8px}
+.res3 small{display:block;color:var(--mu);font-size:10px;letter-spacing:.12em} .res3 b{font-family:"Barlow Condensed",sans-serif;font-size:18px} .res3 em{font-style:normal;color:var(--mu);font-size:12px;margin-left:4px}
+.res3 .pk{border-color:var(--play)}
+.form{font-family:"Barlow Condensed",sans-serif;letter-spacing:.12em} .form .W{color:#3fb950} .form .L{color:#f85149} .form .D{color:#7d8590}
+.foot{color:var(--mu);font-size:11px;margin-top:30px;letter-spacing:.06em}
+.hide{display:none}
+</style></head><body><div class="wrap">
+  <div class="top">
+    <div><div class="k">THE ALGOHUB · PREMIER LEAGUE ALGO</div><h1>MATCHES FROM OCT 19</h1></div>
+    <div class="stats">
+      <div><small>MATCHES</small><b>1</b></div>
+      <div class="p"><small>PLAYS</small><b>0</b></div>
+      <div class="h"><small>HAMMERS</small><b>0</b></div>
+    </div>
+  </div>
+  <div class="tabs"><button class="on" data-f="all">ALL</button><button data-f="plays">PLAYS ONLY</button></div>
+  <div class="grid">
+    <article class="card b-none" data-day="2026-10-19" data-play="0">
+      <header class="meta"><span>MON · 3:00 PM ET</span><span>Tottenham vs Coventry</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#132257;color:#fff">TOT</span>
+        <div class="tname"><b>Tottenham</b><small>18th · 3 pts &nbsp;<span class="form"><span class="L">L</span><span class="D">D</span><span class="D">D</span><span class="L">L</span><span class="D">D</span></span></small></div>
+        <div class="proj">1.6</div>
+      </div>
+      
+      <div class="team ">
+        <span class="badge" style="background:#59CBE8;color:#000">COV</span>
+        <div class="tname"><b>Coventry</b><small>14th · 6 pts &nbsp;<span class="form"><span class="L">L</span><span class="L">L</span><span class="L">L</span><span class="W">W</span><span class="W">W</span></span></small></div>
+        <div class="proj">0.9</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>TOT 63%</span><span class="cap">DRAW 20%</span><span>COV 17%</span></div>
+        <div class="wpbar"><i style="width:63.1%;background:#132257"></i><i style="width:19.9%;background:#4b535d"></i><i style="width:17.0%;background:#59CBE8"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MATCH RESULT <em>· ours vs sharp market · edge +2.8 pts</em></div>
+        <div class="res3"><div class=""><small>TOT -217</small><b>63%</b><em>mkt 66%</em></div><div class=""><small>DRAW +355</small><b>20%</b><em>mkt 20%</em></div><div class=""><small>COV +523</small><b>17%</b><em>mkt 14%</em></div></div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL GOALS 2.5</div>
+        <div class="cols">
+          <div><small>MARKET OVER</small><span>61%</span></div>
+          <div><small>OURS OVER</small><span>61%</span></div>
+          <div class="edge "><small>EDGE</small><span>0.0</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="strip"><div class="mlabel">MODEL <em>(big numbers up top = model's projected goals; win % = model blended with market) · (attack / defense: 1.00 = league average, lower defense = better)</em></div>
+        <div class="frow"><b>TOT</b><span>ATT <i>1.01</i></span><span>DEF <i>1.23</i></span></div>
+        <div class="frow"><b>COV</b><span>ATT <i>0.75</i></span><span>DEF <i>1.28</i></span></div>
+        <div class="frow"><span>MOST LIKELY <i>1-1</i> (13%)</span><span>BOTH SCORE <i>49%</i></span></div>
+      </div>
+    </article></div>
+  <p class="foot">Dixon-Coles goals model (attack/defense per team, recent matches weighted more), blended with the sharp no-vig market: we keep 35% of the model's disagreement. Big number = projected goals. Edges in win-prob points. LEAN / PLAY / HAMMER. Not betting advice.</p>
+</div>
+<script>
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
+  const f=b.dataset.f;
+  document.querySelectorAll('.card').forEach(c=>c.classList.toggle('hide',
+    f==='plays'?c.dataset.play!=='1':(f!=='all'&&c.dataset.day!==f)));
+});
+</script></body></html>

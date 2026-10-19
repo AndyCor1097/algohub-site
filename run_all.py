@@ -67,12 +67,22 @@ def cfb_week():
         r = requests.get("https://api.collegefootballdata.com/calendar", params={"year": date.today().year},
                          headers={"Authorization": f"Bearer {key}"}, timeout=20)
         today = date.today().isoformat()
-        for w in r.json():
+        for w in sorted(r.json(), key=lambda w: int(w.get("week", 0))):
             if w.get("seasonType", "regular") != "regular":
                 continue
-            end = str(w.get("endDate") or w.get("lastGameStart") or "")[:10]
+            # a week is over once its last game has kicked off (CFBD's endDate runs into Monday/Tuesday,
+            # which kept us on last week after Saturday)
+            end = str(w.get("lastGameStart") or w.get("endDate") or "")[:10]
             if end and end >= today:
-                return int(w["week"])
+                wk = int(w["week"])
+                break
+        else:
+            wk = None
+        if wk is not None:
+            # if you've already dropped in next week's data, go to next week
+            if (DESK / "cfb_algo" / "data" / f"training_data_{date.today().year}_week{wk + 1:02d}.csv").exists():
+                wk += 1
+            return wk
     except Exception as ex:
         log(f"    (calendar lookup failed: {ex}; guessing week from the date)")
     return max(1, (date.today() - date(date.today().year, 8, 30)).days // 7 + 1)
@@ -85,12 +95,12 @@ def cfb():
     new_week = not (folder / f"predictions_week{wk}.json").exists()
     if new_week:                         # first run of a new week: the full weekly update
         run(folder, "fetch_inseason.py")
-        run(folder, "fetch_lines.py")
+        run(folder, "fetch_lines.py", timeout=600)
         run(folder, "grade.py", str(wk - 1))
         run(folder, "features.py")
         run(folder, "model.py", timeout=3600)
     else:                                # other days: fresh lines, fresh picks
-        run(folder, "fetch_lines.py")
+        run(folder, "fetch_lines.py", timeout=600)
     run(folder, "predict.py", str(wk), "--push")
     if new_week:
         subprocess.run(["git", "add", "tracker_summary.json"], cwd=folder, capture_output=True)

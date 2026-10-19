@@ -216,22 +216,34 @@ document.addEventListener('DOMContentLoaded',()=>{const f=document.querySelector
   <div class="tk-view"><div class="tk-track" id="tk-track"></div></div></div></div>
 <header class="ah-hero">
   <a href="/" class="ah-mark" aria-label="The AlgoHub home"><span>The</span>AlgoHub</a>
-  <div class="ah-today"><b>Sunday, October 18</b>
-    <span>12 plays on the board across 1 sports</span></div>
+  <div class="ah-today"><b>Monday, October 19</b>
+    <span>6 plays on the board across 2 sports</span></div>
 </header><section class="ah-board" aria-label="Top plays today">
-  <div class="ah-slip s-top" data-sport="NFL" data-pick="JAX -3.0" data-game="HOU at JAX">
-    <div class="ah-slip-top"><span class="ah-sport">NFL</span><span class="ah-tier">Hammer</span></div>
-    <div class="ah-pick">JAX -3.0<span>-110</span></div>
-    <div class="ah-sub">HOU at JAX, Sun</div>
-    <div class="ah-stat"><em>+7.0</em><small>pts edge</small></div>
+  <div class="ah-slip s-mid" data-sport="NHL" data-pick="UNDER 6.5" data-game="ANA at NYR">
+    <div class="ah-slip-top"><span class="ah-sport">NHL</span><span class="ah-tier">Play</span></div>
+    <div class="ah-pick">UNDER 6.5<span>-104</span></div>
+    <div class="ah-sub">ANA at NYR, 7:00 PM</div>
+    <div class="ah-stat"><em>+6.0</em><small>% edge</small></div>
   </div>
-  <div class="ah-slip s-top" data-sport="NFL" data-pick="CAR +1.5" data-game="CAR at PHI">
-    <div class="ah-slip-top"><span class="ah-sport">NFL</span><span class="ah-tier">Hammer</span></div>
-    <div class="ah-pick">CAR +1.5<span>-110</span></div>
-    <div class="ah-sub">CAR at PHI, Sun</div>
-    <div class="ah-stat"><em>+6.4</em><small>pts edge</small></div>
+  <div class="ah-slip s-low" data-sport="NFL" data-pick="SF -7.5" data-game="WAS at SF">
+    <div class="ah-slip-top"><span class="ah-sport">NFL</span><span class="ah-tier">Lean</span></div>
+    <div class="ah-pick">SF -7.5<span>-110</span></div>
+    <div class="ah-sub">WAS at SF, Mon</div>
+    <div class="ah-stat"><em>+3.6</em><small>pts edge</small></div>
+  </div>
+  <div class="ah-slip s-low" data-sport="NHL" data-pick="UNDER 6.5" data-game="PIT at UTA">
+    <div class="ah-slip-top"><span class="ah-sport">NHL</span><span class="ah-tier">Lean</span></div>
+    <div class="ah-pick">UNDER 6.5<span>+122</span></div>
+    <div class="ah-sub">PIT at UTA, 9:00 PM</div>
+    <div class="ah-stat"><em>+4.8</em><small>% edge</small></div>
+  </div>
+  <div class="ah-slip s-low" data-sport="NFL" data-pick="UNDER 51.5" data-game="WAS at SF">
+    <div class="ah-slip-top"><span class="ah-sport">NFL</span><span class="ah-tier">Lean</span></div>
+    <div class="ah-pick">UNDER 51.5<span>-110</span></div>
+    <div class="ah-sub">WAS at SF, Mon</div>
+    <div class="ah-stat"><em>+3.6</em><small>pts edge</small></div>
   </div></section>
-<nav class="sports" aria-label="Sports"><a href="/nfl/" class="live">NFL</a><a href="/cfb/" class="">CFB</a><a href="/nhl/" class="">NHL</a><a href="/mlb/" class="" aria-current=page>MLB</a><a href="/hr/" class="">Home Runs</a><a href="/epl/" class="">Premier League</a><a href="/cbb/" class="">CBB</a><a href="/nba/" class="">NBA</a></nav>
+<nav class="sports" aria-label="Sports"><a href="/nfl/" class="live">NFL</a><a href="/cfb/" class="">CFB</a><a href="/nhl/" class="live">NHL</a><a href="/mlb/" class="" aria-current=page>MLB</a><a href="/hr/" class="">Home Runs</a><a href="/epl/" class="">Premier League</a><a href="/cbb/" class="">CBB</a><a href="/nba/" class="">NBA</a></nav>
 <main><div class="bar"><div class="panes" role="tablist"><button role="tab" data-p="p-cards" aria-selected="true">Cards</button><button role="tab" data-p="p-table" aria-selected="false">Table</button></div><label class="slate">Slate <select onchange="location=this.value" aria-label="Pick a slate"><option value="/mlb/2026-10-17.html" selected>Sat Oct 17</option><option value="/mlb/2026-10-16.html">Fri Oct 16</option><option value="/mlb/2026-10-15.html">Thu Oct 15</option><option value="/mlb/2026-10-14.html">Wed Oct 14</option><option value="/mlb/2026-10-13.html">Tue Oct 13</option><option value="/mlb/2026-08-24.html">Mon Aug 24</option><option value="/mlb/2026-07-27.html">Mon Jul 27</option><option value="/mlb/2026-06-30.html">Tue Jun 30</option><option value="/mlb/2026-05-30.html">Sat May 30</option><option value="/mlb/2026-05-25.html">Mon May 25</option><option value="/mlb/2026-05-23.html">Sat May 23</option><option value="/mlb/2026-05-22.html">Fri May 22</option><option value="/mlb/2026-05-14.html">Thu May 14</option><option value="/mlb/2026-05-13.html">Wed May 13</option></select></label></div><section class="pane" id="p-cards"><p class="note">No new slate yet. This is the last run (Sat Oct 17).</p><iframe class="cards" src="/cards/mlb_2026-10-17.html" title="MLB cards" loading="lazy" onload="fit(this)"></iframe></section><section class="pane" id="p-table" hidden><div class="tbl"><table><thead><tr><th>Matchup</th><th>Starters</th><th>Proj score</th><th>O/U</th><th>Model side</th><th>Win %</th><th>Home ML</th><th>Away ML</th></tr></thead><tbody><tr><td>TB @ CLE</td><td>Nick Martinez vs Shawn Armstrong</td><td>TB 3.3 — CLE 3.2</td><td>6.5</td><td>TB</td><td>55.0</td><td>-106</td><td>-114</td></tr></tbody></table></div></section></main>
 <footer class="ah-foot"><span>Model picks for entertainment. Not betting advice.</span><span>@TheAlgoHub</span></footer>
 </div><div class="st" id="st" hidden aria-label="Big bets on the Novig exchange">
@@ -247,7 +259,7 @@ document.querySelectorAll('.panes button').forEach(b=>b.onclick=()=>{
 const h=location.hash.slice(1); const hb=h&&document.querySelector('.panes button[data-p="'+h+'"]'); if(hb) hb.click();
 </script><script>
 (function(){
-const PICKS=[{"sport": "NFL", "pick": "JAX -3.0", "game": "HOU at JAX"}, {"sport": "NFL", "pick": "OVER 41.5", "game": "BAL at CLE"}, {"sport": "NFL", "pick": "CAR +1.5", "game": "CAR at PHI"}, {"sport": "NFL", "pick": "ATL +3.0", "game": "CHI at ATL"}, {"sport": "NFL", "pick": "NYG +1.5", "game": "NO at NYG"}, {"sport": "NFL", "pick": "TB +2.5", "game": "PIT at TB"}, {"sport": "NFL", "pick": "TEN +7.0", "game": "TEN at IND"}, {"sport": "NFL", "pick": "ARI +12.5", "game": "ARI at LA"}, {"sport": "NFL", "pick": "UNDER 51.5", "game": "ARI at LA"}, {"sport": "NFL", "pick": "KC -7.5", "game": "LAC at KC"}, {"sport": "NFL", "pick": "OVER 41.5", "game": "LAC at KC"}, {"sport": "NFL", "pick": "UNDER 53.5", "game": "DAL at GB"}], SP={"NFL": ["football/nfl", ""]};
+const PICKS=[{"sport": "NFL", "pick": "SF -7.5", "game": "WAS at SF"}, {"sport": "NFL", "pick": "UNDER 51.5", "game": "WAS at SF"}, {"sport": "NHL", "pick": "ANA ML", "game": "ANA at NYR"}, {"sport": "NHL", "pick": "ANA +1.5", "game": "ANA at NYR"}, {"sport": "NHL", "pick": "UNDER 6.5", "game": "ANA at NYR"}, {"sport": "NHL", "pick": "UNDER 6.5", "game": "PIT at UTA"}], SP={"NFL": ["football/nfl", ""], "NHL": ["hockey/nhl", ""]};
 const ALIAS={NHL:{TBL:'TB',NJD:'NJ',SJS:'SJ',LAK:'LA',UTA:'UTAH'},MLB:{CWS:'CHW',TBR:'TB',KCR:'KC',SDP:'SD',SFG:'SF',WSN:'WSH'},NFL:{LA:'LAR',WAS:'WSH'},EPL:{'Man United':'Manchester United','Man City':'Manchester City',"Nott'm Forest":'Nottingham Forest',Wolves:'Wolverhampton Wanderers'}};
 const norm=s=>(s||'').toLowerCase().replace(/&/g,'and').replace(/\bstate\b/g,'st').replace(/\bsaint\b/g,'st').replace(/[^a-z0-9]/g,'');
 const keys=t=>[t.abbreviation,t.displayName,t.shortDisplayName,t.location,t.nickname,(t.location||'')+' '+(t.name||'')].filter(Boolean).map(norm);
