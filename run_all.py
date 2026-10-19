@@ -80,7 +80,8 @@ def cfb_week():
             wk = None
         if wk is not None:
             # if you've already dropped in next week's data, go to next week
-            if (DESK / "cfb_algo" / "data" / f"training_data_{date.today().year}_week{wk + 1:02d}.csv").exists():
+            if date.today().weekday() in (6, 0, 1, 2) and \
+                    (DESK / "cfb_algo" / "data" / f"training_data_{date.today().year}_week{wk + 1:02d}.csv").exists():
                 wk += 1
             return wk
     except Exception as ex:
@@ -97,8 +98,8 @@ def cfb():
         run(folder, "fetch_inseason.py")
         run(folder, "fetch_lines.py", timeout=600)
         run(folder, "grade.py", str(wk - 1))
-        run(folder, "features.py")
-        run(folder, "model.py", timeout=3600)
+        # (features.py / model.py removed: picks come from the CFBD training_data CSV, not that old model,
+        #  and those steps only printed "No games" / "features_all.csv not found")
     else:                                # other days: fresh lines, fresh picks
         run(folder, "fetch_lines.py", timeout=600)
     run(folder, "predict.py", str(wk), "--push")
