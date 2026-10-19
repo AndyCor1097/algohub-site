@@ -167,7 +167,7 @@ def td_board(picks, out, season, week, injuries):
                            .set_index("player_display_name").player_id.to_dict())
     qid_by_name.update(qbs.drop_duplicates("player_display_name").set_index("player_display_name").player_id.to_dict())
     inj = injuries[injuries.week == week].set_index("gsis_id").report_status.dropna().to_dict()
-    rows = []
+    rows, gone = [], []
     for (_, g), gj in zip(picks.iterrows(), out["games"]):
         a_pts, h_pts = _implied(g)
         dome = int(g.get("dome", 0) or 0) if "dome" in g else 0
@@ -177,6 +177,7 @@ def td_board(picks, out, season, week, injuries):
             base = dict(game_id=g.game_id, matchup=gj["matchup"], team=team, opponent_team=opp, imp_pts=pts, wx=wx)
             for p in side_["players"]:
                 if p.get("status") in ("Out", "Doubtful", "IR"):
+                    gone.append({"player_id": p["player_id"], "pos": p["pos"], "team": team, "player": p["player"]})
                     continue
                 rows.append({**base, "player_id": p["player_id"], "player_display_name": p["player"], "pos": p["pos"],
                              "role": p["role"], "tag": p.get("tag", "")})
@@ -196,11 +197,22 @@ def td_board(picks, out, season, week, injuries):
     if not rows:
         return []
     t = pd.DataFrame(rows).drop_duplicates(["game_id", "player_id"])
-    r = nfl_td.predict_slate(season, week, t)
+    gone_df = pd.DataFrame(gone, columns=["player_id", "pos", "team", "player"]).drop_duplicates("player_id")
+    r = nfl_td.predict_slate(season, week, t, gone_df)
+    r["realloc"] = r.get("realloc", 0.0)
+    # who each injury boost came from (for the board's chip)
+    def src(tm, pos, b):
+        if b < 1:
+            return ""
+        g = gone_df[gone_df.team == tm]
+        same = g[g.pos == pos]
+        return ", ".join((same if len(same) else g).player.head(2))
+    r["inj_from"] = [src(tm, p, b) for tm, p, b in zip(r.team, r.pos, r.realloc)]
     keep = ["game_id", "matchup", "team", "opponent_team", "player_display_name", "pos", "role", "tag",
-            "td_pct", "xtd", "def_td_fac", "imp_pts"]
+            "td_pct", "xtd", "def_td_fac", "imp_pts", "realloc", "inj_from"]
     r = r[keep].rename(columns={"player_display_name": "player", "opponent_team": "opp"})
-    r[["td_pct", "xtd", "def_td_fac", "imp_pts"]] = r[["td_pct", "xtd", "def_td_fac", "imp_pts"]].astype(float).round(4)
+    num = ["td_pct", "xtd", "def_td_fac", "imp_pts", "realloc"]
+    r[num] = r[num].astype(float).round(4)
     return r.to_dict("records")
 
 

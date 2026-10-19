@@ -291,6 +291,10 @@ def td_board_html(props, picks, season, week):
         for r in d.itertuples():
             game = f"<td>{e(r.matchup)}</td>" if show_game else ""
             tag = f' <span class="mu-tag">{e(str(r.tag)[0])}</span>' if isinstance(r.tag, str) and r.tag and r.tag != "NEW TEAM" else ""
+            boost = getattr(r, "realloc", 0) or 0
+            if boost >= 1:
+                src = getattr(r, "inj_from", "") or "an injured teammate"
+                tag += f' <span class="tdi" title="Gets about {boost:.1f} extra touches a game with {e(src)} out">🚑 +{boost:.1f}</span>'
             val = ' <span class="tdv" title="Book pays more than our TD % says it should. Info only, not a graded play">value</span>' if r.value else ""
             book = f'{odds(r.over_price)} <small class="rk">{e(r.book)}</small>{val}' if pd.notna(r.over_price) else '<span class="rk">no line</span>'
             mkt = f"{r.mkt:.0%}" if pd.notna(r.mkt) else "-"
@@ -303,7 +307,8 @@ def td_board_html(props, picks, season, week):
     top = t.sort_values("pct", ascending=False).head(15)
     html_ = ['<p class="hint"><b>Our anytime TD % for every active player.</b> Built from his red-zone and overall usage, '
              'his TD rate, the defense he\'s facing (<span class="tdm g">soft</span> / <span class="tdm r">tough</span> = TDs this '
-             'defense allows to his position vs league average), his team\'s implied points and the weather. QBs = rushing TDs only. '
+             'defense allows to his position vs league average), his team\'s implied points and the weather. '
+             '<span class="tdi">🚑 +4.2</span> = extra touches a game he picks up because a teammate is ruled out. QBs = rushing TDs only. '
              '<b>Fair odds</b> = what a bet should pay at our %. <span class="tdv">value</span> = book pays more than that. '
              'Info only: these aren\'t graded plays.</p>',
              '<input class="tdsearch" type="search" placeholder="Search a player..." aria-label="Search a player" '
@@ -776,6 +781,7 @@ td small.rk{color:var(--dim);font-size:11px;margin-left:3px}
 .tdbar{display:inline-block;width:48px;height:7px;border-radius:4px;background:var(--rule);vertical-align:middle;overflow:hidden}
 .tdbar i{display:block;height:100%;background:var(--turf);border-radius:4px}
 .tdm{font-size:11px;font-weight:700;padding:1px 6px;border-radius:4px;color:var(--dim);border:1px solid var(--rule)} .tdm.g{color:var(--chalk);background:rgba(63,185,80,.45);border-color:transparent} .tdm.r{color:var(--chalk);background:rgba(248,81,73,.45);border-color:transparent}
+.tdi{font-size:11px;font-weight:700;padding:1px 5px;border-radius:4px;background:rgba(88,166,255,.25);color:var(--chalk);margin-left:4px;white-space:nowrap}
 .tdv{font-size:11px;font-weight:700;color:var(--ink);background:var(--amber);border-radius:4px;padding:1px 5px;margin-left:4px}
 .tdsearch{width:100%;max-width:320px;background:var(--panel);color:var(--chalk);border:1px solid var(--rule);border-radius:10px;padding:9px 12px;font:14px Archivo,sans-serif;margin:4px 0 8px;box-sizing:border-box}
 .td-sides{display:grid;grid-template-columns:1fr;gap:0 16px}

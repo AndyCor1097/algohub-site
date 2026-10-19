@@ -141,13 +141,54 @@ def wx_factor(wind, temp, dome):
     return max(m, 0.78)
 
 
-def week_frame(season, week, cur, prior, targets):
-    """Feature rows for `targets` (player_id, pos, team, opponent_team, imp_pts, wx) using only cur (weeks < week)."""
+REALLOC = True       # injury bot: hand a missing player's work to his healthy teammates
+
+
+def reallocate(rows, gone, team_gp):
+    """rows/gone: shrunk per-game rates. Each missing player's carries / targets / red-zone work / TDs go to
+    healthy teammates in proportion to what they already get (carries -> RBs, targets -> WR/TE/RB, same position
+    weighted 2x). Only the part NOT already in teammates' averages moves: if he missed half the season, the
+    games he missed are already in their numbers, so half his work moves."""
+    rows = rows.copy()
+    rows["realloc"] = 0.0
+    for g in gone.itertuples():
+        if not g.gp_cur or g.team not in team_gp:
+            continue
+        f = min(g.gp_cur / max(team_gp[g.team], 1), 1.0)
+        mates = rows.team == g.team
+        rb = mates & (rows.pos == "RB")
+        rec = mates & rows.pos.isin(["RB", "WR", "TE"])
+        rec_td = max(g.td_pg - g.rush_td_pg, 0.0)
+        if rb.any() and g.car_pg > 0:
+            w = rows.loc[rb, "car_pg"] + 0.3
+            w = w / w.sum()
+            for c, v in (("car_pg", g.car_pg), ("rz_car_pg", g.rz_car_pg), ("rush_td_pg", g.rush_td_pg), ("td_pg", g.rush_td_pg)):
+                rows.loc[rb, c] += f * v * w
+            rows.loc[rb, "realloc"] += f * g.car_pg * w
+        if rec.any() and g.tgt_pg > 0:
+            w = (rows.loc[rec, "tgt_pg"] + 0.3) * np.where(rows.loc[rec, "pos"] == g.pos, 2.0, 1.0)
+            w = w / w.sum()
+            for c, v in (("tgt_pg", g.tgt_pg), ("rz_tgt_pg", g.rz_tgt_pg), ("td_pg", rec_td)):
+                rows.loc[rec, c] += f * v * w
+            rows.loc[rec, "realloc"] += f * g.tgt_pg * w
+    return rows
+
+
+def week_frame(season, week, cur, prior, targets, gone=None):
+    """Feature rows for `targets` (player_id, pos, team, opponent_team, imp_pts, wx) using only cur (weeks < week).
+    gone = players missing this game (player_id, pos, team): their work is handed out (REALLOC)."""
     before = cur[cur.week < week]
     sums = player_rates(before, prior, None)
     rows = targets.merge(sums, on="player_id", how="left")
     rows["gp_cur"] = rows.gp_cur.fillna(0)
     rows = shrink(rows, prior)
+    rows["realloc"] = 0.0
+    if REALLOC and gone is not None and len(gone):
+        gr = gone.merge(sums, on="player_id", how="left")
+        gr["gp_cur"] = gr.gp_cur.fillna(0)
+        gr = shrink(gr, prior)
+        team_gp = before.groupby("team").week.nunique().to_dict()
+        rows = reallocate(rows, gr, team_gp)
     rows["def_td_fac"] = defense_factor(before, rows) if len(before) else 1.0
     for p in ["QB", "RB", "WR", "TE"]:
         rows[f"is_{p.lower()}"] = (rows.pos == p).astype(int)
@@ -179,7 +220,12 @@ def training_set(last_season, last_week):
             tgt = tgt[tgt.player_id.isin(seen)].copy()
             tgt["imp_pts"] = [imp.get((s, w, t), LG_TEAM_PTS) for t in tgt.team]
             tgt["wx"] = [wxm.get((w, t), 1.0) for t in tgt.team]
-            fr = week_frame(s, w, cur, prior, tgt)
+            # missing this week: played for this team earlier (and it's still his latest team), not in this game
+            bef = cur[cur.week < w].sort_values("week")
+            lastt = bef.groupby("player_id").tail(1)
+            lastt = lastt[lastt.team.isin(set(tgt.team)) & ~lastt.player_id.isin(set(cur[cur.week == w].player_id))]
+            gone = lastt[["player_id", "pos", "team"]]
+            fr = week_frame(s, w, cur, prior, tgt, gone)
             fr["season"], fr["week"] = s, w
             out.append(fr)
     return pd.concat(out, ignore_index=True) if out else pd.DataFrame()
@@ -221,13 +267,14 @@ def backtest():
               .agg(n=("hit", "size"), pred=("pred", "mean"), actual=("hit", "mean")).round(3).to_string())
 
 
-def predict_slate(season, week, targets):
-    """targets: player_id, player_display_name, pos, team, opponent_team, imp_pts, wx. Returns td_pct per row."""
+def predict_slate(season, week, targets, gone=None):
+    """targets: player_id, player_display_name, pos, team, opponent_team, imp_pts, wx. Returns td_pct per row.
+    gone: player_id, pos, team of players ruled out (their work gets handed out)."""
     train = training_set(season, week)
     m = fit(train)
     cur = load_weeks(season)
     prior = season_prior(load_weeks(season - 1))
-    rows = week_frame(season, week, cur, prior, targets)
+    rows = week_frame(season, week, cur, prior, targets, gone)
     rows["td_pct"] = prob(m, rows)
     rows["xtd"] = -np.log(1 - rows.td_pct)
     rows["def_td_fac"] = rows.def_td_fac.astype(float)
@@ -235,4 +282,11 @@ def predict_slate(season, week, targets):
 
 
 if __name__ == "__main__":
+    import sys
+    if "--compare" in sys.argv:
+        REALLOC = False
+        print("##### WITHOUT injury reallocation")
+        backtest()
+        REALLOC = True
+        print("\n##### WITH injury reallocation")
     backtest()
