@@ -249,9 +249,94 @@ def nfl(f):
     else:
         rec = note("Nothing graded yet.")
     return [("Cards", '<p class="hint">Tap Player Props on any game to open its props.</p>' + cards_frame(card_rel, f"NFL week {week}")),
-            ("Best bets", best), ("Sharp bets", nfl_novig_html(season, week)),
+            ("Best bets", best), ("TD odds", td_board_html(props, picks, season, week)), ("Sharp bets", nfl_novig_html(season, week)),
             ("Matchups", nfl_matchups_html(season, week)), ("Posts", posts), ("Record", rec)]
 
+
+def _am(p):
+    """win chance -> fair American odds"""
+    p = min(max(float(p), 0.01), 0.99)
+    return f"{-100 * p / (1 - p):.0f}" if p >= .5 else f"+{100 * (1 - p) / p:.0f}"
+
+
+def td_board_html(props, picks, season, week):
+    """'TD odds' pane: OUR anytime-TD % for every active player, built from the matchup (nfl_td.py via
+    nfl_matchups.py). Info only, never graded. Book price + market % shown next to it when there's a line."""
+    f = DATA / "nfl_matchups" / f"{season}_wk{week:02d}.json"
+    td = json.loads(f.read_text(encoding="utf-8")).get("td") if f.exists() else None
+    if not td:
+        return note("TD odds for this week aren't built yet. Run update_site.bat.")
+    t = pd.DataFrame(td)
+    t["pct"] = t.td_pct.astype(float)
+    t["over_price"], t["book"], t["mkt"] = float("nan"), "", float("nan")
+    if props is not None and not props.empty and "atd" in set(props.market):
+        a = props[props.market == "atd"].drop_duplicates(["player", "team"]).set_index(["player", "team"])
+        key = list(zip(t.player, t.team))
+        t["over_price"] = [a.over_price.get(k, float("nan")) for k in key]
+        t["book"] = [a.book.get(k, "") for k in key]
+        t["mkt"] = [a.fair.get(k, float("nan")) for k in key]
+    be = t.over_price.map(lambda x: 100 / (x + 100) if x > 0 else -x / (-x + 100) if pd.notna(x) else 1)
+    t["value"] = (t.pct - be >= 0.04) & (t.pct >= 0.10)
+    info = {r.game_id: r for r in picks.itertuples()}
+
+    def chip(fac):
+        d = (float(fac) - 1) * 100
+        if abs(d) < 10:
+            return '<td><span class="tdm">avg</span></td>'
+        cls, word = ("g", "soft") if d > 0 else ("r", "tough")
+        return f'<td><span class="tdm {cls}" title="This defense allows {d:+.0f}% TDs to his position vs league average">{word} {d:+.0f}%</span></td>'
+
+    def rows(d, show_game=False):
+        out = []
+        for r in d.itertuples():
+            game = f"<td>{e(r.matchup)}</td>" if show_game else ""
+            tag = f' <span class="mu-tag">{e(str(r.tag)[0])}</span>' if isinstance(r.tag, str) and r.tag and r.tag != "NEW TEAM" else ""
+            val = ' <span class="tdv" title="Book pays more than our TD % says it should. Info only, not a graded play">value</span>' if r.value else ""
+            book = f'{odds(r.over_price)} <small class="rk">{e(r.book)}</small>{val}' if pd.notna(r.over_price) else '<span class="rk">no line</span>'
+            mkt = f"{r.mkt:.0%}" if pd.notna(r.mkt) else "-"
+            out.append(f'<tr data-n="{e(str(r.player).lower())}"><td><b>{e(r.player)}</b> <small class="rk">{e(r.pos)}</small>{tag}</td>'
+                       f'{game}<td class="tdp"><span class="tdbar"><i style="width:{min(r.pct, 1) * 100:.0f}%"></i></span>'
+                       f'<b>{r.pct:.0%}</b></td><td>{_am(r.pct)}</td>{chip(r.def_td_fac)}<td>{book}</td><td>{mkt}</td></tr>')
+        return "".join(out)
+
+    head = "<tr><th>Player</th>{}<th>Our TD %</th><th>Fair odds</th><th>Matchup</th><th>Book</th><th>Market %</th></tr>"
+    top = t.sort_values("pct", ascending=False).head(15)
+    html_ = ['<p class="hint"><b>Our anytime TD % for every active player.</b> Built from his red-zone and overall usage, '
+             'his TD rate, the defense he\'s facing (<span class="tdm g">soft</span> / <span class="tdm r">tough</span> = TDs this '
+             'defense allows to his position vs league average), his team\'s implied points and the weather. QBs = rushing TDs only. '
+             '<b>Fair odds</b> = what a bet should pay at our %. <span class="tdv">value</span> = book pays more than that. '
+             'Info only: these aren\'t graded plays.</p>',
+             '<input class="tdsearch" type="search" placeholder="Search a player..." aria-label="Search a player" '
+             'oninput="const q=this.value.toLowerCase();this.parentNode.querySelectorAll(\'tr[data-n]\').forEach(r=>r.hidden=q&&!r.dataset.n.includes(q));'
+             'if(q)this.parentNode.querySelectorAll(\'details.td\').forEach(d=>d.open=!!d.querySelector(\'tr[data-n]:not([hidden])\'))">',
+             '<h3 class="sub">Most likely to score</h3>',
+             f'<div class="tbl"><table><thead>{head.format("<th>Game</th>")}</thead><tbody>{rows(top, True)}</tbody></table></div>',
+             '<h3 class="sub">Every game</h3>']
+
+    def ko(gid):
+        g = info.get(gid)
+        return f"{g.gameday} {g.gametime}" if g is not None else "9"
+    for gid in sorted(t.game_id.unique(), key=ko):
+        d = t[t.game_id == gid]
+        g = info.get(gid)
+        when = ""
+        if g is not None:
+            try:
+                ts = pd.Timestamp(f"{g.gameday} {g.gametime}")
+                when = ts.strftime("%a ") + ts.strftime("%I:%M %p").lstrip("0")
+            except Exception:
+                when = str(g.gameday)
+        lead = d.sort_values("pct", ascending=False).iloc[0]
+        teams = [g.away_team, g.home_team] if g is not None else list(dict.fromkeys(d.team))
+        sides = []
+        for team in teams:
+            dd = d[d.team == team].sort_values("pct", ascending=False)
+            if len(dd):
+                sides.append(f'<div><h4 class="mu-h">{e(team)} <small class="rk">{dd.imp_pts.iloc[0]:.1f} implied pts</small></h4>'
+                             f'<div class="tbl"><table><thead>{head.format("")}</thead><tbody>{rows(dd)}</tbody></table></div></div>')
+        html_.append(f'<details class="mu td"><summary><b>{e(lead.matchup)}</b><span>{e(when)} · top: {e(lead.player)} '
+                     f'{lead.pct:.0%}</span></summary><div class="td-sides">{"".join(sides)}</div></details>')
+    return "".join(html_)
 
 def nfl_novig_html(season, week):
     return novig_html(DATA / "nfl_novig" / f"{season}_wk{week:02d}.csv")
@@ -686,6 +771,14 @@ details.mu .tbl{background:var(--ink)} h4.mu-h{font:800 20px "Big Shoulders Disp
 .mu-role{font-weight:700;color:var(--dim)} .mu-tag{font-size:11px;font-weight:700;color:var(--ink);background:var(--dim);border-radius:4px;padding:1px 5px}
 td small.rk{color:var(--dim);font-size:11px;margin-left:3px}
 .mu-key{font-size:12px;font-weight:600;padding:1px 6px;border-radius:4px} .mu-key.g{background:rgba(63,185,80,.45)} .mu-key.r{background:rgba(248,81,73,.45)}
+.tdp{min-width:96px} .tdp b{margin-left:8px}
+@media (max-width:600px){.tdbar{width:36px}.tdp{min-width:0}}
+.tdbar{display:inline-block;width:48px;height:7px;border-radius:4px;background:var(--rule);vertical-align:middle;overflow:hidden}
+.tdbar i{display:block;height:100%;background:var(--turf);border-radius:4px}
+.tdm{font-size:11px;font-weight:700;padding:1px 6px;border-radius:4px;color:var(--dim);border:1px solid var(--rule)} .tdm.g{color:var(--chalk);background:rgba(63,185,80,.45);border-color:transparent} .tdm.r{color:var(--chalk);background:rgba(248,81,73,.45);border-color:transparent}
+.tdv{font-size:11px;font-weight:700;color:var(--ink);background:var(--amber);border-radius:4px;padding:1px 5px;margin-left:4px}
+.tdsearch{width:100%;max-width:320px;background:var(--panel);color:var(--chalk);border:1px solid var(--rule);border-radius:10px;padding:9px 12px;font:14px Archivo,sans-serif;margin:4px 0 8px;box-sizing:border-box}
+.td-sides{display:grid;grid-template-columns:1fr;gap:0 16px}
 @media (prefers-reduced-motion:reduce){.sports a.live::after{animation:none}}
 </style>"""
 
