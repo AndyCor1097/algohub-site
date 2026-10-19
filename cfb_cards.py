@@ -151,7 +151,7 @@ def _card(g):
     venue_note = " · NEUTRAL" if neutral else ""
 
     return f"""
-    <article class="card b-{best_tier.lower() or 'none'}" data-day="{dkey}" data-play="{1 if best_tier else 0}" data-rank="{TIER_RANK.get(best_tier,0)}">
+    <article class="card b-{best_tier.lower() or 'none'}" data-day="{dkey}" data-play="{1 if best_tier else 0}" data-rank="{TIER_RANK.get(best_tier,0)}" data-conf="{e('|'.join(_confs(g)))}">
       <header class="meta"><span>{dkey} · Wk{g.get('week','?')}{(' · ' + kickoff) if kickoff else ''}</span><span>{e(home)} vs {e(away)}{venue_note}</span></header>
       <div class="teams">
         <div class="team {'fav' if win_side=='away' else ''}">
@@ -182,7 +182,24 @@ def _wx(g):
     return f'<div class="wx{" windy" if windy else ""}">{e(lab)}{e(note)}</div>'
 
 
+def _confs(g):
+    return [c for c in (g.get("away_conf"), g.get("home_conf")) if isinstance(c, str) and c.strip()]
+
+
+def _kick_sort(g):
+    """Kickoff as a sortable UTC string; games with no time go last that day."""
+    ct = g.get("commence_time") or ""
+    sd = str(g.get("start_date", "") or "")
+    if not ct and len(sd) >= 16 and sd[4] == "-":
+        ct = sd.replace(" ", "T")[:19] + "Z"
+    try:
+        return datetime.fromisoformat(ct.replace("Z", "+00:00")).strftime("%Y-%m-%d %H:%M")
+    except Exception:
+        return "9999"
+
+
 def render_cards(games, week, generated=""):
+    games = sorted(games, key=_kick_sort)           # earliest kickoff first
     # Group by day
     from collections import defaultdict
     day_order = []
@@ -210,6 +227,9 @@ def render_cards(games, week, generated=""):
     n_strong = sum(1 for t in all_tiers if t == "STRONG")
     uniq_days = list(dict.fromkeys(day_order))
     tabs = "".join(f'<button data-f="{d}">{d}</button>' for d in uniq_days)
+    confs = sorted({c for g in games for c in _confs(g)})
+    conf_sel = ('<select class="conf" aria-label="Filter by conference"><option value="">ALL CONFERENCES</option>'
+                + "".join(f'<option value="{e(c)}">{e(c.upper())}</option>' for c in confs) + "</select>") if confs else ""
     gen_str = generated[:10] if generated else ""
 
     return f"""<!doctype html>
@@ -259,6 +279,8 @@ body{{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-se
 .t-strong{{color:var(--strong)}} .pick.none{{color:#4b535d;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.16em}}
 .foot{{color:var(--mu);font-size:11px;margin-top:30px;letter-spacing:.06em}}
 .hide{{display:none}}
+.tabs .conf{{background:transparent;border:1px solid var(--line);color:var(--tx);padding:7px 12px;border-radius:999px;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.08em;cursor:pointer}}
+.tabs .conf option{{background:var(--card);color:var(--tx)}}
 </style></head><body><div class="wrap">
   <div class="top">
     <div><div class="k">THE ALGOHUB · CFB GAME ALGO · 2026</div><h1>WEEK {week}</h1></div>
@@ -269,17 +291,23 @@ body{{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-se
       <div><small>UPDATED</small><b style="font-size:18px">{gen_str}</b></div>
     </div>
   </div>
-  <div class="tabs"><button class="on" data-f="all">ALL</button><button data-f="plays">PLAYS ONLY</button>{tabs}</div>
+  <div class="tabs"><button class="on" data-f="all">ALL</button><button data-f="plays">PLAYS ONLY</button>{tabs}{conf_sel}</div>
   {''.join(sections)}
   <p class="foot">Model trained on opponent-adjusted EPA, success rate, and Elo ratings. Edges in points vs. market. LEAN / EDGE / STRONG tiers. Not betting advice.</p>
 </div>
 <script>
+let F='all', C='';
+function apply(){{
+  document.querySelectorAll('.card').forEach(c=>{{
+    const okF = F==='plays' ? c.dataset.play==='1' : (F==='all' || c.dataset.day===F);
+    const okC = !C || (c.dataset.conf||'').split('|').includes(C);
+    c.classList.toggle('hide', !(okF && okC));
+  }});
+  document.querySelectorAll('.day').forEach(s=>s.classList.toggle('hide', !s.querySelector('.card:not(.hide)')));
+}}
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{{
   document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
-  const f=b.dataset.f;
-  document.querySelectorAll('.card').forEach(c=>c.classList.toggle('hide',
-    f==='plays'?c.dataset.play!=='1':(f!=='all'&&c.dataset.day!==f)));
-  document.querySelectorAll('.day').forEach(s=>s.classList.toggle('hide',
-    !s.querySelector('.card:not(.hide)')));
+  F=b.dataset.f; apply();
 }});
+const cs=document.querySelector('.tabs .conf'); if(cs) cs.onchange=()=>{{C=cs.value; apply();}};
 </script></body></html>"""

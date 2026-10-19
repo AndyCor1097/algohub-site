@@ -45,6 +45,8 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
 .t-strong{color:var(--strong)} .pick.none{color:#4b535d;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.16em}
 .foot{color:var(--mu);font-size:11px;margin-top:30px;letter-spacing:.06em}
 .hide{display:none}
+.tabs .conf{background:transparent;border:1px solid var(--line);color:var(--tx);padding:7px 12px;border-radius:999px;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.08em;cursor:pointer}
+.tabs .conf option{background:var(--card);color:var(--tx)}
 </style></head><body><div class="wrap">
   <div class="top">
     <div><div class="k">THE ALGOHUB · CFB GAME ALGO · 2026</div><h1>WEEK 5</h1></div>
@@ -60,7 +62,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
   <section class="day" data-day="FRI">
     <div class="dayhead"><h2>FRIDAY, OCTOBER 2</h2><span>4 GAMES</span></div>
     <div class="grid">
-    <article class="card b-lean" data-day="FRI" data-play="1" data-rank="1">
+    <article class="card b-lean" data-day="FRI" data-play="1" data-rank="1" data-conf="">
       <header class="meta"><span>FRI · Wk5</span><span>New Mexico State vs Western Kentucky</span></header>
       <div class="teams">
         <div class="team ">
@@ -100,7 +102,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-strong" data-day="FRI" data-play="1" data-rank="3">
+    <article class="card b-strong" data-day="FRI" data-play="1" data-rank="3" data-conf="">
       <header class="meta"><span>FRI · Wk5</span><span>Tulsa vs North Texas</span></header>
       <div class="teams">
         <div class="team fav">
@@ -140,7 +142,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-lean" data-day="FRI" data-play="1" data-rank="1">
+    <article class="card b-lean" data-day="FRI" data-play="1" data-rank="1" data-conf="">
       <header class="meta"><span>FRI · Wk5</span><span>Delaware vs Liberty</span></header>
       <div class="teams">
         <div class="team fav">
@@ -180,7 +182,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-edge" data-day="FRI" data-play="1" data-rank="2">
+    <article class="card b-edge" data-day="FRI" data-play="1" data-rank="2" data-conf="">
       <header class="meta"><span>FRI · Wk5</span><span>Virginia Tech vs Pittsburgh</span></header>
       <div class="teams">
         <div class="team ">
@@ -224,7 +226,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
   <section class="day" data-day="SAT">
     <div class="dayhead"><h2>SATURDAY, OCTOBER 3</h2><span>45 GAMES</span></div>
     <div class="grid">
-    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0">
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Northwestern vs Penn State</span></header>
       <div class="teams">
         <div class="team fav">
@@ -264,7 +266,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0">
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Air Force vs Navy</span></header>
       <div class="teams">
         <div class="team ">
@@ -304,7 +306,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-strong" data-day="SAT" data-play="1" data-rank="3">
+    <article class="card b-strong" data-day="SAT" data-play="1" data-rank="3" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Connecticut vs Syracuse</span></header>
       <div class="teams">
         <div class="team ">
@@ -344,7 +346,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0">
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Houston vs Central Florida</span></header>
       <div class="teams">
         <div class="team ">
@@ -384,7 +386,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-strong" data-day="SAT" data-play="1" data-rank="3">
+    <article class="card b-strong" data-day="SAT" data-play="1" data-rank="3" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Iowa State vs West Virginia</span></header>
       <div class="teams">
         <div class="team ">
@@ -424,7 +426,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-strong" data-day="SAT" data-play="1" data-rank="3">
+    <article class="card b-strong" data-day="SAT" data-play="1" data-rank="3" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Kansas vs Middle Tennessee</span></header>
       <div class="teams">
         <div class="team ">
@@ -464,7 +466,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1">
+    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Minnesota vs Michigan</span></header>
       <div class="teams">
         <div class="team fav">
@@ -504,7 +506,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0">
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Mississippi State vs Alabama</span></header>
       <div class="teams">
         <div class="team fav">
@@ -544,7 +546,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1">
+    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>North Carolina vs Notre Dame</span></header>
       <div class="teams">
         <div class="team fav">
@@ -584,7 +586,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1">
+    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Southern Methodist vs Boston College</span></header>
       <div class="teams">
         <div class="team ">
@@ -624,7 +626,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0">
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Wake Forest vs Stanford</span></header>
       <div class="teams">
         <div class="team ">
@@ -664,7 +666,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0">
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Wisconsin vs Michigan State</span></header>
       <div class="teams">
         <div class="team ">
@@ -704,7 +706,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2">
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Georgia vs Vanderbilt</span></header>
       <div class="teams">
         <div class="team ">
@@ -744,7 +746,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-strong" data-day="SAT" data-play="1" data-rank="3">
+    <article class="card b-strong" data-day="SAT" data-play="1" data-rank="3" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Buffalo vs Western Michigan</span></header>
       <div class="teams">
         <div class="team fav">
@@ -784,7 +786,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1">
+    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Ball State vs Toledo</span></header>
       <div class="teams">
         <div class="team fav">
@@ -824,7 +826,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-strong" data-day="SAT" data-play="1" data-rank="3">
+    <article class="card b-strong" data-day="SAT" data-play="1" data-rank="3" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Central Michigan vs Akron</span></header>
       <div class="teams">
         <div class="team ">
@@ -864,7 +866,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-strong" data-day="SAT" data-play="1" data-rank="3">
+    <article class="card b-strong" data-day="SAT" data-play="1" data-rank="3" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Charlotte vs Memphis</span></header>
       <div class="teams">
         <div class="team fav">
@@ -904,7 +906,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2">
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Florida State vs Virginia</span></header>
       <div class="teams">
         <div class="team ">
@@ -944,7 +946,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-strong" data-day="SAT" data-play="1" data-rank="3">
+    <article class="card b-strong" data-day="SAT" data-play="1" data-rank="3" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Georgia State vs Old Dominion</span></header>
       <div class="teams">
         <div class="team ">
@@ -984,7 +986,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-strong" data-day="SAT" data-play="1" data-rank="3">
+    <article class="card b-strong" data-day="SAT" data-play="1" data-rank="3" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Iowa vs Ohio State</span></header>
       <div class="teams">
         <div class="team fav">
@@ -1024,7 +1026,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0">
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Kent State vs Ohio</span></header>
       <div class="teams">
         <div class="team fav">
@@ -1064,7 +1066,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1">
+    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Massachusetts vs Eastern Michigan</span></header>
       <div class="teams">
         <div class="team ">
@@ -1104,7 +1106,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2">
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Miami Ohio vs Bowling Green</span></header>
       <div class="teams">
         <div class="team ">
@@ -1144,7 +1146,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2">
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Missouri vs Florida</span></header>
       <div class="teams">
         <div class="team fav">
@@ -1184,7 +1186,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-strong" data-day="SAT" data-play="1" data-rank="3">
+    <article class="card b-strong" data-day="SAT" data-play="1" data-rank="3" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Nevada Las Vegas vs California</span></header>
       <div class="teams">
         <div class="team ">
@@ -1224,7 +1226,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1">
+    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>North Carolina State vs Louisville</span></header>
       <div class="teams">
         <div class="team fav">
@@ -1264,7 +1266,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-strong" data-day="SAT" data-play="1" data-rank="3">
+    <article class="card b-strong" data-day="SAT" data-play="1" data-rank="3" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>North Dakota State vs Wyoming</span></header>
       <div class="teams">
         <div class="team ">
@@ -1304,7 +1306,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0">
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Tennessee vs Auburn</span></header>
       <div class="teams">
         <div class="team ">
@@ -1344,7 +1346,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1">
+    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>James Madison vs Marshall</span></header>
       <div class="teams">
         <div class="team ">
@@ -1384,7 +1386,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2">
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Nebraska vs Maryland</span></header>
       <div class="teams">
         <div class="team ">
@@ -1424,7 +1426,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0">
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>New Mexico vs UTEP</span></header>
       <div class="teams">
         <div class="team ">
@@ -1464,7 +1466,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2">
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Illinois vs Purdue</span></header>
       <div class="teams">
         <div class="team ">
@@ -1504,7 +1506,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2">
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>South Carolina vs Kentucky</span></header>
       <div class="teams">
         <div class="team ">
@@ -1544,7 +1546,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-strong" data-day="SAT" data-play="1" data-rank="3">
+    <article class="card b-strong" data-day="SAT" data-play="1" data-rank="3" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Colorado State vs Oregon State</span></header>
       <div class="teams">
         <div class="team ">
@@ -1584,7 +1586,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0">
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Coastal Carolina vs Georgia Southern</span></header>
       <div class="teams">
         <div class="team ">
@@ -1624,7 +1626,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2">
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Rice vs UTSA</span></header>
       <div class="teams">
         <div class="team fav">
@@ -1664,7 +1666,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1">
+    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>South Alabama vs Louisiana Monroe</span></header>
       <div class="teams">
         <div class="team ">
@@ -1704,7 +1706,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1">
+    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Texas A&amp;M vs Arkansas</span></header>
       <div class="teams">
         <div class="team ">
@@ -1744,7 +1746,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2">
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Texas Christian vs Brigham Young</span></header>
       <div class="teams">
         <div class="team fav">
@@ -1784,7 +1786,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1">
+    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Boise State vs Utah State</span></header>
       <div class="teams">
         <div class="team ">
@@ -1824,7 +1826,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1">
+    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Clemson vs Miami</span></header>
       <div class="teams">
         <div class="team fav">
@@ -1864,7 +1866,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0">
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Colorado vs Texas Tech</span></header>
       <div class="teams">
         <div class="team fav">
@@ -1904,7 +1906,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0">
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Louisiana Tech vs Army</span></header>
       <div class="teams">
         <div class="team fav">
@@ -1944,7 +1946,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2">
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>South Florida vs Temple</span></header>
       <div class="teams">
         <div class="team ">
@@ -1984,7 +1986,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0">
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="">
       <header class="meta"><span>SAT · Wk5</span><span>Southern California vs Washington</span></header>
       <div class="teams">
         <div class="team ">
@@ -2028,7 +2030,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
   <section class="day" data-day="SUN">
     <div class="dayhead"><h2>SUNDAY, OCTOBER 4</h2><span>5 GAMES</span></div>
     <div class="grid">
-    <article class="card b-lean" data-day="SUN" data-play="1" data-rank="1">
+    <article class="card b-lean" data-day="SUN" data-play="1" data-rank="1" data-conf="">
       <header class="meta"><span>SUN · Wk5</span><span>Rutgers vs Indiana</span></header>
       <div class="teams">
         <div class="team fav">
@@ -2068,7 +2070,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-none" data-day="SUN" data-play="0" data-rank="0">
+    <article class="card b-none" data-day="SUN" data-play="0" data-rank="0" data-conf="">
       <header class="meta"><span>SUN · Wk5</span><span>Washington State vs Fresno State</span></header>
       <div class="teams">
         <div class="team ">
@@ -2108,7 +2110,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-none" data-day="SUN" data-play="0" data-rank="0">
+    <article class="card b-none" data-day="SUN" data-play="0" data-rank="0" data-conf="">
       <header class="meta"><span>SUN · Wk5</span><span>Arizona State vs Baylor</span></header>
       <div class="teams">
         <div class="team ">
@@ -2148,7 +2150,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-lean" data-day="SUN" data-play="1" data-rank="1">
+    <article class="card b-lean" data-day="SUN" data-play="1" data-rank="1" data-conf="">
       <header class="meta"><span>SUN · Wk5</span><span>San Diego State vs Texas State</span></header>
       <div class="teams">
         <div class="team fav">
@@ -2188,7 +2190,7 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
       </div>
       
     </article>
-    <article class="card b-none" data-day="SUN" data-play="0" data-rank="0">
+    <article class="card b-none" data-day="SUN" data-play="0" data-rank="0" data-conf="">
       <header class="meta"><span>SUN · Wk5</span><span>Arizona vs Cincinnati</span></header>
       <div class="teams">
         <div class="team ">
@@ -2232,12 +2234,18 @@ body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-ser
   <p class="foot">Model trained on opponent-adjusted EPA, success rate, and Elo ratings. Edges in points vs. market. LEAN / EDGE / STRONG tiers. Not betting advice.</p>
 </div>
 <script>
+let F='all', C='';
+function apply(){
+  document.querySelectorAll('.card').forEach(c=>{
+    const okF = F==='plays' ? c.dataset.play==='1' : (F==='all' || c.dataset.day===F);
+    const okC = !C || (c.dataset.conf||'').split('|').includes(C);
+    c.classList.toggle('hide', !(okF && okC));
+  });
+  document.querySelectorAll('.day').forEach(s=>s.classList.toggle('hide', !s.querySelector('.card:not(.hide)')));
+}
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
-  const f=b.dataset.f;
-  document.querySelectorAll('.card').forEach(c=>c.classList.toggle('hide',
-    f==='plays'?c.dataset.play!=='1':(f!=='all'&&c.dataset.day!==f)));
-  document.querySelectorAll('.day').forEach(s=>s.classList.toggle('hide',
-    !s.querySelector('.card:not(.hide)')));
+  F=b.dataset.f; apply();
 });
+const cs=document.querySelector('.tabs .conf'); if(cs) cs.onchange=()=>{C=cs.value; apply();};
 </script></body></html>

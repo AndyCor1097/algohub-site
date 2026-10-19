@@ -95,6 +95,24 @@ def table(df, tier_col="Tier"):
     return f'<div class="tbl"><table><thead><tr>{head}</tr></thead><tbody>{"".join(rows)}</tbody></table></div>'
 
 
+def market_filter(df, col):
+    """Table + a row of buttons that filter it by one column (e.g. Spread / Total / Pass Yds / Anytime TD)."""
+    pref = ["Spread", "Total", "Moneyline", "Result", "Total 2.5", "Prop: Pass Yds", "Prop: Rush Yds", "Prop: Rec Yds",
+            "Prop: Receptions", "Prop: Anytime TD"]
+    vals = sorted(dict.fromkeys(df[col].astype(str)), key=lambda v: (pref.index(v) if v in pref else 99, v))
+    if len(vals) < 2:
+        return table(df)
+    uid = f"mf{abs(hash(tuple(vals))) % 10 ** 8}"
+    nice = lambda v: v.replace("Prop: ", "")
+    btns = '<button class="on" data-v="">All</button>' + "".join(
+        f'<button data-v="{e(v)}">{e(nice(v))} <small>{int((df[col].astype(str) == v).sum())}</small></button>' for v in vals)
+    idx = list(df.columns).index(col)
+    return f"""<div class="mfilt" id="{uid}"><div class="mf-btns" role="group" aria-label="Filter by market">{btns}</div>{table(df)}</div>
+<script>(function(){{const w=document.getElementById('{uid}');w.querySelectorAll('.mf-btns button').forEach(b=>b.onclick=()=>{{
+w.querySelectorAll('.mf-btns button').forEach(x=>x.classList.toggle('on',x===b));const v=b.dataset.v;
+w.querySelectorAll('tbody tr').forEach(tr=>{{const c=tr.children[{idx}];tr.hidden=!!v&&(!c||c.textContent!==v);}});}});}})();</script>"""
+
+
 def tiles(pairs):
     return '<div class="tiles">' + "".join(
         f'<div class="tile"><small>{e(k)}</small><b>{e(v)}</b></div>' for k, v in pairs) + "</div>"
@@ -184,7 +202,7 @@ def nfl(f):
         bets["_r"] = bets.Tier.map(TIER_RANK).fillna(0)
         bets = bets.sort_values(["_r", "Edge"], ascending=False).drop(columns="_r")
         best = tiles([("Hammers", int((bets.Tier == "HAMMER").sum())), ("Plays", int((bets.Tier == "PLAY").sum())),
-                      ("Leans", int((bets.Tier == "LEAN").sum()))]) + table(bets)
+                      ("Leans", int((bets.Tier == "LEAN").sum()))]) + market_filter(bets, "Market")
     else:
         best = note("No plays clear the thresholds this week.")
     # Lotto TDs: fun longshots, separate from the plays and from the record
@@ -611,6 +629,10 @@ SOURCES = {  # slug -> (data folder, file pattern, builder, empty message)
 # ------------------------------------------------------------------ page shell
 SITE_CSS = """
 <style>
+.mf-btns{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.mf-btns button{background:transparent;border:1px solid var(--rule);color:var(--dim);padding:6px 12px;border-radius:999px;font:600 12px Archivo,sans-serif;cursor:pointer}
+.mf-btns button small{opacity:.7;margin-left:3px}
+.mf-btns button.on{background:var(--chalk);color:var(--ink);border-color:var(--chalk)}
 body{margin:0;background:var(--ink);color:var(--chalk);font:15px/1.5 Archivo,system-ui,sans-serif}
 .page{max-width:1240px;margin:0 auto;padding:22px 16px 40px}
 a{color:inherit}
