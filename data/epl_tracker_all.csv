@@ -1,0 +1,11 @@
+game_id,date,matchup,score,proj,proj_result,actual,hit,top_score,exact,ou_lean,ou_hit
+2026-10-18_Nott'mForest_Arsenal,2026-10-18,Arsenal @ Nott'm Forest,1-0,1.5-0.9,A,A,1,1-1,0,Under,1
+2026-10-18_Leeds_ManUnited,2026-10-18,Man United @ Leeds,1-1,1.2-1.4,H,D,0,1-1,1,Over,0
+2026-10-18_Brighton_CrystalPalace,2026-10-18,Crystal Palace @ Brighton,0-5,1.0-1.9,H,H,1,1-1,0,Over,1
+2026-10-18_Bournemouth_Sunderland,2026-10-18,Sunderland @ Bournemouth,0-2,1.0-1.6,H,H,1,1-1,0,Over,0
+2026-10-17_Everton_Chelsea,2026-10-17,Chelsea @ Everton,2-0,1.3-1.4,A,A,1,1-1,0,Over,0
+2026-10-17_ManCity_Ipswich,2026-10-17,Ipswich @ Man City,2-3,0.7-3.2,H,H,1,3-0,0,Over,1
+2026-10-17_Fulham_Hull,2026-10-17,Hull @ Fulham,0-1,1.0-1.3,H,H,1,1-1,0,Over,0
+2026-10-17_Brentford_Liverpool,2026-10-17,Liverpool @ Brentford,2-1,1.5-1.6,H,A,0,1-1,0,Over,1
+2026-10-17_Newcastle_AstonVilla,2026-10-17,Aston Villa @ Newcastle,1-0,1.4-1.7,H,A,0,1-1,0,Over,0
+2026-10-19_Tottenham_Coventry,2026-10-19,Coventry @ Tottenham,1-3,0.9-1.6,H,H,1,1-1,0,Over,1

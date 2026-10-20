@@ -21,7 +21,8 @@ SOURCES = {
     "mlb":       (DESKTOP / "algohub" / "game_algo" / "output", "all_games_*.csv",        21),
     "mlb_hr":    (DESKTOP / "HR_Model" / "data",                "today.json",             1),
     "nhl":       (DESKTOP / "nhl_game_algo" / "picks",               "nhl_*.csv",              21),
-    "nba":       (DESKTOP / "NBA_Model" / "data",               "nba_today.json",         1),
+    "nba":       (DESKTOP / "nba_algo" / "picks",               "nba_2*.csv",             21),
+    "nba_props": (DESKTOP / "nba_algo" / "picks",               "nba_props_*.csv",        7),
     "cbb":       (DESKTOP / "cbb_algo" / "picks",               "cbb_*.csv",              14),
     "epl":       (DESKTOP / "epl_algo" / "picks",               "epl_*.csv",              21),
 }
@@ -40,6 +41,10 @@ SINGLE = [
     (DESKTOP / "epl_algo" / "cards.py",            HERE / "epl_cards.py"),   # Premier League card design
     (DESKTOP / "epl_algo" / "tracker.csv",         DATA / "epl_tracker.csv"),
     (DESKTOP / "epl_algo" / "tracker_all.csv",     DATA / "epl_tracker_all.csv"),   # every match
+    (DESKTOP / "nba_algo" / "cards.py",            HERE / "nba_cards.py"),   # NBA card design
+    (DESKTOP / "nba_algo" / "tracker.csv",         DATA / "nba_tracker.csv"),
+    (DESKTOP / "nba_algo" / "tracker_all.csv",     DATA / "nba_tracker_all.csv"),   # every game
+    (DESKTOP / "nba_algo" / "tracker_props.csv",   DATA / "nba_tracker_props.csv"),
 ]
 
 
@@ -61,18 +66,18 @@ def main():
             print(f"  {sport:10s} no files yet")
             continue
         out.mkdir(parents=True, exist_ok=True)
-        if sport not in ("nba", "mlb_hr"):      # dated folders: keep history of the stamped ones
+        if sport != "mlb_hr":                   # dated folders: keep history of the stamped ones
             for f in out.iterdir():             # clear old copies in the SITE folder only
                 if f.is_file():
                     f.unlink()
         for f in files:
             dest = out / f.name
-            if sport in ("nba", "mlb_hr"):      # these overwrite one file daily, so stamp it with its date
+            if sport == "mlb_hr":               # overwrites one file daily, so stamp it with its date
                 try:
                     d = json.loads(f.read_text(encoding="utf-8")).get("date", "today")
                 except Exception:
                     d = "today"
-                dest = out / f"{'nba' if sport == 'nba' else 'hr'}_{d}.json"
+                dest = out / f"hr_{d}.json"
             shutil.copy2(f, dest)
         print(f"  {sport:10s} {len(files)} file(s), latest: {files[-1].name}")
 

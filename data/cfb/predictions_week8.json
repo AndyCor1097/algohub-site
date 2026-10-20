@@ -1,6 +1,6 @@
 {
   "week": 8,
-  "generated": "2026-10-19 14:24",
+  "generated": "2026-10-20 12:37",
   "model": "CSV-based opponent-adjusted metrics (85% ratings / 15% market)",
   "games": [
     {
@@ -33,9 +33,9 @@
       "commence_time": "2026-10-20T23:00:00Z",
       "home_conf": "Conference USA",
       "away_conf": "Conference USA",
-      "weather": "55\u00b0F \u00b7 8 MPH",
-      "wx_wind": 8,
-      "wx_temp": 55,
+      "weather": "56\u00b0F \u00b7 6 MPH",
+      "wx_wind": 6,
+      "wx_temp": 56,
       "wx_shade": -0.0
     },
     {
@@ -68,9 +68,9 @@
       "commence_time": "2026-10-20T23:00:00Z",
       "home_conf": "Conference USA",
       "away_conf": "Conference USA",
-      "weather": "75\u00b0F \u00b7 8 MPH",
-      "wx_wind": 8,
-      "wx_temp": 75,
+      "weather": "77\u00b0F \u00b7 7 MPH",
+      "wx_wind": 7,
+      "wx_temp": 77,
       "wx_shade": -0.0
     },
     {
@@ -103,8 +103,8 @@
       "commence_time": "2026-10-20T23:30:00Z",
       "home_conf": "Sun Belt",
       "away_conf": "Sun Belt",
-      "weather": "54\u00b0F \u00b7 2 MPH",
-      "wx_wind": 2,
+      "weather": "54\u00b0F \u00b7 1 MPH",
+      "wx_wind": 1,
       "wx_temp": 54,
       "wx_shade": -0.0
     },
@@ -138,9 +138,9 @@
       "commence_time": "2026-10-22T00:00:00Z",
       "home_conf": "Conference USA",
       "away_conf": "Conference USA",
-      "weather": "69\u00b0F \u00b7 3 MPH",
-      "wx_wind": 3,
-      "wx_temp": 69,
+      "weather": "67\u00b0F \u00b7 6 MPH",
+      "wx_wind": 6,
+      "wx_temp": 67,
       "wx_shade": -0.0
     },
     {
@@ -208,9 +208,9 @@
       "commence_time": "2026-10-22T23:00:00Z",
       "home_conf": "Conference USA",
       "away_conf": "Conference USA",
-      "weather": "64\u00b0F \u00b7 5 MPH",
+      "weather": "65\u00b0F \u00b7 5 MPH",
       "wx_wind": 5,
-      "wx_temp": 64,
+      "wx_temp": 65,
       "wx_shade": -0.0
     },
     {
@@ -243,9 +243,9 @@
       "commence_time": "2026-10-22T23:30:00Z",
       "home_conf": "American Athletic",
       "away_conf": "American Athletic",
-      "weather": "73\u00b0F \u00b7 4 MPH",
+      "weather": "74\u00b0F \u00b7 4 MPH",
       "wx_wind": 4,
-      "wx_temp": 73,
+      "wx_temp": 74,
       "wx_shade": -0.0
     },
     {
@@ -278,9 +278,9 @@
       "commence_time": "2026-10-23T23:00:00Z",
       "home_conf": "FBS Independents",
       "away_conf": "Mid-American",
-      "weather": "48\u00b0F \u00b7 3 MPH",
+      "weather": "49\u00b0F \u00b7 3 MPH",
       "wx_wind": 3,
-      "wx_temp": 48,
+      "wx_temp": 49,
       "wx_shade": -0.0
     },
     {
@@ -313,9 +313,9 @@
       "commence_time": "2026-10-23T23:00:00Z",
       "home_conf": "ACC",
       "away_conf": "ACC",
-      "weather": "49\u00b0F \u00b7 4 MPH",
+      "weather": "48\u00b0F \u00b7 4 MPH",
       "wx_wind": 4,
-      "wx_temp": 49,
+      "wx_temp": 48,
       "wx_shade": -0.0
     },
     {
@@ -360,9 +360,9 @@
       "start_date": "2026-10-24 01:00:00",
       "neutral_site": false,
       "pred_home": 21,
-      "pred_away": 22,
+      "pred_away": 23,
       "pred_margin": -1.6,
-      "pred_total": 43,
+      "pred_total": 44,
       "ratings_margin": -0.9,
       "home_win_prob": 44.6,
       "home_field_adv": 2.2,
@@ -373,7 +373,7 @@
       "home_moneyline_book": null,
       "away_moneyline_book": null,
       "spread_edge": 3.9,
-      "total_edge": -2.5,
+      "total_edge": -1.5,
       "ml_edge": null,
       "edge_label": "\ud83d\udcca LEAN",
       "edge_pick": "Wyoming",
@@ -383,10 +383,10 @@
       "commence_time": "2026-10-24T01:00:00Z",
       "home_conf": "Mountain West",
       "away_conf": "Mountain West",
-      "weather": "\ud83d\udca8 47\u00b0F \u00b7 24 MPH",
-      "wx_wind": 24,
-      "wx_temp": 47,
-      "wx_shade": -2.8
+      "weather": "\ud83d\udca8 50\u00b0F \u00b7 20 MPH",
+      "wx_wind": 20,
+      "wx_temp": 50,
+      "wx_shade": -2.0
     },
     {
       "week": 8,
@@ -418,8 +418,8 @@
       "commence_time": "2026-10-24T02:30:00Z",
       "home_conf": "ACC",
       "away_conf": "ACC",
-      "weather": "62\u00b0F \u00b7 3 MPH",
-      "wx_wind": 3,
+      "weather": "62\u00b0F \u00b7 4 MPH",
+      "wx_wind": 4,
       "wx_temp": 62,
       "wx_shade": -0.0
     },
@@ -453,9 +453,9 @@
       "commence_time": "2026-10-24T16:00:00Z",
       "home_conf": "Big 12",
       "away_conf": "Big 12",
-      "weather": "71\u00b0F \u00b7 5 MPH",
-      "wx_wind": 5,
-      "wx_temp": 71,
+      "weather": "72\u00b0F \u00b7 4 MPH",
+      "wx_wind": 4,
+      "wx_temp": 72,
       "wx_shade": -0.0
     },
     {
@@ -488,9 +488,9 @@
       "commence_time": "2026-10-24T19:45:00Z",
       "home_conf": "Big 12",
       "away_conf": "Big 12",
-      "weather": "76\u00b0F \u00b7 8 MPH",
-      "wx_wind": 8,
-      "wx_temp": 76,
+      "weather": "77\u00b0F \u00b7 3 MPH",
+      "wx_wind": 3,
+      "wx_temp": 77,
       "wx_shade": -0.0
     },
     {
@@ -523,9 +523,9 @@
       "commence_time": "2026-10-24T16:00:00Z",
       "home_conf": "Big 12",
       "away_conf": "Big 12",
-      "weather": "69\u00b0F \u00b7 8 MPH",
-      "wx_wind": 8,
-      "wx_temp": 69,
+      "weather": "68\u00b0F \u00b7 7 MPH",
+      "wx_wind": 7,
+      "wx_temp": 68,
       "wx_shade": -0.0
     },
     {
@@ -558,9 +558,9 @@
       "commence_time": "2026-10-24T16:00:00Z",
       "home_conf": "Big 12",
       "away_conf": "Big 12",
-      "weather": "54\u00b0F \u00b7 3 MPH",
+      "weather": "53\u00b0F \u00b7 3 MPH",
       "wx_wind": 3,
-      "wx_temp": 54,
+      "wx_temp": 53,
       "wx_shade": -0.0
     },
     {
@@ -628,9 +628,9 @@
       "commence_time": "2026-10-24T19:00:00Z",
       "home_conf": "Big Ten",
       "away_conf": "Big Ten",
-      "weather": "58\u00b0F \u00b7 7 MPH",
+      "weather": "57\u00b0F \u00b7 7 MPH",
       "wx_wind": 7,
-      "wx_temp": 58,
+      "wx_temp": 57,
       "wx_shade": -0.0
     },
     {
@@ -698,10 +698,10 @@
       "commence_time": "2026-10-24T04:00:00Z",
       "home_conf": "Big Ten",
       "away_conf": "Big Ten",
-      "weather": "66\u00b0F \u00b7 12 MPH",
-      "wx_wind": 12,
-      "wx_temp": 66,
-      "wx_shade": -0.4
+      "weather": "67\u00b0F \u00b7 13 MPH",
+      "wx_wind": 13,
+      "wx_temp": 67,
+      "wx_shade": -0.6
     },
     {
       "week": 8,
@@ -768,9 +768,9 @@
       "commence_time": "2026-10-24T19:30:00Z",
       "home_conf": "Big Ten",
       "away_conf": "Big Ten",
-      "weather": "68\u00b0F \u00b7 2 MPH",
+      "weather": "66\u00b0F \u00b7 2 MPH",
       "wx_wind": 2,
-      "wx_temp": 68,
+      "wx_temp": 66,
       "wx_shade": -0.0
     },
     {
@@ -803,9 +803,9 @@
       "commence_time": "2026-10-24T16:00:00Z",
       "home_conf": "Big 12",
       "away_conf": "Big 12",
-      "weather": "48\u00b0F \u00b7 4 MPH \u00b7 RAIN 58%",
-      "wx_wind": 4,
-      "wx_temp": 48,
+      "weather": "50\u00b0F \u00b7 8 MPH \u00b7 RAIN 67%",
+      "wx_wind": 8,
+      "wx_temp": 50,
       "wx_shade": -0.0
     },
     {
@@ -849,10 +849,10 @@
       "away_team": "Rice",
       "start_date": "2026-10-24 16:00:00",
       "neutral_site": false,
-      "pred_home": 32,
+      "pred_home": 31,
       "pred_away": 21,
       "pred_margin": 10.4,
-      "pred_total": 53,
+      "pred_total": 52,
       "ratings_margin": 10.8,
       "home_win_prob": 80.0,
       "home_field_adv": 2.2,
@@ -863,7 +863,7 @@
       "home_moneyline_book": -326.0,
       "away_moneyline_book": 308.0,
       "spread_edge": 1.9,
-      "total_edge": -1.5,
+      "total_edge": -2.5,
       "ml_edge": 0.035,
       "edge_label": null,
       "edge_pick": null,
@@ -873,10 +873,10 @@
       "commence_time": "2026-10-24T16:00:00Z",
       "home_conf": "American Athletic",
       "away_conf": "American Athletic",
-      "weather": "\ud83d\udca8 80\u00b0F \u00b7 17 MPH \u00b7 RAIN 67%",
-      "wx_wind": 17,
-      "wx_temp": 80,
-      "wx_shade": -1.4
+      "weather": "\ud83d\udca8 79\u00b0F \u00b7 19 MPH \u00b7 RAIN 69%",
+      "wx_wind": 19,
+      "wx_temp": 79,
+      "wx_shade": -2.8
     },
     {
       "week": 8,
@@ -884,10 +884,10 @@
       "away_team": "Pittsburgh",
       "start_date": "2026-10-24 16:00:00",
       "neutral_site": false,
-      "pred_home": 35,
-      "pred_away": 16,
+      "pred_home": 34,
+      "pred_away": 15,
       "pred_margin": 19.0,
-      "pred_total": 51,
+      "pred_total": 49,
       "ratings_margin": 18.5,
       "home_win_prob": 92.7,
       "home_field_adv": 2.2,
@@ -898,7 +898,7 @@
       "home_moneyline_book": -2016.5,
       "away_moneyline_book": 1225.0,
       "spread_edge": -3.0,
-      "total_edge": -1.5,
+      "total_edge": -3.5,
       "ml_edge": -0.026,
       "edge_label": "\ud83d\udcca LEAN",
       "edge_pick": "Pittsburgh",
@@ -908,10 +908,10 @@
       "commence_time": "2026-10-24T16:00:00Z",
       "home_conf": "ACC",
       "away_conf": "ACC",
-      "weather": "\ud83d\udca8 81\u00b0F \u00b7 18 MPH \u00b7 RAIN 60%",
-      "wx_wind": 18,
-      "wx_temp": 81,
-      "wx_shade": -1.6
+      "weather": "\ud83d\udca8 80\u00b0F \u00b7 20 MPH \u00b7 RAIN 62%",
+      "wx_wind": 20,
+      "wx_temp": 80,
+      "wx_shade": -3.0
     },
     {
       "week": 8,
@@ -943,9 +943,9 @@
       "commence_time": "2026-10-24T16:00:00Z",
       "home_conf": "Big Ten",
       "away_conf": "Big Ten",
-      "weather": "65\u00b0F \u00b7 7 MPH",
-      "wx_wind": 7,
-      "wx_temp": 65,
+      "weather": "64\u00b0F \u00b7 9 MPH",
+      "wx_wind": 9,
+      "wx_temp": 64,
       "wx_shade": -0.0
     },
     {
@@ -978,9 +978,9 @@
       "commence_time": "2026-10-24T16:00:00Z",
       "home_conf": "Big Ten",
       "away_conf": "Big Ten",
-      "weather": "67\u00b0F \u00b7 9 MPH",
+      "weather": "66\u00b0F \u00b7 9 MPH",
       "wx_wind": 9,
-      "wx_temp": 67,
+      "wx_temp": 66,
       "wx_shade": -0.0
     },
     {
@@ -1013,8 +1013,8 @@
       "commence_time": "2026-10-24T16:00:00Z",
       "home_conf": "ACC",
       "away_conf": "ACC",
-      "weather": "76\u00b0F \u00b7 10 MPH",
-      "wx_wind": 10,
+      "weather": "76\u00b0F \u00b7 7 MPH",
+      "wx_wind": 7,
       "wx_temp": 76,
       "wx_shade": -0.0
     },
@@ -1024,10 +1024,10 @@
       "away_team": "West Virginia",
       "start_date": "2026-10-24 16:00:00",
       "neutral_site": false,
-      "pred_home": 32,
+      "pred_home": 33,
       "pred_away": 23,
       "pred_margin": 9.6,
-      "pred_total": 55,
+      "pred_total": 56,
       "ratings_margin": 9.7,
       "home_win_prob": 78.3,
       "home_field_adv": 2.2,
@@ -1038,7 +1038,7 @@
       "home_moneyline_book": -300.0,
       "away_moneyline_book": 285.0,
       "spread_edge": 0.1,
-      "total_edge": -0.5,
+      "total_edge": 0.5,
       "ml_edge": 0.033,
       "edge_label": null,
       "edge_pick": null,
@@ -1048,10 +1048,10 @@
       "commence_time": "2026-10-24T16:00:00Z",
       "home_conf": "Big 12",
       "away_conf": "Big 12",
-      "weather": "76\u00b0F \u00b7 13 MPH",
-      "wx_wind": 13,
+      "weather": "76\u00b0F \u00b7 10 MPH",
+      "wx_wind": 10,
       "wx_temp": 76,
-      "wx_shade": -0.6
+      "wx_shade": -0.0
     },
     {
       "week": 8,
@@ -1083,8 +1083,8 @@
       "commence_time": "2026-10-24T16:00:00Z",
       "home_conf": "Mid-American",
       "away_conf": "Mid-American",
-      "weather": "66\u00b0F \u00b7 4 MPH",
-      "wx_wind": 4,
+      "weather": "66\u00b0F \u00b7 5 MPH",
+      "wx_wind": 5,
       "wx_temp": 66,
       "wx_shade": -0.0
     },
@@ -1118,10 +1118,10 @@
       "commence_time": "2026-10-24T17:00:00Z",
       "home_conf": "Mid-American",
       "away_conf": "Mid-American",
-      "weather": "68\u00b0F \u00b7 9 MPH",
-      "wx_wind": 9,
+      "weather": "68\u00b0F \u00b7 11 MPH",
+      "wx_wind": 11,
       "wx_temp": 68,
-      "wx_shade": -0.0
+      "wx_shade": -0.2
     },
     {
       "week": 8,
@@ -1153,8 +1153,8 @@
       "commence_time": "2026-10-24T17:00:00Z",
       "home_conf": "Mid-American",
       "away_conf": "Mid-American",
-      "weather": "64\u00b0F \u00b7 6 MPH",
-      "wx_wind": 6,
+      "weather": "64\u00b0F \u00b7 5 MPH",
+      "wx_wind": 5,
       "wx_temp": 64,
       "wx_shade": -0.0
     },
@@ -1223,8 +1223,8 @@
       "commence_time": "2026-10-24T19:30:00Z",
       "home_conf": "Mid-American",
       "away_conf": "Mid-American",
-      "weather": "68\u00b0F \u00b7 7 MPH",
-      "wx_wind": 7,
+      "weather": "68\u00b0F \u00b7 5 MPH",
+      "wx_wind": 5,
       "wx_temp": 68,
       "wx_shade": -0.0
     },
@@ -1258,9 +1258,9 @@
       "commence_time": "2026-10-24T19:30:00Z",
       "home_conf": "Mid-American",
       "away_conf": "Mid-American",
-      "weather": "60\u00b0F \u00b7 2 MPH",
+      "weather": "59\u00b0F \u00b7 2 MPH",
       "wx_wind": 2,
-      "wx_temp": 60,
+      "wx_temp": 59,
       "wx_shade": -0.0
     },
     {
@@ -1293,10 +1293,10 @@
       "commence_time": "2026-10-24T19:30:00Z",
       "home_conf": "ACC",
       "away_conf": "ACC",
-      "weather": "70\u00b0F \u00b7 11 MPH",
-      "wx_wind": 11,
-      "wx_temp": 70,
-      "wx_shade": -0.2
+      "weather": "71\u00b0F \u00b7 10 MPH",
+      "wx_wind": 10,
+      "wx_temp": 71,
+      "wx_shade": -0.0
     },
     {
       "week": 8,
@@ -1328,8 +1328,8 @@
       "commence_time": "2026-10-24T19:30:00Z",
       "home_conf": "SEC",
       "away_conf": "SEC",
-      "weather": "78\u00b0F \u00b7 10 MPH",
-      "wx_wind": 10,
+      "weather": "78\u00b0F \u00b7 9 MPH",
+      "wx_wind": 9,
       "wx_temp": 78,
       "wx_shade": -0.0
     },
@@ -1363,8 +1363,8 @@
       "commence_time": "2026-10-24T19:30:00Z",
       "home_conf": "American Athletic",
       "away_conf": "American Athletic",
-      "weather": "57\u00b0F \u00b7 2 MPH",
-      "wx_wind": 2,
+      "weather": "57\u00b0F \u00b7 3 MPH",
+      "wx_wind": 3,
       "wx_temp": 57,
       "wx_shade": -0.0
     },
@@ -1398,10 +1398,10 @@
       "commence_time": "2026-10-24T19:30:00Z",
       "home_conf": "Mountain West",
       "away_conf": "Mountain West",
-      "weather": "69\u00b0F \u00b7 10 MPH",
-      "wx_wind": 10,
-      "wx_temp": 69,
-      "wx_shade": -0.0
+      "weather": "68\u00b0F \u00b7 12 MPH",
+      "wx_wind": 12,
+      "wx_temp": 68,
+      "wx_shade": -0.4
     },
     {
       "week": 8,
@@ -1433,10 +1433,10 @@
       "commence_time": "2026-10-24T19:30:00Z",
       "home_conf": "SEC",
       "away_conf": "SEC",
-      "weather": "69\u00b0F \u00b7 12 MPH",
-      "wx_wind": 12,
-      "wx_temp": 69,
-      "wx_shade": -0.4
+      "weather": "70\u00b0F \u00b7 11 MPH",
+      "wx_wind": 11,
+      "wx_temp": 70,
+      "wx_shade": -0.2
     },
     {
       "week": 8,
@@ -1468,8 +1468,8 @@
       "commence_time": "2026-10-24T20:00:00Z",
       "home_conf": "Mid-American",
       "away_conf": "Mid-American",
-      "weather": "66\u00b0F \u00b7 4 MPH",
-      "wx_wind": 4,
+      "weather": "66\u00b0F \u00b7 3 MPH",
+      "wx_wind": 3,
       "wx_temp": 66,
       "wx_shade": -0.0
     },
@@ -1503,8 +1503,8 @@
       "commence_time": "2026-10-24T20:00:00Z",
       "home_conf": "Sun Belt",
       "away_conf": "Sun Belt",
-      "weather": "71\u00b0F \u00b7 9 MPH",
-      "wx_wind": 9,
+      "weather": "71\u00b0F \u00b7 10 MPH",
+      "wx_wind": 10,
       "wx_temp": 71,
       "wx_shade": -0.0
     },
@@ -1538,9 +1538,9 @@
       "commence_time": "2026-10-24T21:00:00Z",
       "home_conf": "Sun Belt",
       "away_conf": "Sun Belt",
-      "weather": "78\u00b0F \u00b7 6 MPH",
+      "weather": "80\u00b0F \u00b7 6 MPH",
       "wx_wind": 6,
-      "wx_temp": 78,
+      "wx_temp": 80,
       "wx_shade": -0.0
     },
     {
@@ -1573,9 +1573,9 @@
       "commence_time": "2026-10-24T21:00:00Z",
       "home_conf": "Mountain West",
       "away_conf": "Mountain West",
-      "weather": "61\u00b0F \u00b7 7 MPH",
-      "wx_wind": 7,
-      "wx_temp": 61,
+      "weather": "59\u00b0F \u00b7 6 MPH",
+      "wx_wind": 6,
+      "wx_temp": 59,
       "wx_shade": -0.0
     },
     {
@@ -1608,9 +1608,9 @@
       "commence_time": "2026-10-24T21:00:00Z",
       "home_conf": "Sun Belt",
       "away_conf": "Sun Belt",
-      "weather": "74\u00b0F \u00b7 8 MPH",
-      "wx_wind": 8,
-      "wx_temp": 74,
+      "weather": "75\u00b0F \u00b7 7 MPH",
+      "wx_wind": 7,
+      "wx_temp": 75,
       "wx_shade": -0.0
     },
     {
@@ -1643,9 +1643,9 @@
       "commence_time": "2026-10-24T22:00:00Z",
       "home_conf": "Pac-12",
       "away_conf": "Pac-12",
-      "weather": "53\u00b0F \u00b7 5 MPH",
-      "wx_wind": 5,
-      "wx_temp": 53,
+      "weather": "55\u00b0F \u00b7 3 MPH",
+      "wx_wind": 3,
+      "wx_temp": 55,
       "wx_shade": -0.0
     },
     {
@@ -1678,10 +1678,10 @@
       "commence_time": "2026-10-24T22:30:00Z",
       "home_conf": "Pac-12",
       "away_conf": "Pac-12",
-      "weather": "56\u00b0F \u00b7 7 MPH",
-      "wx_wind": 7,
-      "wx_temp": 56,
-      "wx_shade": -0.0
+      "weather": "60\u00b0F \u00b7 12 MPH",
+      "wx_wind": 12,
+      "wx_temp": 60,
+      "wx_shade": -0.4
     },
     {
       "week": 8,
@@ -1713,8 +1713,8 @@
       "commence_time": "2026-10-24T23:00:00Z",
       "home_conf": "Sun Belt",
       "away_conf": "Sun Belt",
-      "weather": "70\u00b0F \u00b7 7 MPH",
-      "wx_wind": 7,
+      "weather": "70\u00b0F \u00b7 6 MPH",
+      "wx_wind": 6,
       "wx_temp": 70,
       "wx_shade": -0.0
     },
@@ -1748,9 +1748,9 @@
       "commence_time": "2026-10-24T23:30:00Z",
       "home_conf": "SEC",
       "away_conf": "SEC",
-      "weather": "57\u00b0F \u00b7 4 MPH",
+      "weather": "58\u00b0F \u00b7 4 MPH",
       "wx_wind": 4,
-      "wx_temp": 57,
+      "wx_temp": 58,
       "wx_shade": -0.0
     },
     {
@@ -1783,9 +1783,9 @@
       "commence_time": "2026-10-24T23:30:00Z",
       "home_conf": "ACC",
       "away_conf": "ACC",
-      "weather": "51\u00b0F \u00b7 5 MPH",
+      "weather": "52\u00b0F \u00b7 5 MPH",
       "wx_wind": 5,
-      "wx_temp": 51,
+      "wx_temp": 52,
       "wx_shade": -0.0
     },
     {
@@ -1818,10 +1818,10 @@
       "commence_time": "2026-10-24T16:00:00Z",
       "home_conf": "SEC",
       "away_conf": "SEC",
-      "weather": "78\u00b0F \u00b7 9 MPH",
-      "wx_wind": 9,
-      "wx_temp": 78,
-      "wx_shade": -0.0
+      "weather": "80\u00b0F \u00b7 12 MPH",
+      "wx_wind": 12,
+      "wx_temp": 80,
+      "wx_shade": -0.4
     },
     {
       "week": 8,
@@ -1853,9 +1853,9 @@
       "commence_time": "2026-10-24T23:30:00Z",
       "home_conf": "Pac-12",
       "away_conf": "Pac-12",
-      "weather": "74\u00b0F \u00b7 13 MPH",
+      "weather": "78\u00b0F \u00b7 13 MPH",
       "wx_wind": 13,
-      "wx_temp": 74,
+      "wx_temp": 78,
       "wx_shade": -0.6
     },
     {
@@ -1864,10 +1864,10 @@
       "away_team": "Southern California",
       "start_date": "2026-10-24 23:30:00",
       "neutral_site": false,
-      "pred_home": 24,
+      "pred_home": 23,
       "pred_away": 27,
       "pred_margin": -3.3,
-      "pred_total": 51,
+      "pred_total": 50,
       "ratings_margin": -3.6,
       "home_win_prob": 39.3,
       "home_field_adv": 2.8,
@@ -1878,7 +1878,7 @@
       "home_moneyline_book": 105.0,
       "away_moneyline_book": -126.0,
       "spread_edge": -1.8,
-      "total_edge": 0.5,
+      "total_edge": -0.5,
       "ml_edge": -0.095,
       "edge_label": null,
       "edge_pick": null,
@@ -1888,10 +1888,10 @@
       "commence_time": "2026-10-24T23:30:00Z",
       "home_conf": "Big Ten",
       "away_conf": "Big Ten",
-      "weather": "58\u00b0F \u00b7 9 MPH",
-      "wx_wind": 9,
-      "wx_temp": 58,
-      "wx_shade": -0.0
+      "weather": "61\u00b0F \u00b7 12 MPH",
+      "wx_wind": 12,
+      "wx_temp": 61,
+      "wx_shade": -0.4
     },
     {
       "week": 8,
@@ -1923,8 +1923,8 @@
       "commence_time": "2026-10-25T00:00:00Z",
       "home_conf": "American Athletic",
       "away_conf": "American Athletic",
-      "weather": "72\u00b0F \u00b7 9 MPH",
-      "wx_wind": 9,
+      "weather": "72\u00b0F \u00b7 7 MPH",
+      "wx_wind": 7,
       "wx_temp": 72,
       "wx_shade": -0.0
     },
@@ -1958,9 +1958,9 @@
       "commence_time": "2026-10-25T02:00:00Z",
       "home_conf": "Mountain West",
       "away_conf": "Mountain West",
-      "weather": "64\u00b0F \u00b7 10 MPH",
-      "wx_wind": 10,
-      "wx_temp": 64,
+      "weather": "63\u00b0F \u00b7 9 MPH \u00b7 RAIN 41%",
+      "wx_wind": 9,
+      "wx_temp": 63,
       "wx_shade": -0.0
     }
   ]

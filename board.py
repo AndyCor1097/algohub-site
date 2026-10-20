@@ -159,6 +159,21 @@ def _cbb(data):
     return out
 
 
+def _nba(data):
+    f = _latest(data / "nba", "nba_2*.csv")
+    if not f or not _fresh(f):
+        return []
+    out = []
+    for r in pd.read_csv(f).to_dict("records"):
+        mu = f"{r['away_name']} at {r['home_name']}"
+        for k in ("sp", "tot"):
+            t = r.get(f"{k}_tier")
+            if isinstance(t, str) and t:
+                out.append(dict(sport="NBA", pick=r[f"{k}_pick"], odds="-110", tier=t, edge=abs(float(r[f"{k}_edge"])),
+                                game=mu, when=r.get("start_et", ""), unit="pts"))
+    return out
+
+
 def _hr(data):
     f = _latest(data / "mlb_hr", "hr_*.json")
     if not f or not _fresh(f):
@@ -173,7 +188,7 @@ def _hr(data):
 
 def collect(data: Path):
     plays, counts = [], {}
-    for fn in (_nfl, _cfb, _cbb, _nhl, _mlb, _epl, _hr):
+    for fn in (_nfl, _cfb, _cbb, _nba, _nhl, _mlb, _epl, _hr):
         try:
             p = fn(data)
         except Exception:
@@ -194,7 +209,7 @@ def board_html(plays, counts):
     by = {}
     for p in sorted(games, key=lambda p: (TOP.get(p["tier"], 0), p["edge"]), reverse=True):
         by.setdefault(p["sport"], []).append(p)
-    order = ["CBB", "NHL", "MLB", "EPL", "NFL", "CFB"]
+    order = ["NBA", "CBB", "NHL", "MLB", "EPL", "NFL", "CFB"]
     top = [p for rnd in range(2) for sp in order for p in by.get(sp, [])[rnd:rnd + 1]]
     top += [p for p in plays if p["sport"] == "HR"][:2]
     today = date.today()

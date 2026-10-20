@@ -32,11 +32,11 @@ import auth  # noqa: E402
 SITE_NAME = "The AlgoHub"
 SLATES_KEPT = 14          # how many past slates per sport get their own page
 TIER_RANK = {"HAMMER": 3, "STRONG": 3, "PLAY": 2, "SOLID": 2, "EDGE": 2, "LEAN": 1}
-ON_HOLD = {"nba": "NBA picks start when the season tips off."}
+ON_HOLD = {}
 
 SPORTS = [  # slug, tab label, board key
     ("nfl", "NFL", "NFL"), ("cfb", "CFB", "CFB"), ("nhl", "NHL", "NHL"), ("mlb", "MLB", "MLB"),
-    ("hr", "Home Runs", "HR"), ("epl", "Premier League", "EPL"), ("cbb", "CBB", "CBB"), ("nba", "NBA", None),
+    ("hr", "Home Runs", "HR"), ("epl", "Premier League", "EPL"), ("cbb", "CBB", "CBB"), ("nba", "NBA", "NBA"),
 ]
 e = lambda s: html.escape(str(s)) if s is not None and not (isinstance(s, float) and math.isnan(s)) else ""
 
@@ -699,12 +699,110 @@ def nhl_every_game():
 
 
 def nba(f):
-    t = pd.DataFrame(json.loads(f.read_text(encoding="utf-8")).get("top_overlays", []))
-    if t.empty:
-        return [("Props", note("No NBA props today."))]
-    return [("Props", table(pd.DataFrame({"Player": t.player_name, "Game": t.game, "Stat": t.stat,
-                                          "Proj": t.projection.round(1), "Line": t.line, "Pick": t.direction,
-                                          "Edge %": t.edge_pct, "Odds": t.over_odds})))]
+    """NBA game algo (nba_algo): spread / total / ML value, same card design as CBB."""
+    from nba_cards import render_cards
+    g = pd.read_csv(f, dtype={"game_id": str})
+    card_rel = f"cards/nba_{slug_from(f)}.html"
+    write(card_rel, render_cards(g, str(g.day.iloc[0])))
+    rows = []
+    for _, r in g.iterrows():
+        mu = f"{r.away_name} @ {r.home_name}"
+        if isinstance(r.sp_tier, str) and r.sp_tier:
+            rows.append(dict(Time=r.start_et, Matchup=mu, Market="Spread", Pick=r.sp_pick, Tier=r.sp_tier,
+                             Edge=round(abs(r.sp_edge), 1), Book=f"{r.spread:+g}", Model=f"{-r.pred_margin:+.1f}"))
+        if isinstance(r.tot_tier, str) and r.tot_tier:
+            rows.append(dict(Time=r.start_et, Matchup=mu, Market="Total", Pick=r.tot_pick, Tier=r.tot_tier,
+                             Edge=round(abs(r.tot_edge), 1), Book=f"{r.total:g}", Model=f"{r.pred_total:.1f}"))
+        if isinstance(r.ml_pick, str) and r.ml_pick:
+            rows.append(dict(Time=r.start_et, Matchup=mu, Market="Moneyline", Pick=f"{r.ml_pick} {odds(r.ml_odds)}",
+                             Tier="VALUE", Edge=round(r.ml_edge * 100, 1), Book=odds(r.ml_odds),
+                             Model=f"{max(r.home_wp, 1 - r.home_wp):.0%}"))
+    intro = ('<p class="hint"><b>How it works:</b> opponent-adjusted offense, defense and pace for every team, rebuilt '
+             'every morning, then blended with the sharp line (the market knows injuries first). Edge = points vs the line '
+             'after that blend. First week of the season: LEAN max while the ratings lean on last year.</p>')
+    if rows:
+        bets = pd.DataFrame(rows)
+        bets["_r"] = bets.Tier.map(TIER_RANK).fillna(0)
+        bets = bets.sort_values(["_r", "Edge"], ascending=False).drop(columns="_r")
+        best = intro + tiles([("Hammers", int((bets.Tier == "HAMMER").sum())), ("Plays", int((bets.Tier == "PLAY").sum())),
+                              ("Leans", int((bets.Tier == "LEAN").sum()))]) + market_filter(bets, "Market")
+    else:
+        best = intro + note("No plays clear the thresholds today.")
+    rec = ""
+    tp = DATA / "nba_tracker.csv"
+    if tp.exists():
+        t = pd.read_csv(tp)
+        w, l, p = (t.result == "W").sum(), (t.result == "L").sum(), (t.result == "P").sum()
+        agg = (t.groupby(["market", "tier"]).agg(W=("result", lambda x: (x == "W").sum()),
+                                                  L=("result", lambda x: (x == "L").sum()),
+                                                  P=("result", lambda x: (x == "P").sum()),
+                                                  Units=("units", "sum")).reset_index())
+        agg["Win %"] = (agg.W / (agg.W + agg.L).clip(lower=1)).map("{:.1%}".format)
+        agg["Units"] = agg.Units.map("{:+.2f}".format)
+        rec = (record_tiles(w, l, p, t.units.sum()) + units_chart(t.groupby("date").units.sum().cumsum())
+               + table(agg.rename(columns={"market": "Market", "tier": "Tier"})))
+    ta = DATA / "nba_tracker_all.csv"
+    if ta.exists():
+        a = pd.read_csv(ta)
+        w, l = int((a.result == "W").sum()), int((a.result == "L").sum())
+        pairs = [("Winner (every game)", f"{w}-{l}"), ("Hit %", f"{w / max(w + l, 1):.0%}")]
+        if "ats_result" in a:
+            aw, al = int((a.ats_result == "W").sum()), int((a.ats_result == "L").sum())
+            pairs.append(("ATS lean (every game)", f"{aw}-{al}"))
+        rec += '<h3 class="sub">Every game</h3>' + tiles(pairs)
+    tpp = DATA / "nba_tracker_props.csv"
+    if tpp.exists():
+        t = pd.read_csv(tpp)
+        w, l, p = (t.result == "W").sum(), (t.result == "L").sum(), (t.result == "P").sum()
+        rec += '<h3 class="sub">Player props</h3>' + record_tiles(w, l, p, t.units.sum())
+    if not rec:
+        rec = note("Nothing graded yet. Results show up the morning after each slate.")
+    return [("Cards", stale(f) + cards_frame(card_rel, "NBA cards")), ("Best bets", best),
+            ("Props", nba_props_html(str(g.day.iloc[0]))), ("Record", rec)]
+
+
+def nba_props_html(day):
+    """NBA player props: plays (market-first, vs Novig) + every priced line, searchable, by game."""
+    f = DATA / "nba_props" / f"nba_props_{day}.csv"
+    if not f.exists():
+        return note("Props for this slate aren't priced yet.")
+    d = pd.read_csv(f)
+    d = d[d.line.notna()].copy()
+    if d.empty:
+        return note("No player prop lines posted yet. They usually show up a few hours before tip.")
+    pct = lambda v: "" if pd.isna(v) else f"{v:.0%}"
+    intro = ('<p class="hint"><b>How it works:</b> projected minutes x per-minute production x pace and matchup, with '
+             'minutes from teammates ruled OUT handed to the healthy guys. Then market-first: Novig\'s no-vig % is the '
+             'anchor and the model nudges it. A play has to beat Novig\'s actual price. Bet it wherever the line is best.</p>')
+    plays = d[d.tier.fillna("") != ""].sort_values("edge", ascending=False)
+    if len(plays):
+        pt = pd.DataFrame({"Tier": plays.tier, "Player": plays.player + " (" + plays.team + ")", "Market": "Prop: " + plays.label,
+                           "Pick": plays.pick, "Price": plays.price.map(odds), "Proj": plays.proj,
+                           "Our %": plays.p_final.map(lambda v: pct(v) if True else ""),
+                           "Edge": plays.edge.round(1)})
+        pt["Our %"] = [pct(p_ if s_ == "over" else 1 - p_) for p_, s_ in zip(plays.p_final, plays.side)]
+        top = tiles([("Hammers", int((plays.tier == "HAMMER").sum())), ("Plays", int((plays.tier == "PLAY").sum())),
+                     ("Leans", int((plays.tier == "LEAN").sum()))]) + market_filter(pt, "Market")
+    else:
+        top = note("No props clear the bar today. The model and Novig agree within a few points on every line.")
+    rows = []
+    for gid, g in d.sort_values(["game_id", "team", "stat"]).groupby("game_id", sort=False):
+        teams = " vs ".join(dict.fromkeys(g.team))
+        body = []
+        for r in g.sort_values(["player", "stat"]).itertuples():
+            lean = "" if pd.isna(r.p_model) else ("Over" if r.p_model >= 0.5 else "Under")
+            chip = f' <span class="tdi" title="Extra minutes with a teammate OUT">🚑 +{r.inj_min:.0f} min</span>' if r.inj_min >= 3 else ""
+            tg = f'<span class="tg tg-{TIER_RANK.get(r.tier, 0)}">{e(str(r.tier).title())}</span>' if isinstance(r.tier, str) and r.tier else ""
+            body.append(f'<tr data-n="{e(str(r.player).lower())}"><td><b>{e(r.player)}</b> <small class="rk">{e(r.team)}</small>{chip}</td>'
+                        f'<td>{e(r.label)}</td><td>{r.line:g}</td><td>{r.proj:.1f}</td><td>{lean}</td>'
+                        f'<td>{pct(r.p_model)}</td><td>{pct(r.fair)}</td><td>{odds(r.over)} / {odds(r.under)}</td><td>{tg}</td></tr>')
+        rows.append(f'<details class="mu td"><summary><b>{e(teams)}</b><span>{len(g)} lines</span></summary><div class="tbl"><table>'
+                    '<thead><tr><th>Player</th><th>Stat</th><th>Line</th><th>Proj</th><th>Lean</th><th>Model over %</th>'
+                    f'<th>Novig over %</th><th>Novig O / U</th><th>Tier</th></tr></thead><tbody>{"".join(body)}</tbody></table></div></details>')
+    search = ('<input class="tdsearch" type="search" placeholder="Search a player..." aria-label="Search a player" '
+              'oninput="const q=this.value.toLowerCase();this.parentNode.querySelectorAll(\'tr[data-n]\').forEach(r=>r.hidden=q&&!r.dataset.n.includes(q));'
+              'if(q)this.parentNode.querySelectorAll(\'details.td\').forEach(d=>d.open=!!d.querySelector(\'tr[data-n]:not([hidden])\'))">')
+    return intro + top + '<h3 class="sub">Every line</h3>' + search + "".join(rows)
 
 
 SOURCES = {  # slug -> (data folder, file pattern, builder, empty message)
@@ -715,7 +813,7 @@ SOURCES = {  # slug -> (data folder, file pattern, builder, empty message)
     "hr": ("mlb_hr", "hr_*.json", hr, "Home run picks coming soon."),
     "cbb": ("cbb", "cbb_*.csv", cbb, "College basketball picks start on opening day in early November."),
     "epl": ("epl", "epl_*.csv", epl, "Premier League picks show up when the next matchweek's odds are posted."),
-    "nba": ("nba", "nba_*.json", nba, "NBA picks start when the season tips off."),
+    "nba": ("nba", "nba_2*.csv", nba, "NBA picks show up each morning on game days."),
 }
 
 

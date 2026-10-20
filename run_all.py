@@ -4,7 +4,7 @@ run_all.py: runs every active algo, then rebuilds + pushes the site. This is wha
   python run_all.py            run everything now
   python run_all.py nhl cfb    run just those (then the site)
 
-Turn a sport on/off in ACTIVE below (MLB/NBA are on hold, CBB starts in November).
+Turn a sport on/off in ACTIVE below (MLB is on hold, CBB starts in November).
 Log for each day: AlgoHub_Site\\logs\\run_all_<date>.log
 """
 import os
@@ -19,7 +19,7 @@ DESK = HERE.parent
 LOGS = HERE / "logs"
 PY = sys.executable
 
-ACTIVE = ["nfl", "cfb", "nhl", "epl"]          # add "cbb", "nba", "mlb" when their seasons are live
+ACTIVE = ["nfl", "cfb", "nhl", "epl", "nba"]   # add "cbb", "mlb" when their seasons are live
 
 
 def log(msg):
@@ -119,6 +119,11 @@ def epl():
     run(DESK / "epl_algo", "epl_algo.py", "auto")
 
 
+def nba():
+    # grades the last 3 days, refreshes game logs, refits weekly, today's picks. Site push happens below.
+    run(DESK / "nba_algo", "nba_algo.py", "auto", "--no-push", timeout=1800)
+
+
 def site():
     log("SITE: sync + build")
     run(HERE, "sync.py")
@@ -129,7 +134,7 @@ def site():
     log("  site push: " + ("done, live in ~1 min" if r.returncode == 0 else "FAILED " + (r.stderr or r.stdout)[-300:]))
 
 
-SPORTS = {"nfl": nfl, "cfb": cfb, "nhl": nhl, "epl": epl}
+SPORTS = {"nfl": nfl, "cfb": cfb, "nhl": nhl, "epl": epl, "nba": nba}
 
 if __name__ == "__main__":
     pick = [a.lower() for a in sys.argv[1:]] or ACTIVE
