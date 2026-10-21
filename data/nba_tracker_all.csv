@@ -1,0 +1,4 @@
+game_id,date,matchup,score,pick,model_pct,result,ats_pick,ats_edge,ats_result
+401909088,2026-10-20,Celtics @ Pistons,113-121,Pistons,50.1,W,Pistons,1.0,W
+401909089,2026-10-20,76ers @ Knicks,106-100,Knicks,62.1,L,Knicks,0.1,L
+401909090,2026-10-20,Thunder @ Spurs,116-104,Spurs,50.1,L,Thunder,0.2,W

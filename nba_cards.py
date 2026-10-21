@@ -94,7 +94,75 @@ def _strip(r):
     return f'<div class="strip"><div class="mlabel">ADJUSTED RANKS</div>{row("away")}{row("home")}</div>'
 
 
-def _card(r):
+PSTAT = {"pts": "PTS", "reb": "REB", "ast": "AST", "fg3m": "3PM"}
+
+
+def _pct(v):
+    return "-" if _na(v) else f"{float(v):.0%}"
+
+
+def _prop_row(p):
+    tier_ = _s(p.get("tier"))
+    has_line = not _na(p.get("line"))
+    bits = []
+    if has_line:
+        bits += [("LINE", f'{float(p["line"]):g}'), ("PROJ", f'{float(p["proj"]):.1f}'), ("MIN", f'{float(p["minutes"]):.0f}'),
+                 ("OVER %", _pct(p.get("p_model"))), ("MKT", _pct(p.get("fair")))]
+        if tier_:
+            bits.append(("EDGE", f'+{float(p["edge"]):.1f}'))
+        right = (f'<span class="ptier t-{tier_.lower()}"><i>{e(tier_)}</i>{e(p["pick"])} <small>{e(_o(p.get("price")))}</small></span>'
+                 if tier_ else '<span class="pnone">NO PLAY</span>')
+    else:
+        bits += [("PROJ", f'{float(p["proj"]):.1f}'), ("MIN", f'{float(p["minutes"]):.0f}'), ("LINE", "none yet")]
+        right = f'<span class="pproj">{float(p["proj"]):.1f}</span>'
+    inj = (f' <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +{float(p["inj_min"]):.0f} MIN</span>'
+           if not _na(p.get("inj_min")) and float(p["inj_min"]) >= 3 else "")
+    note = f'<span class="pnote">{e(p["note"])}</span>' if _s(p.get("note")) else ""
+    return f"""
+          <div class="prow" data-m="{e(p['stat'])}" data-play="{1 if tier_ else 0}">
+            <div class="pl"><b>{e(p['player'])}</b> <small>{e(p['team'])}</small>{inj}</div>
+            {right}
+            <div class="pm"><span class="mk">{e(str(p['label']).upper())}</span>{"".join(f'<span>{k} <b>{e(v)}</b></span>' for k, v in bits)}{note}</div>
+          </div>"""
+
+
+def _props_panel(r, props):
+    if props is None or props.empty:
+        return ""
+    gp = props[props.game_id.astype(str) == str(r["game_id"])].copy()
+    if gp.line.notna().any():
+        gp = gp[gp.line.notna()]
+    if gp.empty:
+        return ""
+    gp["_r"] = gp.tier.fillna("").map(TIER_RANK).fillna(0)
+    gp["_t"] = (gp.team != r["away"]).astype(int)
+    gp["_m"] = gp.stat.map({k: i for i, k in enumerate(PSTAT)})
+    gp = gp.sort_values(["_r", "edge", "_t", "player", "_m"], ascending=[False, False, True, True, True])
+    n_play = int((gp._r > 0).sum())
+    mk = [m for m in PSTAT if m in set(gp.stat)]
+    filt = f'<button{"" if n_play else " class=on"} data-pm="all">ALL</button>' + "".join(
+        f'<button data-pm="{m}">{PSTAT[m]}</button>' for m in mk)
+    if n_play:
+        filt = f'<button class="on" data-pm="plays">PLAYS · {n_play}</button>' + filt
+    rows = "".join(_prop_row(p) for p in gp.to_dict("records"))
+    if n_play:   # open on plays only
+        rows = rows.replace('" data-play="0">', '" data-play="0" data-hide="1">')
+    label = f"PLAYER PROPS · {len(gp)}" + (f' <em>{n_play} PLAY{"S" if n_play != 1 else ""}</em>' if n_play else "")
+    return f"""
+      <button class="ptoggle" aria-expanded="false">{label}<span class="car">▾</span></button>
+      <div class="props" hidden>
+        <div class="pfilt">{filt}</div>
+        {rows}
+      </div>"""
+
+
+def _has_prop_play(r, props):
+    if props is None or props.empty:
+        return False
+    return bool(((props.game_id.astype(str) == str(r["game_id"])) & (props.tier.fillna("") != "")).any())
+
+
+def _card(r, props=None):
     sp_t, tot_t = _s(r.get("sp_tier")), _s(r.get("tot_tier"))
     best = max((sp_t, tot_t), key=lambda x: TIER_RANK.get(x, 0))
     ml = _s(r.get("ml_pick"))
@@ -107,7 +175,7 @@ def _card(r):
     search = f"{r['home_name']} {r['away_name']} {_s(r.get('home_abbr'))} {_s(r.get('away_abbr'))}".lower()
     sp_extra = f' <small>{float(r["sp_cover"]):.0%} to cover</small>' if sp_t and not _na(r.get("sp_cover")) else ""
     return f"""
-    <article class="card b-{best.lower() or 'none'}" data-play="{1 if (best or ml) else 0}" data-s="{e(search)}">
+    <article class="card b-{best.lower() or 'none'}" data-play="{1 if (best or ml or _has_prop_play(r, props)) else 0}" data-s="{e(search)}">
       <header class="meta"><span>{e(r['start_et'])} ET</span><span>{e(_s(r.get('venue')))}</span></header>
       {_team(r, 'away', hw < .5)}{_team(r, 'home', hw >= .5)}
       <div class="wp"><div class="wplab"><span>{e(_abbr(r, 'away'))} {1 - hw:.0%}</span><span class="cap">WIN PROB</span><span>{e(_abbr(r, 'home'))} {hw:.0%}</span></div>
@@ -117,10 +185,11 @@ def _card(r):
       {ml_html}
       {_strip(r)}
       {f'<div class="chips">{chips}</div>' if chips else ''}
+      {_props_panel(r, props)}
     </article>"""
 
 
-def render_cards(df, day):
+def render_cards(df, day, props=None):
     df = df.copy()
     tiers = list(df.sp_tier.fillna("")) + list(df.tot_tier.fillna("")) + ["LEAN" for x in df.get("ml_pick", pd.Series(dtype=str)).fillna("") if x]
     n_play = sum(1 for t in tiers if t)
@@ -129,7 +198,11 @@ def render_cards(df, day):
     big = False
     d = pd.Timestamp(day)
     title = f"{d.strftime('%A, %B').upper()} {d.day}"
-    cards = "".join(_card(r) for r in df.to_dict("records"))
+    if props is not None and not props.empty:
+        props = props.copy()
+        props["game_id"] = props.game_id.astype(str)
+    cards = "".join(_card(r, props) for r in df.to_dict("records"))
+    n_prop = 0 if props is None or props.empty else int((props.tier.fillna("") != "").sum())
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AlgoHub NBA {e(day)}</title>
@@ -183,11 +256,35 @@ body{{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-se
 .chip{{font:600 10px Inter,system-ui,sans-serif;letter-spacing:.1em;color:#c9d1d9;border:1px solid var(--line);background:#0f1319;padding:4px 8px;border-radius:6px}}
 .chip.out{{color:#ffb4ab;border-color:#5a2a27;background:#1d1212}}
 .foot{{color:var(--mu);font-size:11px;margin-top:30px}}
+.stats .pp b{{color:var(--lean)}}
+.ptoggle{{display:flex;justify-content:space-between;align-items:center;width:100%;border:0;border-top:1px solid var(--line);
+background:#0f1319;color:var(--tx);padding:13px 16px;font:700 11px Inter,system-ui,sans-serif;letter-spacing:.16em;cursor:pointer}}
+.ptoggle:hover{{background:#141a22}} .ptoggle em{{font-style:normal;color:var(--play);margin-left:8px}}
+.ptoggle .car{{transition:transform .2s;color:var(--mu)}} .ptoggle[aria-expanded="true"] .car{{transform:rotate(180deg)}}
+.props{{border-top:1px solid var(--line);padding:6px 0 8px;background:#0f1319}}
+.pfilt{{display:flex;gap:5px;flex-wrap:wrap;padding:6px 16px 8px}}
+.pfilt button{{background:transparent;border:1px solid var(--line);color:var(--mu);border-radius:999px;padding:4px 9px;font:600 10px Inter,system-ui,sans-serif;letter-spacing:.1em;cursor:pointer}}
+.pfilt button.on{{background:var(--tx);color:var(--bg);border-color:var(--tx)}}
+.prow{{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:10px;row-gap:5px;padding:10px 16px;border-top:1px solid #1a2029}}
+.pl{{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}} .pl b{{font-size:14px;font-weight:600}} .pl small{{color:var(--mu);font-size:11px}}
+.pinj{{font:700 10px Inter,sans-serif;color:#9ecbff;margin-left:4px}}
+.pm{{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:4px 12px;color:var(--mu);font-size:10px;letter-spacing:.08em}}
+.pm b{{color:var(--tx);font:700 13px "Barlow Condensed",sans-serif;letter-spacing:.02em}}
+.pm .mk{{color:#c9d1d9;font-weight:700;letter-spacing:.12em}}
+.pnote{{color:#ffb4ab;font-weight:600;letter-spacing:.04em}}
+.ptier{{flex:none;display:flex;align-items:center;gap:7px;font:700 17px "Barlow Condensed",sans-serif;white-space:nowrap}}
+.ptier i{{font:800 9px Inter,system-ui,sans-serif;font-style:normal;letter-spacing:.12em;padding:3px 6px;border-radius:5px;color:#0b0e13}}
+.ptier small{{color:var(--mu);font-size:12px}}
+.ptier.t-lean i{{background:var(--lean)}} .ptier.t-play i{{background:var(--play)}} .ptier.t-hammer i{{background:var(--ham)}} .ptier.t-hammer{{color:var(--ham)}}
+.pnone{{flex:none;color:#4b535d;font:600 10px Inter,system-ui,sans-serif;letter-spacing:.14em}}
+.pproj{{flex:none;font:700 18px "Barlow Condensed",sans-serif;color:var(--mu)}}
+.prow.hide,.prow[data-hide="1"]{{display:none}}
 .hide{{display:none}}
 </style></head><body><div class="wrap">
   <div class="top"><div><div class="k">THE ALGOHUB · NBA GAME ALGO</div><h1>{e(title)}</h1></div>
     <div class="stats"><div><small>GAMES</small><b>{len(df)}</b></div><div class="p"><small>PLAYS</small><b>{n_play}</b></div>
-      <div class="h"><small>HAMMERS</small><b>{n_ham}</b></div></div></div>
+      <div class="h"><small>HAMMERS</small><b>{n_ham}</b></div>
+      {f'<div class="pp"><small>PROP PLAYS</small><b>{n_prop}</b></div>' if n_prop else ''}</div></div>
   <div class="tools">
     <button data-f="plays" class="{'on' if big else ''}">PLAYS ONLY</button><button data-f="all" class="{'' if big else 'on'}">ALL GAMES</button>
     <input type="search" placeholder="Find a team" aria-label="Find a team">
@@ -205,4 +302,14 @@ document.querySelectorAll('.tools button').forEach(b=>b.onclick=()=>{{mode=b.dat
   document.querySelectorAll('.tools button').forEach(x=>x.classList.toggle('on',x===b));apply();}});
 document.querySelector('.tools input').oninput=ev=>{{q=ev.target.value.trim().toLowerCase();apply();}};
 apply();
+document.querySelectorAll('.ptoggle').forEach(b=>b.onclick=()=>{{
+  const p=b.nextElementSibling, open=p.hidden; p.hidden=!open; b.setAttribute('aria-expanded',open);
+}});
+document.querySelectorAll('.pfilt button').forEach(b=>b.onclick=()=>{{
+  const box=b.closest('.props'), f=b.dataset.pm;
+  box.querySelectorAll('.pfilt button').forEach(x=>x.classList.toggle('on',x===b));
+  box.querySelectorAll('.prow').forEach(r=>r.removeAttribute('data-hide'));
+  box.querySelectorAll('.prow').forEach(r=>r.classList.toggle('hide',
+    f==='plays'?r.dataset.play!=='1':(f!=='all'&&r.dataset.m!==f)));
+}});
 </script></body></html>"""

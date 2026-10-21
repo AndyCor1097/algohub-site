@@ -703,7 +703,9 @@ def nba(f):
     from nba_cards import render_cards
     g = pd.read_csv(f, dtype={"game_id": str})
     card_rel = f"cards/nba_{slug_from(f)}.html"
-    write(card_rel, render_cards(g, str(g.day.iloc[0])))
+    pf = DATA / "nba_props" / f"nba_props_{g.day.iloc[0]}.csv"
+    props = pd.read_csv(pf, dtype={"game_id": str}) if pf.exists() else None
+    write(card_rel, render_cards(g, str(g.day.iloc[0]), props))
     rows = []
     for _, r in g.iterrows():
         mu = f"{r.away_name} @ {r.home_name}"
