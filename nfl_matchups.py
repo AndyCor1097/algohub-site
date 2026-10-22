@@ -216,6 +216,32 @@ def td_board(picks, out, season, week, injuries):
     return r.to_dict("records")
 
 
+ESPN_OUT = ("injured reserve", "out", "physically unable", "suspension", "non-football", "reserve")
+
+
+def add_espn_out(injuries, season, week):
+    """Add players ESPN lists on IR / PUP / out (saved by nfl_algo as data/espn_inj_<season>.json) that the
+    league's weekly report doesn't include, as status Out for this week."""
+    import re
+    f = NFL / "data" / f"espn_inj_{season}.json"
+    if not f.exists():
+        return injuries
+    es = json.loads(f.read_text(encoding="utf-8"))
+    nk = lambda s: re.sub(r"\s+", " ", re.sub(r"\b(jr|sr|ii|iii|iv|v)\b", "", re.sub(r"[.'`,]", "", str(s).lower().replace("’", "'")))).strip()
+    ids = {}
+    ps = pd.read_csv(NFL / "data" / f"pstats_{season}.csv.gz", low_memory=False, usecols=["player_id", "player_display_name", "team", "week"])
+    for r in ps.sort_values("week").groupby("player_id").tail(1).itertuples():
+        ids[(nk(r.player_display_name), r.team)] = r.player_id
+    have = set(injuries[(injuries.week == week) & injuries.report_status.isin(["Out", "Doubtful"])].gsis_id)
+    rows = []
+    for key, st in es.items():
+        name, team = key.split("|")
+        pid = ids.get((name, team))
+        if pid and pid not in have and any(w in st.lower() for w in ESPN_OUT):
+            rows.append(dict(season=season, week=week, team=team, gsis_id=pid, full_name=name.title(), report_status="Out"))
+    return pd.concat([injuries, pd.DataFrame(rows)], ignore_index=True) if rows else injuries
+
+
 def main():
     slate = latest_slate()
     if slate is None:
@@ -227,7 +253,7 @@ def main():
         print("  matchups   no games played yet this season")
         return
     d, games = defense_tables(ps)
-    injuries = pd.read_csv(NFL / "data" / f"injuries_{season}.csv.gz", low_memory=False)
+    injuries = add_espn_out(pd.read_csv(NFL / "data" / f"injuries_{season}.csv.gz", low_memory=False), season, week)
     depth = depth_ranks(season)
     out = {"season": season, "week": week, "labels": LABELS, "games": []}
     for _, g in picks.iterrows():
