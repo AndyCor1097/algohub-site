@@ -136,7 +136,30 @@ def site():
 
 SPORTS = {"nfl": nfl, "cfb": cfb, "nhl": nhl, "epl": epl, "nba": nba}
 
+LOCK = HERE / "logs" / "run_all.lock"
+
+
+def _locked():
+    """Only one run at a time: two runs at once get Novig to rate-limit both (empty props / lines)."""
+    LOGS.mkdir(exist_ok=True)
+    if LOCK.exists():
+        try:
+            age = datetime.now().timestamp() - LOCK.stat().st_mtime
+        except OSError:
+            age = 0
+        if age < 2 * 3600:
+            print(f"run_all is already running (started {int(age // 60)} min ago). Let it finish. "
+                  f"(If it crashed, delete {LOCK} and run again.)")
+            return True
+    LOCK.write_text(str(os.getpid()))
+    return False
+
+
 if __name__ == "__main__":
+    if _locked():
+        sys.exit(0)
+    import atexit
+    atexit.register(lambda: LOCK.unlink(missing_ok=True))
     pick = [a.lower() for a in sys.argv[1:]] or ACTIVE
     log(f"===== RUN ALL {datetime.now():%Y-%m-%d %H:%M} : {', '.join(pick)} =====")
     for s in pick:
