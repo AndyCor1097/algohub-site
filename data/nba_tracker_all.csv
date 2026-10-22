@@ -2,3 +2,14 @@ game_id,date,matchup,score,pick,model_pct,result,ats_pick,ats_edge,ats_result
 401909088,2026-10-20,Celtics @ Pistons,113-121,Pistons,50.1,W,Pistons,1.0,W
 401909089,2026-10-20,76ers @ Knicks,106-100,Knicks,62.1,L,Knicks,0.1,L
 401909090,2026-10-20,Thunder @ Spurs,116-104,Spurs,50.1,L,Thunder,0.2,W
+401909091,2026-10-21,Timberwolves @ Heat,131-106,Heat,52.0,L,Heat,0.1,L
+401909092,2026-10-21,Warriors @ Lakers,105-127,Lakers,64.0,W,Warriors,1.1,L
+401909834,2026-10-21,Hawks @ Magic,132-125,Magic,53.9,L,Hawks,0.3,W
+401909835,2026-10-21,Bucks @ Wizards,116-128,Bucks,58.4,L,Bucks,1.4,L
+401909836,2026-10-21,Hornets @ Nets,110-103,Hornets,53.5,W,Hornets,0.7,W
+401909837,2026-10-21,Bulls @ Raptors,92-135,Raptors,75.8,W,Bulls,1.5,L
+401909838,2026-10-21,Jazz @ Grizzlies,103-123,Grizzlies,54.0,W,Grizzlies,0.6,W
+401909839,2026-10-21,Pacers @ Pelicans,123-120,Pelicans,54.0,L,Pelicans,2.1,W
+401909840,2026-10-21,Mavericks @ Rockets,110-128,Rockets,76.6,W,Mavericks,0.9,L
+401909841,2026-10-21,Suns @ Trail Blazers,83-124,Trail Blazers,55.8,W,Suns,0.3,L
+401909842,2026-10-21,Kings @ Clippers,96-121,Clippers,65.2,W,Clippers,0.3,W
