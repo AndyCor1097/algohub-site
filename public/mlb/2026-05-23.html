@@ -250,11 +250,11 @@ document.addEventListener('DOMContentLoaded',()=>{const f=document.querySelector
     <div class="ah-sub">Army at Tulsa</div>
     <div class="ah-stat"><em>+8.3</em><small>pts edge</small></div>
   </div>
-  <div class="ah-slip s-low" data-sport="NBA" data-pick="UNDER 233.5" data-game="Trail Blazers at Kings">
+  <div class="ah-slip s-low" data-sport="NBA" data-pick="UNDER 237.5" data-game="Grizzlies at Warriors">
     <div class="ah-slip-top"><span class="ah-sport">NBA</span><span class="ah-tier">Lean</span></div>
-    <div class="ah-pick">UNDER 233.5<span>-110</span></div>
-    <div class="ah-sub">Trail Blazers at Kings, 10:00 PM</div>
-    <div class="ah-stat"><em>+2.9</em><small>pts edge</small></div>
+    <div class="ah-pick">UNDER 237.5<span>-110</span></div>
+    <div class="ah-sub">Grizzlies at Warriors, 10:00 PM</div>
+    <div class="ah-stat"><em>+3.1</em><small>pts edge</small></div>
   </div>
   <div class="ah-slip s-low" data-sport="MLB" data-pick="MIL ML" data-game="TB at MIL">
     <div class="ah-slip-top"><span class="ah-sport">MLB</span><span class="ah-tier">Lean</span></div>
@@ -296,7 +296,7 @@ document.querySelectorAll('.panes button').forEach(b=>b.onclick=()=>{
 const h=location.hash.slice(1); const hb=h&&document.querySelector('.panes button[data-p="'+h+'"]'); if(hb) hb.click();
 </script><script>
 (function(){
-const PICKS=[{"sport": "CFB", "pick": "Connecticut -13.5", "game": "Massachusetts at Connecticut"}, {"sport": "CFB", "pick": "Army +1.5", "game": "Army at Tulsa"}, {"sport": "CFB", "pick": "Wyoming +5.5", "game": "Air Force at Wyoming"}, {"sport": "NBA", "pick": "Bucks -1.5", "game": "Bulls at Bucks"}, {"sport": "NBA", "pick": "UNDER 240.5", "game": "Bulls at Bucks"}, {"sport": "NBA", "pick": "Celtics -2.5", "game": "Knicks at Celtics"}, {"sport": "NBA", "pick": "UNDER 240.5", "game": "Mavericks at Pacers"}, {"sport": "NBA", "pick": "Wizards +8.5", "game": "Raptors at Wizards"}, {"sport": "NBA", "pick": "UNDER 237.5", "game": "Raptors at Wizards"}, {"sport": "NBA", "pick": "UNDER 236.5", "game": "Grizzlies at Warriors"}, {"sport": "NBA", "pick": "Kings +10.5", "game": "Trail Blazers at Kings"}, {"sport": "NBA", "pick": "UNDER 233.5", "game": "Trail Blazers at Kings"}, {"sport": "MLB", "pick": "MIL ML", "game": "TB at MIL"}, {"sport": "MLB", "pick": "TB +1.5", "game": "TB at MIL"}], SP={"CFB": ["football/college-football", "&groups=80"], "MLB": ["baseball/mlb", ""], "NBA": ["basketball/nba", ""]};
+const PICKS=[{"sport": "CFB", "pick": "Connecticut -13.5", "game": "Massachusetts at Connecticut"}, {"sport": "CFB", "pick": "Army +1.5", "game": "Army at Tulsa"}, {"sport": "CFB", "pick": "Wyoming +5.5", "game": "Air Force at Wyoming"}, {"sport": "NBA", "pick": "Bucks -1.5", "game": "Bulls at Bucks"}, {"sport": "NBA", "pick": "UNDER 240.5", "game": "Bulls at Bucks"}, {"sport": "NBA", "pick": "Celtics -2.5", "game": "Knicks at Celtics"}, {"sport": "NBA", "pick": "UNDER 240.5", "game": "Mavericks at Pacers"}, {"sport": "NBA", "pick": "Wizards +8.5", "game": "Raptors at Wizards"}, {"sport": "NBA", "pick": "UNDER 237.5", "game": "Raptors at Wizards"}, {"sport": "NBA", "pick": "UNDER 237.5", "game": "Grizzlies at Warriors"}, {"sport": "NBA", "pick": "Kings +10.5", "game": "Trail Blazers at Kings"}, {"sport": "NBA", "pick": "UNDER 232.5", "game": "Trail Blazers at Kings"}, {"sport": "MLB", "pick": "MIL ML", "game": "TB at MIL"}, {"sport": "MLB", "pick": "TB +1.5", "game": "TB at MIL"}], SP={"CFB": ["football/college-football", "&groups=80"], "MLB": ["baseball/mlb", ""], "NBA": ["basketball/nba", ""]};
 const ALIAS={NHL:{TBL:'TB',NJD:'NJ',SJS:'SJ',LAK:'LA',UTA:'UTAH'},MLB:{CWS:'CHW',TBR:'TB',KCR:'KC',SDP:'SD',SFG:'SF',WSN:'WSH'},NFL:{LA:'LAR',WAS:'WSH'},EPL:{'Man United':'Manchester United','Man City':'Manchester City',"Nott'm Forest":'Nottingham Forest',Wolves:'Wolverhampton Wanderers'}};
 const norm=s=>(s||'').toLowerCase().replace(/&/g,'and').replace(/\bstate\b/g,'st').replace(/\bsaint\b/g,'st').replace(/[^a-z0-9]/g,'');
 const keys=t=>[t.abbreviation,t.displayName,t.shortDisplayName,t.location,t.nickname,(t.location||'')+' '+(t.name||'')].filter(Boolean).map(norm);
