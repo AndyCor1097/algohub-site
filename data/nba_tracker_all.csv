@@ -13,3 +13,5 @@ game_id,date,matchup,score,pick,model_pct,result,ats_pick,ats_edge,ats_result
 401909840,2026-10-21,Mavericks @ Rockets,110-128,Rockets,76.6,W,Mavericks,0.9,L
 401909841,2026-10-21,Suns @ Trail Blazers,83-124,Trail Blazers,55.8,W,Suns,0.3,L
 401909842,2026-10-21,Kings @ Clippers,96-121,Clippers,65.2,W,Clippers,0.3,W
+401909093,2026-10-22,Cavaliers @ 76ers,106-114,Cavaliers,54.4,L,Cavaliers,0.8,L
+401909094,2026-10-22,Nuggets @ Thunder,84-96,Thunder,70.6,W,Nuggets,1.2,L

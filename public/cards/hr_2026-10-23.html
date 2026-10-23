@@ -1,0 +1,265 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>AlgoHub HR 2026-10-23</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0e13;--card:#12161d;--card2:#171c25;--line:#222a35;--tx:#e6edf3;--mu:#7d8590;
+--lean:#58a6ff;--play:#3fb950;--ham:#f2b134;--neg:#f85149}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-serif;padding:28px 16px 60px}
+.wrap{max-width:1180px;margin:0 auto}
+.proj,.cols span,.top h1,.stats b,.wplab,.pick,.score,.big{font-family:"Barlow Condensed",sans-serif}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:18px}
+.top .k{color:var(--mu);font-size:12px;letter-spacing:.18em;font-weight:600}
+.top h1{font-size:44px;font-weight:800;letter-spacing:.02em;line-height:1}
+.stats{display:flex;gap:22px} .stats div{text-align:right} .stats small{display:block;color:var(--mu);font-size:11px;letter-spacing:.14em}
+.stats b{font-size:30px} .stats .h b{color:var(--ham)} .stats .p b{color:var(--play)}
+.tabs{display:flex;gap:6px;margin:18px 0;flex-wrap:wrap}
+.tabs button{background:transparent;border:1px solid var(--line);color:var(--mu);padding:7px 14px;border-radius:999px;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.08em;cursor:pointer}
+.tabs button.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;border-top:3px solid var(--line)}
+.card.b-lean{border-top-color:var(--lean)} .card.b-solid{border-top-color:var(--play)}
+.card.b-strong{border-top-color:var(--ham);box-shadow:0 0 0 1px rgba(242,177,52,.25),0 8px 30px rgba(242,177,52,.08)}
+.meta{display:flex;justify-content:space-between;gap:10px;padding:11px 16px;color:var(--mu);font-size:11px;letter-spacing:.08em;border-bottom:1px solid var(--line)}
+.team{display:flex;align-items:center;gap:12px;padding:10px 16px}
+.badge{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font:800 13px "Barlow Condensed";letter-spacing:.04em;flex:none}
+.tname{flex:1;min-width:0} .tname b{display:block;font-size:16px;font-weight:600} .tname small{color:var(--mu);font-size:12px}
+.proj{font-size:32px;font-weight:700;color:var(--mu)} .team.fav .proj{color:var(--tx)}
+.wp{padding:6px 16px 14px} .wplab{display:flex;justify-content:space-between;font-size:15px;font-weight:700;margin-bottom:6px}
+.wplab .cap{color:var(--mu);font:600 10px Inter,system-ui,sans-serif;letter-spacing:.16em;align-self:center}
+.wpbar{display:flex;height:8px;border-radius:99px;overflow:hidden;gap:2px;background:var(--line)} .wpbar i{display:block;height:100%}
+.mkt{border-top:1px solid var(--line);padding:12px 16px;background:var(--card2)}
+.mlabel{color:var(--mu);font:600 10px Inter,system-ui,sans-serif;letter-spacing:.18em;margin-bottom:8px}
+.cols{display:grid;grid-template-columns:1.2fr 1.2fr .8fr;gap:8px} .cols small{display:block;color:var(--mu);font-size:10px;letter-spacing:.14em}
+.cols span{font-size:17px;font-weight:700} .edge span{color:var(--mu)} .edge.hot span{color:var(--tx);font-size:24px}
+.pick{margin-top:10px;display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700}
+.pick small{color:var(--mu);font-size:16px}
+.pick .tier{font:800 11px Inter,system-ui,sans-serif;letter-spacing:.14em;padding:4px 8px;border-radius:6px;color:#0b0e13}
+.t-lean .tier{background:var(--lean)} .t-solid .tier{background:var(--play)} .t-strong .tier{background:var(--ham)}
+.t-strong{color:var(--ham)} .pick.none{color:#4b535d;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.16em}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:12px 16px 14px;border-top:1px solid var(--line)}
+.chip{font:600 10px Inter,system-ui,sans-serif;letter-spacing:.1em;color:#c9d1d9;border:1px solid var(--line);background:#0f1319;padding:4px 8px;border-radius:6px}
+.chip.hot{color:#ffd58a;border-color:#5a4520;background:#1d1810} .chip.cold{color:#9ecbff;border-color:#1f3a5a;background:#0f1620}
+.foot{color:var(--mu);font-size:11px;margin-top:30px;letter-spacing:.06em}
+.hide{display:none}
+/* HR board */
+.hr{display:grid;grid-template-columns:44px 44px minmax(0,1fr) 92px;align-items:center;gap:12px;padding:12px 16px;border-top:1px solid var(--line)}
+.hr:first-child{border-top:0}
+.rk{font:800 22px "Barlow Condensed";color:var(--mu);text-align:center}
+.hr.top3 .rk{color:var(--ham)}
+.who b{font-size:15px;font-weight:600} .who small{display:block;color:var(--mu);font-size:11px;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bars{display:flex;gap:14px;margin-top:6px;flex-wrap:wrap}
+.bar{font-size:10px;color:var(--mu);letter-spacing:.08em;min-width:84px}
+.bar i{display:block;height:4px;border-radius:9px;background:var(--line);margin-top:3px;position:relative;overflow:hidden}
+.bar i em{position:absolute;inset:0 auto 0 0;background:var(--play);border-radius:9px}
+.bar b{color:var(--tx);font:700 13px "Barlow Condensed"}
+.sc{text-align:right} .sc .big{display:block;font-size:30px;font-weight:800;line-height:1}
+.gr{display:inline-block;margin-top:4px;font:800 9px Inter,system-ui,sans-serif;letter-spacing:.12em;padding:3px 6px;border-radius:5px;color:#0b0e13;background:var(--mu)}
+.gr.ham{background:var(--ham)} .gr.play{background:var(--play)} .gr.lean{background:var(--lean)}
+.board{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.wx{font-size:11px;color:var(--mu);margin-left:6px}
+@media(max-width:560px){.hr{grid-template-columns:30px 36px minmax(0,1fr) 64px;gap:8px}.badge{width:34px;height:34px}.sc .big{font-size:24px}}
+</style></head><body><div class="wrap">
+  <div class="top"><div><div class="k">THE ALGOHUB · HOME RUN MODEL</div><h1>FRIDAY, OCTOBER 23</h1></div>
+    <div class="stats"><div><small>GAMES</small><b>1</b></div>
+      <div class="h"><small>ELITE</small><b>2</b></div></div></div>
+  <div class="tabs"><button class="on" data-f="all">TOP 27</button><button data-f="TBR @ MIL">TBR @ MIL</button></div>
+  <div class="board">
+      <div class="hr top3" data-g="TBR @ MIL" data-play="1">
+        <div class="rk">1</div><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+        <div class="who"><b>Jake Bauers</b>
+          <small>1B · vs Nick Martinez (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>13.5%</b><i><em style="width:39%"></em></i></span><span class="bar">BARREL <b>14.2%</b><i><em style="width:47%"></em></i></span><span class="bar">HARD HIT <b>42.0%</b><i><em style="width:60%"></em></i></span></div></div>
+        <div class="sc"><span class="big">67.1</span><span class="gr ham">ELITE</span></div>
+      </div>
+      <div class="hr top3" data-g="TBR @ MIL" data-play="1">
+        <div class="rk">2</div><span class="badge" style="background:#092C5C;color:#8FBCE6">TBR</span>
+        <div class="who"><b>Jonathan Aranda</b>
+          <small>1B · vs Jacob Misiorowski (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>19.4%</b><i><em style="width:55%"></em></i></span><span class="bar">BARREL <b>20.4%</b><i><em style="width:68%"></em></i></span><span class="bar">HARD HIT <b>46.6%</b><i><em style="width:67%"></em></i></span></div></div>
+        <div class="sc"><span class="big">66.7</span><span class="gr ham">ELITE</span></div>
+      </div>
+      <div class="hr top3" data-g="TBR @ MIL" data-play="1">
+        <div class="rk">3</div><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+        <div class="who"><b>Garrett Mitchell</b>
+          <small>CF · vs Nick Martinez (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>13.3%</b><i><em style="width:38%"></em></i></span><span class="bar">BARREL <b>11.9%</b><i><em style="width:40%"></em></i></span><span class="bar">HARD HIT <b>48.8%</b><i><em style="width:70%"></em></i></span></div></div>
+        <div class="sc"><span class="big">64.9</span><span class="gr play">STRONG</span></div>
+      </div>
+      <div class="hr " data-g="TBR @ MIL" data-play="1">
+        <div class="rk">4</div><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+        <div class="who"><b>William Contreras</b>
+          <small>C · vs Nick Martinez (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>17.7%</b><i><em style="width:51%"></em></i></span><span class="bar">BARREL <b>16.6%</b><i><em style="width:55%"></em></i></span><span class="bar">HARD HIT <b>44.2%</b><i><em style="width:63%"></em></i></span></div></div>
+        <div class="sc"><span class="big">61.8</span><span class="gr play">STRONG</span></div>
+      </div>
+      <div class="hr " data-g="TBR @ MIL" data-play="1">
+        <div class="rk">5</div><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+        <div class="who"><b>Jackson Chourio</b>
+          <small>LF · vs Nick Martinez (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>18.0%</b><i><em style="width:51%"></em></i></span><span class="bar">BARREL <b>14.7%</b><i><em style="width:49%"></em></i></span><span class="bar">HARD HIT <b>46.0%</b><i><em style="width:66%"></em></i></span></div></div>
+        <div class="sc"><span class="big">60.9</span><span class="gr play">STRONG</span></div>
+      </div>
+      <div class="hr " data-g="TBR @ MIL" data-play="1">
+        <div class="rk">6</div><span class="badge" style="background:#092C5C;color:#8FBCE6">TBR</span>
+        <div class="who"><b>Cedric Mullins</b>
+          <small>CF · vs Jacob Misiorowski (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>13.3%</b><i><em style="width:38%"></em></i></span><span class="bar">BARREL <b>9.9%</b><i><em style="width:33%"></em></i></span><span class="bar">HARD HIT <b>41.1%</b><i><em style="width:59%"></em></i></span></div></div>
+        <div class="sc"><span class="big">60.7</span><span class="gr play">STRONG</span></div>
+      </div>
+      <div class="hr " data-g="TBR @ MIL" data-play="1">
+        <div class="rk">7</div><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+        <div class="who"><b>Brice Turang</b>
+          <small>2B · vs Nick Martinez (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>16.0%</b><i><em style="width:46%"></em></i></span><span class="bar">BARREL <b>15.1%</b><i><em style="width:50%"></em></i></span><span class="bar">HARD HIT <b>38.3%</b><i><em style="width:55%"></em></i></span></div></div>
+        <div class="sc"><span class="big">60.2</span><span class="gr play">STRONG</span></div>
+      </div>
+      <div class="hr " data-g="TBR @ MIL" data-play="1">
+        <div class="rk">8</div><span class="badge" style="background:#092C5C;color:#8FBCE6">TBR</span>
+        <div class="who"><b>Junior Caminero</b>
+          <small>3B · vs Jacob Misiorowski (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>15.1%</b><i><em style="width:43%"></em></i></span><span class="bar">BARREL <b>12.3%</b><i><em style="width:41%"></em></i></span><span class="bar">HARD HIT <b>43.9%</b><i><em style="width:63%"></em></i></span></div></div>
+        <div class="sc"><span class="big">56.0</span><span class="gr play">STRONG</span></div>
+      </div>
+      <div class="hr " data-g="TBR @ MIL" data-play="1">
+        <div class="rk">9</div><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+        <div class="who"><b>Christian Yelich</b>
+          <small>DH · vs Nick Martinez (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>11.9%</b><i><em style="width:34%"></em></i></span><span class="bar">BARREL <b>12.4%</b><i><em style="width:41%"></em></i></span><span class="bar">HARD HIT <b>40.1%</b><i><em style="width:57%"></em></i></span></div></div>
+        <div class="sc"><span class="big">55.7</span><span class="gr play">STRONG</span></div>
+      </div>
+      <div class="hr " data-g="TBR @ MIL" data-play="1">
+        <div class="rk">10</div><span class="badge" style="background:#092C5C;color:#8FBCE6">TBR</span>
+        <div class="who"><b>Victor Mesa Jr.</b>
+          <small>RF · vs Jacob Misiorowski (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>15.7%</b><i><em style="width:45%"></em></i></span><span class="bar">BARREL <b>14.5%</b><i><em style="width:48%"></em></i></span><span class="bar">HARD HIT <b>41.6%</b><i><em style="width:59%"></em></i></span></div></div>
+        <div class="sc"><span class="big">54.6</span><span class="gr play">STRONG</span></div>
+      </div>
+      <div class="hr " data-g="TBR @ MIL" data-play="1">
+        <div class="rk">11</div><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+        <div class="who"><b>David Hamilton</b>
+          <small>3B · vs Nick Martinez (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>9.7%</b><i><em style="width:28%"></em></i></span><span class="bar">BARREL <b>11.9%</b><i><em style="width:40%"></em></i></span><span class="bar">HARD HIT <b>31.2%</b><i><em style="width:45%"></em></i></span></div></div>
+        <div class="sc"><span class="big">54.0</span><span class="gr play">STRONG</span></div>
+      </div>
+      <div class="hr " data-g="TBR @ MIL" data-play="1">
+        <div class="rk">12</div><span class="badge" style="background:#092C5C;color:#8FBCE6">TBR</span>
+        <div class="who"><b>Richie Palacios</b>
+          <small>2B · vs Jacob Misiorowski (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>16.2%</b><i><em style="width:46%"></em></i></span><span class="bar">BARREL <b>13.8%</b><i><em style="width:46%"></em></i></span><span class="bar">HARD HIT <b>34.3%</b><i><em style="width:49%"></em></i></span></div></div>
+        <div class="sc"><span class="big">52.6</span><span class="gr play">STRONG</span></div>
+      </div>
+      <div class="hr " data-g="TBR @ MIL" data-play="1">
+        <div class="rk">13</div><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+        <div class="who"><b>Gary Sánchez</b>
+          <small>C · vs Nick Martinez (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>11.2%</b><i><em style="width:32%"></em></i></span><span class="bar">BARREL <b>12.3%</b><i><em style="width:41%"></em></i></span><span class="bar">HARD HIT <b>34.1%</b><i><em style="width:49%"></em></i></span></div></div>
+        <div class="sc"><span class="big">51.3</span><span class="gr play">STRONG</span></div>
+      </div>
+      <div class="hr " data-g="TBR @ MIL" data-play="1">
+        <div class="rk">14</div><span class="badge" style="background:#092C5C;color:#8FBCE6">TBR</span>
+        <div class="who"><b>Liam Hicks</b>
+          <small>C · vs Jacob Misiorowski (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>8.7%</b><i><em style="width:25%"></em></i></span><span class="bar">BARREL <b>9.8%</b><i><em style="width:33%"></em></i></span><span class="bar">HARD HIT <b>28.0%</b><i><em style="width:40%"></em></i></span></div></div>
+        <div class="sc"><span class="big">49.7</span><span class="gr ">MODERATE</span></div>
+      </div>
+      <div class="hr " data-g="TBR @ MIL" data-play="1">
+        <div class="rk">15</div><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+        <div class="who"><b>Andrew Vaughn</b>
+          <small>1B · vs Nick Martinez (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>8.4%</b><i><em style="width:24%"></em></i></span><span class="bar">BARREL <b>11.1%</b><i><em style="width:37%"></em></i></span><span class="bar">HARD HIT <b>40.4%</b><i><em style="width:58%"></em></i></span></div></div>
+        <div class="sc"><span class="big">49.0</span><span class="gr ">MODERATE</span></div>
+      </div>
+      <div class="hr " data-g="TBR @ MIL" data-play="1">
+        <div class="rk">16</div><span class="badge" style="background:#092C5C;color:#8FBCE6">TBR</span>
+        <div class="who"><b>Yandy Díaz</b>
+          <small>DH · vs Jacob Misiorowski (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>11.9%</b><i><em style="width:34%"></em></i></span><span class="bar">BARREL <b>11.8%</b><i><em style="width:39%"></em></i></span><span class="bar">HARD HIT <b>46.1%</b><i><em style="width:66%"></em></i></span></div></div>
+        <div class="sc"><span class="big">47.7</span><span class="gr ">MODERATE</span></div>
+      </div>
+      <div class="hr " data-g="TBR @ MIL" data-play="1">
+        <div class="rk">17</div><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+        <div class="who"><b>Joey Ortiz</b>
+          <small>SS · vs Nick Martinez (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>9.2%</b><i><em style="width:26%"></em></i></span><span class="bar">BARREL <b>10.7%</b><i><em style="width:36%"></em></i></span><span class="bar">HARD HIT <b>38.8%</b><i><em style="width:55%"></em></i></span></div></div>
+        <div class="sc"><span class="big">47.2</span><span class="gr ">MODERATE</span></div>
+      </div>
+      <div class="hr " data-g="TBR @ MIL" data-play="1">
+        <div class="rk">18</div><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+        <div class="who"><b>Sal Frelick</b>
+          <small>RF · vs Nick Martinez (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>7.9%</b><i><em style="width:23%"></em></i></span><span class="bar">BARREL <b>10.4%</b><i><em style="width:35%"></em></i></span><span class="bar">HARD HIT <b>30.5%</b><i><em style="width:44%"></em></i></span></div></div>
+        <div class="sc"><span class="big">45.9</span><span class="gr ">MODERATE</span></div>
+      </div>
+      <div class="hr " data-g="TBR @ MIL" data-play="1">
+        <div class="rk">19</div><span class="badge" style="background:#092C5C;color:#8FBCE6">TBR</span>
+        <div class="who"><b>Nick Fortes</b>
+          <small>C · vs Jacob Misiorowski (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>11.0%</b><i><em style="width:31%"></em></i></span><span class="bar">BARREL <b>10.1%</b><i><em style="width:34%"></em></i></span><span class="bar">HARD HIT <b>37.6%</b><i><em style="width:54%"></em></i></span></div></div>
+        <div class="sc"><span class="big">43.4</span><span class="gr ">MODERATE</span></div>
+      </div>
+      <div class="hr " data-g="TBR @ MIL" data-play="1">
+        <div class="rk">20</div><span class="badge" style="background:#092C5C;color:#8FBCE6">TBR</span>
+        <div class="who"><b>Taylor Walls</b>
+          <small>SS · vs Jacob Misiorowski (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>7.4%</b><i><em style="width:21%"></em></i></span><span class="bar">BARREL <b>9.7%</b><i><em style="width:32%"></em></i></span><span class="bar">HARD HIT <b>26.5%</b><i><em style="width:38%"></em></i></span></div></div>
+        <div class="sc"><span class="big">40.9</span><span class="gr ">MODERATE</span></div>
+      </div>
+      <div class="hr " data-g="TBR @ MIL" data-play="1">
+        <div class="rk">21</div><span class="badge" style="background:#092C5C;color:#8FBCE6">TBR</span>
+        <div class="who"><b>Ryan Vilade</b>
+          <small>RF · vs Jacob Misiorowski (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>8.2%</b><i><em style="width:23%"></em></i></span><span class="bar">BARREL <b>10.8%</b><i><em style="width:36%"></em></i></span><span class="bar">HARD HIT <b>42.0%</b><i><em style="width:60%"></em></i></span></div></div>
+        <div class="sc"><span class="big">40.8</span><span class="gr ">MODERATE</span></div>
+      </div>
+      <div class="hr " data-g="TBR @ MIL" data-play="1">
+        <div class="rk">22</div><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+        <div class="who"><b>Luis Lara</b>
+          <small>RF · vs Nick Martinez (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>7.4%</b><i><em style="width:21%"></em></i></span><span class="bar">BARREL <b>8.3%</b><i><em style="width:28%"></em></i></span><span class="bar">HARD HIT <b>40.1%</b><i><em style="width:57%"></em></i></span></div></div>
+        <div class="sc"><span class="big">40.0</span><span class="gr ">MODERATE</span></div>
+      </div>
+      <div class="hr " data-g="TBR @ MIL" data-play="1">
+        <div class="rk">23</div><span class="badge" style="background:#092C5C;color:#8FBCE6">TBR</span>
+        <div class="who"><b>Ben Williamson</b>
+          <small>2B · vs Jacob Misiorowski (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>8.8%</b><i><em style="width:25%"></em></i></span><span class="bar">BARREL <b>9.6%</b><i><em style="width:32%"></em></i></span><span class="bar">HARD HIT <b>36.1%</b><i><em style="width:52%"></em></i></span></div></div>
+        <div class="sc"><span class="big">39.9</span><span class="gr ">MODERATE</span></div>
+      </div>
+      <div class="hr " data-g="TBR @ MIL" data-play="1">
+        <div class="rk">24</div><span class="badge" style="background:#092C5C;color:#8FBCE6">TBR</span>
+        <div class="who"><b>Jonny DeLuca</b>
+          <small>RF · vs Jacob Misiorowski (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>9.6%</b><i><em style="width:27%"></em></i></span><span class="bar">BARREL <b>6.6%</b><i><em style="width:22%"></em></i></span><span class="bar">HARD HIT <b>32.8%</b><i><em style="width:47%"></em></i></span></div></div>
+        <div class="sc"><span class="big">37.1</span><span class="gr ">MODERATE</span></div>
+      </div>
+      <div class="hr " data-g="TBR @ MIL" data-play="1">
+        <div class="rk">25</div><span class="badge" style="background:#12284B;color:#FFC52F">MIL</span>
+        <div class="who"><b>Cooper Pratt</b>
+          <small>SS · vs Nick Martinez (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>7.1%</b><i><em style="width:20%"></em></i></span><span class="bar">BARREL <b>6.7%</b><i><em style="width:22%"></em></i></span><span class="bar">HARD HIT <b>27.7%</b><i><em style="width:40%"></em></i></span></div></div>
+        <div class="sc"><span class="big">33.7</span><span class="gr ">FADE</span></div>
+      </div>
+      <div class="hr " data-g="TBR @ MIL" data-play="1">
+        <div class="rk">26</div><span class="badge" style="background:#092C5C;color:#8FBCE6">TBR</span>
+        <div class="who"><b>Chandler Simpson</b>
+          <small>LF · vs Jacob Misiorowski (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>6.9%</b><i><em style="width:20%"></em></i></span><span class="bar">BARREL <b>4.4%</b><i><em style="width:15%"></em></i></span><span class="bar">HARD HIT <b>22.7%</b><i><em style="width:32%"></em></i></span></div></div>
+        <div class="sc"><span class="big">32.6</span><span class="gr ">FADE</span></div>
+      </div>
+      <div class="hr " data-g="TBR @ MIL" data-play="1">
+        <div class="rk">27</div><span class="badge" style="background:#092C5C;color:#8FBCE6">TBR</span>
+        <div class="who"><b>Jorge Mateo</b>
+          <small>SS · vs Jacob Misiorowski (RHP) · TBR @ MIL · 8:00 PM ET<span class="wx">🏟️ Roof likely closed</span></small>
+          <div class="bars"><span class="bar">HR <b>6.8%</b><i><em style="width:19%"></em></i></span><span class="bar">BARREL <b>11.3%</b><i><em style="width:38%"></em></i></span><span class="bar">HARD HIT <b>28.2%</b><i><em style="width:40%"></em></i></span></div></div>
+        <div class="sc"><span class="big">32.4</span><span class="gr ">FADE</span></div>
+      </div></div>
+  <p class="foot">HIT score blends barrel %, hard-hit %, xwOBA, launch angle, pitch-type matchup, platoon, park and weather. HR % = projected chance to homer. Not betting advice.</p>
+</div><script>
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
+  const f=b.dataset.f;
+  document.querySelectorAll('[data-g]').forEach(c=>c.classList.toggle('hide',
+    f==='plays'?c.dataset.play!=='1':(f!=='all'&&c.dataset.g!==f)));
+});
+</script></body></html>
