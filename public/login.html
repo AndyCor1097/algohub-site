@@ -212,15 +212,33 @@ body{padding-bottom:46px}
 <header class="ah-hero">
   <a href="/" class="ah-mark" aria-label="The AlgoHub home"><span>The</span>AlgoHub</a>
   <div class="ah-today"><b>Monday, October 26</b>
-    <span>1 play on the board across 1 sports</span></div>
+    <span>2 plays on the board across 2 sports</span></div>
 </header><section class="ah-board" aria-label="Top plays today">
-  <div class="ah-slip s-low" data-sport="NFL" data-pick="PHI +4.5" data-game="DAL at PHI">
+  <div class="ah-slip s-low" data-sport="MLB" data-pick="MIL ML" data-game="MIL at TB">
+    <div class="ah-slip-top"><span class="ah-sport">MLB</span><span class="ah-tier">Lean</span></div>
+    <div class="ah-pick">MIL ML<span>+106</span></div>
+    <div class="ah-sub">MIL at TB</div>
+    <div class="ah-stat"><em>+6.3</em><small>% edge</small></div>
+  </div>
+  <div class="ah-slip ah-locked s-low" data-sport="NFL">
     <div class="ah-slip-top"><span class="ah-sport">NFL</span><span class="ah-tier">Lean</span></div>
-    <div class="ah-pick">PHI +4.5<span>-110</span></div>
-    <div class="ah-sub">DAL at PHI, Mon</div>
-    <div class="ah-stat"><em>+3.7</em><small>pts edge</small></div>
+    <div class="ah-pick">Locked pick +0.0<span>-110</span></div>
+    <div class="ah-sub">Team at Team</div>
+    <div class="ah-stat">+0.0 pts edge</div>
+  </div>
+  <div class="ah-slip ah-locked s-hr">
+    <div class="ah-slip-top"><span class="ah-sport">HR</span><span class="ah-tier">Home run</span></div>
+    <div class="ah-pick">Locked pick +0.0<span>-110</span></div>
+    <div class="ah-sub">Team at Team</div>
+    <div class="ah-stat">+0.0 pts edge</div>
+  </div>
+  <div class="ah-slip ah-locked s-hr">
+    <div class="ah-slip-top"><span class="ah-sport">HR</span><span class="ah-tier">Home run</span></div>
+    <div class="ah-pick">Locked pick +0.0<span>-110</span></div>
+    <div class="ah-sub">Team at Team</div>
+    <div class="ah-stat">+0.0 pts edge</div>
   </div></section>
-<nav class="sports" aria-label="Sports"><a href="/nfl/" class="live">NFL</a><a href="/cfb/" class="">CFB</a><a href="/nhl/" class="">NHL</a><a href="/mlb/" class="">MLB</a><a href="/hr/" class="">Home Runs</a><a href="/epl/" class="">Premier League</a><a href="/cbb/" class="">CBB</a><a href="/nba/" class="">NBA</a></nav>
+<nav class="sports" aria-label="Sports"><a href="/nfl/" class="live">NFL</a><a href="/cfb/" class="">CFB</a><a href="/nhl/" class="">NHL</a><a href="/mlb/" class="live">MLB</a><a href="/hr/" class="live">Home Runs</a><a href="/epl/" class="">Premier League</a><a href="/cbb/" class="">CBB</a><a href="/nba/" class="">NBA</a></nav>
 <main><style>
 .lg{max-width:460px;margin:26px auto 40px;background:var(--panel);border:1px solid var(--rule);border-radius:16px;padding:26px 24px}
 .lg h2{font:800 34px/1.05 "Big Shoulders Display",sans-serif;margin:0 0 6px}
@@ -310,7 +328,7 @@ document.querySelectorAll('.panes button').forEach(b=>b.onclick=()=>{
 const h=location.hash.slice(1); const hb=h&&document.querySelector('.panes button[data-p="'+h+'"]'); if(hb) hb.click();
 </script><script>
 (function(){
-const PICKS=[], SP={"NFL": ["football/nfl", ""]};
+const PICKS=[], SP={"MLB": ["baseball/mlb", ""], "NFL": ["football/nfl", ""]};
 const ALIAS={NHL:{TBL:'TB',NJD:'NJ',SJS:'SJ',LAK:'LA',UTA:'UTAH'},MLB:{CWS:'CHW',TBR:'TB',KCR:'KC',SDP:'SD',SFG:'SF',WSN:'WSH'},NFL:{LA:'LAR',WAS:'WSH'},EPL:{'Man United':'Manchester United','Man City':'Manchester City',"Nott'm Forest":'Nottingham Forest',Wolves:'Wolverhampton Wanderers'}};
 const norm=s=>(s||'').toLowerCase().replace(/&/g,'and').replace(/\bstate\b/g,'st').replace(/\bsaint\b/g,'st').replace(/[^a-z0-9]/g,'');
 const keys=t=>[t.abbreviation,t.displayName,t.shortDisplayName,t.location,t.nickname,(t.location||'')+' '+(t.name||'')].filter(Boolean).map(norm);

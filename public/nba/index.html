@@ -230,15 +230,33 @@ document.addEventListener('DOMContentLoaded',()=>{const f=document.querySelector
 <header class="ah-hero">
   <a href="/" class="ah-mark" aria-label="The AlgoHub home"><span>The</span>AlgoHub</a>
   <div class="ah-today"><b>Monday, October 26</b>
-    <span>1 play on the board across 1 sports</span></div>
+    <span>2 plays on the board across 2 sports</span></div>
 </header><section class="ah-board" aria-label="Top plays today">
+  <div class="ah-slip s-low" data-sport="MLB" data-pick="MIL ML" data-game="MIL at TB">
+    <div class="ah-slip-top"><span class="ah-sport">MLB</span><span class="ah-tier">Lean</span></div>
+    <div class="ah-pick">MIL ML<span>+106</span></div>
+    <div class="ah-sub">MIL at TB</div>
+    <div class="ah-stat"><em>+6.3</em><small>% edge</small></div>
+  </div>
   <div class="ah-slip s-low" data-sport="NFL" data-pick="PHI +4.5" data-game="DAL at PHI">
     <div class="ah-slip-top"><span class="ah-sport">NFL</span><span class="ah-tier">Lean</span></div>
     <div class="ah-pick">PHI +4.5<span>-110</span></div>
     <div class="ah-sub">DAL at PHI, Mon</div>
     <div class="ah-stat"><em>+3.7</em><small>pts edge</small></div>
+  </div>
+  <div class="ah-slip s-hr">
+    <div class="ah-slip-top"><span class="ah-sport">HR</span><span class="ah-tier">Home run</span></div>
+    <div class="ah-pick">Jake Bauers<span></span></div>
+    <div class="ah-sub">MIL at TBR, 12.1% to homer</div>
+    <div class="ah-stat"><em>63</em><small>hit score</small></div>
+  </div>
+  <div class="ah-slip s-hr">
+    <div class="ah-slip-top"><span class="ah-sport">HR</span><span class="ah-tier">Home run</span></div>
+    <div class="ah-pick">Junior Caminero<span></span></div>
+    <div class="ah-sub">MIL at TBR, 16.6% to homer</div>
+    <div class="ah-stat"><em>61</em><small>hit score</small></div>
   </div></section>
-<nav class="sports" aria-label="Sports"><a href="/nfl/" class="live">NFL</a><a href="/cfb/" class="">CFB</a><a href="/nhl/" class="">NHL</a><a href="/mlb/" class="">MLB</a><a href="/hr/" class="">Home Runs</a><a href="/epl/" class="">Premier League</a><a href="/cbb/" class="">CBB</a><a href="/nba/" class="" aria-current=page>NBA</a></nav>
+<nav class="sports" aria-label="Sports"><a href="/nfl/" class="live">NFL</a><a href="/cfb/" class="">CFB</a><a href="/nhl/" class="">NHL</a><a href="/mlb/" class="live">MLB</a><a href="/hr/" class="live">Home Runs</a><a href="/epl/" class="">Premier League</a><a href="/cbb/" class="">CBB</a><a href="/nba/" class="" aria-current=page>NBA</a></nav>
 <main><div class="bar"><div class="panes" role="tablist"><button role="tab" data-p="p-cards" aria-selected="true">Cards</button><button role="tab" data-p="p-bestbets" aria-selected="false">Best bets</button><button role="tab" data-p="p-props" aria-selected="false">Props</button><button role="tab" data-p="p-record" aria-selected="false">Record</button></div><label class="slate">Slate <select onchange="location=this.value" aria-label="Pick a slate"><option value="/nba/2026-10-25.html" selected>Sun Oct 25</option><option value="/nba/2026-10-23.html">Fri Oct 23</option><option value="/nba/2026-10-22.html">Thu Oct 22</option><option value="/nba/2026-10-21.html">Wed Oct 21</option><option value="/nba/2026-10-20.html">Tue Oct 20</option></select></label></div><section class="pane" id="p-cards"><p class="note">No new slate yet. This is the last run (Sun Oct 25).</p><iframe class="cards" src="/cards/nba_2026-10-25.html" title="NBA cards" loading="lazy" onload="fit(this)"></iframe></section><section class="pane" id="p-bestbets" hidden><p class="hint"><b>How it works:</b> opponent-adjusted offense, defense and pace for every team, rebuilt every morning, then blended with the sharp line (the market knows injuries first). Edge = points vs the line after that blend. First week of the season: LEAN max while the ratings lean on last year.</p><div class="tiles"><div class="tile"><small>Hammers</small><b>0</b></div><div class="tile"><small>Plays</small><b>0</b></div><div class="tile"><small>Leans</small><b>1</b></div></div><div class="tbl"><table><thead><tr><th>Time</th><th>Matchup</th><th>Market</th><th>Pick</th><th>Tier</th><th>Edge</th><th>Book</th><th>Model</th></tr></thead><tbody><tr><td>6:00 PM</td><td>Pacers @ Nets</td><td>Spread</td><td>Nets +6.5</td><td><span class="tg tg-1">Lean</span></td><td>1.7</td><td>+6.5</td><td>+4.8</td></tr></tbody></table></div></section><section class="pane" id="p-props" hidden><p class="note">No player prop lines posted yet. They usually show up a few hours before tip.</p></section><section class="pane" id="p-record" hidden><div class="tiles"><div class="tile"><small>Record</small><b>6-5-0</b></div><div class="tile"><small>Win rate</small><b>54.5%</b></div><div class="tile"><small>Units</small><b>+0.45</b></div><div class="tile"><small>ROI</small><b>+4.1%</b></div></div><figure class="chart"><figcaption>Units over the season, +0.45 so far</figcaption>
 <svg viewBox="0 0 900 220" role="img" aria-label="Cumulative units, now +0.45">
 <line x1="28" x2="872" y1="164.7" y2="164.7" stroke="#2a3443" stroke-dasharray="4 4"/>
@@ -258,7 +276,7 @@ document.querySelectorAll('.panes button').forEach(b=>b.onclick=()=>{
 const h=location.hash.slice(1); const hb=h&&document.querySelector('.panes button[data-p="'+h+'"]'); if(hb) hb.click();
 </script><script>
 (function(){
-const PICKS=[{"sport": "NFL", "pick": "PHI +4.5", "game": "DAL at PHI"}], SP={"NFL": ["football/nfl", ""]};
+const PICKS=[{"sport": "NFL", "pick": "PHI +4.5", "game": "DAL at PHI"}, {"sport": "MLB", "pick": "MIL ML", "game": "MIL at TB"}], SP={"MLB": ["baseball/mlb", ""], "NFL": ["football/nfl", ""]};
 const ALIAS={NHL:{TBL:'TB',NJD:'NJ',SJS:'SJ',LAK:'LA',UTA:'UTAH'},MLB:{CWS:'CHW',TBR:'TB',KCR:'KC',SDP:'SD',SFG:'SF',WSN:'WSH'},NFL:{LA:'LAR',WAS:'WSH'},EPL:{'Man United':'Manchester United','Man City':'Manchester City',"Nott'm Forest":'Nottingham Forest',Wolves:'Wolverhampton Wanderers'}};
 const norm=s=>(s||'').toLowerCase().replace(/&/g,'and').replace(/\bstate\b/g,'st').replace(/\bsaint\b/g,'st').replace(/[^a-z0-9]/g,'');
 const keys=t=>[t.abbreviation,t.displayName,t.shortDisplayName,t.location,t.nickname,(t.location||'')+' '+(t.name||'')].filter(Boolean).map(norm);
