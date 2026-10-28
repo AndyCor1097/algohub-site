@@ -1,19 +1,19 @@
 matchup,day,market,side,model,novig_fair,novig_ask,edge,ask_qty,bid,market_id,outcome_id
-Kennesaw State @ Middle Tennessee,2026-10-28,Moneyline,Middle Tennessee ML,0.551,0.4925,0.495,0.056,124504,0.49,01a16a9e-c77d-7162-a837-ed72bdeb7002,01a16a9e-c77d-7162-a837-ed8205df9108
-Kennesaw State @ Middle Tennessee,2026-10-28,Moneyline,Kennesaw State ML,0.449,0.5075,0.51,-0.061,1868914,0.505,01a16a9e-c77d-7162-a837-ed72bdeb7002,01a16a9e-c77d-7162-a837-ed94b33dc791
-Kennesaw State @ Middle Tennessee,2026-10-28,Spread,Middle Tennessee +1.5,0.5767,0.52,0.525,0.0517,470456,0.515,01a16a8b-75ec-7191-8311-079373d08b55,01a16a8b-75ec-7191-8311-07ae30c21331
-Kennesaw State @ Middle Tennessee,2026-10-28,Spread,Kennesaw State -1.5,0.4233,0.48,0.485,-0.0617,660847,0.475,01a16a8b-75ec-7191-8311-079373d08b55,01a16a8b-75ec-7191-8311-07b93db817ff
-Jacksonville State @ New Mexico State,2026-10-29,Moneyline,New Mexico State ML,0.382,0.41,0.415,-0.033,922757,0.405,01a164b8-0918-7fd3-ab22-20b8798d0909,01a164b8-0918-7fd3-ab22-20cdade94541
-Jacksonville State @ New Mexico State,2026-10-29,Moneyline,Jacksonville State ML,0.618,0.59,0.595,0.023,407360,0.585,01a164b8-0918-7fd3-ab22-20b8798d0909,01a164b8-0918-7fd3-ab22-20d234988630
-Jacksonville State @ New Mexico State,2026-10-29,Spread,New Mexico State +2.5,0.4717,0.4475,0.45,0.0217,577743,0.445,01a164a8-2b72-7e01-9357-088ba62a3826,01a164a8-2b72-7e01-9357-089e78e19d09
-Jacksonville State @ New Mexico State,2026-10-29,Spread,Jacksonville State -2.5,0.5283,0.5525,0.555,-0.0267,129575,0.55,01a164a8-2b72-7e01-9357-088ba62a3826,01a164a8-2b72-7e01-9357-08a9ec1dff60
-Troy @ James Madison,2026-10-29,Moneyline,James Madison ML,0.953,0.92,0.925,0.028,1211529,0.915,01a17128-8370-7ba0-91c8-128d3e9b161f,01a17128-8370-7ba0-91c8-12952732630b
-Troy @ James Madison,2026-10-29,Moneyline,Troy ML,0.047,0.08,0.085,-0.038,573277,0.075,01a17128-8370-7ba0-91c8-128d3e9b161f,01a17128-8370-7ba0-91c8-12a7bf21cc9e
-Troy @ James Madison,2026-10-29,Spread,James Madison -20.5,0.5513,0.5,0.505,0.0463,832170,0.495,01a17112-e85e-72d0-a7ec-f921c7ca17aa,01a17112-e85e-72d0-a7ec-f9307b239c33
-Troy @ James Madison,2026-10-29,Spread,Troy +20.5,0.4487,0.5,0.505,-0.0563,460545,0.495,01a17112-e85e-72d0-a7ec-f921c7ca17aa,01a17112-e85e-72d0-a7ec-f94deeedf934
-Florida Atlantic @ North Texas,2026-10-29,Moneyline,North Texas ML,0.918,0.825,0.83,0.088,351129,0.82,01a17128-82f1-70d3-948e-f17181bdea85,01a17128-82f1-70d3-948e-f183fbccf8da
+Kennesaw State @ Middle Tennessee,2026-10-28,Moneyline,Middle Tennessee ML,0.551,0.4925,0.495,0.056,128385,0.49,01a16a9e-c77d-7162-a837-ed72bdeb7002,01a16a9e-c77d-7162-a837-ed8205df9108
+Kennesaw State @ Middle Tennessee,2026-10-28,Moneyline,Kennesaw State ML,0.449,0.5075,0.51,-0.061,1834993,0.505,01a16a9e-c77d-7162-a837-ed72bdeb7002,01a16a9e-c77d-7162-a837-ed94b33dc791
+Kennesaw State @ Middle Tennessee,2026-10-28,Spread,Middle Tennessee +1.5,0.5767,0.5175,0.52,0.0567,354616,0.515,01a16a8b-75ec-7191-8311-079373d08b55,01a16a8b-75ec-7191-8311-07ae30c21331
+Kennesaw State @ Middle Tennessee,2026-10-28,Spread,Kennesaw State -1.5,0.4233,0.4825,0.485,-0.0617,1004530,0.48,01a16a8b-75ec-7191-8311-079373d08b55,01a16a8b-75ec-7191-8311-07b93db817ff
+Jacksonville State @ New Mexico State,2026-10-29,Moneyline,New Mexico State ML,0.382,0.4125,0.415,-0.033,910685,0.41,01a164b8-0918-7fd3-ab22-20b8798d0909,01a164b8-0918-7fd3-ab22-20cdade94541
+Jacksonville State @ New Mexico State,2026-10-29,Moneyline,Jacksonville State ML,0.618,0.5875,0.59,0.028,65763,0.585,01a164b8-0918-7fd3-ab22-20b8798d0909,01a164b8-0918-7fd3-ab22-20d234988630
+Jacksonville State @ New Mexico State,2026-10-29,Spread,New Mexico State +2.5,0.4717,0.4475,0.45,0.0217,633080,0.445,01a164a8-2b72-7e01-9357-088ba62a3826,01a164a8-2b72-7e01-9357-089e78e19d09
+Jacksonville State @ New Mexico State,2026-10-29,Spread,Jacksonville State -2.5,0.5283,0.5525,0.555,-0.0267,129550,0.55,01a164a8-2b72-7e01-9357-088ba62a3826,01a164a8-2b72-7e01-9357-08a9ec1dff60
+Troy @ James Madison,2026-10-29,Moneyline,James Madison ML,0.953,0.9175,0.92,0.033,45000,0.915,01a17128-8370-7ba0-91c8-128d3e9b161f,01a17128-8370-7ba0-91c8-12952732630b
+Troy @ James Madison,2026-10-29,Moneyline,Troy ML,0.047,0.0825,0.085,-0.038,567395,0.08,01a17128-8370-7ba0-91c8-128d3e9b161f,01a17128-8370-7ba0-91c8-12a7bf21cc9e
+Troy @ James Madison,2026-10-29,Spread,James Madison -20.5,0.5513,0.5,0.505,0.0463,826230,0.495,01a17112-e85e-72d0-a7ec-f921c7ca17aa,01a17112-e85e-72d0-a7ec-f9307b239c33
+Troy @ James Madison,2026-10-29,Spread,Troy +20.5,0.4487,0.5,0.505,-0.0563,752702,0.495,01a17112-e85e-72d0-a7ec-f921c7ca17aa,01a17112-e85e-72d0-a7ec-f94deeedf934
+Florida Atlantic @ North Texas,2026-10-29,Moneyline,North Texas ML,0.918,0.825,0.83,0.088,462500,0.82,01a17128-82f1-70d3-948e-f17181bdea85,01a17128-82f1-70d3-948e-f183fbccf8da
 Florida Atlantic @ North Texas,2026-10-29,Moneyline,Florida Atlantic ML,0.082,0.175,0.18,-0.098,481622,0.17,01a17128-82f1-70d3-948e-f17181bdea85,01a17128-82f1-70d3-948e-f19bd405812d
-Florida Atlantic @ North Texas,2026-10-29,Spread,North Texas -13.5,0.6167,0.5325,0.535,0.0817,550897,0.53,01a17110-ac1a-7152-a16d-836c61c15e44,01a17110-ac1a-7152-a16d-8378bd041748
+Florida Atlantic @ North Texas,2026-10-29,Spread,North Texas -13.5,0.6167,0.5325,0.535,0.0817,34948,0.53,01a17110-ac1a-7152-a16d-836c61c15e44,01a17110-ac1a-7152-a16d-8378bd041748
 Florida Atlantic @ North Texas,2026-10-29,Spread,Florida Atlantic +13.5,0.3833,0.4675,0.47,-0.0867,93276,0.465,01a17110-ac1a-7152-a16d-836c61c15e44,01a17110-ac1a-7152-a16d-838df5feb2aa
 Tulane @ Charlotte,2026-10-30,Moneyline,Charlotte ML,0.174,0.2275,0.23,-0.056,10000,0.225,01a1715f-af9f-7861-9908-8d322bfc3075,01a1715f-af9f-7861-9908-8d48959b1911
 Tulane @ Charlotte,2026-10-30,Moneyline,Tulane ML,0.826,0.7725,0.775,0.051,916522,0.77,01a1715f-af9f-7861-9908-8d322bfc3075,01a1715f-af9f-7861-9908-8d58afe98119
@@ -21,19 +21,19 @@ Tulane @ Charlotte,2026-10-30,Spread,Charlotte +10.5,0.4691,0.53,0.535,-0.0659,8
 Tulane @ Charlotte,2026-10-30,Spread,Tulane -10.5,0.5309,0.47,0.475,0.0559,341042,0.465,01a1714c-1a1c-7492-a708-8349726dcfdf,01a1714c-1a1c-7492-a708-83661a3175b4
 Baylor @ Central Florida,2026-10-30,Moneyline,Central Florida ML,0.504,0.5125,0.515,-0.011,33188,0.51,01a17128-8507-7d91-814c-331a7aaa2a47,01a17128-8507-7d91-814c-3323a5387103
 Baylor @ Central Florida,2026-10-30,Moneyline,Baylor ML,0.496,0.4875,0.49,0.006,510477,0.485,01a17128-8507-7d91-814c-331a7aaa2a47,01a17128-8507-7d91-814c-3339469977ec
-Baylor @ Central Florida,2026-10-30,Spread,Central Florida -1.5,0.464,0.49,0.5,-0.036,878500,0.48,01a17113-5d8c-7911-b5a7-47d39666593d,01a17113-5d8c-7911-b5a7-47eebcab10bf
-Baylor @ Central Florida,2026-10-30,Spread,Baylor +1.5,0.536,0.51,0.52,0.016,736030,0.5,01a17113-5d8c-7911-b5a7-47d39666593d,01a17113-5d8c-7911-b5a7-47f00942ec1d
-Kent State @ Sacramento State,2026-10-31,Moneyline,Sacramento State ML,0.541,0.2425,0.245,0.296,6100,0.24,01a17128-858f-7943-a7b4-a04dd3478d06,01a17128-858f-7943-a7b4-a05b809509c5
+Baylor @ Central Florida,2026-10-30,Spread,Central Florida -1.5,0.464,0.49,0.5,-0.036,843500,0.48,01a17113-5d8c-7911-b5a7-47d39666593d,01a17113-5d8c-7911-b5a7-47eebcab10bf
+Baylor @ Central Florida,2026-10-30,Spread,Baylor +1.5,0.536,0.51,0.52,0.016,771030,0.5,01a17113-5d8c-7911-b5a7-47d39666593d,01a17113-5d8c-7911-b5a7-47f00942ec1d
+Kent State @ Sacramento State,2026-10-31,Moneyline,Sacramento State ML,0.541,0.2425,0.245,0.296,16000,0.24,01a17128-858f-7943-a7b4-a04dd3478d06,01a17128-858f-7943-a7b4-a05b809509c5
 Kent State @ Sacramento State,2026-10-31,Moneyline,Kent State ML,0.459,0.7575,0.76,-0.301,581150,0.755,01a17128-858f-7943-a7b4-a04dd3478d06,01a17128-858f-7943-a7b4-a0632ab2e5a9
 Kent State @ Sacramento State,2026-10-31,Spread,Sacramento State +10.5,0.7748,0.5475,0.55,0.2248,73314,0.545,01a17123-9706-7513-88c8-90f968ee63fd,01a17123-9706-7513-88c8-910e930cc618
-Kent State @ Sacramento State,2026-10-31,Spread,Kent State -10.5,0.2252,0.4525,0.455,-0.2298,289100,0.45,01a17123-9706-7513-88c8-90f968ee63fd,01a17123-9706-7513-88c8-911a918cc913
+Kent State @ Sacramento State,2026-10-31,Spread,Kent State -10.5,0.2252,0.4525,0.455,-0.2298,287300,0.45,01a17123-9706-7513-88c8-90f968ee63fd,01a17123-9706-7513-88c8-911a918cc913
 Boston College @ Duke,2026-10-31,Moneyline,Duke ML,0.806,0.71,0.72,0.086,569014,0.7,01a171e9-179e-7283-b51f-94fa39ba83a3,01a171e9-179e-7283-b51f-950e86597b89
 Boston College @ Duke,2026-10-31,Moneyline,Boston College ML,0.194,0.29,0.3,-0.106,558743,0.28,01a171e9-179e-7283-b51f-94fa39ba83a3,01a171e9-179e-7283-b51f-951a26162c90
 Boston College @ Duke,2026-10-31,Spread,Duke -6.5,0.6068,0.54,0.545,0.0618,314288,0.535,01a171d4-48a8-7123-8a83-6225732bcbbd,01a171d4-48a8-7123-8a83-623fef9be810
 Boston College @ Duke,2026-10-31,Spread,Boston College +6.5,0.3932,0.46,0.465,-0.0718,121900,0.455,01a171d4-48a8-7123-8a83-6225732bcbbd,01a171d4-48a8-7123-8a83-62410e45fca8
-Wisconsin @ Iowa,2026-10-31,Moneyline,Iowa ML,0.768,0.6025,0.605,0.163,612587,0.6,01a1698b-abcc-7140-bced-6f98310cb906,01a1698b-abcc-7140-bced-6fa8bb46513f
-Wisconsin @ Iowa,2026-10-31,Moneyline,Wisconsin ML,0.232,0.3975,0.4,-0.168,5062,0.395,01a1698b-abcc-7140-bced-6f98310cb906,01a1698b-abcc-7140-bced-6fbca08e8adf
-Wisconsin @ Iowa,2026-10-31,Spread,Iowa -3.5,0.6386,0.475,0.48,0.1586,737836,0.47,01a1698b-abcd-7c73-8c3d-6fc55c2fb142,01a1698b-abcd-7c73-8c3d-6fd298a0fce6
+Wisconsin @ Iowa,2026-10-31,Moneyline,Iowa ML,0.768,0.6025,0.605,0.163,595987,0.6,01a1698b-abcc-7140-bced-6f98310cb906,01a1698b-abcc-7140-bced-6fa8bb46513f
+Wisconsin @ Iowa,2026-10-31,Moneyline,Wisconsin ML,0.232,0.3975,0.4,-0.168,3312,0.395,01a1698b-abcc-7140-bced-6f98310cb906,01a1698b-abcc-7140-bced-6fbca08e8adf
+Wisconsin @ Iowa,2026-10-31,Spread,Iowa -3.5,0.6386,0.475,0.48,0.1586,736587,0.47,01a1698b-abcd-7c73-8c3d-6fc55c2fb142,01a1698b-abcd-7c73-8c3d-6fd298a0fce6
 Wisconsin @ Iowa,2026-10-31,Spread,Wisconsin +3.5,0.3614,0.525,0.53,-0.1686,833535,0.52,01a1698b-abcd-7c73-8c3d-6fc55c2fb142,01a1698b-abcd-7c73-8c3d-6fe878af6d50
 Illinois @ Maryland,2026-10-31,Moneyline,Maryland ML,0.26,0.4525,0.455,-0.195,35000,0.45,01a1717b-491f-7121-b93a-cef7bc2e7e9e,01a1717b-491f-7121-b93a-cf02debd1bd8
 Illinois @ Maryland,2026-10-31,Moneyline,Illinois ML,0.74,0.5475,0.55,0.19,1817,0.545,01a1717b-491f-7121-b93a-cef7bc2e7e9e,01a1717b-491f-7121-b93a-cf139f7a89e9
@@ -48,33 +48,33 @@ Alabama Birmingham @ South Florida,2026-10-31,Moneyline,Alabama Birmingham ML,0.
 Alabama Birmingham @ South Florida,2026-10-31,Spread,South Florida -7.5,0.5943,0.51,0.515,0.0793,51309,0.505,01a173af-b401-78a1-90da-96c3f3fd59f6,01a173af-b401-78a1-90da-96d2f5a230a0
 Alabama Birmingham @ South Florida,2026-10-31,Spread,Alabama Birmingham +7.5,0.4057,0.49,0.495,-0.0893,520125,0.485,01a173af-b401-78a1-90da-96c3f3fd59f6,01a173af-b401-78a1-90da-96ea97348232
 Southern Methodist @ Syracuse,2026-10-31,Moneyline,Syracuse ML,0.179,0.24,0.245,-0.066,10000,0.235,01a17144-0a0e-7ae1-8df2-d834d3e64f6a,01a17144-0a0e-7ae1-8df2-d844cb9b62eb
-Southern Methodist @ Syracuse,2026-10-31,Moneyline,Southern Methodist ML,0.821,0.76,0.765,0.056,136448,0.755,01a17144-0a0e-7ae1-8df2-d834d3e64f6a,01a17144-0a0e-7ae1-8df2-d85149ee6ee9
-Southern Methodist @ Syracuse,2026-10-31,Spread,Syracuse +10.5,0.4768,0.525,0.53,-0.0532,716144,0.52,01a17143-0134-7171-b8fb-404e5cc8d159,01a17143-0134-7171-b8fb-405d850375ab
+Southern Methodist @ Syracuse,2026-10-31,Moneyline,Southern Methodist ML,0.821,0.76,0.765,0.056,118595,0.755,01a17144-0a0e-7ae1-8df2-d834d3e64f6a,01a17144-0a0e-7ae1-8df2-d85149ee6ee9
+Southern Methodist @ Syracuse,2026-10-31,Spread,Syracuse +10.5,0.4768,0.525,0.53,-0.0532,714258,0.52,01a17143-0134-7171-b8fb-404e5cc8d159,01a17143-0134-7171-b8fb-405d850375ab
 Southern Methodist @ Syracuse,2026-10-31,Spread,Southern Methodist -10.5,0.5232,0.475,0.48,0.0432,225100,0.47,01a17143-0134-7171-b8fb-404e5cc8d159,01a17143-0134-7171-b8fb-4065e4a78e3f
 Arizona @ Texas Tech,2026-10-31,Moneyline,Texas Tech ML,0.631,0.615,0.62,0.011,60907,0.61,01a1698b-affb-7582-8240-0b822aba441c,01a1698b-affb-7582-8240-0b9764bed731
 Arizona @ Texas Tech,2026-10-31,Moneyline,Arizona ML,0.369,0.385,0.39,-0.021,897719,0.38,01a1698b-affb-7582-8240-0b822aba441c,01a1698b-affb-7582-8240-0baa7b7c388a
-Arizona @ Texas Tech,2026-10-31,Spread,Texas Tech -3.5,0.5129,0.5075,0.51,0.0029,867140,0.505,01a1698b-affc-7ef3-91af-6343c6e89cd1,01a1698b-affc-7ef3-91af-635ebf9b5ac4
+Arizona @ Texas Tech,2026-10-31,Spread,Texas Tech -3.5,0.5129,0.5075,0.51,0.0029,832140,0.505,01a1698b-affc-7ef3-91af-6343c6e89cd1,01a1698b-affc-7ef3-91af-635ebf9b5ac4
 Arizona @ Texas Tech,2026-10-31,Spread,Arizona +3.5,0.4871,0.4925,0.495,-0.0079,345445,0.49,01a1698b-affc-7ef3-91af-6343c6e89cd1,01a1698b-affc-7ef3-91af-636f9e154966
-Bowling Green @ Western Michigan,2026-10-31,Moneyline,Western Michigan ML,0.852,0.825,0.83,0.022,567188,0.82,01a173f4-78e9-7e60-aeb1-c200dd4ae780,01a173f4-78e9-7e60-aeb1-c21be83c7042
-Bowling Green @ Western Michigan,2026-10-31,Moneyline,Bowling Green ML,0.148,0.175,0.18,-0.032,435853,0.17,01a173f4-78e9-7e60-aeb1-c200dd4ae780,01a173f4-78e9-7e60-aeb1-c22001c4227d
-Bowling Green @ Western Michigan,2026-10-31,Spread,Western Michigan -13.5,0.4897,0.5075,0.51,-0.0203,428400,0.505,01a173e2-0ea8-70f2-a376-bed191dfd40f,01a173e2-0ea8-70f2-a376-beeaeaaa09fd
-Bowling Green @ Western Michigan,2026-10-31,Spread,Bowling Green +13.5,0.5103,0.4925,0.495,0.0153,529502,0.49,01a173e2-0ea8-70f2-a376-bed191dfd40f,01a173e2-0ea8-70f2-a376-befb318c103a
+Bowling Green @ Western Michigan,2026-10-31,Moneyline,Western Michigan ML,0.852,0.8275,0.83,0.022,429700,0.825,01a173f4-78e9-7e60-aeb1-c200dd4ae780,01a173f4-78e9-7e60-aeb1-c21be83c7042
+Bowling Green @ Western Michigan,2026-10-31,Moneyline,Bowling Green ML,0.148,0.1725,0.175,-0.027,24700,0.17,01a173f4-78e9-7e60-aeb1-c200dd4ae780,01a173f4-78e9-7e60-aeb1-c22001c4227d
+Bowling Green @ Western Michigan,2026-10-31,Spread,Western Michigan -13.5,0.4897,0.5,0.51,-0.0203,1236533,0.49,01a173e2-0ea8-70f2-a376-bed191dfd40f,01a173e2-0ea8-70f2-a376-beeaeaaa09fd
+Bowling Green @ Western Michigan,2026-10-31,Spread,Bowling Green +13.5,0.5103,0.5,0.51,0.0003,40000,0.49,01a173e2-0ea8-70f2-a376-bed191dfd40f,01a173e2-0ea8-70f2-a376-befb318c103a
 Michigan @ Rutgers,2026-10-31,Moneyline,Rutgers ML,0.286,0.165,0.17,0.116,171444,0.16,01a1717b-4f7b-7171-b47c-a7822988f216,01a1717b-4f7b-7171-b47c-a797afa56673
 Michigan @ Rutgers,2026-10-31,Moneyline,Michigan ML,0.714,0.835,0.84,-0.126,972762,0.83,01a1717b-4f7b-7171-b47c-a7822988f216,01a1717b-4f7b-7171-b47c-a7a14a3bb99e
 Michigan @ Rutgers,2026-10-31,Spread,Rutgers +14.5,0.688,0.525,0.53,0.158,284175,0.52,01a17175-4c59-7de0-90b2-80344906ab37,01a17175-4c59-7de0-90b2-804107e0cc01
 Michigan @ Rutgers,2026-10-31,Spread,Michigan -14.5,0.312,0.475,0.48,-0.168,284892,0.47,01a17175-4c59-7de0-90b2-80344906ab37,01a17175-4c59-7de0-90b2-8059c0503d87
 Auburn @ Mississippi,2026-10-31,Moneyline,Mississippi ML,0.875,0.815,0.82,0.055,1423888,0.81,01a169c2-4daa-7793-b557-7a07409f8f34,01a169c2-4daa-7793-b557-7a17b42c94b6
-Auburn @ Mississippi,2026-10-31,Moneyline,Auburn ML,0.125,0.185,0.19,-0.065,347213,0.18,01a169c2-4daa-7793-b557-7a07409f8f34,01a169c2-4daa-7793-b557-7a23a847af63
+Auburn @ Mississippi,2026-10-31,Moneyline,Auburn ML,0.125,0.185,0.19,-0.065,358913,0.18,01a169c2-4daa-7793-b557-7a07409f8f34,01a169c2-4daa-7793-b557-7a23a847af63
 Auburn @ Mississippi,2026-10-31,Spread,Mississippi -13.5,0.5283,0.475,0.48,0.0483,82340,0.47,01a169c2-4dac-7c50-8bc8-7ab8cc942890,01a169c2-4dac-7c50-8bc8-7ac76980fac4
-Auburn @ Mississippi,2026-10-31,Spread,Auburn +13.5,0.4717,0.525,0.53,-0.0583,905516,0.52,01a169c2-4dac-7c50-8bc8-7ab8cc942890,01a169c2-4dac-7c50-8bc8-7ad39deb4680
+Auburn @ Mississippi,2026-10-31,Spread,Auburn +13.5,0.4717,0.525,0.53,-0.0583,1305516,0.52,01a169c2-4dac-7c50-8bc8-7ab8cc942890,01a169c2-4dac-7c50-8bc8-7ad39deb4680
 Marshall @ Old Dominion,2026-10-31,Moneyline,Old Dominion ML,0.335,0.4425,0.445,-0.11,3000,0.44,01a173f4-7e3f-7e13-8a74-9c9526fba884,01a173f4-7e3f-7e13-8a74-9caa296d7809
 Marshall @ Old Dominion,2026-10-31,Moneyline,Marshall ML,0.665,0.5575,0.56,0.105,3100,0.555,01a173f4-7e3f-7e13-8a74-9c9526fba884,01a173f4-7e3f-7e13-8a74-9cb591afcddd
-Marshall @ Old Dominion,2026-10-31,Spread,Old Dominion +2.5,0.4334,0.48,0.485,-0.0516,100000,0.475,01a173e6-5fc2-7323-aec7-dba4555a7c26,01a173e6-5fc2-7323-aec7-dbb6b72a38f1
-Marshall @ Old Dominion,2026-10-31,Spread,Marshall -2.5,0.5666,0.52,0.525,0.0416,780032,0.515,01a173e6-5fc2-7323-aec7-dba4555a7c26,01a173e6-5fc2-7323-aec7-dbc09d05b03f
+Marshall @ Old Dominion,2026-10-31,Spread,Old Dominion +2.5,0.4334,0.4825,0.49,-0.0566,129300,0.475,01a173e6-5fc2-7323-aec7-dba4555a7c26,01a173e6-5fc2-7323-aec7-dbb6b72a38f1
+Marshall @ Old Dominion,2026-10-31,Spread,Marshall -2.5,0.5666,0.5175,0.525,0.0416,780032,0.51,01a173e6-5fc2-7323-aec7-dba4555a7c26,01a173e6-5fc2-7323-aec7-dbc09d05b03f
 Kansas State @ Colorado,2026-10-31,Moneyline,Colorado ML,0.253,0.4975,0.505,-0.252,25100,0.49,01a17204-8bb4-7433-b287-f1ec31f893be,01a17204-8bb4-7433-b287-f1f877162fc2
 Kansas State @ Colorado,2026-10-31,Moneyline,Kansas State ML,0.747,0.5025,0.51,0.237,312959,0.495,01a17204-8bb4-7433-b287-f1ec31f893be,01a17204-8bb4-7433-b287-f20724385b37
 Kansas State @ Colorado,2026-10-31,Spread,Colorado +1.5,0.3351,0.5225,0.525,-0.1899,5,0.52,01a171f6-287f-75c1-9aec-17bf4935ca8e,01a171f6-287f-75c1-9aec-17c57ab2eb61
-Kansas State @ Colorado,2026-10-31,Spread,Kansas State -1.5,0.6649,0.4775,0.48,0.1849,732260,0.475,01a171f6-287f-75c1-9aec-17bf4935ca8e,01a171f6-287f-75c1-9aec-17db26e95ce5
+Kansas State @ Colorado,2026-10-31,Spread,Kansas State -1.5,0.6649,0.4775,0.48,0.1849,332260,0.475,01a171f6-287f-75c1-9aec-17bf4935ca8e,01a171f6-287f-75c1-9aec-17db26e95ce5
 Coastal Carolina @ Georgia State,2026-10-31,Moneyline,Georgia State ML,0.727,0.6825,0.685,0.042,83015,0.68,01a173bc-991d-7461-81d9-69af9b58b936,01a173bc-991d-7461-81d9-69b7a3299d46
 Coastal Carolina @ Georgia State,2026-10-31,Moneyline,Coastal Carolina ML,0.273,0.3175,0.32,-0.047,254411,0.315,01a173bc-991d-7461-81d9-69af9b58b936,01a173bc-991d-7461-81d9-69c662255538
 Coastal Carolina @ Georgia State,2026-10-31,Spread,Georgia State -6.5,0.5206,0.5025,0.505,0.0156,499030,0.5,01a173b2-9134-79f0-8572-b2ae5aca64e0,01a173b2-9134-79f0-8572-b2bba31c9059
@@ -92,21 +92,21 @@ Louisiana Tech @ South Alabama,2026-10-31,Moneyline,Louisiana Tech ML,0.404,0.66
 Louisiana Tech @ South Alabama,2026-10-31,Spread,South Alabama +5.5,0.7061,0.495,0.5,0.2061,71800,0.49,01a173b8-db5b-76b1-8e8d-300a480bfa66,01a173b8-db5b-76b1-8e8d-301cafa57ccf
 Louisiana Tech @ South Alabama,2026-10-31,Spread,Louisiana Tech -5.5,0.2939,0.505,0.51,-0.2161,76020,0.5,01a173b8-db5b-76b1-8e8d-300a480bfa66,01a173b8-db5b-76b1-8e8d-3026a5b76f69
 Stanford @ Louisville,2026-10-31,Moneyline,Louisville ML,0.955,0.93,0.935,0.02,1399253,0.925,01a171e9-317f-7431-aba3-377ec9e50b60,01a171e9-317f-7431-aba3-3782c0bbc90b
-Stanford @ Louisville,2026-10-31,Moneyline,Stanford ML,0.045,0.07,0.075,-0.03,882192,0.065,01a171e9-317f-7431-aba3-377ec9e50b60,01a171e9-317f-7431-aba3-3798dfad9b0e
+Stanford @ Louisville,2026-10-31,Moneyline,Stanford ML,0.045,0.07,0.075,-0.03,788729,0.065,01a171e9-317f-7431-aba3-377ec9e50b60,01a171e9-317f-7431-aba3-3798dfad9b0e
 Stanford @ Louisville,2026-10-31,Spread,Louisville -22.5,0.5077,0.4975,0.5,0.0077,477200,0.495,01a171db-1133-7972-af3e-17139e77b8b6,01a171db-1133-7972-af3e-172c2decbd44
-Stanford @ Louisville,2026-10-31,Spread,Stanford +22.5,0.4923,0.5025,0.505,-0.0127,134591,0.5,01a171db-1133-7972-af3e-17139e77b8b6,01a171db-1133-7972-af3e-1734b74d106d
+Stanford @ Louisville,2026-10-31,Spread,Stanford +22.5,0.4923,0.5025,0.505,-0.0127,146991,0.5,01a171db-1133-7972-af3e-17139e77b8b6,01a171db-1133-7972-af3e-1734b74d106d
 Arizona State @ Brigham Young,2026-10-31,Moneyline,Brigham Young ML,0.878,0.86,0.865,0.013,655758,0.855,01a16a4b-f322-79f0-98f0-cc7daf11f294,01a16a4b-f322-79f0-98f0-cc8056b393db
 Arizona State @ Brigham Young,2026-10-31,Moneyline,Arizona State ML,0.122,0.14,0.145,-0.023,544495,0.135,01a16a4b-f322-79f0-98f0-cc7daf11f294,01a16a4b-f322-79f0-98f0-cc953b2a6da9
 Arizona State @ Brigham Young,2026-10-31,Spread,Brigham Young -16.5,0.4563,0.495,0.5,-0.0437,71400,0.49,01a16a4b-f322-79f0-98f0-ccd197e33b18,01a16a4b-f322-79f0-98f0-cce94c6d888b
 Arizona State @ Brigham Young,2026-10-31,Spread,Arizona State +16.5,0.5437,0.505,0.51,0.0337,606670,0.5,01a16a4b-f322-79f0-98f0-ccd197e33b18,01a16a4b-f322-79f0-98f0-ccf38e6e54d5
-Florida @ Georgia,2026-10-31,Moneyline,Georgia ML,0.881,0.7925,0.795,0.086,722062,0.79,01a16a4b-f475-7c10-9339-78e06d5add27,01a16a4b-f475-7c10-9339-78ffec438e9a
+Florida @ Georgia,2026-10-31,Moneyline,Georgia ML,0.881,0.7925,0.795,0.086,719682,0.79,01a16a4b-f475-7c10-9339-78e06d5add27,01a16a4b-f475-7c10-9339-78ffec438e9a
 Florida @ Georgia,2026-10-31,Moneyline,Florida ML,0.119,0.2075,0.21,-0.091,76860,0.205,01a16a4b-f475-7c10-9339-78e06d5add27,01a16a4b-f475-7c10-9339-7901ee5cf476
 Florida @ Georgia,2026-10-31,Spread,Georgia -11.5,0.5893,0.5,0.505,0.0843,687129,0.495,01a16a4b-f476-7903-9b6a-44948fac4659,01a16a4b-f476-7903-9b6a-44a3f0304ade
 Florida @ Georgia,2026-10-31,Spread,Florida +11.5,0.4107,0.5,0.505,-0.0943,286212,0.495,01a16a4b-f476-7903-9b6a-44948fac4659,01a16a4b-f476-7903-9b6a-44b7adc192a2
-Minnesota @ Indiana,2026-10-31,Moneyline,Indiana ML,0.975,0.9225,0.925,0.05,558559,0.92,01a16a4b-e6fd-7753-9234-ee4a5675e2a9,01a16a4b-e6fd-7753-9234-ee50bc891696
+Minnesota @ Indiana,2026-10-31,Moneyline,Indiana ML,0.975,0.9225,0.925,0.05,508527,0.92,01a16a4b-e6fd-7753-9234-ee4a5675e2a9,01a16a4b-e6fd-7753-9234-ee50bc891696
 Minnesota @ Indiana,2026-10-31,Moneyline,Minnesota ML,0.025,0.0775,0.08,-0.055,587500,0.075,01a16a4b-e6fd-7753-9234-ee4a5675e2a9,01a16a4b-e6fd-7753-9234-ee6f6ec2ef4b
-Minnesota @ Indiana,2026-10-31,Spread,Indiana -20.5,0.6742,0.5125,0.52,0.1542,95577,0.505,01a16a4b-e6fd-7753-9234-f026c62fc933,01a16a4b-e6fd-7753-9234-f034304b6170
-Minnesota @ Indiana,2026-10-31,Spread,Minnesota +20.5,0.3258,0.4875,0.495,-0.1692,369365,0.48,01a16a4b-e6fd-7753-9234-f026c62fc933,01a16a4b-e6fd-7753-9234-f04de33f99ec
+Minnesota @ Indiana,2026-10-31,Spread,Indiana -20.5,0.6742,0.5125,0.52,0.1542,495577,0.505,01a16a4b-e6fd-7753-9234-f026c62fc933,01a16a4b-e6fd-7753-9234-f034304b6170
+Minnesota @ Indiana,2026-10-31,Spread,Minnesota +20.5,0.3258,0.4875,0.495,-0.1692,367850,0.48,01a16a4b-e6fd-7753-9234-f026c62fc933,01a16a4b-e6fd-7753-9234-f04de33f99ec
 Florida International @ Liberty,2026-10-31,Moneyline,Liberty ML,0.918,0.8425,0.845,0.073,2000,0.84,01a173bc-b680-7c92-b431-9a69e64a5b0f,01a173bc-b680-7c92-b431-9a70a28d21bb
 Florida International @ Liberty,2026-10-31,Moneyline,Florida International ML,0.082,0.1575,0.16,-0.078,412000,0.155,01a173bc-b680-7c92-b431-9a69e64a5b0f,01a173bc-b680-7c92-b431-9a8541998b17
 Florida International @ Liberty,2026-10-31,Spread,Liberty -14.5,0.5918,0.4725,0.475,0.1168,753952,0.47,01a173a2-a27f-7e10-829f-df20fa35fd5c,01a173a2-a27f-7e10-829f-df3bc99da05e
@@ -122,7 +122,7 @@ UTEP @ North Dakota State,2026-10-31,Spread,UTEP +24.5,0.5026,0.515,0.52,-0.0174
 Northwestern @ Oregon,2026-10-31,Moneyline,Oregon ML,0.619,0.6075,0.61,0.009,2169,0.605,01a166f7-9e8a-7fd1-b66a-22e0e983a229,01a166f7-9e8a-7fd1-b66a-22f96d9eca01
 Northwestern @ Oregon,2026-10-31,Moneyline,Northwestern ML,0.381,0.3925,0.395,-0.014,136209,0.39,01a166f7-9e8a-7fd1-b66a-22e0e983a229,01a166f7-9e8a-7fd1-b66a-230f63190eec
 Northwestern @ Oregon,2026-10-31,Spread,Oregon -3.5,0.5026,0.505,0.51,-0.0074,826361,0.5,01a166f7-9e8c-78a3-9e80-bdb0fe050649,01a166f7-9e8c-78a3-9e80-bdca0bb684f3
-Northwestern @ Oregon,2026-10-31,Spread,Northwestern +3.5,0.4974,0.495,0.5,-0.0026,845802,0.49,01a166f7-9e8c-78a3-9e80-bdb0fe050649,01a166f7-9e8c-78a3-9e80-bdd2435d5edf
+Northwestern @ Oregon,2026-10-31,Spread,Northwestern +3.5,0.4974,0.495,0.5,-0.0026,844802,0.49,01a166f7-9e8c-78a3-9e80-bdb0fe050649,01a166f7-9e8c-78a3-9e80-bdd2435d5edf
 Kansas @ Texas Christian,2026-10-31,Moneyline,Texas Christian ML,0.6,0.6725,0.675,-0.075,30286,0.67,01a17204-9d54-71a3-9f17-bbf305e32367,01a17204-9d54-71a3-9f17-bc01a63d2d57
 Kansas @ Texas Christian,2026-10-31,Moneyline,Kansas ML,0.4,0.3275,0.33,0.07,38940,0.325,01a17204-9d54-71a3-9f17-bbf305e32367,01a17204-9d54-71a3-9f17-bc1f5fcf5143
 Kansas @ Texas Christian,2026-10-31,Spread,Texas Christian -5.5,0.4359,0.52,0.525,-0.0891,465752,0.515,01a171ef-bfde-7082-82a7-919ce069b474,01a171ef-bfde-7082-82a7-91a1d3608f2b
@@ -143,24 +143,24 @@ New Mexico @ San José State,2026-10-31,Moneyline,San José State ML,0.266,0.147
 New Mexico @ San José State,2026-10-31,Moneyline,New Mexico ML,0.734,0.8525,0.855,-0.121,2000,0.85,01a173bc-bee2-7e63-a4f0-8bfc1da4abc9,01a173bc-bee2-7e63-a4f0-8c1ee617abb6
 New Mexico @ San José State,2026-10-31,Spread,San José State +14.5,0.6719,0.4975,0.5,0.1719,775000,0.495,01a173ad-fdec-76f0-8459-9b7d9eb25b8e,01a173ad-fdec-76f0-8459-9b8ae4ee071d
 New Mexico @ San José State,2026-10-31,Spread,New Mexico -14.5,0.3281,0.5025,0.505,-0.1769,9557,0.5,01a173ad-fdec-76f0-8459-9b7d9eb25b8e,01a173ad-fdec-76f0-8459-9b99f94c0deb
-South Carolina @ Oklahoma,2026-10-31,Moneyline,Oklahoma ML,0.561,0.645,0.65,-0.089,62008,0.64,01a16a82-96ed-7bc0-bb4c-4ac83114620a,01a16a82-96ed-7bc0-bb4c-4ad7d64b9a90
-South Carolina @ Oklahoma,2026-10-31,Moneyline,South Carolina ML,0.439,0.355,0.36,0.079,328625,0.35,01a16a82-96ed-7bc0-bb4c-4ac83114620a,01a16a82-96ed-7bc0-bb4c-4aed967d1900
-South Carolina @ Oklahoma,2026-10-31,Spread,Oklahoma -4.5,0.4309,0.5125,0.52,-0.0891,636306,0.505,01a16a82-96ed-7bc0-bb4c-4ca65cf3ae47,01a16a82-96ed-7bc0-bb4c-4cb60e8f614d
+South Carolina @ Oklahoma,2026-10-31,Moneyline,Oklahoma ML,0.561,0.645,0.65,-0.089,26453,0.64,01a16a82-96ed-7bc0-bb4c-4ac83114620a,01a16a82-96ed-7bc0-bb4c-4ad7d64b9a90
+South Carolina @ Oklahoma,2026-10-31,Moneyline,South Carolina ML,0.439,0.355,0.36,0.079,363625,0.35,01a16a82-96ed-7bc0-bb4c-4ac83114620a,01a16a82-96ed-7bc0-bb4c-4aed967d1900
+South Carolina @ Oklahoma,2026-10-31,Spread,Oklahoma -4.5,0.4309,0.5125,0.52,-0.0891,631097,0.505,01a16a82-96ed-7bc0-bb4c-4ca65cf3ae47,01a16a82-96ed-7bc0-bb4c-4cb60e8f614d
 South Carolina @ Oklahoma,2026-10-31,Spread,South Carolina +4.5,0.5691,0.4875,0.495,0.0741,295443,0.48,01a16a82-96ed-7bc0-bb4c-4ca65cf3ae47,01a16a82-96ed-7bc0-bb4c-4cc0a3a4e777
 Purdue @ Penn State,2026-10-31,Moneyline,Penn State ML,0.881,0.7325,0.735,0.146,100,0.73,01a171cd-96e2-71b1-a3a2-f5295541ff3b,01a171cd-96e2-71b1-a3a2-f53f9a924cb3
 Purdue @ Penn State,2026-10-31,Moneyline,Purdue ML,0.119,0.2675,0.27,-0.151,525000,0.265,01a171cd-96e2-71b1-a3a2-f5295541ff3b,01a171cd-96e2-71b1-a3a2-f541ec56ae87
 Purdue @ Penn State,2026-10-31,Spread,Penn State -7.5,0.6858,0.5225,0.525,0.1608,37894,0.52,01a171bc-bdf1-7b10-8a6b-cde429aeaaf2,01a171bc-bdf1-7b10-8a6b-cdf7b690dbe3
-Purdue @ Penn State,2026-10-31,Spread,Purdue +7.5,0.3142,0.4775,0.48,-0.1658,600961,0.475,01a171bc-bdf1-7b10-8a6b-cde429aeaaf2,01a171bc-bdf1-7b10-8a6b-ce0c69f8103c
-Nevada @ UCLA,2026-10-31,Moneyline,UCLA ML,0.849,0.9375,0.94,-0.091,2000,0.935,01a1717b-8424-7e43-af6c-012e036a9d8c,01a1717b-8424-7e43-af6c-013cb749dcc2
-Nevada @ UCLA,2026-10-31,Moneyline,Nevada ML,0.151,0.0625,0.065,0.086,27000,0.06,01a1717b-8424-7e43-af6c-012e036a9d8c,01a1717b-8424-7e43-af6c-014fd318c534
-Nevada @ UCLA,2026-10-31,Spread,UCLA -22.5,0.27,0.5125,0.52,-0.25,391183,0.505,01a1716c-2f87-7352-9a89-5727f2e09e42,01a1716c-2f87-7352-9a89-573b975657a8
-Nevada @ UCLA,2026-10-31,Spread,Nevada +22.5,0.73,0.4875,0.495,0.235,158218,0.48,01a1716c-2f87-7352-9a89-5727f2e09e42,01a1716c-2f87-7352-9a89-57472d1a8a4f
+Purdue @ Penn State,2026-10-31,Spread,Purdue +7.5,0.3142,0.4775,0.48,-0.1658,599504,0.475,01a171bc-bdf1-7b10-8a6b-cde429aeaaf2,01a171bc-bdf1-7b10-8a6b-ce0c69f8103c
+Nevada @ UCLA,2026-10-31,Moneyline,UCLA ML,0.849,0.935,0.94,-0.091,1469,0.93,01a1717b-8424-7e43-af6c-012e036a9d8c,01a1717b-8424-7e43-af6c-013cb749dcc2
+Nevada @ UCLA,2026-10-31,Moneyline,Nevada ML,0.151,0.065,0.07,0.081,70000,0.06,01a1717b-8424-7e43-af6c-012e036a9d8c,01a1717b-8424-7e43-af6c-014fd318c534
+Nevada @ UCLA,2026-10-31,Spread,UCLA -22.5,0.27,0.5125,0.52,-0.25,395283,0.505,01a1716c-2f87-7352-9a89-5727f2e09e42,01a1716c-2f87-7352-9a89-573b975657a8
+Nevada @ UCLA,2026-10-31,Spread,Nevada +22.5,0.73,0.4875,0.495,0.235,174818,0.48,01a1716c-2f87-7352-9a89-5727f2e09e42,01a1716c-2f87-7352-9a89-57472d1a8a4f
 Appalachian State @ Georgia Southern,2026-10-31,Moneyline,Georgia Southern ML,0.715,0.6525,0.655,0.06,2000,0.65,01a1740e-9f9e-77d2-a847-58683c5943fc,01a1740e-9f9e-77d2-a847-587a6ed615a1
 Appalachian State @ Georgia Southern,2026-10-31,Moneyline,Appalachian State ML,0.285,0.3475,0.35,-0.065,2000,0.345,01a1740e-9f9e-77d2-a847-58683c5943fc,01a1740e-9f9e-77d2-a847-5885a9c7275f
 Appalachian State @ Georgia Southern,2026-10-31,Spread,Georgia Southern -5.5,0.536,0.495,0.5,0.036,9400,0.49,01a173fb-04c2-7093-a4a8-07c74125dcd8,01a173fb-04c2-7093-a4a8-07d16ac19445
 Appalachian State @ Georgia Southern,2026-10-31,Spread,Appalachian State +5.5,0.464,0.505,0.51,-0.046,558020,0.5,01a173fb-04c2-7093-a4a8-07c74125dcd8,01a173fb-04c2-7093-a4a8-07ea278ce842
-Clemson @ Florida State,2026-10-31,Moneyline,Florida State ML,0.804,0.665,0.67,0.134,37068,0.66,01a1717b-876d-7040-9db2-0acbd95b74d8,01a1717b-876d-7040-9db2-0adb98ec92e3
-Clemson @ Florida State,2026-10-31,Moneyline,Clemson ML,0.196,0.335,0.34,-0.144,453484,0.33,01a1717b-876d-7040-9db2-0acbd95b74d8,01a1717b-876d-7040-9db2-0ae0be3a696a
+Clemson @ Florida State,2026-10-31,Moneyline,Florida State ML,0.804,0.6675,0.67,0.134,239068,0.665,01a1717b-876d-7040-9db2-0acbd95b74d8,01a1717b-876d-7040-9db2-0adb98ec92e3
+Clemson @ Florida State,2026-10-31,Moneyline,Clemson ML,0.196,0.3325,0.335,-0.139,2000,0.33,01a1717b-876d-7040-9db2-0acbd95b74d8,01a1717b-876d-7040-9db2-0ae0be3a696a
 Clemson @ Florida State,2026-10-31,Spread,Florida State -6.5,0.6043,0.4875,0.49,0.1143,670842,0.485,01a17179-de6b-79d1-8976-5a591b110e37,01a17179-de6b-79d1-8976-5a6b20f95024
 Clemson @ Florida State,2026-10-31,Spread,Clemson +6.5,0.3957,0.5125,0.515,-0.1193,274760,0.51,01a17179-de6b-79d1-8976-5a591b110e37,01a17179-de6b-79d1-8976-5a757fe406c3
 Oklahoma State @ Iowa State,2026-10-31,Moneyline,Iowa State ML,0.679,0.2475,0.255,0.424,255000,0.24,01a17204-a856-7fa2-85e9-968d644695c8,01a17204-a856-7fa2-85e9-9692f131c570
@@ -178,19 +178,19 @@ Miami @ North Carolina,2026-10-31,Spread,Miami -13.5,0.5641,0.535,0.545,0.0191,5
 Georgia Tech @ Pittsburgh,2026-10-31,Moneyline,Pittsburgh ML,0.749,0.7325,0.735,0.014,2000,0.73,01a171e9-5b59-7313-944d-c1e387aae6c4,01a171e9-5b59-7313-944d-c1fce013c8ca
 Georgia Tech @ Pittsburgh,2026-10-31,Moneyline,Georgia Tech ML,0.251,0.2675,0.27,-0.019,502000,0.265,01a171e9-5b59-7313-944d-c1e387aae6c4,01a171e9-5b59-7313-944d-c2097e86c047
 Georgia Tech @ Pittsburgh,2026-10-31,Spread,Pittsburgh -7.5,0.518,0.5175,0.52,-0.002,655208,0.515,01a171db-1100-74d2-a4ee-7824fdda0c53,01a171db-1100-74d2-a4ee-783ca4aa46e7
-Georgia Tech @ Pittsburgh,2026-10-31,Spread,Georgia Tech +7.5,0.482,0.4825,0.485,-0.003,285871,0.48,01a171db-1100-74d2-a4ee-7824fdda0c53,01a171db-1100-74d2-a4ee-7841825e198c
+Georgia Tech @ Pittsburgh,2026-10-31,Spread,Georgia Tech +7.5,0.482,0.4825,0.485,-0.003,300000,0.48,01a171db-1100-74d2-a4ee-7824fdda0c53,01a171db-1100-74d2-a4ee-7841825e198c
 Ohio State @ Southern California,2026-10-31,Moneyline,Southern California ML,0.364,0.305,0.31,0.054,214388,0.3,01a16b28-25a7-7592-afbc-56dc89f36c65,01a16b28-25a7-7592-afbc-56e2c0ecda00
 Ohio State @ Southern California,2026-10-31,Moneyline,Ohio State ML,0.636,0.695,0.7,-0.064,231237,0.69,01a16b28-25a7-7592-afbc-56dc89f36c65,01a16b28-25a7-7592-afbc-56f794bc1d2c
 Ohio State @ Southern California,2026-10-31,Spread,Southern California +6.5,0.559,0.4775,0.48,0.079,154311,0.475,01a16b28-25a7-7592-afbc-5769f843075f,01a16b28-25a7-7592-afbc-5779cfecb749
 Ohio State @ Southern California,2026-10-31,Spread,Ohio State -6.5,0.441,0.5225,0.525,-0.084,574169,0.52,01a16b28-25a7-7592-afbc-5769f843075f,01a16b28-25a7-7592-afbc-578ef37e4155
 Mississippi State @ Texas,2026-10-31,Moneyline,Texas ML,0.892,0.9125,0.92,-0.028,493750,0.905,01a171b2-4e7a-72a1-9151-a3301eda36a9,01a171b2-4e7a-72a1-9151-a34b858be473
 Mississippi State @ Texas,2026-10-31,Moneyline,Mississippi State ML,0.108,0.0875,0.095,0.013,2000,0.08,01a171b2-4e7a-72a1-9151-a3301eda36a9,01a171b2-4e7a-72a1-9151-a35c2f314a10
-Mississippi State @ Texas,2026-10-31,Spread,Texas -20.5,0.3809,0.5,0.505,-0.1241,298464,0.495,01a17198-c8a6-7e62-b6b8-9396dbc62bb9,01a17198-c8a6-7e62-b6b8-93a968d85f48
+Mississippi State @ Texas,2026-10-31,Spread,Texas -20.5,0.3809,0.5,0.505,-0.1241,297474,0.495,01a17198-c8a6-7e62-b6b8-9396dbc62bb9,01a17198-c8a6-7e62-b6b8-93a968d85f48
 Mississippi State @ Texas,2026-10-31,Spread,Mississippi State +20.5,0.6191,0.5,0.505,0.1141,1027582,0.495,01a17198-c8a6-7e62-b6b8-9396dbc62bb9,01a17198-c8a6-7e62-b6b8-93bbfc566f77
 Missouri @ Arkansas,2026-10-31,Moneyline,Arkansas ML,0.367,0.235,0.24,0.127,55834,0.23,01a16b43-deb7-7ad2-988f-61cae27e0557,01a16b43-deb7-7ad2-988f-61d3da362e6e
 Missouri @ Arkansas,2026-10-31,Moneyline,Missouri ML,0.633,0.765,0.77,-0.137,17800,0.76,01a16b43-deb7-7ad2-988f-61cae27e0557,01a16b43-deb7-7ad2-988f-61e58e014d93
 Missouri @ Arkansas,2026-10-31,Spread,Arkansas +9.5,0.6362,0.485,0.495,0.1412,465409,0.475,01a16b43-deb9-7722-976f-7feacfa278be,01a16b43-deb9-7722-976f-7ffdfebb57c9
-Missouri @ Arkansas,2026-10-31,Spread,Missouri -9.5,0.3638,0.515,0.525,-0.1612,991560,0.505,01a16b43-deb9-7722-976f-7feacfa278be,01a16b43-deb9-7722-976f-800ed48a1a95
+Missouri @ Arkansas,2026-10-31,Spread,Missouri -9.5,0.3638,0.515,0.525,-0.1612,591560,0.505,01a16b43-deb9-7722-976f-7feacfa278be,01a16b43-deb9-7722-976f-800ed48a1a95
 Army @ Memphis,2026-11-01,Moneyline,Memphis ML,0.64,0.65,0.655,-0.015,2000,0.645,01a173bc-d122-7392-bdf7-0c62413c8ef9,01a173bc-d122-7392-bdf7-0c78f7e983a9
 Army @ Memphis,2026-11-01,Moneyline,Army ML,0.36,0.35,0.355,0.005,493373,0.345,01a173bc-d122-7392-bdf7-0c62413c8ef9,01a173bc-d122-7392-bdf7-0c8bce98a28c
 Army @ Memphis,2026-11-01,Spread,Memphis -5.5,0.4691,0.5075,0.515,-0.0459,884411,0.5,01a173a2-a24d-7f60-891d-ad53990a8931,01a173a2-a24d-7f60-891d-ad6bc038bd81

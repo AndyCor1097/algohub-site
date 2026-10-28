@@ -19,7 +19,8 @@ DESK = HERE.parent
 LOGS = HERE / "logs"
 PY = sys.executable
 
-ACTIVE = ["nfl", "cfb", "nhl", "epl", "nba"]   # add "cbb", "mlb" when their seasons are live
+ACTIVE = ["nfl", "cfb", "nhl", "epl", "nba", "cbb"]   # add "mlb" when its season is live
+# cbb skips itself until 3 days before opening night, so it is safe to leave on
 
 
 def log(msg):
@@ -124,6 +125,11 @@ def nba():
     run(DESK / "nba_algo", "nba_algo.py", "auto", "--no-push", timeout=1800)
 
 
+def cbb():
+    # grades the last 3 days, refreshes CBBD, refits weekly, today's picks (DraftKings lines first)
+    run(DESK / "cbb_algo", "cbb_algo.py", "auto", "--no-push", timeout=1800)
+
+
 def site():
     log("SITE: sync + build")
     run(HERE, "sync.py")
@@ -134,7 +140,7 @@ def site():
     log("  site push: " + ("done, live in ~1 min" if r.returncode == 0 else "FAILED " + (r.stderr or r.stdout)[-300:]))
 
 
-SPORTS = {"nfl": nfl, "cfb": cfb, "nhl": nhl, "epl": epl, "nba": nba}
+SPORTS = {"nfl": nfl, "cfb": cfb, "nhl": nhl, "epl": epl, "nba": nba, "cbb": cbb}
 
 LOCK = HERE / "logs" / "run_all.lock"
 
