@@ -2,3 +2,5 @@ game_id,date,matchup,score,market,tier,pick,odds,edge,result,units
 2026-10-17_Everton_Chelsea,2026-10-17,Chelsea @ Everton,2-0,RESULT,LEAN,Everton ML,213,3.2,L,-1.0
 2026-10-17_ManCity_Ipswich,2026-10-17,Ipswich @ Man City,2-3,TOTAL,LEAN,Over 2.5,-278,3.7,W,0.36
 2026-10-17_Fulham_Hull,2026-10-17,Hull @ Fulham,0-1,TOTAL,LEAN,Under 2.5,106,3.4,W,1.06
+2026-10-25_Hull_Brentford,2026-10-25,Brentford @ Hull,1-1,RESULT,LEAN,Hull ML,360,4.3,L,-1.0
+2026-10-25_Hull_Brentford,2026-10-25,Brentford @ Hull,1-1,TOTAL,LEAN,Under 2.5,119,3.2,W,1.19

@@ -9,3 +9,13 @@ game_id,date,matchup,score,proj,proj_result,actual,hit,top_score,exact,ou_lean,o
 2026-10-17_Brentford_Liverpool,2026-10-17,Liverpool @ Brentford,2-1,1.5-1.6,H,A,0,1-1,0,Over,1
 2026-10-17_Newcastle_AstonVilla,2026-10-17,Aston Villa @ Newcastle,1-0,1.4-1.7,H,A,0,1-1,0,Over,0
 2026-10-19_Tottenham_Coventry,2026-10-19,Coventry @ Tottenham,1-3,0.9-1.6,H,H,1,1-1,0,Over,1
+2026-10-24_Chelsea_Tottenham,2026-10-24,Tottenham @ Chelsea,2-0,1.2-2.1,H,A,0,1-1,0,Over,0
+2026-10-24_Arsenal_Everton,2026-10-24,Everton @ Arsenal,0-2,0.6-1.7,H,H,1,1-0,0,Over,0
+2026-10-24_AstonVilla_ManCity,2026-10-24,Man City @ Aston Villa,1-2,1.7-1.2,A,H,0,1-1,0,Over,1
+2026-10-23_Ipswich_Nott'mForest,2026-10-23,Nott'm Forest @ Ipswich,1-1,1.6-1.2,A,D,0,1-1,1,Over,0
+2026-10-24_Coventry_Fulham,2026-10-24,Fulham @ Coventry,1-0,1.3-1.0,A,A,1,1-1,0,Over,0
+2026-10-25_ManUnited_Bournemouth,2026-10-25,Bournemouth @ Man United,3-0,1.2-1.7,H,A,0,1-1,0,Over,1
+2026-10-25_CrystalPalace_Newcastle,2026-10-25,Newcastle @ Crystal Palace,2-0,1.5-1.5,A,A,1,1-1,0,Over,0
+2026-10-25_Hull_Brentford,2026-10-25,Brentford @ Hull,1-1,1.3-1.1,A,D,0,1-1,1,Over,0
+2026-10-25_Liverpool_Brighton,2026-10-25,Brighton @ Liverpool,0-2,1.4-1.7,H,H,1,1-1,0,Over,0
+2026-10-25_Sunderland_Leeds,2026-10-25,Leeds @ Sunderland,0-0,1.1-1.1,A,D,0,1-1,0,Under,1
