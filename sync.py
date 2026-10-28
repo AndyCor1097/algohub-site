@@ -87,31 +87,41 @@ def main():
             shutil.copy2(src, dest)
             print(f"  copied     {src.parent.name}/{src.name}")
     print("Done. Site data is up to date.")
+    import time as _t
+    t0 = _t.time()
+
+    def lap(what):
+        print(f"  [{_t.time() - t0:5.0f}s] {what}", flush=True)
     try:                                         # NFL matchups (defense vs WR1/TE1/RB1...)
         import nfl_matchups
         nfl_matchups.main()
     except Exception as ex:
         print(f"  ! matchups skipped: {ex}")
+    lap("nfl matchups + TD %")
     try:                                         # NFL model vs Novig exchange prices
         import nfl_novig
         nfl_novig.main()
     except Exception as ex:
         print(f"  ! novig nfl skipped: {ex}")
+    lap("novig nfl")
     try:                                         # CFB model vs Novig
         import cfb_novig
         cfb_novig.main()
     except Exception as ex:
         print(f"  ! novig cfb skipped: {ex}")
+    lap("novig cfb")
     try:                                         # NHL model vs Novig
         import nhl_novig
         nhl_novig.main()
     except Exception as ex:
         print(f"  ! novig nhl skipped: {ex}")
+    lap("novig nhl")
     try:                                         # rebuild the real website in public/
         import build_site
         build_site.build()
     except Exception as ex:
         print(f"  ! website build failed: {ex}")
+    lap("website build")
 
 
 if __name__ == "__main__":

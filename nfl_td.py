@@ -267,11 +267,32 @@ def backtest():
               .agg(n=("hit", "size"), pred=("pred", "mean"), actual=("hit", "mean")).round(3).to_string())
 
 
+def _cached_model(season, week):
+    """Fit once a day per week (the training weeks are all finished games), reuse on every other run."""
+    import joblib
+    from datetime import date
+    f = NFL / "models" / "td_model_cache.joblib"
+    key = (season, week, date.today().isoformat())
+    try:
+        if f.exists():
+            c = joblib.load(f)
+            if c.get("key") == key:
+                return c["model"]
+    except Exception:
+        pass
+    m = fit(training_set(season, week))
+    try:
+        f.parent.mkdir(exist_ok=True)
+        joblib.dump({"key": key, "model": m}, f)
+    except Exception:
+        pass
+    return m
+
+
 def predict_slate(season, week, targets, gone=None):
     """targets: player_id, player_display_name, pos, team, opponent_team, imp_pts, wx. Returns td_pct per row.
     gone: player_id, pos, team of players ruled out (their work gets handed out)."""
-    train = training_set(season, week)
-    m = fit(train)
+    m = _cached_model(season, week)
     cur = load_weeks(season)
     prior = season_prior(load_weeks(season - 1))
     rows = week_frame(season, week, cur, prior, targets, gone)
