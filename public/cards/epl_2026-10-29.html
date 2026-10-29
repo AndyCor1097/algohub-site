@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AlgoHub EPL 2026-10-29</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0e13;--card:#12161d;--card2:#171c25;--line:#222a35;--tx:#e6edf3;--mu:#7d8590;
+--lean:#58a6ff;--play:#3fb950;--ham:#f2b134;--neg:#f85149}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-serif;padding:28px 16px 60px}
+.wrap{max-width:1180px;margin:0 auto}
+.proj,.cols span,.top h1,.stats b,.wplab,.pick,.frow i{font-family:"Barlow Condensed",sans-serif}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:18px}
+.top .k{color:var(--mu);font-size:12px;letter-spacing:.18em;font-weight:600}
+.top h1{font-size:44px;font-weight:800;letter-spacing:.02em;line-height:1}
+.stats{display:flex;gap:22px} .stats div{text-align:right} .stats small{display:block;color:var(--mu);font-size:11px;letter-spacing:.14em}
+.stats b{font-size:30px} .stats .h b{color:var(--ham)} .stats .p b{color:var(--play)}
+.tabs{display:flex;gap:6px;margin:18px 0 18px;flex-wrap:wrap}
+.tabs button{background:transparent;border:1px solid var(--line);color:var(--mu);padding:7px 14px;border-radius:999px;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.08em;cursor:pointer}
+.tabs button.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;border-top:3px solid var(--line)}
+.card.b-lean{border-top-color:var(--lean)} .card.b-play{border-top-color:var(--play)}
+.card.b-hammer{border-top-color:var(--ham);box-shadow:0 0 0 1px rgba(242,177,52,.25),0 8px 30px rgba(242,177,52,.08)}
+.meta{display:flex;justify-content:space-between;gap:10px;padding:11px 16px;color:var(--mu);font-size:11px;letter-spacing:.08em;border-bottom:1px solid var(--line)}
+.meta span:last-child{text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.team{display:flex;align-items:center;gap:12px;padding:10px 16px}
+.badge{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font:800 13px "Barlow Condensed";letter-spacing:.04em;flex:none}
+.tname{flex:1;min-width:0} .tname b{display:block;font-size:16px;font-weight:600} .tname small{color:var(--mu);font-size:12px}
+.proj{font-size:32px;font-weight:700;color:var(--mu)} .team.fav .proj{color:var(--tx)}
+.wp{padding:6px 16px 14px} .wplab{display:flex;justify-content:space-between;font-size:15px;font-weight:700;margin-bottom:6px}
+.wplab .cap{color:var(--mu);font:600 10px Inter,system-ui,sans-serif;letter-spacing:.16em;align-self:center}
+.wpbar{display:flex;height:8px;border-radius:99px;overflow:hidden;gap:2px;background:var(--line)} .wpbar i{display:block;height:100%}
+.mkt{border-top:1px solid var(--line);padding:12px 16px;background:var(--card2)}
+.mlabel{color:var(--mu);font:600 10px Inter,system-ui,sans-serif;letter-spacing:.18em;margin-bottom:8px} .mlabel em{font-style:normal;letter-spacing:.04em;opacity:.7}
+.cols{display:grid;grid-template-columns:1.3fr 1.3fr .7fr;gap:8px} .cols small{display:block;color:var(--mu);font-size:10px;letter-spacing:.14em}
+.cols span{font-size:17px;font-weight:700} .edge span{color:var(--mu)} .edge.hot span{color:var(--tx);font-size:24px}
+.pick{margin-top:10px;display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700;letter-spacing:.02em}
+.pick small{color:var(--mu);font-size:16px}
+.pick .tier{font:800 11px Inter,system-ui,sans-serif;letter-spacing:.14em;padding:4px 8px;border-radius:6px;color:#0b0e13}
+.t-lean .tier{background:var(--lean)} .t-play .tier{background:var(--play)} .t-hammer .tier{background:var(--ham)}
+.t-hammer{color:var(--ham)} .pick.none{color:#4b535d;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.16em}
+.strip{border-top:1px solid var(--line);padding:12px 16px}
+.frow{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:11px;color:var(--mu);letter-spacing:.06em;padding:3px 0;align-items:baseline}
+.frow b{color:var(--tx);width:36px;font-size:12px} .frow i{font-style:normal;color:var(--tx);font-size:14px;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 14px}
+.chip{font:600 10px Inter,system-ui,sans-serif;letter-spacing:.1em;color:#c9d1d9;border:1px solid var(--line);background:#0f1319;padding:4px 8px;border-radius:6px}
+.chip.inj{color:#ffb4ab;border-color:#5a2a27;background:#1d1212}
+.res3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:2px}
+.res3 div{background:#0f1319;border:1px solid var(--line);border-radius:8px;padding:6px 8px}
+.res3 small{display:block;color:var(--mu);font-size:10px;letter-spacing:.12em} .res3 b{font-family:"Barlow Condensed",sans-serif;font-size:18px} .res3 em{font-style:normal;color:var(--mu);font-size:12px;margin-left:4px}
+.res3 .pk{border-color:var(--play)}
+.form{font-family:"Barlow Condensed",sans-serif;letter-spacing:.12em} .form .W{color:#3fb950} .form .L{color:#f85149} .form .D{color:#7d8590}
+.foot{color:var(--mu);font-size:11px;margin-top:30px;letter-spacing:.06em}
+.hide{display:none}
+</style></head><body><div class="wrap">
+  <div class="top">
+    <div><div class="k">THE ALGOHUB · PREMIER LEAGUE ALGO</div><h1>MATCHES FROM OCT 29</h1></div>
+    <div class="stats">
+      <div><small>MATCHES</small><b>11</b></div>
+      <div class="p"><small>PLAYS</small><b>3</b></div>
+      <div class="h"><small>HAMMERS</small><b>1</b></div>
+    </div>
+  </div>
+  <div class="tabs"><button class="on" data-f="all">ALL</button><button data-f="plays">PLAYS ONLY</button><button data-f="2026-10-31">SAT OCT 31</button><button data-f="2026-11-01">SUN NOV 01</button><button data-f="2026-11-02">MON NOV 02</button><button data-f="2026-11-06">FRI NOV 06</button></div>
+  <div class="grid">
+    <article class="card b-lean" data-day="2026-10-31" data-play="1">
+      <header class="meta"><span>SAT · 8:30 AM ET</span><span>Chelsea vs Man United</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#034694;color:#fff">CHE</span>
+        <div class="tname"><b>Chelsea</b><small>5th · 13 pts &nbsp;<span class="form"><span class="D">D</span><span class="L">L</span><span class="W">W</span><span class="W">W</span><span class="L">L</span></span></small></div>
+        <div class="proj">1.8</div>
+      </div>
+      
+      <div class="team ">
+        <span class="badge" style="background:#DA291C;color:#FBE122">MUN</span>
+        <div class="tname"><b>Man United</b><small>16th · 7 pts &nbsp;<span class="form"><span class="L">L</span><span class="D">D</span><span class="D">D</span><span class="D">D</span><span class="L">L</span></span></small></div>
+        <div class="proj">1.4</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>CHE 51%</span><span class="cap">DRAW 24%</span><span>MUN 26%</span></div>
+        <div class="wpbar"><i style="width:50.6%;background:#034694"></i><i style="width:23.6%;background:#4b535d"></i><i style="width:25.7%;background:#DA291C"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MATCH RESULT <em>· ours vs sharp market · edge +1.9 pts</em></div>
+        <div class="res3"><div class=""><small>CHE -120</small><b>51%</b><em>mkt 52%</em></div><div class=""><small>DRAW +295</small><b>24%</b><em>mkt 24%</em></div><div class=""><small>MUN +300</small><b>26%</b><em>mkt 24%</em></div></div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL GOALS 2.5</div>
+        <div class="cols">
+          <div><small>MARKET OVER</small><span>60%</span></div>
+          <div><small>OURS OVER</small><span>63%</span></div>
+          <div class="edge hot"><small>EDGE</small><span>3.1</span></div>
+        </div>
+        <div class="pick t-lean"><span class="tier">LEAN</span>Over 2.5 <small>-170</small></div>
+      </div>
+      
+      <div class="strip"><div class="mlabel">MODEL <em>(big numbers up top = model's projected goals; win % = model blended with market) · (attack / defense: 1.00 = league average, lower defense = better)</em></div>
+        <div class="frow"><b>CHE</b><span>ATT <i>1.32</i></span><span>DEF <i>1.15</i></span></div>
+        <div class="frow"><b>MUN</b><span>ATT <i>1.21</i></span><span>DEF <i>1.11</i></span></div>
+        <div class="frow"><span>MOST LIKELY <i>1-1</i> (11%)</span><span>BOTH SCORE <i>64%</i></span></div>
+      </div>
+    </article>
+    <article class="card b-none" data-day="2026-10-31" data-play="0">
+      <header class="meta"><span>SAT · 11:00 AM ET</span><span>Bournemouth vs Leeds</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#DA291C;color:#000">BOU</span>
+        <div class="tname"><b>Bournemouth</b><small>13th · 9 pts &nbsp;<span class="form"><span class="D">D</span><span class="L">L</span><span class="L">L</span><span class="W">W</span><span class="W">W</span></span></small></div>
+        <div class="proj">1.4</div>
+      </div>
+      
+      <div class="team ">
+        <span class="badge" style="background:#FFCD00;color:#1D428A">LEE</span>
+        <div class="tname"><b>Leeds</b><small>7th · 11 pts &nbsp;<span class="form"><span class="W">W</span><span class="D">D</span><span class="L">L</span><span class="D">D</span><span class="D">D</span></span></small></div>
+        <div class="proj">1.1</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>BOU 45%</span><span class="cap">DRAW 27%</span><span>LEE 28%</span></div>
+        <div class="wpbar"><i style="width:44.7%;background:#DA291C"></i><i style="width:27.3%;background:#4b535d"></i><i style="width:28.0%;background:#FFCD00"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MATCH RESULT <em>· ours vs sharp market · edge +0.5 pts</em></div>
+        <div class="res3"><div class=""><small>BOU +115</small><b>45%</b><em>mkt 45%</em></div><div class=""><small>DRAW +245</small><b>27%</b><em>mkt 28%</em></div><div class=""><small>LEE +250</small><b>28%</b><em>mkt 27%</em></div></div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL GOALS 2.5</div>
+        <div class="cols">
+          <div><small>MARKET OVER</small><span>51%</span></div>
+          <div><small>OURS OVER</small><span>52%</span></div>
+          <div class="edge "><small>EDGE</small><span>1.0</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="strip"><div class="mlabel">MODEL <em>(big numbers up top = model's projected goals; win % = model blended with market) · (attack / defense: 1.00 = league average, lower defense = better)</em></div>
+        <div class="frow"><b>BOU</b><span>ATT <i>1.20</i></span><span>DEF <i>1.09</i></span></div>
+        <div class="frow"><b>LEE</b><span>ATT <i>1.03</i></span><span>DEF <i>0.98</i></span></div>
+        <div class="frow"><span>MOST LIKELY <i>1-1</i> (14%)</span><span>BOTH SCORE <i>53%</i></span></div>
+      </div>
+    </article>
+    <article class="card b-none" data-day="2026-10-31" data-play="0">
+      <header class="meta"><span>SAT · 11:00 AM ET</span><span>Brentford vs Nott&#x27;m Forest</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#E30613;color:#fff">BRE</span>
+        <div class="tname"><b>Brentford</b><small>6th · 11 pts &nbsp;<span class="form"><span class="D">D</span><span class="W">W</span><span class="D">D</span><span class="L">L</span><span class="D">D</span></span></small></div>
+        <div class="proj">1.6</div>
+      </div>
+      
+      <div class="team ">
+        <span class="badge" style="background:#DD0000;color:#fff">NFO</span>
+        <div class="tname"><b>Nott&#x27;m Forest</b><small>18th · 6 pts &nbsp;<span class="form"><span class="W">W</span><span class="L">L</span><span class="L">L</span><span class="L">L</span><span class="D">D</span></span></small></div>
+        <div class="proj">1.1</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>BRE 47%</span><span class="cap">DRAW 26%</span><span>NFO 27%</span></div>
+        <div class="wpbar"><i style="width:47.5%;background:#E30613"></i><i style="width:25.5%;background:#4b535d"></i><i style="width:27.0%;background:#DD0000"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MATCH RESULT <em>· ours vs sharp market · edge +0.9 pts</em></div>
+        <div class="res3"><div class=""><small>BRE +105</small><b>47%</b><em>mkt 47%</em></div><div class=""><small>DRAW +270</small><b>26%</b><em>mkt 26%</em></div><div class=""><small>NFO +245</small><b>27%</b><em>mkt 28%</em></div></div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL GOALS 2.5</div>
+        <div class="cols">
+          <div><small>MARKET OVER</small><span>55%</span></div>
+          <div><small>OURS OVER</small><span>55%</span></div>
+          <div class="edge "><small>EDGE</small><span>0.8</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="strip"><div class="mlabel">MODEL <em>(big numbers up top = model's projected goals; win % = model blended with market) · (attack / defense: 1.00 = league average, lower defense = better)</em></div>
+        <div class="frow"><b>BRE</b><span>ATT <i>1.23</i></span><span>DEF <i>1.09</i></span></div>
+        <div class="frow"><b>NFO</b><span>ATT <i>1.00</i></span><span>DEF <i>1.05</i></span></div>
+        <div class="frow"><span>MOST LIKELY <i>1-1</i> (13%)</span><span>BOTH SCORE <i>54%</i></span></div>
+      </div>
+    </article>
+    <article class="card b-none" data-day="2026-10-31" data-play="0">
+      <header class="meta"><span>SAT · 11:00 AM ET</span><span>Coventry vs Sunderland</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#59CBE8;color:#000">COV</span>
+        <div class="tname"><b>Coventry</b><small>19th · 6 pts &nbsp;<span class="form"><span class="L">L</span><span class="W">W</span><span class="W">W</span><span class="L">L</span><span class="L">L</span></span></small></div>
+        <div class="proj">0.9</div>
+      </div>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#EB172B;color:#fff">SUN</span>
+        <div class="tname"><b>Sunderland</b><small>20th · 5 pts &nbsp;<span class="form"><span class="L">L</span><span class="L">L</span><span class="L">L</span><span class="L">L</span><span class="D">D</span></span></small></div>
+        <div class="proj">1.2</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>COV 30%</span><span class="cap">DRAW 29%</span><span>SUN 41%</span></div>
+        <div class="wpbar"><i style="width:30.0%;background:#59CBE8"></i><i style="width:29.0%;background:#4b535d"></i><i style="width:41.0%;background:#EB172B"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MATCH RESULT <em>· ours vs sharp market · edge +0.5 pts</em></div>
+        <div class="res3"><div class=""><small>COV +210</small><b>30%</b><em>mkt 31%</em></div><div class=""><small>DRAW +235</small><b>29%</b><em>mkt 29%</em></div><div class=""><small>SUN +135</small><b>41%</b><em>mkt 41%</em></div></div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL GOALS 2.5</div>
+        <div class="cols">
+          <div><small>MARKET OVER</small><span>48%</span></div>
+          <div><small>OURS OVER</small><span>46%</span></div>
+          <div class="edge "><small>EDGE</small><span>2.2</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="strip"><div class="mlabel">MODEL <em>(big numbers up top = model's projected goals; win % = model blended with market) · (attack / defense: 1.00 = league average, lower defense = better)</em></div>
+        <div class="frow"><b>COV</b><span>ATT <i>0.70</i></span><span>DEF <i>1.35</i></span></div>
+        <div class="frow"><b>SUN</b><span>ATT <i>0.88</i></span><span>DEF <i>1.08</i></span></div>
+        <div class="frow"><span>MOST LIKELY <i>1-1</i> (15%)</span><span>BOTH SCORE <i>44%</i></span></div>
+      </div>
+    </article>
+    <article class="card b-hammer" data-day="2026-10-31" data-play="1">
+      <header class="meta"><span>SAT · 11:00 AM ET</span><span>Hull vs Ipswich</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#F5A12D;color:#000">HUL</span>
+        <div class="tname"><b>Hull</b><small>10th · 10 pts &nbsp;<span class="form"><span class="D">D</span><span class="L">L</span><span class="D">D</span><span class="L">L</span><span class="D">D</span></span></small></div>
+        <div class="proj">1.6</div>
+      </div>
+      
+      <div class="team ">
+        <span class="badge" style="background:#3A64A3;color:#fff">IPS</span>
+        <div class="tname"><b>Ipswich</b><small>12th · 10 pts &nbsp;<span class="form"><span class="W">W</span><span class="L">L</span><span class="W">W</span><span class="L">L</span><span class="D">D</span></span></small></div>
+        <div class="proj">0.9</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>HUL 42%</span><span class="cap">DRAW 27%</span><span>IPS 31%</span></div>
+        <div class="wpbar"><i style="width:42.2%;background:#F5A12D"></i><i style="width:26.9%;background:#4b535d"></i><i style="width:31.0%;background:#3A64A3"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MATCH RESULT <em>· ours vs sharp market · edge +6.0 pts</em></div>
+        <div class="res3"><div class="pk"><small>HUL +165</small><b>42%</b><em>mkt 36%</em></div><div class=""><small>DRAW +245</small><b>27%</b><em>mkt 28%</em></div><div class=""><small>IPS +165</small><b>31%</b><em>mkt 36%</em></div></div>
+        <div class="pick t-hammer"><span class="tier">HAMMER</span>Hull ML <small>+165</small></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL GOALS 2.5</div>
+        <div class="cols">
+          <div><small>MARKET OVER</small><span>52%</span></div>
+          <div><small>OURS OVER</small><span>52%</span></div>
+          <div class="edge "><small>EDGE</small><span>0.3</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="strip"><div class="mlabel">MODEL <em>(big numbers up top = model's projected goals; win % = model blended with market) · (attack / defense: 1.00 = league average, lower defense = better)</em></div>
+        <div class="frow"><b>HUL</b><span>ATT <i>0.81</i></span><span>DEF <i>1.03</i></span></div>
+        <div class="frow"><b>IPS</b><span>ATT <i>0.89</i></span><span>DEF <i>1.59</i></span></div>
+        <div class="frow"><span>MOST LIKELY <i>1-1</i> (13%)</span><span>BOTH SCORE <i>49%</i></span></div>
+      </div>
+    </article>
+    <article class="card b-none" data-day="2026-10-31" data-play="0">
+      <header class="meta"><span>SAT · 11:00 AM ET</span><span>Man City vs Brighton</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#6CABDD;color:#1C2C5B">MCI</span>
+        <div class="tname"><b>Man City</b><small>1st · 21 pts &nbsp;<span class="form"><span class="W">W</span><span class="W">W</span><span class="W">W</span><span class="W">W</span><span class="L">L</span></span></small></div>
+        <div class="proj">2.0</div>
+      </div>
+      
+      <div class="team ">
+        <span class="badge" style="background:#0057B8;color:#fff">BHA</span>
+        <div class="tname"><b>Brighton</b><small>3rd · 16 pts &nbsp;<span class="form"><span class="W">W</span><span class="W">W</span><span class="W">W</span><span class="W">W</span><span class="L">L</span></span></small></div>
+        <div class="proj">1.1</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>MCI 59%</span><span class="cap">DRAW 21%</span><span>BHA 20%</span></div>
+        <div class="wpbar"><i style="width:58.5%;background:#6CABDD"></i><i style="width:21.0%;background:#4b535d"></i><i style="width:20.5%;background:#0057B8"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MATCH RESULT <em>· ours vs sharp market · edge +0.2 pts</em></div>
+        <div class="res3"><div class=""><small>MCI -160</small><b>59%</b><em>mkt 59%</em></div><div class=""><small>DRAW +360</small><b>21%</b><em>mkt 21%</em></div><div class=""><small>BHA +370</small><b>20%</b><em>mkt 20%</em></div></div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL GOALS 2.5</div>
+        <div class="cols">
+          <div><small>MARKET OVER</small><span>-</span></div>
+          <div><small>OURS OVER</small><span>67%</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="strip"><div class="mlabel">MODEL <em>(big numbers up top = model's projected goals; win % = model blended with market) · (attack / defense: 1.00 = league average, lower defense = better)</em></div>
+        <div class="frow"><b>MCI</b><span>ATT <i>1.59</i></span><span>DEF <i>0.84</i></span></div>
+        <div class="frow"><b>BHA</b><span>ATT <i>1.34</i></span><span>DEF <i>1.01</i></span></div>
+        <div class="frow"><span>MOST LIKELY <i>1-1</i> (11%)</span><span>BOTH SCORE <i>59%</i></span></div>
+      </div>
+    </article>
+    <article class="card b-lean" data-day="2026-10-31" data-play="1">
+      <header class="meta"><span>SAT · 1:30 PM ET</span><span>Tottenham vs Crystal Palace</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#132257;color:#fff">TOT</span>
+        <div class="tname"><b>Tottenham</b><small>14th · 9 pts &nbsp;<span class="form"><span class="D">D</span><span class="L">L</span><span class="D">D</span><span class="W">W</span><span class="W">W</span></span></small></div>
+        <div class="proj">1.6</div>
+      </div>
+      
+      <div class="team ">
+        <span class="badge" style="background:#1B458F;color:#C4122E">CRY</span>
+        <div class="tname"><b>Crystal Palace</b><small>17th · 7 pts &nbsp;<span class="form"><span class="L">L</span><span class="D">D</span><span class="W">W</span><span class="L">L</span><span class="L">L</span></span></small></div>
+        <div class="proj">1.2</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>TOT 57%</span><span class="cap">DRAW 22%</span><span>CRY 21%</span></div>
+        <div class="wpbar"><i style="width:56.6%;background:#132257"></i><i style="width:22.5%;background:#4b535d"></i><i style="width:21.0%;background:#1B458F"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MATCH RESULT <em>· ours vs sharp market · edge +3.6 pts</em></div>
+        <div class="res3"><div class=""><small>TOT -180</small><b>57%</b><em>mkt 61%</em></div><div class=""><small>DRAW +350</small><b>22%</b><em>mkt 21%</em></div><div class="pk"><small>CRY +450</small><b>21%</b><em>mkt 17%</em></div></div>
+        <div class="pick t-lean"><span class="tier">LEAN</span>Crystal Palace ML <small>+450</small></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL GOALS 2.5</div>
+        <div class="cols">
+          <div><small>MARKET OVER</small><span>59%</span></div>
+          <div><small>OURS OVER</small><span>59%</span></div>
+          <div class="edge "><small>EDGE</small><span>0.1</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="strip"><div class="mlabel">MODEL <em>(big numbers up top = model's projected goals; win % = model blended with market) · (attack / defense: 1.00 = league average, lower defense = better)</em></div>
+        <div class="frow"><b>TOT</b><span>ATT <i>1.06</i></span><span>DEF <i>1.20</i></span></div>
+        <div class="frow"><b>CRY</b><span>ATT <i>0.98</i></span><span>DEF <i>1.23</i></span></div>
+        <div class="frow"><span>MOST LIKELY <i>1-1</i> (13%)</span><span>BOTH SCORE <i>56%</i></span></div>
+      </div>
+    </article>
+    <article class="card b-none" data-day="2026-10-31" data-play="0">
+      <header class="meta"><span>SAT · 4:00 PM ET</span><span>Aston Villa vs Fulham</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#670E36;color:#95BFE5">AVL</span>
+        <div class="tname"><b>Aston Villa</b><small>9th · 11 pts &nbsp;<span class="form"><span class="L">L</span><span class="W">W</span><span class="D">D</span><span class="W">W</span><span class="W">W</span></span></small></div>
+        <div class="proj">1.6</div>
+      </div>
+      
+      <div class="team ">
+        <span class="badge" style="background:#FFFFFF;color:#000">FUL</span>
+        <div class="tname"><b>Fulham</b><small>15th · 8 pts &nbsp;<span class="form"><span class="D">D</span><span class="D">D</span><span class="L">L</span><span class="W">W</span><span class="W">W</span></span></small></div>
+        <div class="proj">1.1</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>AVL 49%</span><span class="cap">DRAW 25%</span><span>FUL 25%</span></div>
+        <div class="wpbar"><i style="width:49.2%;background:#670E36"></i><i style="width:25.4%;background:#4b535d"></i><i style="width:25.4%;background:#FFFFFF"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MATCH RESULT <em>· ours vs sharp market · edge +0.4 pts</em></div>
+        <div class="res3"><div class=""><small>AVL -105</small><b>49%</b><em>mkt 49%</em></div><div class=""><small>DRAW +275</small><b>25%</b><em>mkt 25%</em></div><div class=""><small>FUL +270</small><b>25%</b><em>mkt 26%</em></div></div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL GOALS 2.5</div>
+        <div class="cols">
+          <div><small>MARKET OVER</small><span>57%</span></div>
+          <div><small>OURS OVER</small><span>56%</span></div>
+          <div class="edge "><small>EDGE</small><span>0.6</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="strip"><div class="mlabel">MODEL <em>(big numbers up top = model's projected goals; win % = model blended with market) · (attack / defense: 1.00 = league average, lower defense = better)</em></div>
+        <div class="frow"><b>AVL</b><span>ATT <i>1.19</i></span><span>DEF <i>1.07</i></span></div>
+        <div class="frow"><b>FUL</b><span>ATT <i>0.98</i></span><span>DEF <i>1.07</i></span></div>
+        <div class="frow"><span>MOST LIKELY <i>1-1</i> (13%)</span><span>BOTH SCORE <i>53%</i></span></div>
+      </div>
+    </article>
+    <article class="card b-none" data-day="2026-11-01" data-play="0">
+      <header class="meta"><span>SUN · 11:30 AM ET</span><span>Liverpool vs Arsenal</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#C8102E;color:#fff">LIV</span>
+        <div class="tname"><b>Liverpool</b><small>4th · 15 pts &nbsp;<span class="form"><span class="D">D</span><span class="W">W</span><span class="L">L</span><span class="W">W</span><span class="W">W</span></span></small></div>
+        <div class="proj">1.1</div>
+      </div>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#EF0107;color:#fff">ARS</span>
+        <div class="tname"><b>Arsenal</b><small>2nd · 21 pts &nbsp;<span class="form"><span class="W">W</span><span class="L">L</span><span class="W">W</span><span class="W">W</span><span class="W">W</span></span></small></div>
+        <div class="proj">1.4</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>LIV 32%</span><span class="cap">DRAW 27%</span><span>ARS 41%</span></div>
+        <div class="wpbar"><i style="width:31.6%;background:#C8102E"></i><i style="width:27.1%;background:#4b535d"></i><i style="width:41.3%;background:#EF0107"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MATCH RESULT <em>· ours vs sharp market · edge +0.8 pts</em></div>
+        <div class="res3"><div class=""><small>LIV +195</small><b>32%</b><em>mkt 32%</em></div><div class=""><small>DRAW +250</small><b>27%</b><em>mkt 27%</em></div><div class=""><small>ARS +135</small><b>41%</b><em>mkt 41%</em></div></div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL GOALS 2.5</div>
+        <div class="cols">
+          <div><small>MARKET OVER</small><span>52%</span></div>
+          <div><small>OURS OVER</small><span>52%</span></div>
+          <div class="edge "><small>EDGE</small><span>0.4</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="strip"><div class="mlabel">MODEL <em>(big numbers up top = model's projected goals; win % = model blended with market) · (attack / defense: 1.00 = league average, lower defense = better)</em></div>
+        <div class="frow"><b>LIV</b><span>ATT <i>1.38</i></span><span>DEF <i>0.99</i></span></div>
+        <div class="frow"><b>ARS</b><span>ATT <i>1.40</i></span><span>DEF <i>0.67</i></span></div>
+        <div class="frow"><span>MOST LIKELY <i>1-1</i> (14%)</span><span>BOTH SCORE <i>52%</i></span></div>
+      </div>
+    </article>
+    <article class="card b-none" data-day="2026-11-02" data-play="0">
+      <header class="meta"><span>MON · 3:00 PM ET</span><span>Newcastle vs Everton</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#241F20;color:#fff">NEW</span>
+        <div class="tname"><b>Newcastle</b><small>8th · 11 pts &nbsp;<span class="form"><span class="L">L</span><span class="W">W</span><span class="L">L</span><span class="L">L</span><span class="W">W</span></span></small></div>
+        <div class="proj">1.5</div>
+      </div>
+      
+      <div class="team ">
+        <span class="badge" style="background:#003399;color:#fff">EVE</span>
+        <div class="tname"><b>Everton</b><small>11th · 10 pts &nbsp;<span class="form"><span class="D">D</span><span class="W">W</span><span class="D">D</span><span class="L">L</span><span class="L">L</span></span></small></div>
+        <div class="proj">1.1</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>NEW 43%</span><span class="cap">DRAW 26%</span><span>EVE 31%</span></div>
+        <div class="wpbar"><i style="width:43.2%;background:#241F20"></i><i style="width:26.1%;background:#4b535d"></i><i style="width:30.7%;background:#003399"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MATCH RESULT <em>· ours vs sharp market · edge +2.1 pts</em></div>
+        <div class="res3"><div class=""><small>NEW +130</small><b>43%</b><em>mkt 41%</em></div><div class=""><small>DRAW +260</small><b>26%</b><em>mkt 26%</em></div><div class=""><small>EVE +190</small><b>31%</b><em>mkt 33%</em></div></div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL GOALS 2.5</div>
+        <div class="cols">
+          <div><small>MARKET OVER</small><span>55%</span></div>
+          <div><small>OURS OVER</small><span>55%</span></div>
+          <div class="edge "><small>EDGE</small><span>0.0</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="strip"><div class="mlabel">MODEL <em>(big numbers up top = model's projected goals; win % = model blended with market) · (attack / defense: 1.00 = league average, lower defense = better)</em></div>
+        <div class="frow"><b>NEW</b><span>ATT <i>1.24</i></span><span>DEF <i>1.18</i></span></div>
+        <div class="frow"><b>EVE</b><span>ATT <i>0.93</i></span><span>DEF <i>1.00</i></span></div>
+        <div class="frow"><span>MOST LIKELY <i>1-1</i> (13%)</span><span>BOTH SCORE <i>54%</i></span></div>
+      </div>
+    </article>
+    <article class="card b-none" data-day="2026-11-06" data-play="0">
+      <header class="meta"><span>FRI · 3:00 PM ET</span><span>Everton vs Coventry</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#003399;color:#fff">EVE</span>
+        <div class="tname"><b>Everton</b><small>11th · 10 pts &nbsp;<span class="form"><span class="D">D</span><span class="W">W</span><span class="D">D</span><span class="L">L</span><span class="L">L</span></span></small></div>
+        <div class="proj">1.6</div>
+      </div>
+      
+      <div class="team ">
+        <span class="badge" style="background:#59CBE8;color:#000">COV</span>
+        <div class="tname"><b>Coventry</b><small>19th · 6 pts &nbsp;<span class="form"><span class="L">L</span><span class="W">W</span><span class="W">W</span><span class="L">L</span><span class="L">L</span></span></small></div>
+        <div class="proj">0.7</div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>EVE 56%</span><span class="cap">DRAW 24%</span><span>COV 19%</span></div>
+        <div class="wpbar"><i style="width:56.4%;background:#003399"></i><i style="width:24.5%;background:#4b535d"></i><i style="width:19.1%;background:#59CBE8"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">MATCH RESULT <em>· ours vs sharp market · edge +1.2 pts</em></div>
+        <div class="res3"><div class=""><small>EVE -145</small><b>56%</b><em>mkt 55%</em></div><div class=""><small>DRAW +290</small><b>24%</b><em>mkt 24%</em></div><div class=""><small>COV +350</small><b>19%</b><em>mkt 21%</em></div></div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL GOALS 2.5</div>
+        <div class="cols">
+          <div><small>MARKET OVER</small><span>53%</span></div>
+          <div><small>OURS OVER</small><span>51%</span></div>
+          <div class="edge "><small>EDGE</small><span>2.7</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="strip"><div class="mlabel">MODEL <em>(big numbers up top = model's projected goals; win % = model blended with market) · (attack / defense: 1.00 = league average, lower defense = better)</em></div>
+        <div class="frow"><b>EVE</b><span>ATT <i>0.93</i></span><span>DEF <i>1.00</i></span></div>
+        <div class="frow"><b>COV</b><span>ATT <i>0.70</i></span><span>DEF <i>1.35</i></span></div>
+        <div class="frow"><span>MOST LIKELY <i>1-0</i> (15%)</span><span>BOTH SCORE <i>41%</i></span></div>
+      </div>
+    </article></div>
+  <p class="foot">Dixon-Coles goals model (attack/defense per team, recent matches weighted more), blended with the sharp no-vig market: we keep 35% of the model's disagreement. Big number = projected goals. Edges in win-prob points. LEAN / PLAY / HAMMER. Not betting advice.</p>
+</div>
+<script>
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
+  const f=b.dataset.f;
+  document.querySelectorAll('.card').forEach(c=>c.classList.toggle('hide',
+    f==='plays'?c.dataset.play!=='1':(f!=='all'&&c.dataset.day!==f)));
+});
+</script></body></html>

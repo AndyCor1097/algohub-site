@@ -34,3 +34,15 @@ game_id,date,matchup,score,pick,model_pct,result,ats_pick,ats_edge,ats_result
 401909865,2026-10-25,Clippers @ Thunder,101-108,Thunder,85.4,W,Clippers,3.0,W
 401909866,2026-10-25,Pistons @ 76ers,106-93,Pistons,53.7,W,Pistons,1.1,W
 401909867,2026-10-25,Grizzlies @ Kings,123-112,Grizzlies,59.4,W,Grizzlies,0.1,W
+401909881,2026-10-28,Heat @ Hawks,129-117,Hawks,61.8,L,Hawks,2.2,L
+401909882,2026-10-28,Wizards @ Cavaliers,111-121,Cavaliers,75.1,W,Wizards,0.7,L
+401909883,2026-10-28,Hornets @ Pistons,89-97,Pistons,70.2,W,Hornets,0.8,L
+401909884,2026-10-28,76ers @ Pacers,114-109,76ers,63.7,W,Pacers,0.7,W
+401909885,2026-10-28,Magic @ Raptors,99-129,Raptors,63.2,W,Magic,0.2,L
+401909886,2026-10-28,Knicks @ Bulls,133-127,Knicks,71.0,W,Bulls,0.1,W
+401909887,2026-10-28,Rockets @ Bucks,132-100,Rockets,76.0,W,Rockets,0.4,W
+401909888,2026-10-28,Warriors @ Timberwolves,119-114,Timberwolves,64.1,L,Timberwolves,1.4,L
+401909889,2026-10-28,Nuggets @ Pelicans,104-91,Nuggets,60.4,W,Pelicans,1.2,L
+401909890,2026-10-28,Spurs @ Jazz,117-111,Spurs,80.3,W,Jazz,2.2,W
+401909891,2026-10-28,Thunder @ Mavericks,96-120,Thunder,67.5,L,Thunder,0.9,L
+401909892,2026-10-28,Lakers @ Clippers,103-87,Clippers,55.6,L,Clippers,2.0,L
