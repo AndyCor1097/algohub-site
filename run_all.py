@@ -145,31 +145,65 @@ SPORTS = {"nfl": nfl, "cfb": cfb, "nhl": nhl, "epl": epl, "nba": nba, "cbb": cbb
 LOCK = HERE / "logs" / "run_all.lock"
 
 
+def _proc(pid):
+    """'python' if that PID is a running python process, 'other' if it's something else, '' if gone."""
+    try:
+        out = subprocess.run(["tasklist", "/FI", f"PID eq {pid}", "/NH", "/FO", "CSV"],
+                             capture_output=True, text=True, timeout=20).stdout.lower()
+    except Exception:
+        return "python"                       # can't tell: play it safe, treat as running
+    if f'"{pid}"' not in out:
+        return ""
+    return "python" if "python" in out else "other"
+
+
+HUNG_MIN = 62    # no step may run longer than 60 min (NFL's timeout); a silent log past this = frozen run
+
+
 def _locked():
-    """Only one run at a time: two runs at once get Novig to rate-limit both (empty props / lines)."""
+    """Only one run at a time: two runs at once get Novig to rate-limit both (empty props / lines).
+    A lock left behind by a run that crashed, or froze (PC slept mid-run, network died), is cleared
+    automatically so the next run never gets stuck behind it."""
     LOGS.mkdir(exist_ok=True)
     if LOCK.exists():
         try:
-            age = datetime.now().timestamp() - LOCK.stat().st_mtime
-        except OSError:
-            age = 0
-        if age < 2 * 3600:
-            print(f"run_all is already running (started {int(age // 60)} min ago). Let it finish. "
-                  f"(If it crashed, delete {LOCK} and run again.)")
+            pid = int(LOCK.read_text().strip() or 0)
+        except (OSError, ValueError):
+            pid = 0
+        now = datetime.now().timestamp()
+        logs = [LOCK] + sorted(LOGS.glob("run_all_*.log"))[-1:]
+        quiet = min((now - f.stat().st_mtime) / 60 for f in logs if f.exists())
+        state = _proc(pid) if pid else ""
+        if state != "python":
+            print("Clearing a leftover lock from a run that already ended.")
+        elif quiet > HUNG_MIN:
+            print(f"The last run (PID {pid}) has been frozen for {quiet:.0f} min. Stopping it and starting fresh.")
+            subprocess.run(["taskkill", "/PID", str(pid), "/T", "/F"], capture_output=True)
+        else:
+            print(f"run_all is already running (last activity {quiet:.0f} min ago). Let it finish, "
+                  f"or watch logs\\run_all_{date.today()}.log")
             return True
     LOCK.write_text(str(os.getpid()))
     return False
 
 
+def _touch_lock():
+    try:
+        LOCK.write_text(str(os.getpid()))   # heartbeat: shows the run is still moving
+    except OSError:
+        pass
+
+
 if __name__ == "__main__":
     if _locked():
-        sys.exit(0)
+        sys.exit(3)
     import atexit
     atexit.register(lambda: LOCK.unlink(missing_ok=True))
     pick = [a.lower() for a in sys.argv[1:]] or ACTIVE
     log(f"===== RUN ALL {datetime.now():%Y-%m-%d %H:%M} : {', '.join(pick)} =====")
     for s in pick:
         if s in SPORTS:
+            _touch_lock()
             log(s.upper())
             try:
                 SPORTS[s]()
