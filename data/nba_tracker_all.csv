@@ -49,3 +49,13 @@ game_id,date,matchup,score,pick,model_pct,result,ats_pick,ats_edge,ats_result
 401909893,2026-10-29,Cavaliers @ Hawks,111-114,Hawks,52.1,W,Hawks,0.6,W
 401909894,2026-10-29,Kings @ Pelicans,120-132,Pelicans,64.1,W,Kings,1.3,L
 401909895,2026-10-29,Grizzlies @ Trail Blazers,124-103,Trail Blazers,69.4,L,Grizzlies,0.7,W
+401909277,2026-10-30,Hornets @ Wizards,79-95,Hornets,52.4,L,Hornets,0.3,L
+401909278,2026-10-30,Bulls @ Celtics,111-125,Celtics,85.1,W,Bulls,0.3,L
+401909279,2026-10-30,Pistons @ Nets,110-94,Pistons,74.1,W,Pistons,0.4,W
+401909280,2026-10-30,Knicks @ 76ers,93-98,Knicks,54.7,L,76ers,1.1,W
+401909281,2026-10-30,Magic @ Raptors,121-114,Raptors,67.3,L,Raptors,0.8,L
+401909282,2026-10-30,Pacers @ Heat,125-145,Heat,69.2,W,Pacers,1.8,L
+401909283,2026-10-30,Rockets @ Mavericks,111-116,Rockets,64.8,L,Rockets,0.2,L
+401909284,2026-10-30,Clippers @ Timberwolves,101-127,Timberwolves,70.1,W,Timberwolves,0.0,W
+401909285,2026-10-30,Lakers @ Warriors,95-112,Lakers,57.2,L,Warriors,0.2,W
+401909286,2026-10-30,Nuggets @ Suns,127-120,Nuggets,58.7,W,Suns,1.1,L
