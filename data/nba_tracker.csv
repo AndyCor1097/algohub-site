@@ -17,3 +17,4 @@ game_id,date,matchup,score,market,tier,pick,odds,edge,result,units
 401909892,2026-10-28,Lakers @ Clippers,103-87,SPREAD,LEAN,Clippers +3.5,-110.0,2.0,L,-1.0
 401909282,2026-10-30,Pacers @ Heat,125-145,SPREAD,LEAN,Pacers +8.5,-110.0,-1.8,L,-1.0
 401909282,2026-10-30,Pacers @ Heat,125-145,ML,VALUE,Pacers ML,277.0,4.4,L,-1.0
+401909903,2026-11-01,Celtics @ Magic,108-97,TOTAL,LEAN,OVER 221.5,-110.0,2.0,L,-1.0

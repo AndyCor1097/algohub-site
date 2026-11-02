@@ -35,8 +35,8 @@ TIER_RANK = {"HAMMER": 3, "STRONG": 3, "PLAY": 2, "SOLID": 2, "EDGE": 2, "LEAN":
 ON_HOLD = {}
 
 SPORTS = [  # slug, tab label, board key
-    ("nfl", "NFL", "NFL"), ("cfb", "CFB", "CFB"), ("nhl", "NHL", "NHL"), ("mlb", "MLB", "MLB"),
-    ("hr", "Home Runs", "HR"), ("epl", "Premier League", "EPL"), ("cbb", "CBB", "CBB"), ("nba", "NBA", "NBA"),
+    ("nfl", "NFL", "NFL"), ("cfb", "CFB", "CFB"), ("cbb", "CBB", "CBB"), ("nba", "NBA", "NBA"),
+    ("nhl", "NHL", "NHL"), ("epl", "Premier League", "EPL"), ("mlb", "MLB", "MLB"), ("hr", "Home Runs", "HR"),
 ]
 e = lambda s: html.escape(str(s)) if s is not None and not (isinstance(s, float) and math.isnan(s)) else ""
 
@@ -1001,7 +1001,7 @@ def build():
             if i == 0:
                 write(f"{slug}/index.html", page)
     # home = the first sport with games today (else NFL), with the board on top
-    first = next((s for s in ("cbb", "nhl", "mlb", "nfl", "cfb", "epl", "hr") if s in live), "nfl")
+    first = next((s for s in ("nfl", "cfb", "cbb", "nba", "nhl", "epl", "mlb", "hr") if s in live), "nfl")
     home = (OUT / first / "index.html").read_text(encoding="utf-8")
     home = re.sub(r"<title>.*?</title>", f"<title>{SITE_NAME}: today's picks</title>", home, count=1)
     write("index.html", home)

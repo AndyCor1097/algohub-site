@@ -59,3 +59,7 @@ game_id,date,matchup,score,pick,model_pct,result,ats_pick,ats_edge,ats_result
 401909284,2026-10-30,Clippers @ Timberwolves,101-127,Timberwolves,70.1,W,Timberwolves,0.0,W
 401909285,2026-10-30,Lakers @ Warriors,95-112,Lakers,57.2,L,Warriors,0.2,W
 401909286,2026-10-30,Nuggets @ Suns,127-120,Nuggets,58.7,W,Suns,1.1,L
+401909903,2026-11-01,Celtics @ Magic,108-97,Celtics,67.2,W,Magic,1.2,L
+401909904,2026-11-01,Nets @ Pacers,98-90,Pacers,62.8,L,Pacers,0.4,L
+401909905,2026-11-01,Clippers @ Warriors,112-124,Warriors,57.8,W,Warriors,1.1,W
+401909906,2026-11-01,Raptors @ Lakers,125-131,Lakers,56.3,W,Raptors,0.5,L

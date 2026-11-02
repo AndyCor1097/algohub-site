@@ -209,7 +209,7 @@ def board_html(plays, counts):
     by = {}
     for p in sorted(games, key=lambda p: (TOP.get(p["tier"], 0), p["edge"]), reverse=True):
         by.setdefault(p["sport"], []).append(p)
-    order = ["NBA", "CBB", "NHL", "MLB", "EPL", "NFL", "CFB"]
+    order = ["NFL", "CFB", "CBB", "NBA", "NHL", "EPL", "MLB", "HR"]
     top = [p for rnd in range(2) for sp in order for p in by.get(sp, [])[rnd:rnd + 1]]
     top += [p for p in plays if p["sport"] == "HR"][:2]
     today = date.today()

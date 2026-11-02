@@ -19,3 +19,12 @@ game_id,date,matchup,score,proj,proj_result,actual,hit,top_score,exact,ou_lean,o
 2026-10-25_Hull_Brentford,2026-10-25,Brentford @ Hull,1-1,1.3-1.1,A,D,0,1-1,1,Over,0
 2026-10-25_Liverpool_Brighton,2026-10-25,Brighton @ Liverpool,0-2,1.4-1.7,H,H,1,1-1,0,Over,0
 2026-10-25_Sunderland_Leeds,2026-10-25,Leeds @ Sunderland,0-0,1.1-1.1,A,D,0,1-1,0,Under,1
+2026-10-31_ManCity_Brighton,2026-10-31,Brighton @ Man City,1-0,1.1-2.0,H,A,0,1-1,0,Over,0
+2026-10-31_Bournemouth_Leeds,2026-10-31,Leeds @ Bournemouth,0-2,1.1-1.4,H,H,1,1-1,0,Over,0
+2026-10-31_Tottenham_CrystalPalace,2026-10-31,Crystal Palace @ Tottenham,0-2,1.2-1.6,H,H,1,1-1,0,Over,0
+2026-10-31_Hull_Ipswich,2026-10-31,Ipswich @ Hull,2-2,0.9-1.6,H,D,0,1-1,0,Over,1
+2026-10-31_Coventry_Sunderland,2026-10-31,Sunderland @ Coventry,1-3,1.2-0.9,A,H,0,1-1,0,Under,0
+2026-10-31_Brentford_Nott'mForest,2026-10-31,Nott'm Forest @ Brentford,0-2,1.1-1.6,H,H,1,1-1,0,Over,0
+2026-10-31_Chelsea_ManUnited,2026-10-31,Man United @ Chelsea,0-2,1.4-1.8,H,H,1,1-1,0,Over,0
+2026-10-31_AstonVilla_Fulham,2026-10-31,Fulham @ Aston Villa,1-1,1.1-1.6,H,D,0,1-1,1,Over,0
+2026-11-01_Liverpool_Arsenal,2026-11-01,Arsenal @ Liverpool,1-0,1.4-1.1,A,A,1,1-1,0,Over,0
