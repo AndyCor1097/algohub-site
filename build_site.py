@@ -956,6 +956,39 @@ def shell(current, body, plays, counts, live, title, members=True):
 </div>{sharp.HTML}{JS}{ticker.js(_live_picks(plays) if members else [], sorted({k for k in counts if not k.endswith("_today") and k != "HR"}))}{sharp.JS}</body></html>"""
 
 
+# "How plays work" box at the top of each sport (keep in sync with each algo's tier settings)
+TIER_GUIDE = {
+    "nfl": [("Spread", "LEAN 3+ pts", "PLAY 4.5+", "HAMMER 6+"),
+            ("Total", "LEAN 2.5+ pts", "PLAY 4+", "HAMMER 6+"),
+            ("Moneyline value", "win % 4+ pts over the no-vig line", "", ""),
+            ("Yardage / receptions props", "LEAN 2+ pts over the price's break-even", "PLAY 3.5+", "HAMMER 5+"),
+            ("Anytime TD", "LEAN 3+ pts over break-even", "PLAY 5+", "")],
+    "cfb": [("Spread", "LEAN 2+ pts", "EDGE 4+", "STRONG 7+")],
+    "cbb": [("Spread", "LEAN 5+ pts", "PLAY 6+", "HAMMER 8+"),
+            ("Moneyline value", "win % 4+ pts over the no-vig line", "", ""),
+            ("Early season", "no plays until both teams have played 4+ games", "", "")],
+    "nba": [("Spread", "LEAN 1.5+ pts", "PLAY 2.5+", "HAMMER 3.5+"),
+            ("Total", "LEAN 2+ pts", "PLAY 3+", "HAMMER 4.5+"),
+            ("Moneyline value", "win % 4+ pts over the no-vig line", "", ""),
+            ("Player props", "LEAN 3+ pts over the price's break-even", "PLAY 5+", "HAMMER 7+")],
+    "nhl": [("Moneyline", "LEAN 3+ pts of win %", "PLAY 5+", "HAMMER 8+"),
+            ("Puck line", "LEAN 4+ pts", "PLAY 6+", "HAMMER 9+"),
+            ("Total", "LEAN 4+ pts", "PLAY 6+", "HAMMER 9+")],
+    "epl": [("Result / totals", "LEAN 3+ pts of probability over the market", "PLAY 4.5+", "HAMMER 6+")],
+}
+
+
+def tier_guide(slug):
+    rows = TIER_GUIDE.get(slug)
+    if not rows:
+        return ""
+    li = "".join(f"<li><b>{e(m)}:</b> " + " · ".join(e(x) for x in xs if x) + "</li>" for m, *xs in rows)
+    return ('<details class="mu"><summary><b>How plays work</b><span>edge needed for each tier</span></summary>'
+            '<div style="padding:10px 14px 14px"><p class="note" style="margin:0 0 8px">Edge = how far our number is '
+            'from the market. Under the LEAN cutoff the card says NO PLAY: the model has a side, but not enough to bet.</p>'
+            f'<ul style="margin:0;padding-left:18px;line-height:1.7">{li}</ul></div></details>')
+
+
 def sport_body(slug, f, others):
     panes = SOURCES[slug][2](f)
     pane_ids = [f"p-{re.sub(r'[^a-z]', '', n.lower())}" for n, _ in panes]
@@ -967,7 +1000,7 @@ def sport_body(slug, f, others):
                    for o in others)
     slate = (f'<label class="slate">Slate <select onchange="location=this.value" aria-label="Pick a slate">{opts}</select></label>'
              if len(others) > 1 else "")
-    return f'<div class="bar"><div class="panes" role="tablist">{btns}</div>{slate}</div>{divs}'
+    return f'<div class="bar"><div class="panes" role="tablist">{btns}</div>{slate}</div>{tier_guide(slug)}{divs}'
 
 
 def build():
