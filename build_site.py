@@ -988,7 +988,9 @@ def build():
             body = note(ON_HOLD.get(slug, empty))
             write(f"{slug}/index.html", shell(slug, body, plays, counts, live, f"{label} picks | {SITE_NAME}"))
             continue
-        for i, f in enumerate(files):
+        tag = date.today().isoformat()
+        idx = next((j for j, x in enumerate(files) if tag in x.stem), 0)   # today's slate is the front page,
+        for i, f in enumerate(files):                                    # tomorrow's sits one click away
             try:
                 body = sport_body(slug, f, files)
             except Exception as ex:
@@ -998,7 +1000,7 @@ def build():
                 body = note(f"Couldn't load {label} right now ({ex.__class__.__name__}).")
             page = shell(slug, body, plays, counts, live, f"{label} picks, {label_from(f)} | {SITE_NAME}")
             write(f"{slug}/{slug_from(f)}.html", page)
-            if i == 0:
+            if i == idx:
                 write(f"{slug}/index.html", page)
     # home = the first sport with games today (else NFL), with the board on top
     first = next((s for s in ("nfl", "cfb", "cbb", "nba", "nhl", "epl", "mlb", "hr") if s in live), "nfl")

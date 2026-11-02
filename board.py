@@ -21,7 +21,10 @@ def _o(v):
 
 def _latest(folder, pattern):
     fs = sorted(Path(folder).glob(pattern), key=lambda p: ("".join(c for c in p.stem if c.isdigit())))
-    return fs[-1] if fs else None
+    if not fs:
+        return None
+    today = [f for f in fs if date.today().isoformat() in f.stem]   # tomorrow's preview never bumps tonight
+    return today[-1] if today else fs[-1]
 
 
 def _fresh(path):
