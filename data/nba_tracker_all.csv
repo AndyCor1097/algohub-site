@@ -63,3 +63,18 @@ game_id,date,matchup,score,pick,model_pct,result,ats_pick,ats_edge,ats_result
 401909904,2026-11-01,Nets @ Pacers,98-90,Pacers,62.8,L,Pacers,0.4,L
 401909905,2026-11-01,Clippers @ Warriors,112-124,Warriors,57.8,W,Warriors,1.1,W
 401909906,2026-11-01,Raptors @ Lakers,125-131,Lakers,56.3,W,Raptors,0.5,L
+401909907,2026-11-02,Thunder @ Cavaliers,117-112,Cavaliers,57.7,L,Thunder,1.1,W
+401909908,2026-11-02,Pistons @ Hornets,124-91,Pistons,68.1,W,Pistons,0.5,W
+401909909,2026-11-02,Hawks @ Pacers,108-104,Hawks,76.1,W,Pacers,0.5,W
+401909910,2026-11-02,Nets @ Knicks,90-103,Knicks,87.2,W,Nets,0.8,W
+401909911,2026-11-02,Wizards @ Magic,103-94,Magic,55.8,L,Wizards,0.9,W
+401909912,2026-11-02,Bulls @ 76ers,107-126,76ers,82.1,W,Bulls,0.0,L
+401909913,2026-11-02,Kings @ Mavericks,115-100,Mavericks,81.6,L,Mavericks,0.9,L
+401909914,2026-11-02,Pelicans @ Grizzlies,135-134,Grizzlies,66.0,L,Grizzlies,1.1,L
+401909915,2026-11-02,Bucks @ Timberwolves,100-112,Timberwolves,85.2,W,Timberwolves,1.9,W
+401909916,2026-11-02,Celtics @ Rockets,93-109,Rockets,65.9,W,Rockets,0.7,W
+401909917,2026-11-02,Jazz @ Spurs,97-119,Spurs,87.5,W,Jazz,1.1,L
+401909918,2026-11-02,Trail Blazers @ Nuggets,118-110,Trail Blazers,56.9,W,Trail Blazers,1.6,W
+401909919,2026-11-02,Suns @ Warriors,113-116,Warriors,58.5,W,Warriors,0.5,W
+401909920,2026-11-02,Raptors @ Clippers,125-118,Raptors,64.3,W,Clippers,0.7,L
+401909921,2026-11-02,Heat @ Lakers,117-138,Lakers,54.9,W,Lakers,0.2,W

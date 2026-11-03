@@ -28,3 +28,4 @@ game_id,date,matchup,score,proj,proj_result,actual,hit,top_score,exact,ou_lean,o
 2026-10-31_Chelsea_ManUnited,2026-10-31,Man United @ Chelsea,0-2,1.4-1.8,H,H,1,1-1,0,Over,0
 2026-10-31_AstonVilla_Fulham,2026-10-31,Fulham @ Aston Villa,1-1,1.1-1.6,H,D,0,1-1,1,Over,0
 2026-11-01_Liverpool_Arsenal,2026-11-01,Arsenal @ Liverpool,1-0,1.4-1.1,A,A,1,1-1,0,Over,0
+2026-11-02_Newcastle_Everton,2026-11-02,Everton @ Newcastle,1-0,1.1-1.5,H,A,0,1-1,0,Over,0

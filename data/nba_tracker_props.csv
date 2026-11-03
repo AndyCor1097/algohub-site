@@ -84,3 +84,7 @@ date,game_id,player,team,market,tier,pick,odds,edge,actual,result,units
 2026-11-01,401909904,Nolan Traore,BKN,PROP POINTS,PLAY,Nolan Traore Points U 11.5,113.0,5.1,16,L,-1.0
 2026-11-01,401909905,Rui Hachimura,LAC,PROP REBOUNDS,PLAY,Rui Hachimura Rebounds U 4.5,125.0,5.1,7,L,-1.0
 2026-11-01,401909906,Scottie Barnes,TOR,PROP POINTS,LEAN,Scottie Barnes Points U 23.5,-111.0,3.3,29,L,-1.0
+2026-11-02,401909907,Aday Mara,OKC,PROP ASSISTS,LEAN,Aday Mara Assists O 1.5,125.0,4.6,0,L,-1.0
+2026-11-02,401909911,Jase Richardson,ORL,PROP POINTS,PLAY,Jase Richardson Points U 9.5,104.0,5.3,9,W,1.04
+2026-11-02,401909910,Mikel Brown Jr.,BKN,PROP REBOUNDS,LEAN,Mikel Brown Jr. Rebounds O 2.5,117.0,3.6,2,L,-1.0
+2026-11-02,401909908,Naz Reid,CHA,PROP POINTS,LEAN,Naz Reid Points U 15.5,106.0,3.8,13,W,1.06
