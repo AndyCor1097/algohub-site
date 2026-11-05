@@ -78,3 +78,17 @@ game_id,date,matchup,score,pick,model_pct,result,ats_pick,ats_edge,ats_result
 401909919,2026-11-02,Suns @ Warriors,113-116,Warriors,58.5,W,Warriors,0.5,W
 401909920,2026-11-02,Raptors @ Clippers,125-118,Raptors,64.3,W,Clippers,0.7,L
 401909921,2026-11-02,Heat @ Lakers,117-138,Lakers,54.9,W,Lakers,0.2,W
+401909922,2026-11-04,76ers @ Pistons,112-106,Pistons,60.4,L,Pistons,1.6,L
+401909923,2026-11-04,Hawks @ Wizards,120-105,Hawks,58.4,W,Hawks,0.3,W
+401909924,2026-11-04,Bucks @ Celtics,102-109,Celtics,83.9,W,Celtics,0.4,L
+401909925,2026-11-04,Hornets @ Nets,104-114,Nets,56.9,W,Nets,1.3,W
+401909926,2026-11-04,Bulls @ Knicks,105-135,Knicks,83.0,W,Bulls,0.3,L
+401909927,2026-11-04,Pacers @ Grizzlies,107-103,Grizzlies,71.2,L,Grizzlies,1.2,L
+401909928,2026-11-04,Jazz @ Pelicans,113-120,Pelicans,68.6,W,Pelicans,0.4,W
+401909929,2026-11-04,Cavaliers @ Thunder,116-124,Thunder,59.7,W,Cavaliers,0.2,L
+401909930,2026-11-04,Timberwolves @ Rockets,117-107,Rockets,68.2,L,Timberwolves,1.4,W
+401909931,2026-11-04,Raptors @ Nuggets,109-128,Raptors,57.6,L,Raptors,1.9,L
+401909932,2026-11-04,Trail Blazers @ Suns,132-119,Trail Blazers,59.8,W,Trail Blazers,0.8,W
+401909933,2026-11-04,Mavericks @ Spurs,111-112,Spurs,79.7,W,Mavericks,1.5,W
+401909934,2026-11-04,Lakers @ Kings,116-103,Lakers,81.2,W,Kings,0.9,L
+401909935,2026-11-04,Heat @ Clippers,117-116,Clippers,58.7,L,Clippers,2.2,W

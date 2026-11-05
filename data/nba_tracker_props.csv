@@ -88,3 +88,8 @@ date,game_id,player,team,market,tier,pick,odds,edge,actual,result,units
 2026-11-02,401909911,Jase Richardson,ORL,PROP POINTS,PLAY,Jase Richardson Points U 9.5,104.0,5.3,9,W,1.04
 2026-11-02,401909910,Mikel Brown Jr.,BKN,PROP REBOUNDS,LEAN,Mikel Brown Jr. Rebounds O 2.5,117.0,3.6,2,L,-1.0
 2026-11-02,401909908,Naz Reid,CHA,PROP POINTS,LEAN,Naz Reid Points U 15.5,106.0,3.8,13,W,1.06
+2026-11-04,401909924,Brayden Burries,MIL,PROP POINTS,LEAN,Brayden Burries Points U 11.5,-100.0,4.2,9,W,1.0
+2026-11-04,401909922,Jaylen Brown,PHI,PROP ASSISTS,LEAN,Jaylen Brown Assists O 3.5,108.0,3.4,1,L,-1.0
+2026-11-04,401909924,Jayson Tatum,BOS,PROP POINTS,LEAN,Jayson Tatum Points U 27.5,-122.0,3.4,DNP,P,0.0
+2026-11-04,401909924,Ryan Rollins,MIL,PROP ASSISTS,LEAN,Ryan Rollins Assists O 3.5,111.0,3.5,5,W,1.11
+2026-11-04,401909922,VJ Edgecombe,PHI,PROP ASSISTS,LEAN,VJ Edgecombe Assists O 2.5,108.0,3.7,3,W,1.08

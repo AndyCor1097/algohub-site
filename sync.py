@@ -116,6 +116,12 @@ def main():
     except Exception as ex:
         print(f"  ! novig nhl skipped: {ex}")
     lap("novig nhl")
+    try:                                         # closing line value: every play vs Novig's closing line
+        import clv
+        clv.main()
+    except Exception as ex:
+        print(f"  ! clv skipped: {ex}")
+    lap("clv")
     try:                                         # rebuild the real website in public/
         import build_site
         build_site.build()

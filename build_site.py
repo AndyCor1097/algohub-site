@@ -989,8 +989,33 @@ def tier_guide(slug):
             f'<ul style="margin:0;padding-left:18px;line-height:1.7">{li}</ul></div></details>')
 
 
+def clv_html(slug):
+    """Closing line value box for the Record tab (see clv.py)."""
+    try:
+        import clv
+        s = clv.summary(slug)
+    except Exception:
+        s = None
+    if not s:
+        return ('<p class="note">Closing line value (CLV): tracking starts as games close. Each play gets compared '
+                'to the sharp market\'s final number right before the game.</p>') if slug in ("nfl", "cfb", "cbb", "nba", "nhl") else ""
+    bits = []
+    if s["beat"] is not None:
+        bits.append(("Beat the close", f"{s['beat']:.0%}"))
+    if s["pts"] is not None:
+        bits.append(("Avg CLV (spreads/totals)", f"{s['pts']:+.1f} pts"))
+    if s["pct"] is not None:
+        bits.append(("Avg CLV (ML)", f"{s['pct']:+.1f}%"))
+    bits.append(("Plays tracked", str(s["n"])))
+    tiles = "".join(f'<div class="tile"><small>{e(k)}</small><b>{e(v)}</b></div>' for k, v in bits)
+    return (f'<h3 class="sub">Closing line value</h3><div class="tiles">{tiles}</div>'
+            '<p class="note">Our number vs the sharp market\'s final number (Novig) right before the game. '
+            'Beating the close more than half the time is the best early sign the picks are sharp, even in a losing week.</p>')
+
+
 def sport_body(slug, f, others):
     panes = SOURCES[slug][2](f)
+    panes = [(n, (h + clv_html(slug)) if n == "Record" else h) for n, h in panes]
     pane_ids = [f"p-{re.sub(r'[^a-z]', '', n.lower())}" for n, _ in panes]
     btns = "".join(f'<button role="tab" data-p="{pid}" aria-selected="{"true" if i == 0 else "false"}">{e(n)}</button>'
                    for i, ((n, _), pid) in enumerate(zip(panes, pane_ids)))
