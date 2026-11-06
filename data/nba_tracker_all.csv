@@ -92,3 +92,5 @@ game_id,date,matchup,score,pick,model_pct,result,ats_pick,ats_edge,ats_result
 401909933,2026-11-04,Mavericks @ Spurs,111-112,Spurs,79.7,W,Mavericks,1.5,W
 401909934,2026-11-04,Lakers @ Kings,116-103,Lakers,81.2,W,Kings,0.9,L
 401909935,2026-11-04,Heat @ Clippers,117-116,Clippers,58.7,L,Clippers,2.2,W
+401909936,2026-11-05,Magic @ Suns,104-117,Magic,52.0,L,Magic,1.0,L
+401909937,2026-11-05,Heat @ Warriors,100-120,Warriors,70.6,W,Warriors,0.1,W

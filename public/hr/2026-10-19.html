@@ -229,34 +229,16 @@ document.addEventListener('DOMContentLoaded',()=>{const f=document.querySelector
   <div class="tk-view"><div class="tk-track" id="tk-track"></div></div></div></div>
 <header class="ah-hero">
   <a href="/" class="ah-mark" aria-label="The AlgoHub home"><span>The</span>AlgoHub</a>
-  <div class="ah-today"><b>Thursday, November 5</b>
-    <span>9 plays on the board across 2 sports</span></div>
+  <div class="ah-today"><b>Friday, November 6</b>
+    <span>1 play on the board across 1 sports</span></div>
 </header><section class="ah-board" aria-label="Top plays today">
-  <div class="ah-slip s-top" data-sport="NFL" data-pick="OVER 39.5" data-game="JAX at BAL">
-    <div class="ah-slip-top"><span class="ah-sport">NFL</span><span class="ah-tier">Hammer</span></div>
-    <div class="ah-pick">OVER 39.5<span>-110</span></div>
-    <div class="ah-sub">JAX at BAL, Thu</div>
-    <div class="ah-stat"><em>+6.5</em><small>pts edge</small></div>
-  </div>
-  <div class="ah-slip s-low" data-sport="NHL" data-pick="UNDER 6.5" data-game="ANA at EDM">
+  <div class="ah-slip s-low" data-sport="NHL" data-pick="ANA ML" data-game="ANA at CGY">
     <div class="ah-slip-top"><span class="ah-sport">NHL</span><span class="ah-tier">Lean</span></div>
-    <div class="ah-pick">UNDER 6.5<span>+135</span></div>
-    <div class="ah-sub">ANA at EDM, 8:00 PM</div>
-    <div class="ah-stat"><em>+5.1</em><small>% edge</small></div>
-  </div>
-  <div class="ah-slip s-low" data-sport="NFL" data-pick="BAL +9.5" data-game="JAX at BAL">
-    <div class="ah-slip-top"><span class="ah-sport">NFL</span><span class="ah-tier">Lean</span></div>
-    <div class="ah-pick">BAL +9.5<span>-110</span></div>
-    <div class="ah-sub">JAX at BAL, Thu</div>
-    <div class="ah-stat"><em>+3.6</em><small>pts edge</small></div>
-  </div>
-  <div class="ah-slip s-low" data-sport="NHL" data-pick="UNDER 6.5" data-game="VGK at DET">
-    <div class="ah-slip-top"><span class="ah-sport">NHL</span><span class="ah-tier">Lean</span></div>
-    <div class="ah-pick">UNDER 6.5<span>-127</span></div>
-    <div class="ah-sub">VGK at DET, 7:00 PM</div>
-    <div class="ah-stat"><em>+4.7</em><small>% edge</small></div>
+    <div class="ah-pick">ANA ML<span>+135</span></div>
+    <div class="ah-sub">ANA at CGY, 8:00 PM</div>
+    <div class="ah-stat"><em>+4.2</em><small>% edge</small></div>
   </div></section>
-<nav class="sports" aria-label="Sports"><a href="/nfl/" class="live">NFL</a><a href="/cfb/" class="">CFB</a><a href="/cbb/" class="">CBB</a><a href="/nba/" class="">NBA</a><a href="/nhl/" class="live">NHL</a><a href="/epl/" class="">Premier League</a><a href="/mlb/" class="">MLB</a><a href="/hr/" class="" aria-current=page>Home Runs</a></nav>
+<nav class="sports" aria-label="Sports"><a href="/nfl/" class="">NFL</a><a href="/cfb/" class="">CFB</a><a href="/cbb/" class="">CBB</a><a href="/nba/" class="">NBA</a><a href="/nhl/" class="live">NHL</a><a href="/epl/" class="">Premier League</a><a href="/mlb/" class="">MLB</a><a href="/hr/" class="" aria-current=page>Home Runs</a></nav>
 <main><div class="bar"><div class="panes" role="tablist"><button role="tab" data-p="p-topbats" aria-selected="true">Top bats</button></div><label class="slate">Slate <select onchange="location=this.value" aria-label="Pick a slate"><option value="/hr/2026-10-26.html">Mon Oct 26</option><option value="/hr/2026-10-23.html">Fri Oct 23</option><option value="/hr/2026-10-19.html" selected>Mon Oct 19</option><option value="/hr/2026-10-17.html">Sat Oct 17</option><option value="/hr/2026-10-16.html">Fri Oct 16</option><option value="/hr/2026-10-15.html">Thu Oct 15</option><option value="/hr/2026-10-14.html">Wed Oct 14</option><option value="/hr/2026-10-13.html">Tue Oct 13</option></select></label></div><section class="pane" id="p-topbats"><p class="note">No new slate yet. This is the last run (Mon Oct 19).</p><iframe class="cards" src="/cards/hr_2026-10-19.html" title="Home run board" loading="lazy" onload="fit(this)"></iframe></section></main>
 <footer class="ah-foot"><span>Model picks for entertainment. Not betting advice.</span><span>@TheAlgoHub</span></footer>
 </div><div class="st" id="st" hidden aria-label="Big bets on the Novig exchange">
@@ -272,7 +254,7 @@ document.querySelectorAll('.panes button').forEach(b=>b.onclick=()=>{
 const h=location.hash.slice(1); const hb=h&&document.querySelector('.panes button[data-p="'+h+'"]'); if(hb) hb.click();
 </script><script>
 (function(){
-const PICKS=[{"sport": "NFL", "pick": "BAL +9.5", "game": "JAX at BAL"}, {"sport": "NFL", "pick": "OVER 39.5", "game": "JAX at BAL"}, {"sport": "NHL", "pick": "DET ML", "game": "VGK at DET"}, {"sport": "NHL", "pick": "DET +1.5", "game": "VGK at DET"}, {"sport": "NHL", "pick": "UNDER 6.5", "game": "VGK at DET"}, {"sport": "NHL", "pick": "STL ML", "game": "STL at NJD"}, {"sport": "NHL", "pick": "VAN ML", "game": "VAN at WPG"}, {"sport": "NHL", "pick": "VAN +1.5", "game": "VAN at WPG"}, {"sport": "NHL", "pick": "UNDER 6.5", "game": "ANA at EDM"}], SP={"NFL": ["football/nfl", ""], "NHL": ["hockey/nhl", ""]};
+const PICKS=[{"sport": "NHL", "pick": "ANA ML", "game": "ANA at CGY"}], SP={"NHL": ["hockey/nhl", ""]};
 const ALIAS={NHL:{TBL:'TB',NJD:'NJ',SJS:'SJ',LAK:'LA',UTA:'UTAH'},MLB:{CWS:'CHW',TBR:'TB',KCR:'KC',SDP:'SD',SFG:'SF',WSN:'WSH'},NFL:{LA:'LAR',WAS:'WSH'},EPL:{'Man United':'Manchester United','Man City':'Manchester City',"Nott'm Forest":'Nottingham Forest',Wolves:'Wolverhampton Wanderers'}};
 const norm=s=>(s||'').toLowerCase().replace(/&/g,'and').replace(/\bstate\b/g,'st').replace(/\bsaint\b/g,'st').replace(/[^a-z0-9]/g,'');
 const keys=t=>[t.abbreviation,t.displayName,t.shortDisplayName,t.location,t.nickname,(t.location||'')+' '+(t.name||'')].filter(Boolean).map(norm);

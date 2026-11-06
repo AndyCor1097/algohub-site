@@ -93,3 +93,7 @@ date,game_id,player,team,market,tier,pick,odds,edge,actual,result,units
 2026-11-04,401909924,Jayson Tatum,BOS,PROP POINTS,LEAN,Jayson Tatum Points U 27.5,-122.0,3.4,DNP,P,0.0
 2026-11-04,401909924,Ryan Rollins,MIL,PROP ASSISTS,LEAN,Ryan Rollins Assists O 3.5,111.0,3.5,5,W,1.11
 2026-11-04,401909922,VJ Edgecombe,PHI,PROP ASSISTS,LEAN,VJ Edgecombe Assists O 2.5,108.0,3.7,3,W,1.08
+2026-11-05,401909937,Bam Adebayo,MIA,PROP POINTS,LEAN,Bam Adebayo Points U 21.5,-108.0,3.4,18,W,0.9259259259259259
+2026-11-05,401909936,Franz Wagner,ORL,PROP ASSISTS,LEAN,Franz Wagner Assists U 6.5,113.0,3.6,15,L,-1.0
+2026-11-05,401909936,Jase Richardson,ORL,PROP REBOUNDS,LEAN,Jase Richardson Rebounds U 2.5,-100.0,3.8,2,W,1.0
+2026-11-05,401909937,Pelle Larsson,MIA,PROP POINTS,LEAN,Pelle Larsson Points U 12.5,104.0,3.2,13,L,-1.0
