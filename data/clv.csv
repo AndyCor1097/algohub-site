@@ -1,3 +1,13 @@
 sport,day,game,market,tier,pick,close,clv,unit
+nfl,2026-11-08,CLE @ NO,SPREAD,LEAN,CLE +4.5,+4.5,0.0,pts
+nfl,2026-11-08,CLE @ NO,ML,VALUE,CLE ML,32%,-0.2,%
+nfl,2026-11-08,DAL @ IND,ML,VALUE,IND ML,34%,-0.2,%
+nfl,2026-11-08,DEN @ CAR,SPREAD,LEAN,CAR +3.5,+3.5,0.0,pts
+nfl,2026-11-08,DEN @ CAR,ML,VALUE,CAR ML,41%,-0.2,%
+nfl,2026-11-08,DET @ MIA,ML,VALUE,MIA ML,26%,-0.3,%
+nfl,2026-11-08,LA @ WAS,TOTAL,LEAN,UNDER 48.5,48.5,0.0,pts
+nfl,2026-11-08,NYG @ PHI,TOTAL,PLAY,OVER 37.5,37.5,0.0,pts
+nfl,2026-11-08,NYJ @ KC,SPREAD,PLAY,NYJ +9.5,+9.5,0.0,pts
+nfl,2026-11-08,NYJ @ KC,ML,VALUE,NYJ ML,19%,-0.3,%
 nba,2026-11-04,Heat @ Clippers,SPREAD,LEAN,Clippers +5.5,+5.5,0.0,pts
 nba,2026-11-04,Heat @ Clippers,ML,VALUE,Clippers ML,33%,-2.2,%
