@@ -101,3 +101,8 @@ date,game_id,player,team,market,tier,pick,odds,edge,actual,result,units
 2026-11-06,401909288,Jayson Tatum,BOS,PROP POINTS,LEAN,Jayson Tatum Points U 26.5,106.0,4.3,34,L,-1.0
 2026-11-06,401909289,Kentavious Caldwell-Pope,PHI,PROP POINTS,LEAN,Kentavious Caldwell-Pope Points O 5.5,120.0,3.2,5,L,-1.0
 2026-11-06,401909289,VJ Edgecombe,PHI,PROP ASSISTS,LEAN,VJ Edgecombe Assists O 2.5,-115.0,3.0,2,L,-1.0
+2026-11-08,401909945,Dean Wade,PHI,PROP ASSISTS,LEAN,Dean Wade Assists O 1.5,186.0,3.9,1,L,-1.0
+2026-11-08,401909945,Joel Embiid,PHI,PROP ASSISTS,LEAN,Joel Embiid Assists O 3.5,133.0,3.9,5,W,1.33
+2026-11-08,401909948,Nolan Traore,BKN,PROP POINTS,LEAN,Nolan Traore Points U 12.5,115.0,4.0,14,L,-1.0
+2026-11-08,401909949,Ryan Rollins,MIL,PROP ASSISTS,LEAN,Ryan Rollins Assists O 3.5,138.0,3.2,6,W,1.38
+2026-11-08,401909946,Walker Kessler,LAL,PROP ASSISTS,LEAN,Walker Kessler Assists O 1.5,150.0,3.1,4,W,1.5

@@ -229,47 +229,35 @@ document.addEventListener('DOMContentLoaded',()=>{const f=document.querySelector
   <div class="tk-view"><div class="tk-track" id="tk-track"></div></div></div></div>
 <header class="ah-hero">
   <a href="/" class="ah-mark" aria-label="The AlgoHub home"><span>The</span>AlgoHub</a>
-  <div class="ah-today"><b>Sunday, November 8</b>
-    <span>13 plays on the board across 4 sports</span></div>
+  <div class="ah-today"><b>Monday, November 9</b>
+    <span>6 plays on the board across 3 sports</span></div>
 </header><section class="ah-board" aria-label="Top plays today">
-  <div class="ah-slip s-mid" data-sport="NFL" data-pick="UNDER 52.5" data-game="CIN at ATL">
-    <div class="ah-slip-top"><span class="ah-sport">NFL</span><span class="ah-tier">Play</span></div>
-    <div class="ah-pick">UNDER 52.5<span>-110</span></div>
-    <div class="ah-sub">CIN at ATL, Sun</div>
-    <div class="ah-stat"><em>+5.2</em><small>pts edge</small></div>
+  <div class="ah-slip s-low" data-sport="NFL" data-pick="OVER 45.5" data-game="BUF at MIN">
+    <div class="ah-slip-top"><span class="ah-sport">NFL</span><span class="ah-tier">Lean</span></div>
+    <div class="ah-pick">OVER 45.5<span>-110</span></div>
+    <div class="ah-sub">BUF at MIN, Mon</div>
+    <div class="ah-stat"><em>+2.7</em><small>pts edge</small></div>
   </div>
-  <div class="ah-slip s-low" data-sport="NBA" data-pick="Kings +10.5" data-game="Heat at Kings">
+  <div class="ah-slip s-low" data-sport="NBA" data-pick="OVER 214.5" data-game="Cavaliers at Hornets">
     <div class="ah-slip-top"><span class="ah-sport">NBA</span><span class="ah-tier">Lean</span></div>
-    <div class="ah-pick">Kings +10.5<span>-110</span></div>
-    <div class="ah-sub">Heat at Kings, 9:00 PM</div>
-    <div class="ah-stat"><em>+1.9</em><small>pts edge</small></div>
+    <div class="ah-pick">OVER 214.5<span>-110</span></div>
+    <div class="ah-sub">Cavaliers at Hornets, 7:00 PM</div>
+    <div class="ah-stat"><em>+2.3</em><small>pts edge</small></div>
   </div>
-  <div class="ah-slip s-low" data-sport="NHL" data-pick="UNDER 6.5" data-game="PIT at ANA">
-    <div class="ah-slip-top"><span class="ah-sport">NHL</span><span class="ah-tier">Lean</span></div>
-    <div class="ah-pick">UNDER 6.5<span>+130</span></div>
-    <div class="ah-sub">PIT at ANA, 8:00 PM</div>
-    <div class="ah-stat"><em>+4.4</em><small>% edge</small></div>
+  <div class="ah-slip s-mid" data-sport="NHL" data-pick="VAN +1.5" data-game="PHI at VAN">
+    <div class="ah-slip-top"><span class="ah-sport">NHL</span><span class="ah-tier">Play</span></div>
+    <div class="ah-pick">VAN +1.5<span>-199</span></div>
+    <div class="ah-sub">PHI at VAN, 9:30 PM</div>
+    <div class="ah-stat"><em>+6.3</em><small>% edge</small></div>
   </div>
-  <div class="ah-slip s-low" data-sport="EPL" data-pick="Crystal Palace ML" data-game="Liverpool at Crystal Palace">
-    <div class="ah-slip-top"><span class="ah-sport">EPL</span><span class="ah-tier">Lean</span></div>
-    <div class="ah-pick">Crystal Palace ML<span>+415</span></div>
-    <div class="ah-sub">Liverpool at Crystal Palace, 9:00 AM</div>
-    <div class="ah-stat"><em>+3.3</em><small>% edge</small></div>
-  </div>
-  <div class="ah-slip s-mid" data-sport="NFL" data-pick="NYJ +9.5" data-game="NYJ at KC">
-    <div class="ah-slip-top"><span class="ah-sport">NFL</span><span class="ah-tier">Play</span></div>
-    <div class="ah-pick">NYJ +9.5<span>-110</span></div>
-    <div class="ah-sub">NYJ at KC, Sun</div>
-    <div class="ah-stat"><em>+4.9</em><small>pts edge</small></div>
-  </div>
-  <div class="ah-slip s-low" data-sport="NHL" data-pick="ANA ML" data-game="PIT at ANA">
-    <div class="ah-slip-top"><span class="ah-sport">NHL</span><span class="ah-tier">Lean</span></div>
-    <div class="ah-pick">ANA ML<span>-111</span></div>
-    <div class="ah-sub">PIT at ANA, 8:00 PM</div>
-    <div class="ah-stat"><em>+3.9</em><small>% edge</small></div>
+  <div class="ah-slip s-mid" data-sport="NHL" data-pick="VAN ML" data-game="PHI at VAN">
+    <div class="ah-slip-top"><span class="ah-sport">NHL</span><span class="ah-tier">Play</span></div>
+    <div class="ah-pick">VAN ML<span>+122</span></div>
+    <div class="ah-sub">PHI at VAN, 9:30 PM</div>
+    <div class="ah-stat"><em>+6.3</em><small>% edge</small></div>
   </div></section>
-<nav class="sports" aria-label="Sports"><a href="/nfl/" class="live">NFL</a><a href="/cfb/" class="">CFB</a><a href="/cbb/" class="" aria-current=page>CBB</a><a href="/nba/" class="live">NBA</a><a href="/nhl/" class="live">NHL</a><a href="/epl/" class="live">Premier League</a><a href="/mlb/" class="">MLB</a><a href="/hr/" class="">Home Runs</a></nav>
-<main><div class="bar"><div class="panes" role="tablist"><button role="tab" data-p="p-cards" aria-selected="true">Cards</button><button role="tab" data-p="p-bestbets" aria-selected="false">Best bets</button><button role="tab" data-p="p-record" aria-selected="false">Record</button></div><label class="slate">Slate <select onchange="location=this.value" aria-label="Pick a slate"><option value="/cbb/2026-11-09.html">Mon Nov 9</option><option value="/cbb/2026-11-08.html">Sun Nov 8</option><option value="/cbb/2026-11-07.html">Sat Nov 7</option><option value="/cbb/2026-11-06.html">Fri Nov 6</option><option value="/cbb/2026-11-05.html" selected>Thu Nov 5</option><option value="/cbb/2026-11-04.html">Wed Nov 4</option><option value="/cbb/2026-11-03.html">Tue Nov 3</option><option value="/cbb/2026-11-02.html">Mon Nov 2</option><option value="/cbb/2026-11-01.html">Sun Nov 1</option></select></label></div><details class="mu"><summary><b>How plays work</b><span>edge needed for each tier</span></summary><div style="padding:10px 14px 14px"><p class="note" style="margin:0 0 8px">Edge = how far our number is from the market. Under the LEAN cutoff the card says NO PLAY: the model has a side, but not enough to bet.</p><ul style="margin:0;padding-left:18px;line-height:1.7"><li><b>Spread:</b> LEAN 5+ pts · PLAY 6+ · HAMMER 8+</li><li><b>Moneyline value:</b> win % 4+ pts over the no-vig line</li><li><b>Early season:</b> no plays until both teams have played 4+ games</li></ul></div></details><section class="pane" id="p-cards"><p class="note">No new slate yet. This is the last run (Thu Nov 5).</p><iframe class="cards" src="/cards/cbb_2026-11-05.html" title="CBB cards" loading="lazy" onload="fit(this)"></iframe></section><section class="pane" id="p-bestbets" hidden><p class="note">No plays clear the thresholds today.</p></section><section class="pane" id="p-record" hidden><p class="note">Nothing graded yet. Results show up the morning after the first slate.</p><p class="note">Closing line value (CLV): tracking starts as games close. Each play gets compared to the sharp market's final number right before the game.</p></section></main>
+<nav class="sports" aria-label="Sports"><a href="/nfl/" class="live">NFL</a><a href="/cfb/" class="">CFB</a><a href="/cbb/" class="" aria-current=page>CBB</a><a href="/nba/" class="live">NBA</a><a href="/nhl/" class="live">NHL</a><a href="/epl/" class="">Premier League</a><a href="/mlb/" class="">MLB</a><a href="/hr/" class="">Home Runs</a></nav>
+<main><div class="bar"><div class="panes" role="tablist"><button role="tab" data-p="p-cards" aria-selected="true">Cards</button><button role="tab" data-p="p-bestbets" aria-selected="false">Best bets</button><button role="tab" data-p="p-record" aria-selected="false">Record</button></div><label class="slate">Slate <select onchange="location=this.value" aria-label="Pick a slate"><option value="/cbb/2026-11-10.html">Tue Nov 10</option><option value="/cbb/2026-11-09.html">Mon Nov 9</option><option value="/cbb/2026-11-08.html">Sun Nov 8</option><option value="/cbb/2026-11-07.html">Sat Nov 7</option><option value="/cbb/2026-11-06.html">Fri Nov 6</option><option value="/cbb/2026-11-05.html" selected>Thu Nov 5</option><option value="/cbb/2026-11-04.html">Wed Nov 4</option><option value="/cbb/2026-11-03.html">Tue Nov 3</option><option value="/cbb/2026-11-02.html">Mon Nov 2</option><option value="/cbb/2026-11-01.html">Sun Nov 1</option></select></label></div><details class="mu"><summary><b>How plays work</b><span>edge needed for each tier</span></summary><div style="padding:10px 14px 14px"><p class="note" style="margin:0 0 8px">Edge = how far our number is from the market. Under the LEAN cutoff the card says NO PLAY: the model has a side, but not enough to bet.</p><ul style="margin:0;padding-left:18px;line-height:1.7"><li><b>Spread:</b> LEAN 5+ pts · PLAY 6+ · HAMMER 8+</li><li><b>Moneyline value:</b> win % 4+ pts over the no-vig line</li><li><b>Early season:</b> no plays until both teams have played 4+ games</li></ul></div></details><section class="pane" id="p-cards"><p class="note">No new slate yet. This is the last run (Thu Nov 5).</p><iframe class="cards" src="/cards/cbb_2026-11-05.html" title="CBB cards" loading="lazy" onload="fit(this)"></iframe></section><section class="pane" id="p-bestbets" hidden><p class="note">No plays clear the thresholds today.</p></section><section class="pane" id="p-record" hidden><p class="note">Nothing graded yet. Results show up the morning after the first slate.</p><p class="note">Closing line value (CLV): tracking starts as games close. Each play gets compared to the sharp market's final number right before the game.</p></section></main>
 <footer class="ah-foot"><span>Model picks for entertainment. Not betting advice.</span><span>@TheAlgoHub</span></footer>
 </div><div class="st" id="st" hidden aria-label="Big bets on the Novig exchange">
   <div class="st-row"><div class="st-tag" title="Big trades on the Novig betting exchange">SHARP $</div>
@@ -284,7 +272,7 @@ document.querySelectorAll('.panes button').forEach(b=>b.onclick=()=>{
 const h=location.hash.slice(1); const hb=h&&document.querySelector('.panes button[data-p="'+h+'"]'); if(hb) hb.click();
 </script><script>
 (function(){
-const PICKS=[{"sport": "NFL", "pick": "CLE +4.5", "game": "CLE at NO"}, {"sport": "NFL", "pick": "CAR +3.5", "game": "DEN at CAR"}, {"sport": "NFL", "pick": "UNDER 48.5", "game": "LA at WAS"}, {"sport": "NFL", "pick": "OVER 37.5", "game": "NYG at PHI"}, {"sport": "NFL", "pick": "NYJ +9.5", "game": "NYJ at KC"}, {"sport": "NFL", "pick": "LAC +5.5", "game": "HOU at LAC"}, {"sport": "NFL", "pick": "OVER 40.5", "game": "HOU at LAC"}, {"sport": "NFL", "pick": "UNDER 52.5", "game": "CIN at ATL"}, {"sport": "NBA", "pick": "Kings +10.5", "game": "Heat at Kings"}, {"sport": "NHL", "pick": "CGY ML", "game": "PHI at CGY"}, {"sport": "NHL", "pick": "ANA ML", "game": "PIT at ANA"}, {"sport": "NHL", "pick": "UNDER 6.5", "game": "PIT at ANA"}, {"sport": "EPL", "pick": "Crystal Palace ML", "game": "Liverpool at Crystal Palace"}], SP={"EPL": ["soccer/eng.1", ""], "NBA": ["basketball/nba", ""], "NFL": ["football/nfl", ""], "NHL": ["hockey/nhl", ""]};
+const PICKS=[{"sport": "NFL", "pick": "OVER 45.5", "game": "BUF at MIN"}, {"sport": "NBA", "pick": "OVER 214.5", "game": "Cavaliers at Hornets"}, {"sport": "NHL", "pick": "VAN ML", "game": "PHI at VAN"}, {"sport": "NHL", "pick": "VAN +1.5", "game": "PHI at VAN"}, {"sport": "NHL", "pick": "UNDER 6.5", "game": "PHI at VAN"}, {"sport": "NHL", "pick": "SJS ML", "game": "NYI at SJS"}], SP={"NBA": ["basketball/nba", ""], "NFL": ["football/nfl", ""], "NHL": ["hockey/nhl", ""]};
 const ALIAS={NHL:{TBL:'TB',NJD:'NJ',SJS:'SJ',LAK:'LA',UTA:'UTAH'},MLB:{CWS:'CHW',TBR:'TB',KCR:'KC',SDP:'SD',SFG:'SF',WSN:'WSH'},NFL:{LA:'LAR',WAS:'WSH'},EPL:{'Man United':'Manchester United','Man City':'Manchester City',"Nott'm Forest":'Nottingham Forest',Wolves:'Wolverhampton Wanderers'}};
 const norm=s=>(s||'').toLowerCase().replace(/&/g,'and').replace(/\bstate\b/g,'st').replace(/\bsaint\b/g,'st').replace(/[^a-z0-9]/g,'');
 const keys=t=>[t.abbreviation,t.displayName,t.shortDisplayName,t.location,t.nickname,(t.location||'')+' '+(t.name||'')].filter(Boolean).map(norm);
