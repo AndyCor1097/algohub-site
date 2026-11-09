@@ -1,0 +1,2580 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TheCFBAlgo Week 10</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0e13;--card:#12161d;--card2:#171c25;--line:#222a35;--tx:#e6edf3;--mu:#7d8590;
+--lean:#58a6ff;--edge:#3fb950;--strong:#f2b134;--neg:#f85149}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-serif;padding:28px 16px 60px}
+.wrap{max-width:1180px;margin:0 auto}
+.proj,.cols span,.top h1,.wplab,.pick{font-family:"Barlow Condensed",sans-serif}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:18px}
+.top .k{color:var(--mu);font-size:12px;letter-spacing:.18em;font-weight:600}
+.top h1{font-size:44px;font-weight:800;letter-spacing:.02em;line-height:1}
+.stats{display:flex;gap:22px} .stats div{text-align:right} .stats small{display:block;color:var(--mu);font-size:11px;letter-spacing:.14em}
+.stats b{font-size:30px} .stats .s b{color:var(--strong)} .stats .p b{color:var(--edge)}
+.tabs{display:flex;gap:6px;margin:18px 0 6px;flex-wrap:wrap}
+.tabs button{background:transparent;border:1px solid var(--line);color:var(--mu);padding:7px 14px;border-radius:999px;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.08em;cursor:pointer}
+.tabs button.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.dayhead{display:flex;justify-content:space-between;align-items:baseline;margin:26px 0 12px}
+.dayhead h2{font:700 13px Inter,system-ui,sans-serif;letter-spacing:.16em} .dayhead span{color:var(--mu);font-size:11px;letter-spacing:.14em}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;border-top:3px solid var(--line)}
+.card.b-lean{border-top-color:var(--lean)} .card.b-edge{border-top-color:var(--edge)}
+.card.b-strong{border-top-color:var(--strong);box-shadow:0 0 0 1px rgba(242,177,52,.25),0 8px 30px rgba(242,177,52,.08)}
+.meta{display:flex;justify-content:space-between;gap:10px;padding:11px 16px;color:var(--mu);font-size:11px;letter-spacing:.08em;border-bottom:1px solid var(--line)}
+.teams{display:flex;align-items:center;gap:8px;padding:12px 16px}
+.team{flex:1;min-width:0} .team.fav .tname b{color:var(--tx)} .team.fav .proj{color:var(--tx)}
+.tname b{display:block;font-size:15px;font-weight:600;color:var(--mu)} .tname small{color:var(--mu);font-size:11px;opacity:.7}
+.proj{font-size:36px;font-weight:700;color:var(--mu);font-family:"Barlow Condensed",sans-serif;line-height:1}
+.wx{margin:0 16px 14px;display:inline-block;padding:4px 10px;border:1px solid var(--line);border-radius:999px;color:var(--mu);font-size:11px;letter-spacing:.06em}
+.wx.windy{color:#58a6ff;border-color:#58a6ff}
+.at{color:var(--mu);font-size:12px;letter-spacing:.1em;font-weight:600;flex:none;padding:0 4px}
+.wp{padding:6px 16px 14px} .wplab{display:flex;justify-content:space-between;font-size:15px;font-weight:700;margin-bottom:6px}
+.wplab .cap{color:var(--mu);font:600 10px Inter,system-ui,sans-serif;letter-spacing:.16em;align-self:center}
+.wpbar{display:flex;height:8px;border-radius:99px;overflow:hidden;gap:2px;background:var(--line)} .wpbar i{display:block;height:100%}
+.mkt{border-top:1px solid var(--line);padding:12px 16px;background:var(--card2)}
+.mlabel{color:var(--mu);font:600 10px Inter,system-ui,sans-serif;letter-spacing:.18em;margin-bottom:8px}
+.cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px} .cols small{display:block;color:var(--mu);font-size:10px;letter-spacing:.14em}
+.cols span{font-size:20px;font-weight:700} .edge span{color:var(--mu)} .edge.hot span{color:var(--tx);font-size:26px}
+.pick{margin-top:10px;display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700;letter-spacing:.02em}
+.pick .tier{font:800 11px Inter,system-ui,sans-serif;letter-spacing:.14em;padding:4px 8px;border-radius:6px;color:#0b0e13}
+.t-lean .tier{background:var(--lean)} .t-edge .tier{background:var(--edge)} .t-strong .tier{background:var(--strong)}
+.pin{font:800 10px Inter,system-ui,sans-serif;letter-spacing:.12em;color:#8b949e;margin-top:6px} .pin.up{color:#3fb950} .pin.down{color:#f85149}
+.t-strong{color:var(--strong)} .pick.none{color:#4b535d;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.16em}
+.foot{color:var(--mu);font-size:11px;margin-top:30px;letter-spacing:.06em}
+.hide{display:none}
+.tabs .conf{background:transparent;border:1px solid var(--line);color:var(--tx);padding:7px 12px;border-radius:999px;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.08em;cursor:pointer}
+.tabs .conf option{background:var(--card);color:var(--tx)}
+</style></head><body><div class="wrap">
+  <div class="top">
+    <div><div class="k">THE ALGOHUB · CFB GAME ALGO · 2026</div><h1>WEEK 10</h1></div>
+    <div class="stats">
+      <div><small>GAMES</small><b>62</b></div>
+      <div class="p"><small>PLAYS</small><b>36</b></div>
+      <div class="s"><small>STRONG</small><b>0</b></div>
+      <div><small>UPDATED</small><b style="font-size:18px">2026-11-09</b></div>
+    </div>
+  </div>
+  <div class="tabs"><button class="on" data-f="all">ALL</button><button data-f="plays">PLAYS ONLY</button><button data-f="TUE">TUE</button><button data-f="WED">WED</button><button data-f="THU">THU</button><button data-f="FRI">FRI</button><button data-f="SAT">SAT</button><select class="conf" aria-label="Filter by conference"><option value="">ALL CONFERENCES</option><option value="ACC">ACC</option><option value="American Athletic">AMERICAN ATHLETIC</option><option value="Big 12">BIG 12</option><option value="Big Ten">BIG TEN</option><option value="Conference USA">CONFERENCE USA</option><option value="FBS Independents">FBS INDEPENDENTS</option><option value="Mid-American">MID-AMERICAN</option><option value="Mountain West">MOUNTAIN WEST</option><option value="Pac-12">PAC-12</option><option value="SEC">SEC</option><option value="Sun Belt">SUN BELT</option></select></div>
+  
+  <section class="day" data-day="TUE">
+    <div class="dayhead"><h2>TUESDAY, NOVEMBER 3</h2><span>2 GAMES</span></div>
+    <div class="grid">
+    <article class="card b-none" data-day="TUE" data-play="0" data-rank="0" data-conf="Mid-American|Mid-American">
+      <header class="meta"><span>TUE · Wk10 · 8:00 PM ET</span><span>Akron vs Ohio</span></header>
+      <div class="teams">
+        <div class="team fav">
+          <div class="tname"><b>Ohio</b><small>ELO 1427</small></div>
+          <div class="proj">33</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team ">
+          <div class="tname"><b>Akron</b><small>ELO 849</small></div>
+          <div class="proj">19</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Ohio 86%</span><span class="cap">WIN PROB</span><span>Akron 14%</span></div>
+        <div class="wpbar"><i style="width:86.5%;background:#58a6ff"></i><i style="width:13.5%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>+12.5</span></div>
+          <div><small>MODEL</small><span>-13.9</span></div>
+          <div class="edge "><small>EDGE</small><span>-1.4</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>52.5</span></div>
+          <div><small>MODEL</small><span>52.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-edge" data-day="TUE" data-play="1" data-rank="2" data-conf="Mid-American|Mid-American">
+      <header class="meta"><span>TUE · Wk10 · 9:00 PM ET</span><span>Miami Ohio vs Buffalo</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Buffalo</b><small>ELO 1363</small></div>
+          <div class="proj">22</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Miami Ohio</b><small>ELO 1258</small></div>
+          <div class="proj">24</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Buffalo 44%</span><span class="cap">WIN PROB</span><span>Miami Ohio 56%</span></div>
+        <div class="wpbar"><i style="width:43.7%;background:#58a6ff"></i><i style="width:56.3%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-6.5</span></div>
+          <div><small>MODEL</small><span>+1.9</span></div>
+          <div class="edge hot"><small>EDGE</small><span>-4.6</span></div>
+        </div>
+        <div class="pick t-edge"><span class="tier">EDGE</span>AWAY 4.6</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>45.5</span></div>
+          <div><small>MODEL</small><span>46.0</span></div>
+          <div class="edge "><small>EDGE</small><span>0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article></div>
+  </section>
+  <section class="day" data-day="WED">
+    <div class="dayhead"><h2>WEDNESDAY, NOVEMBER 4</h2><span>3 GAMES</span></div>
+    <div class="grid">
+    <article class="card b-none" data-day="WED" data-play="0" data-rank="0" data-conf="Mid-American|Mid-American">
+      <header class="meta"><span>WED · Wk10 · 8:00 PM ET</span><span>Massachusetts vs Ball State</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Ball State</b><small>ELO 1098</small></div>
+          <div class="proj">23</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Massachusetts</b><small>ELO 1122</small></div>
+          <div class="proj">26</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Ball State 40%</span><span class="cap">WIN PROB</span><span>Massachusetts 60%</span></div>
+        <div class="wpbar"><i style="width:39.6%;background:#58a6ff"></i><i style="width:60.4%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-2.5</span></div>
+          <div><small>MODEL</small><span>+3.2</span></div>
+          <div class="edge "><small>EDGE</small><span>0.7</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>48.5</span></div>
+          <div><small>MODEL</small><span>49.0</span></div>
+          <div class="edge "><small>EDGE</small><span>0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-edge" data-day="WED" data-play="1" data-rank="2" data-conf="Mid-American|Mid-American">
+      <header class="meta"><span>WED · Wk10 · 8:00 PM ET</span><span>Sacramento State vs Toledo</span></header>
+      <div class="teams">
+        <div class="team fav">
+          <div class="tname"><b>Toledo</b><small>ELO 1554</small></div>
+          <div class="proj">34</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team ">
+          <div class="tname"><b>Sacramento State</b><small>ELO 1040</small></div>
+          <div class="proj">18</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Toledo 90%</span><span class="cap">WIN PROB</span><span>Sacramento State 10%</span></div>
+        <div class="wpbar"><i style="width:89.9%;background:#58a6ff"></i><i style="width:10.1%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>+25.5</span></div>
+          <div><small>MODEL</small><span>-16.4</span></div>
+          <div class="edge hot"><small>EDGE</small><span>9.1</span></div>
+        </div>
+        <div class="pick t-edge"><span class="tier">EDGE</span>HOME 9.1</div><div class="pin ">NO PINNACLE LINE</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>52.5</span></div>
+          <div><small>MODEL</small><span>52.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-lean" data-day="WED" data-play="1" data-rank="1" data-conf="Mid-American|Mid-American">
+      <header class="meta"><span>WED · Wk10 · 8:30 PM ET</span><span>Eastern Michigan vs Central Michigan · NEUTRAL</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Central Michigan</b><small>ELO 1224</small></div>
+          <div class="proj">22</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Eastern Michigan</b><small>ELO 1219</small></div>
+          <div class="proj">23</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Central Michigan 46%</span><span class="cap">WIN PROB</span><span>Eastern Michigan 54%</span></div>
+        <div class="wpbar"><i style="width:45.8%;background:#58a6ff"></i><i style="width:54.2%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>+2.5</span></div>
+          <div><small>MODEL</small><span>+1.3</span></div>
+          <div class="edge hot"><small>EDGE</small><span>3.8</span></div>
+        </div>
+        <div class="pick t-lean"><span class="tier">LEAN</span>HOME 3.8</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>44.5</span></div>
+          <div><small>MODEL</small><span>45.0</span></div>
+          <div class="edge "><small>EDGE</small><span>0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      <div class="wx">DOME</div>
+    </article></div>
+  </section>
+  <section class="day" data-day="THU">
+    <div class="dayhead"><h2>THURSDAY, NOVEMBER 5</h2><span>2 GAMES</span></div>
+    <div class="grid">
+    <article class="card b-none" data-day="THU" data-play="0" data-rank="0" data-conf="American Athletic|American Athletic">
+      <header class="meta"><span>THU · Wk10 · 8:30 PM ET</span><span>Florida Atlantic vs UTSA</span></header>
+      <div class="teams">
+        <div class="team fav">
+          <div class="tname"><b>UTSA</b><small>ELO 1588</small></div>
+          <div class="proj">39</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team ">
+          <div class="tname"><b>Florida Atlantic</b><small>ELO 1252</small></div>
+          <div class="proj">33</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>UTSA 69%</span><span class="cap">WIN PROB</span><span>Florida Atlantic 31%</span></div>
+        <div class="wpbar"><i style="width:69.2%;background:#58a6ff"></i><i style="width:30.8%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>+7.0</span></div>
+          <div><small>MODEL</small><span>-6.1</span></div>
+          <div class="edge "><small>EDGE</small><span>0.9</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>72.5</span></div>
+          <div><small>MODEL</small><span>72.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-none" data-day="THU" data-play="0" data-rank="0" data-conf="Sun Belt|Sun Belt">
+      <header class="meta"><span>THU · Wk10 · 9:00 PM ET</span><span>Southern Miss vs James Madison</span></header>
+      <div class="teams">
+        <div class="team fav">
+          <div class="tname"><b>James Madison</b><small>ELO 1777</small></div>
+          <div class="proj">37</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team ">
+          <div class="tname"><b>Southern Miss</b><small>ELO 1214</small></div>
+          <div class="proj">22</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>James Madison 88%</span><span class="cap">WIN PROB</span><span>Southern Miss 12%</span></div>
+        <div class="wpbar"><i style="width:88.2%;background:#58a6ff"></i><i style="width:11.8%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>+13.5</span></div>
+          <div><small>MODEL</small><span>-15.1</span></div>
+          <div class="edge "><small>EDGE</small><span>-1.6</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>58.5</span></div>
+          <div><small>MODEL</small><span>59.0</span></div>
+          <div class="edge "><small>EDGE</small><span>0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article></div>
+  </section>
+  <section class="day" data-day="FRI">
+    <div class="dayhead"><h2>FRIDAY, NOVEMBER 6</h2><span>5 GAMES</span></div>
+    <div class="grid">
+    <article class="card b-edge" data-day="FRI" data-play="1" data-rank="2" data-conf="ACC|ACC">
+      <header class="meta"><span>FRI · Wk10 · 8:00 PM ET</span><span>Southern Methodist vs Virginia Tech</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Virginia Tech</b><small>ELO 1516</small></div>
+          <div class="proj">23</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Southern Methodist</b><small>ELO 1752</small></div>
+          <div class="proj">34</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Virginia Tech 18%</span><span class="cap">WIN PROB</span><span>Southern Methodist 82%</span></div>
+        <div class="wpbar"><i style="width:18.1%;background:#58a6ff"></i><i style="width:81.9%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-6.0</span></div>
+          <div><small>MODEL</small><span>+11.3</span></div>
+          <div class="edge hot"><small>EDGE</small><span>5.3</span></div>
+        </div>
+        <div class="pick t-edge"><span class="tier">EDGE</span>HOME 5.3</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>57.5</span></div>
+          <div><small>MODEL</small><span>57.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-lean" data-day="FRI" data-play="1" data-rank="1" data-conf="American Athletic|American Athletic">
+      <header class="meta"><span>FRI · Wk10 · 8:30 PM ET</span><span>East Carolina vs South Florida</span></header>
+      <div class="teams">
+        <div class="team fav">
+          <div class="tname"><b>South Florida</b><small>ELO 1638</small></div>
+          <div class="proj">20</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team ">
+          <div class="tname"><b>East Carolina</b><small>ELO 1437</small></div>
+          <div class="proj">19</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>South Florida 54%</span><span class="cap">WIN PROB</span><span>East Carolina 46%</span></div>
+        <div class="wpbar"><i style="width:54.0%;background:#58a6ff"></i><i style="width:46.0%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-1.5</span></div>
+          <div><small>MODEL</small><span>-1.2</span></div>
+          <div class="edge hot"><small>EDGE</small><span>-2.7</span></div>
+        </div>
+        <div class="pick t-lean"><span class="tier">LEAN</span>AWAY 2.7</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>39.5</span></div>
+          <div><small>MODEL</small><span>39.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-edge" data-day="FRI" data-play="1" data-rank="2" data-conf="Big Ten|Big Ten">
+      <header class="meta"><span>FRI · Wk10 · 9:00 PM ET</span><span>Illinois vs Nebraska</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Nebraska</b><small>ELO 1749</small></div>
+          <div class="proj">26</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Illinois</b><small>ELO 1568</small></div>
+          <div class="proj">27</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Nebraska 48%</span><span class="cap">WIN PROB</span><span>Illinois 52%</span></div>
+        <div class="wpbar"><i style="width:48.2%;background:#58a6ff"></i><i style="width:51.8%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>+4.5</span></div>
+          <div><small>MODEL</small><span>+0.5</span></div>
+          <div class="edge hot"><small>EDGE</small><span>5.0</span></div>
+        </div>
+        <div class="pick t-edge"><span class="tier">EDGE</span>HOME 5.0</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>52.5</span></div>
+          <div><small>MODEL</small><span>53.0</span></div>
+          <div class="edge "><small>EDGE</small><span>0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-edge" data-day="FRI" data-play="1" data-rank="2" data-conf="Mountain West|Mountain West">
+      <header class="meta"><span>FRI · Wk10 · 10:00 PM ET</span><span>Nevada vs New Mexico</span></header>
+      <div class="teams">
+        <div class="team fav">
+          <div class="tname"><b>New Mexico</b><small>ELO 1667</small></div>
+          <div class="proj">22</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team ">
+          <div class="tname"><b>Nevada</b><small>ELO 1408</small></div>
+          <div class="proj">18</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>New Mexico 63%</span><span class="cap">WIN PROB</span><span>Nevada 37%</span></div>
+        <div class="wpbar"><i style="width:62.9%;background:#58a6ff"></i><i style="width:37.1%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>+10.5</span></div>
+          <div><small>MODEL</small><span>-4.0</span></div>
+          <div class="edge hot"><small>EDGE</small><span>6.5</span></div>
+        </div>
+        <div class="pick t-edge"><span class="tier">EDGE</span>HOME 6.5</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>39.5</span></div>
+          <div><small>MODEL</small><span>40.0</span></div>
+          <div class="edge "><small>EDGE</small><span>0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-edge" data-day="FRI" data-play="1" data-rank="2" data-conf="Big 12|Big 12">
+      <header class="meta"><span>FRI · Wk10 · 11:15 PM ET</span><span>Arizona vs Texas Christian</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Texas Christian</b><small>ELO 1608</small></div>
+          <div class="proj">17</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Arizona</b><small>ELO 1800</small></div>
+          <div class="proj">29</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Texas Christian 16%</span><span class="cap">WIN PROB</span><span>Arizona 84%</span></div>
+        <div class="wpbar"><i style="width:15.9%;background:#58a6ff"></i><i style="width:84.1%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-6.0</span></div>
+          <div><small>MODEL</small><span>+12.5</span></div>
+          <div class="edge hot"><small>EDGE</small><span>6.5</span></div>
+        </div>
+        <div class="pick t-edge"><span class="tier">EDGE</span>HOME 6.5</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>46.5</span></div>
+          <div><small>MODEL</small><span>46.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article></div>
+  </section>
+  <section class="day" data-day="SAT">
+    <div class="dayhead"><h2>SATURDAY, NOVEMBER 7</h2><span>50 GAMES</span></div>
+    <div class="grid">
+    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1" data-conf="Big 12|Big 12">
+      <header class="meta"><span>SAT · Wk10 · 1:00 PM ET</span><span>Baylor vs Iowa State</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Iowa State</b><small>ELO 1550</small></div>
+          <div class="proj">21</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Baylor</b><small>ELO 1687</small></div>
+          <div class="proj">29</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Iowa State 26%</span><span class="cap">WIN PROB</span><span>Baylor 74%</span></div>
+        <div class="wpbar"><i style="width:25.6%;background:#58a6ff"></i><i style="width:74.4%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-10.0</span></div>
+          <div><small>MODEL</small><span>+8.0</span></div>
+          <div class="edge hot"><small>EDGE</small><span>-2.0</span></div>
+        </div>
+        <div class="pick t-lean"><span class="tier">LEAN</span>AWAY 2.0</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>50.5</span></div>
+          <div><small>MODEL</small><span>50.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="Big Ten|Big Ten">
+      <header class="meta"><span>SAT · Wk10 · 1:00 PM ET</span><span>Minnesota vs UCLA</span></header>
+      <div class="teams">
+        <div class="team fav">
+          <div class="tname"><b>UCLA</b><small>ELO 1749</small></div>
+          <div class="proj">21</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team ">
+          <div class="tname"><b>Minnesota</b><small>ELO 1456</small></div>
+          <div class="proj">16</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>UCLA 65%</span><span class="cap">WIN PROB</span><span>Minnesota 35%</span></div>
+        <div class="wpbar"><i style="width:65.0%;background:#58a6ff"></i><i style="width:35.0%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>+3.5</span></div>
+          <div><small>MODEL</small><span>-4.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-1.1</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>37.5</span></div>
+          <div><small>MODEL</small><span>37.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="ACC|ACC">
+      <header class="meta"><span>SAT · Wk10 · 1:00 PM ET</span><span>Boston College vs Florida State</span></header>
+      <div class="teams">
+        <div class="team fav">
+          <div class="tname"><b>Florida State</b><small>ELO 1575</small></div>
+          <div class="proj">30</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team ">
+          <div class="tname"><b>Boston College</b><small>ELO 1357</small></div>
+          <div class="proj">24</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Florida State 69%</span><span class="cap">WIN PROB</span><span>Boston College 31%</span></div>
+        <div class="wpbar"><i style="width:69.2%;background:#58a6ff"></i><i style="width:30.8%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>+5.5</span></div>
+          <div><small>MODEL</small><span>-6.1</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.6</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>53.5</span></div>
+          <div><small>MODEL</small><span>54.0</span></div>
+          <div class="edge "><small>EDGE</small><span>0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="ACC|FBS Independents">
+      <header class="meta"><span>SAT · Wk10 · 1:00 PM ET</span><span>Connecticut vs North Carolina</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>North Carolina</b><small>ELO 1486</small></div>
+          <div class="proj">26</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Connecticut</b><small>ELO 1475</small></div>
+          <div class="proj">29</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>North Carolina 40%</span><span class="cap">WIN PROB</span><span>Connecticut 60%</span></div>
+        <div class="wpbar"><i style="width:39.8%;background:#58a6ff"></i><i style="width:60.2%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>+7.5</span></div>
+          <div><small>MODEL</small><span>+3.1</span></div>
+          <div class="edge hot"><small>EDGE</small><span>10.6</span></div>
+        </div>
+        <div class="pick t-edge"><span class="tier">EDGE</span>HOME 10.6</div><div class="pin ">NO PINNACLE LINE</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>55.5</span></div>
+          <div><small>MODEL</small><span>55.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1" data-conf="SEC|SEC">
+      <header class="meta"><span>SAT · Wk10 · 1:00 PM ET</span><span>Missouri vs Texas</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Texas</b><small>ELO 1936</small></div>
+          <div class="proj">22</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Missouri</b><small>ELO 1784</small></div>
+          <div class="proj">23</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Texas 48%</span><span class="cap">WIN PROB</span><span>Missouri 52%</span></div>
+        <div class="wpbar"><i style="width:48.5%;background:#58a6ff"></i><i style="width:51.5%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>+2.5</span></div>
+          <div><small>MODEL</small><span>+0.4</span></div>
+          <div class="edge hot"><small>EDGE</small><span>2.9</span></div>
+        </div>
+        <div class="pick t-lean"><span class="tier">LEAN</span>HOME 2.9</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>44.5</span></div>
+          <div><small>MODEL</small><span>45.0</span></div>
+          <div class="edge "><small>EDGE</small><span>0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="ACC|ACC">
+      <header class="meta"><span>SAT · Wk10 · 1:00 PM ET</span><span>Syracuse vs Clemson</span></header>
+      <div class="teams">
+        <div class="team fav">
+          <div class="tname"><b>Clemson</b><small>ELO 1566</small></div>
+          <div class="proj">26</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team ">
+          <div class="tname"><b>Syracuse</b><small>ELO 1335</small></div>
+          <div class="proj">24</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Clemson 56%</span><span class="cap">WIN PROB</span><span>Syracuse 44%</span></div>
+        <div class="wpbar"><i style="width:55.9%;background:#58a6ff"></i><i style="width:44.1%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>+1.5</span></div>
+          <div><small>MODEL</small><span>-1.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.3</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>50.5</span></div>
+          <div><small>MODEL</small><span>50.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      <div class="wx">DOME</div>
+    </article>
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="American Athletic|American Athletic">
+      <header class="meta"><span>SAT · Wk10 · 1:00 PM ET</span><span>Tulane vs Tulsa</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Tulsa</b><small>ELO 1299</small></div>
+          <div class="proj">21</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Tulane</b><small>ELO 1473</small></div>
+          <div class="proj">29</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Tulsa 25%</span><span class="cap">WIN PROB</span><span>Tulane 75%</span></div>
+        <div class="wpbar"><i style="width:24.8%;background:#58a6ff"></i><i style="width:75.2%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>+3.0</span></div>
+          <div><small>MODEL</small><span>+8.3</span></div>
+          <div class="edge hot"><small>EDGE</small><span>11.3</span></div>
+        </div>
+        <div class="pick t-edge"><span class="tier">EDGE</span>HOME 11.3</div><div class="pin ">NO PINNACLE LINE</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>50.5</span></div>
+          <div><small>MODEL</small><span>50.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="Big 12|Big 12">
+      <header class="meta"><span>SAT · Wk10 · 1:00 PM ET</span><span>Utah vs Brigham Young</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Brigham Young</b><small>ELO 1705</small></div>
+          <div class="proj">20</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Utah</b><small>ELO 1919</small></div>
+          <div class="proj">30</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Brigham Young 20%</span><span class="cap">WIN PROB</span><span>Utah 80%</span></div>
+        <div class="wpbar"><i style="width:20.5%;background:#58a6ff"></i><i style="width:79.5%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-4.0</span></div>
+          <div><small>MODEL</small><span>+10.2</span></div>
+          <div class="edge hot"><small>EDGE</small><span>6.2</span></div>
+        </div>
+        <div class="pick t-edge"><span class="tier">EDGE</span>HOME 6.2</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>49.5</span></div>
+          <div><small>MODEL</small><span>50.0</span></div>
+          <div class="edge "><small>EDGE</small><span>0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="ACC|ACC">
+      <header class="meta"><span>SAT · Wk10 · 1:30 PM ET</span><span>North Carolina State vs Duke</span></header>
+      <div class="teams">
+        <div class="team fav">
+          <div class="tname"><b>Duke</b><small>ELO 1744</small></div>
+          <div class="proj">28</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team ">
+          <div class="tname"><b>North Carolina State</b><small>ELO 1492</small></div>
+          <div class="proj">25</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Duke 59%</span><span class="cap">WIN PROB</span><span>North Carolina State 41%</span></div>
+        <div class="wpbar"><i style="width:58.6%;background:#58a6ff"></i><i style="width:41.4%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>+4.5</span></div>
+          <div><small>MODEL</small><span>-2.6</span></div>
+          <div class="edge "><small>EDGE</small><span>1.9</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>53.5</span></div>
+          <div><small>MODEL</small><span>53.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="Big Ten|Big Ten">
+      <header class="meta"><span>SAT · Wk10 · 1:30 PM ET</span><span>Purdue vs Maryland</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Maryland</b><small>ELO 1306</small></div>
+          <div class="proj">23</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Purdue</b><small>ELO 1425</small></div>
+          <div class="proj">33</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Maryland 20%</span><span class="cap">WIN PROB</span><span>Purdue 80%</span></div>
+        <div class="wpbar"><i style="width:20.2%;background:#58a6ff"></i><i style="width:79.8%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-5.5</span></div>
+          <div><small>MODEL</small><span>+10.3</span></div>
+          <div class="edge hot"><small>EDGE</small><span>4.8</span></div>
+        </div>
+        <div class="pick t-edge"><span class="tier">EDGE</span>HOME 4.8</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>56.5</span></div>
+          <div><small>MODEL</small><span>56.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="SEC|SEC">
+      <header class="meta"><span>SAT · Wk10 · 1:45 PM ET</span><span>Auburn vs Arkansas</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Arkansas</b><small>ELO 1478</small></div>
+          <div class="proj">21</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Auburn</b><small>ELO 1619</small></div>
+          <div class="proj">32</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Arkansas 19%</span><span class="cap">WIN PROB</span><span>Auburn 81%</span></div>
+        <div class="wpbar"><i style="width:19.3%;background:#58a6ff"></i><i style="width:80.7%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-10.5</span></div>
+          <div><small>MODEL</small><span>+10.7</span></div>
+          <div class="edge "><small>EDGE</small><span>0.2</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>53.5</span></div>
+          <div><small>MODEL</small><span>53.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="Big 12|Big 12">
+      <header class="meta"><span>SAT · Wk10 · 2:00 PM ET</span><span>Kansas State vs Oklahoma State</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Oklahoma State</b><small>ELO 1464</small></div>
+          <div class="proj">28</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Kansas State</b><small>ELO 1595</small></div>
+          <div class="proj">36</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Oklahoma State 26%</span><span class="cap">WIN PROB</span><span>Kansas State 74%</span></div>
+        <div class="wpbar"><i style="width:26.1%;background:#58a6ff"></i><i style="width:73.9%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>+7.0</span></div>
+          <div><small>MODEL</small><span>+7.8</span></div>
+          <div class="edge hot"><small>EDGE</small><span>14.8</span></div>
+        </div>
+        <div class="pick t-edge"><span class="tier">EDGE</span>HOME 14.8</div><div class="pin ">NO PINNACLE LINE</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>64.5</span></div>
+          <div><small>MODEL</small><span>64.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="Sun Belt|Sun Belt">
+      <header class="meta"><span>SAT · Wk10 · 2:00 PM ET</span><span>Coastal Carolina vs Old Dominion</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Old Dominion</b><small>ELO 1159</small></div>
+          <div class="proj">15</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Coastal Carolina</b><small>ELO 1309</small></div>
+          <div class="proj">28</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Old Dominion 16%</span><span class="cap">WIN PROB</span><span>Coastal Carolina 84%</span></div>
+        <div class="wpbar"><i style="width:15.8%;background:#58a6ff"></i><i style="width:84.2%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-6.5</span></div>
+          <div><small>MODEL</small><span>+12.5</span></div>
+          <div class="edge hot"><small>EDGE</small><span>6.0</span></div>
+        </div>
+        <div class="pick t-edge"><span class="tier">EDGE</span>HOME 6.0</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>43.5</span></div>
+          <div><small>MODEL</small><span>43.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1" data-conf="Sun Belt|Sun Belt">
+      <header class="meta"><span>SAT · Wk10 · 3:30 PM ET</span><span>Appalachian State vs Georgia State</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Georgia State</b><small>ELO 1334</small></div>
+          <div class="proj">25</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Appalachian State</b><small>ELO 1282</small></div>
+          <div class="proj">28</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Georgia State 40%</span><span class="cap">WIN PROB</span><span>Appalachian State 60%</span></div>
+        <div class="wpbar"><i style="width:40.2%;background:#58a6ff"></i><i style="width:59.8%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-6.5</span></div>
+          <div><small>MODEL</small><span>+3.0</span></div>
+          <div class="edge hot"><small>EDGE</small><span>-3.5</span></div>
+        </div>
+        <div class="pick t-lean"><span class="tier">LEAN</span>AWAY 3.5</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>53.5</span></div>
+          <div><small>MODEL</small><span>53.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="Sun Belt|Sun Belt">
+      <header class="meta"><span>SAT · Wk10 · 4:00 PM ET</span><span>Arkansas State vs Louisiana Monroe</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Louisiana Monroe</b><small>ELO 1019</small></div>
+          <div class="proj">18</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Arkansas State</b><small>ELO 1331</small></div>
+          <div class="proj">34</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Louisiana Monroe 11%</span><span class="cap">WIN PROB</span><span>Arkansas State 89%</span></div>
+        <div class="wpbar"><i style="width:10.6%;background:#58a6ff"></i><i style="width:89.4%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-14.5</span></div>
+          <div><small>MODEL</small><span>+16.0</span></div>
+          <div class="edge "><small>EDGE</small><span>1.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>52.5</span></div>
+          <div><small>MODEL</small><span>52.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1" data-conf="Conference USA|Conference USA">
+      <header class="meta"><span>SAT · Wk10 · 4:00 PM ET</span><span>Kennesaw State vs Delaware</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Delaware</b><small>ELO 1393</small></div>
+          <div class="proj">29</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Kennesaw State</b><small>ELO 1293</small></div>
+          <div class="proj">30</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Delaware 50%</span><span class="cap">WIN PROB</span><span>Kennesaw State 50%</span></div>
+        <div class="wpbar"><i style="width:49.7%;background:#58a6ff"></i><i style="width:50.3%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>+1.5</span></div>
+          <div><small>MODEL</small><span>+0.1</span></div>
+          <div class="edge "><small>EDGE</small><span>1.6</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>57.5</span></div>
+          <div><small>MODEL</small><span>59.0</span></div>
+          <div class="edge hot"><small>EDGE</small><span>1.5</span></div>
+        </div>
+        <div class="pick t-lean"><span class="tier">LEAN</span>OVER 1.5</div>
+      </div>
+      
+    </article>
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="SEC|SEC">
+      <header class="meta"><span>SAT · Wk10 · 4:00 PM ET</span><span>South Carolina vs Texas A&amp;M</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Texas A&amp;M</b><small>ELO 1728</small></div>
+          <div class="proj">22</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>South Carolina</b><small>ELO 1745</small></div>
+          <div class="proj">30</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Texas A&amp;M 26%</span><span class="cap">WIN PROB</span><span>South Carolina 74%</span></div>
+        <div class="wpbar"><i style="width:25.7%;background:#58a6ff"></i><i style="width:74.3%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-6.5</span></div>
+          <div><small>MODEL</small><span>+8.0</span></div>
+          <div class="edge "><small>EDGE</small><span>1.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>52.5</span></div>
+          <div><small>MODEL</small><span>52.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="Big 12|Big 12">
+      <header class="meta"><span>SAT · Wk10 · 4:30 PM ET</span><span>Houston vs Cincinnati</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Cincinnati</b><small>ELO 1509</small></div>
+          <div class="proj">26</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Houston</b><small>ELO 1615</small></div>
+          <div class="proj">35</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Cincinnati 23%</span><span class="cap">WIN PROB</span><span>Houston 77%</span></div>
+        <div class="wpbar"><i style="width:23.0%;background:#58a6ff"></i><i style="width:77.0%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-10.0</span></div>
+          <div><small>MODEL</small><span>+9.1</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.9</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>61.5</span></div>
+          <div><small>MODEL</small><span>61.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="Big Ten|Big Ten">
+      <header class="meta"><span>SAT · Wk10 · 4:30 PM ET</span><span>Washington vs Penn State</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Penn State</b><small>ELO 1798</small></div>
+          <div class="proj">22</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Washington</b><small>ELO 1722</small></div>
+          <div class="proj">24</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Penn State 43%</span><span class="cap">WIN PROB</span><span>Washington 57%</span></div>
+        <div class="wpbar"><i style="width:42.9%;background:#58a6ff"></i><i style="width:57.1%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-2.5</span></div>
+          <div><small>MODEL</small><span>+2.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.3</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>46.5</span></div>
+          <div><small>MODEL</small><span>46.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="American Athletic|American Athletic">
+      <header class="meta"><span>SAT · Wk10 · 4:30 PM ET</span><span>Alabama Birmingham vs Charlotte</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Charlotte</b><small>ELO 1046</small></div>
+          <div class="proj">17</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Alabama Birmingham</b><small>ELO 1371</small></div>
+          <div class="proj">30</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Charlotte 15%</span><span class="cap">WIN PROB</span><span>Alabama Birmingham 86%</span></div>
+        <div class="wpbar"><i style="width:14.5%;background:#58a6ff"></i><i style="width:85.5%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-7.5</span></div>
+          <div><small>MODEL</small><span>+13.3</span></div>
+          <div class="edge hot"><small>EDGE</small><span>5.8</span></div>
+        </div>
+        <div class="pick t-edge"><span class="tier">EDGE</span>HOME 5.8</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>47.5</span></div>
+          <div><small>MODEL</small><span>47.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="Sun Belt|Sun Belt">
+      <header class="meta"><span>SAT · Wk10 · 4:30 PM ET</span><span>Georgia Southern vs Marshall</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Marshall</b><small>ELO 1367</small></div>
+          <div class="proj">24</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Georgia Southern</b><small>ELO 1402</small></div>
+          <div class="proj">30</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Marshall 32%</span><span class="cap">WIN PROB</span><span>Georgia Southern 68%</span></div>
+        <div class="wpbar"><i style="width:31.7%;background:#58a6ff"></i><i style="width:68.3%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-7.0</span></div>
+          <div><small>MODEL</small><span>+5.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-1.2</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>54.5</span></div>
+          <div><small>MODEL</small><span>54.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="SEC|SEC">
+      <header class="meta"><span>SAT · Wk10 · 4:30 PM ET</span><span>Louisiana State vs Alabama</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Alabama</b><small>ELO 1939</small></div>
+          <div class="proj">25</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Louisiana State</b><small>ELO 1943</small></div>
+          <div class="proj">30</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Alabama 34%</span><span class="cap">WIN PROB</span><span>Louisiana State 66%</span></div>
+        <div class="wpbar"><i style="width:33.5%;background:#58a6ff"></i><i style="width:66.5%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-6.0</span></div>
+          <div><small>MODEL</small><span>+5.1</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.9</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>54.5</span></div>
+          <div><small>MODEL</small><span>55.0</span></div>
+          <div class="edge "><small>EDGE</small><span>0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1" data-conf="Conference USA|Conference USA">
+      <header class="meta"><span>SAT · Wk10 · 4:30 PM ET</span><span>Middle Tennessee vs Western Kentucky</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Western Kentucky</b><small>ELO 1247</small></div>
+          <div class="proj">26</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Middle Tennessee</b><small>ELO 1143</small></div>
+          <div class="proj">27</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Western Kentucky 46%</span><span class="cap">WIN PROB</span><span>Middle Tennessee 54%</span></div>
+        <div class="wpbar"><i style="width:45.9%;background:#58a6ff"></i><i style="width:54.1%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>+1.5</span></div>
+          <div><small>MODEL</small><span>+1.2</span></div>
+          <div class="edge hot"><small>EDGE</small><span>2.7</span></div>
+        </div>
+        <div class="pick t-lean"><span class="tier">LEAN</span>HOME 2.7</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>53.5</span></div>
+          <div><small>MODEL</small><span>53.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="American Athletic|American Athletic">
+      <header class="meta"><span>SAT · Wk10 · 4:30 PM ET</span><span>Navy vs Temple</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Temple</b><small>ELO 1294</small></div>
+          <div class="proj">23</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Navy</b><small>ELO 1496</small></div>
+          <div class="proj">33</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Temple 20%</span><span class="cap">WIN PROB</span><span>Navy 80%</span></div>
+        <div class="wpbar"><i style="width:20.1%;background:#58a6ff"></i><i style="width:79.9%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-8.5</span></div>
+          <div><small>MODEL</small><span>+10.3</span></div>
+          <div class="edge "><small>EDGE</small><span>1.8</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>55.5</span></div>
+          <div><small>MODEL</small><span>56.0</span></div>
+          <div class="edge "><small>EDGE</small><span>0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="Big Ten|Big Ten">
+      <header class="meta"><span>SAT · Wk10 · 4:30 PM ET</span><span>Ohio State vs Oregon</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Oregon</b><small>ELO 1797</small></div>
+          <div class="proj">15</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Ohio State</b><small>ELO 2019</small></div>
+          <div class="proj">29</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Oregon 14%</span><span class="cap">WIN PROB</span><span>Ohio State 86%</span></div>
+        <div class="wpbar"><i style="width:14.0%;background:#58a6ff"></i><i style="width:86.0%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-7.5</span></div>
+          <div><small>MODEL</small><span>+13.6</span></div>
+          <div class="edge hot"><small>EDGE</small><span>6.1</span></div>
+        </div>
+        <div class="pick t-edge"><span class="tier">EDGE</span>HOME 6.1</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>44.5</span></div>
+          <div><small>MODEL</small><span>44.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="Big 12|Big 12">
+      <header class="meta"><span>SAT · Wk10 · 4:45 PM ET</span><span>Kansas vs Central Florida</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Central Florida</b><small>ELO 1404</small></div>
+          <div class="proj">18</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Kansas</b><small>ELO 1588</small></div>
+          <div class="proj">29</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Central Florida 19%</span><span class="cap">WIN PROB</span><span>Kansas 81%</span></div>
+        <div class="wpbar"><i style="width:19.2%;background:#58a6ff"></i><i style="width:80.8%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-6.0</span></div>
+          <div><small>MODEL</small><span>+10.8</span></div>
+          <div class="edge hot"><small>EDGE</small><span>4.8</span></div>
+        </div>
+        <div class="pick t-edge"><span class="tier">EDGE</span>HOME 4.8</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>47.5</span></div>
+          <div><small>MODEL</small><span>47.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="Conference USA|Conference USA">
+      <header class="meta"><span>SAT · Wk10 · 5:00 PM ET</span><span>Florida International vs Missouri State</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Missouri State</b><small>ELO 1228</small></div>
+          <div class="proj">22</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Florida International</b><small>ELO 1337</small></div>
+          <div class="proj">28</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Missouri State 32%</span><span class="cap">WIN PROB</span><span>Florida International 68%</span></div>
+        <div class="wpbar"><i style="width:31.7%;background:#58a6ff"></i><i style="width:68.3%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-4.5</span></div>
+          <div><small>MODEL</small><span>+5.8</span></div>
+          <div class="edge "><small>EDGE</small><span>1.3</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>50.5</span></div>
+          <div><small>MODEL</small><span>50.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="American Athletic|American Athletic">
+      <header class="meta"><span>SAT · Wk10 · 5:00 PM ET</span><span>North Texas vs Rice</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Rice</b><small>ELO 1129</small></div>
+          <div class="proj">21</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>North Texas</b><small>ELO 1662</small></div>
+          <div class="proj">44</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Rice 5%</span><span class="cap">WIN PROB</span><span>North Texas 96%</span></div>
+        <div class="wpbar"><i style="width:4.5%;background:#58a6ff"></i><i style="width:95.5%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-14.5</span></div>
+          <div><small>MODEL</small><span>+23.0</span></div>
+          <div class="edge hot"><small>EDGE</small><span>8.5</span></div>
+        </div>
+        <div class="pick t-edge"><span class="tier">EDGE</span>HOME 8.5</div><div class="pin ">NO PINNACLE LINE</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>65.5</span></div>
+          <div><small>MODEL</small><span>65.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="Mountain West|Mountain West">
+      <header class="meta"><span>SAT · Wk10 · 5:00 PM ET</span><span>San José State vs Northern Illinois</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Northern Illinois</b><small>ELO 1077</small></div>
+          <div class="proj">20</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>San José State</b><small>ELO 1365</small></div>
+          <div class="proj">33</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Northern Illinois 16%</span><span class="cap">WIN PROB</span><span>San José State 84%</span></div>
+        <div class="wpbar"><i style="width:15.6%;background:#58a6ff"></i><i style="width:84.4%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-11.5</span></div>
+          <div><small>MODEL</small><span>+12.7</span></div>
+          <div class="edge "><small>EDGE</small><span>1.2</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>52.5</span></div>
+          <div><small>MODEL</small><span>53.0</span></div>
+          <div class="edge "><small>EDGE</small><span>0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="Sun Belt|Sun Belt">
+      <header class="meta"><span>SAT · Wk10 · 5:00 PM ET</span><span>Troy vs Louisiana Tech</span></header>
+      <div class="teams">
+        <div class="team fav">
+          <div class="tname"><b>Louisiana Tech</b><small>ELO 1475</small></div>
+          <div class="proj">25</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team ">
+          <div class="tname"><b>Troy</b><small>ELO 1354</small></div>
+          <div class="proj">24</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Louisiana Tech 52%</span><span class="cap">WIN PROB</span><span>Troy 48%</span></div>
+        <div class="wpbar"><i style="width:51.5%;background:#58a6ff"></i><i style="width:48.5%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>+7.0</span></div>
+          <div><small>MODEL</small><span>-0.4</span></div>
+          <div class="edge hot"><small>EDGE</small><span>6.6</span></div>
+        </div>
+        <div class="pick t-edge"><span class="tier">EDGE</span>HOME 6.6</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>48.5</span></div>
+          <div><small>MODEL</small><span>49.0</span></div>
+          <div class="edge "><small>EDGE</small><span>0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="Big Ten|Big Ten">
+      <header class="meta"><span>SAT · Wk10 · 5:15 PM ET</span><span>Wisconsin vs Rutgers</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Rutgers</b><small>ELO 1368</small></div>
+          <div class="proj">16</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Wisconsin</b><small>ELO 1645</small></div>
+          <div class="proj">29</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Rutgers 16%</span><span class="cap">WIN PROB</span><span>Wisconsin 84%</span></div>
+        <div class="wpbar"><i style="width:15.6%;background:#58a6ff"></i><i style="width:84.4%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-19.5</span></div>
+          <div><small>MODEL</small><span>+12.7</span></div>
+          <div class="edge hot"><small>EDGE</small><span>-6.8</span></div>
+        </div>
+        <div class="pick t-edge"><span class="tier">EDGE</span>AWAY 6.8</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>45.5</span></div>
+          <div><small>MODEL</small><span>45.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="SEC|SEC">
+      <header class="meta"><span>SAT · Wk10 · 5:15 PM ET</span><span>Mississippi State vs Vanderbilt</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Vanderbilt</b><small>ELO 1542</small></div>
+          <div class="proj">22</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Mississippi State</b><small>ELO 1521</small></div>
+          <div class="proj">27</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Vanderbilt 35%</span><span class="cap">WIN PROB</span><span>Mississippi State 65%</span></div>
+        <div class="wpbar"><i style="width:35.4%;background:#58a6ff"></i><i style="width:64.6%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-3.0</span></div>
+          <div><small>MODEL</small><span>+4.5</span></div>
+          <div class="edge "><small>EDGE</small><span>1.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>48.5</span></div>
+          <div><small>MODEL</small><span>49.0</span></div>
+          <div class="edge "><small>EDGE</small><span>0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="Sun Belt|Sun Belt">
+      <header class="meta"><span>SAT · Wk10 · 6:00 PM ET</span><span>Louisiana vs South Alabama</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>South Alabama</b><small>ELO 1329</small></div>
+          <div class="proj">25</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Louisiana</b><small>ELO 1494</small></div>
+          <div class="proj">32</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>South Alabama 28%</span><span class="cap">WIN PROB</span><span>Louisiana 72%</span></div>
+        <div class="wpbar"><i style="width:27.9%;background:#58a6ff"></i><i style="width:72.1%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-7.0</span></div>
+          <div><small>MODEL</small><span>+7.1</span></div>
+          <div class="edge "><small>EDGE</small><span>0.1</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>57.5</span></div>
+          <div><small>MODEL</small><span>57.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="Pac-12|Pac-12">
+      <header class="meta"><span>SAT · Wk10 · 7:00 PM ET</span><span>Colorado State vs Boise State</span></header>
+      <div class="teams">
+        <div class="team fav">
+          <div class="tname"><b>Boise State</b><small>ELO 1714</small></div>
+          <div class="proj">42</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team ">
+          <div class="tname"><b>Colorado State</b><small>ELO 1152</small></div>
+          <div class="proj">28</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Boise State 87%</span><span class="cap">WIN PROB</span><span>Colorado State 13%</span></div>
+        <div class="wpbar"><i style="width:86.9%;background:#58a6ff"></i><i style="width:13.1%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>+15.5</span></div>
+          <div><small>MODEL</small><span>-14.2</span></div>
+          <div class="edge "><small>EDGE</small><span>1.3</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>69.5</span></div>
+          <div><small>MODEL</small><span>70.0</span></div>
+          <div class="edge "><small>EDGE</small><span>0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1" data-conf="SEC|SEC">
+      <header class="meta"><span>SAT · Wk10 · 7:15 PM ET</span><span>Tennessee vs Kentucky</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Kentucky</b><small>ELO 1634</small></div>
+          <div class="proj">20</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Tennessee</b><small>ELO 1829</small></div>
+          <div class="proj">30</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Kentucky 20%</span><span class="cap">WIN PROB</span><span>Tennessee 80%</span></div>
+        <div class="wpbar"><i style="width:20.0%;background:#58a6ff"></i><i style="width:80.0%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-6.5</span></div>
+          <div><small>MODEL</small><span>+10.4</span></div>
+          <div class="edge hot"><small>EDGE</small><span>3.9</span></div>
+        </div>
+        <div class="pick t-lean"><span class="tier">LEAN</span>HOME 3.9</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>49.5</span></div>
+          <div><small>MODEL</small><span>50.0</span></div>
+          <div class="edge "><small>EDGE</small><span>0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1" data-conf="Conference USA|Conference USA">
+      <header class="meta"><span>SAT · Wk10 · 8:00 PM ET</span><span>Jacksonville State vs Sam Houston</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Sam Houston</b><small>ELO 1063</small></div>
+          <div class="proj">13</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Jacksonville State</b><small>ELO 1473</small></div>
+          <div class="proj">33</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Sam Houston 7%</span><span class="cap">WIN PROB</span><span>Jacksonville State 93%</span></div>
+        <div class="wpbar"><i style="width:6.6%;background:#58a6ff"></i><i style="width:93.4%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-17.5</span></div>
+          <div><small>MODEL</small><span>+19.9</span></div>
+          <div class="edge hot"><small>EDGE</small><span>2.4</span></div>
+        </div>
+        <div class="pick t-lean"><span class="tier">LEAN</span>HOME 2.4</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>45.5</span></div>
+          <div><small>MODEL</small><span>46.0</span></div>
+          <div class="edge "><small>EDGE</small><span>0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="Big Ten|Big Ten">
+      <header class="meta"><span>SAT · Wk10 · 8:30 PM ET</span><span>Michigan vs Michigan State</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Michigan State</b><small>ELO 1444</small></div>
+          <div class="proj">12</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Michigan</b><small>ELO 1720</small></div>
+          <div class="proj">27</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Michigan State 13%</span><span class="cap">WIN PROB</span><span>Michigan 87%</span></div>
+        <div class="wpbar"><i style="width:12.6%;background:#58a6ff"></i><i style="width:87.4%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-14.0</span></div>
+          <div><small>MODEL</small><span>+14.5</span></div>
+          <div class="edge "><small>EDGE</small><span>0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>39.5</span></div>
+          <div><small>MODEL</small><span>39.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1" data-conf="Big Ten|Big Ten">
+      <header class="meta"><span>SAT · Wk10 · 8:30 PM ET</span><span>Northwestern vs Iowa</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Iowa</b><small>ELO 1909</small></div>
+          <div class="proj">21</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Northwestern</b><small>ELO 1746</small></div>
+          <div class="proj">22</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Iowa 48%</span><span class="cap">WIN PROB</span><span>Northwestern 52%</span></div>
+        <div class="wpbar"><i style="width:47.6%;background:#58a6ff"></i><i style="width:52.4%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>+3.0</span></div>
+          <div><small>MODEL</small><span>+0.7</span></div>
+          <div class="edge hot"><small>EDGE</small><span>3.7</span></div>
+        </div>
+        <div class="pick t-lean"><span class="tier">LEAN</span>HOME 3.7</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>42.5</span></div>
+          <div><small>MODEL</small><span>43.0</span></div>
+          <div class="edge "><small>EDGE</small><span>0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="Big 12|Big 12">
+      <header class="meta"><span>SAT · Wk10 · 8:30 PM ET</span><span>Arizona State vs Colorado</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Colorado</b><small>ELO 1271</small></div>
+          <div class="proj">18</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Arizona State</b><small>ELO 1474</small></div>
+          <div class="proj">28</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Colorado 21%</span><span class="cap">WIN PROB</span><span>Arizona State 79%</span></div>
+        <div class="wpbar"><i style="width:21.0%;background:#58a6ff"></i><i style="width:79.0%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-3.0</span></div>
+          <div><small>MODEL</small><span>+9.9</span></div>
+          <div class="edge hot"><small>EDGE</small><span>6.9</span></div>
+        </div>
+        <div class="pick t-edge"><span class="tier">EDGE</span>HOME 6.9</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>45.5</span></div>
+          <div><small>MODEL</small><span>46.0</span></div>
+          <div class="edge "><small>EDGE</small><span>0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="Mountain West|American Athletic">
+      <header class="meta"><span>SAT · Wk10 · 8:30 PM ET</span><span>Army vs Air Force</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Air Force</b><small>ELO 1459</small></div>
+          <div class="proj">18</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Army</b><small>ELO 1507</small></div>
+          <div class="proj">26</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Air Force 26%</span><span class="cap">WIN PROB</span><span>Army 74%</span></div>
+        <div class="wpbar"><i style="width:26.5%;background:#58a6ff"></i><i style="width:73.5%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-3.5</span></div>
+          <div><small>MODEL</small><span>+7.7</span></div>
+          <div class="edge hot"><small>EDGE</small><span>4.2</span></div>
+        </div>
+        <div class="pick t-edge"><span class="tier">EDGE</span>HOME 4.2</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>43.5</span></div>
+          <div><small>MODEL</small><span>44.0</span></div>
+          <div class="edge "><small>EDGE</small><span>0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="ACC|ACC">
+      <header class="meta"><span>SAT · Wk10 · 8:30 PM ET</span><span>Georgia Tech vs Louisville</span></header>
+      <div class="teams">
+        <div class="team fav">
+          <div class="tname"><b>Louisville</b><small>ELO 1726</small></div>
+          <div class="proj">35</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team ">
+          <div class="tname"><b>Georgia Tech</b><small>ELO 1374</small></div>
+          <div class="proj">27</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Louisville 74%</span><span class="cap">WIN PROB</span><span>Georgia Tech 26%</span></div>
+        <div class="wpbar"><i style="width:74.5%;background:#58a6ff"></i><i style="width:25.5%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>+14.5</span></div>
+          <div><small>MODEL</small><span>-8.1</span></div>
+          <div class="edge hot"><small>EDGE</small><span>6.4</span></div>
+        </div>
+        <div class="pick t-edge"><span class="tier">EDGE</span>HOME 6.4</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>62.5</span></div>
+          <div><small>MODEL</small><span>62.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="SEC|SEC">
+      <header class="meta"><span>SAT · Wk10 · 8:30 PM ET</span><span>Mississippi vs Georgia</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Georgia</b><small>ELO 2037</small></div>
+          <div class="proj">27</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Mississippi</b><small>ELO 1973</small></div>
+          <div class="proj">29</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Georgia 43%</span><span class="cap">WIN PROB</span><span>Mississippi 57%</span></div>
+        <div class="wpbar"><i style="width:42.9%;background:#58a6ff"></i><i style="width:57.1%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>+3.5</span></div>
+          <div><small>MODEL</small><span>+2.1</span></div>
+          <div class="edge hot"><small>EDGE</small><span>5.6</span></div>
+        </div>
+        <div class="pick t-edge"><span class="tier">EDGE</span>HOME 5.6</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>56.5</span></div>
+          <div><small>MODEL</small><span>56.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="ACC|FBS Independents">
+      <header class="meta"><span>SAT · Wk10 · 8:30 PM ET</span><span>Notre Dame vs Miami</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Miami</b><small>ELO 1993</small></div>
+          <div class="proj">24</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Notre Dame</b><small>ELO 2073</small></div>
+          <div class="proj">31</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Miami 28%</span><span class="cap">WIN PROB</span><span>Notre Dame 72%</span></div>
+        <div class="wpbar"><i style="width:27.6%;background:#58a6ff"></i><i style="width:72.4%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-7.5</span></div>
+          <div><small>MODEL</small><span>+7.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.3</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>54.5</span></div>
+          <div><small>MODEL</small><span>55.0</span></div>
+          <div class="edge "><small>EDGE</small><span>0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="SEC|SEC">
+      <header class="meta"><span>SAT · Wk10 · 8:45 PM ET</span><span>Florida vs Oklahoma</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Oklahoma</b><small>ELO 1676</small></div>
+          <div class="proj">20</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Florida</b><small>ELO 1629</small></div>
+          <div class="proj">26</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Oklahoma 32%</span><span class="cap">WIN PROB</span><span>Florida 68%</span></div>
+        <div class="wpbar"><i style="width:32.4%;background:#58a6ff"></i><i style="width:67.6%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-4.0</span></div>
+          <div><small>MODEL</small><span>+5.5</span></div>
+          <div class="edge "><small>EDGE</small><span>1.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>46.5</span></div>
+          <div><small>MODEL</small><span>46.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1" data-conf="Conference USA|Conference USA">
+      <header class="meta"><span>SAT · Wk10 · 9:00 PM ET</span><span>New Mexico State vs Liberty</span></header>
+      <div class="teams">
+        <div class="team fav">
+          <div class="tname"><b>Liberty</b><small>ELO 1834</small></div>
+          <div class="proj">32</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team ">
+          <div class="tname"><b>New Mexico State</b><small>ELO 1206</small></div>
+          <div class="proj">14</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Liberty 92%</span><span class="cap">WIN PROB</span><span>New Mexico State 8%</span></div>
+        <div class="wpbar"><i style="width:91.9%;background:#58a6ff"></i><i style="width:8.1%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>+14.5</span></div>
+          <div><small>MODEL</small><span>-18.2</span></div>
+          <div class="edge hot"><small>EDGE</small><span>-3.7</span></div>
+        </div>
+        <div class="pick t-lean"><span class="tier">LEAN</span>AWAY 3.7</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>46.5</span></div>
+          <div><small>MODEL</small><span>46.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="Big 12|Big 12">
+      <header class="meta"><span>SAT · Wk10 · 10:30 PM ET</span><span>Texas Tech vs West Virginia</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>West Virginia</b><small>ELO 1368</small></div>
+          <div class="proj">26</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Texas Tech</b><small>ELO 1836</small></div>
+          <div class="proj">43</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>West Virginia 9%</span><span class="cap">WIN PROB</span><span>Texas Tech 91%</span></div>
+        <div class="wpbar"><i style="width:8.9%;background:#58a6ff"></i><i style="width:91.1%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-16.5</span></div>
+          <div><small>MODEL</small><span>+17.5</span></div>
+          <div class="edge "><small>EDGE</small><span>1.0</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>68.5</span></div>
+          <div><small>MODEL</small><span>69.0</span></div>
+          <div class="edge "><small>EDGE</small><span>0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1" data-conf="Mountain West|Mountain West">
+      <header class="meta"><span>SAT · Wk10 · 10:30 PM ET</span><span>UTEP vs Hawai&#x27;i</span></header>
+      <div class="teams">
+        <div class="team fav">
+          <div class="tname"><b>Hawai&#x27;i</b><small>ELO 1418</small></div>
+          <div class="proj">29</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team ">
+          <div class="tname"><b>UTEP</b><small>ELO 995</small></div>
+          <div class="proj">19</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Hawai&#x27;i 78%</span><span class="cap">WIN PROB</span><span>UTEP 22%</span></div>
+        <div class="wpbar"><i style="width:78.4%;background:#58a6ff"></i><i style="width:21.6%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>+7.0</span></div>
+          <div><small>MODEL</small><span>-9.7</span></div>
+          <div class="edge hot"><small>EDGE</small><span>-2.7</span></div>
+        </div>
+        <div class="pick t-lean"><span class="tier">LEAN</span>AWAY 2.7</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>48.5</span></div>
+          <div><small>MODEL</small><span>48.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-edge" data-day="SAT" data-play="1" data-rank="2" data-conf="Pac-12|Pac-12">
+      <header class="meta"><span>SAT · Wk10 · 10:30 PM ET</span><span>Utah State vs Fresno State</span></header>
+      <div class="teams">
+        <div class="team fav">
+          <div class="tname"><b>Fresno State</b><small>ELO 1661</small></div>
+          <div class="proj">25</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team ">
+          <div class="tname"><b>Utah State</b><small>ELO 1383</small></div>
+          <div class="proj">20</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Fresno State 65%</span><span class="cap">WIN PROB</span><span>Utah State 35%</span></div>
+        <div class="wpbar"><i style="width:64.6%;background:#58a6ff"></i><i style="width:35.4%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-1.5</span></div>
+          <div><small>MODEL</small><span>-4.5</span></div>
+          <div class="edge hot"><small>EDGE</small><span>-6.0</span></div>
+        </div>
+        <div class="pick t-edge"><span class="tier">EDGE</span>AWAY 6.0</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>44.5</span></div>
+          <div><small>MODEL</small><span>45.0</span></div>
+          <div class="edge "><small>EDGE</small><span>0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article>
+    <article class="card b-lean" data-day="SAT" data-play="1" data-rank="1" data-conf="Mountain West|Mountain West">
+      <header class="meta"><span>SAT · Wk10 · 11:30 PM ET</span><span>Nevada Las Vegas vs Wyoming</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Wyoming</b><small>ELO 1363</small></div>
+          <div class="proj">22</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Nevada Las Vegas</b><small>ELO 1477</small></div>
+          <div class="proj">29</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Wyoming 28%</span><span class="cap">WIN PROB</span><span>Nevada Las Vegas 72%</span></div>
+        <div class="wpbar"><i style="width:28.3%;background:#58a6ff"></i><i style="width:71.7%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-3.0</span></div>
+          <div><small>MODEL</small><span>+7.0</span></div>
+          <div class="edge hot"><small>EDGE</small><span>4.0</span></div>
+        </div>
+        <div class="pick t-lean"><span class="tier">LEAN</span>HOME 4.0</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>50.5</span></div>
+          <div><small>MODEL</small><span>51.0</span></div>
+          <div class="edge "><small>EDGE</small><span>0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      <div class="wx">DOME</div>
+    </article>
+    <article class="card b-none" data-day="SAT" data-play="0" data-rank="0" data-conf="Pac-12|Pac-12">
+      <header class="meta"><span>SAT · Wk10 · 11:30 PM ET</span><span>Oregon State vs Texas State</span></header>
+      <div class="teams">
+        <div class="team ">
+          <div class="tname"><b>Texas State</b><small>ELO 1569</small></div>
+          <div class="proj">34</div>
+        </div>
+        <div class="at">@</div>
+        <div class="team fav">
+          <div class="tname"><b>Oregon State</b><small>ELO 1578</small></div>
+          <div class="proj">39</div>
+        </div>
+      </div>
+      
+      <div class="wp">
+        <div class="wplab"><span>Texas State 34%</span><span class="cap">WIN PROB</span><span>Oregon State 66%</span></div>
+        <div class="wpbar"><i style="width:34.3%;background:#58a6ff"></i><i style="width:65.7%;background:#3fb950"></i></div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">SPREAD</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>-4.0</span></div>
+          <div><small>MODEL</small><span>+4.9</span></div>
+          <div class="edge "><small>EDGE</small><span>0.9</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+      <div class="mkt">
+        <div class="mlabel">TOTAL</div>
+        <div class="cols">
+          <div><small>BOOK</small><span>72.5</span></div>
+          <div><small>MODEL</small><span>73.0</span></div>
+          <div class="edge "><small>EDGE</small><span>0.5</span></div>
+        </div>
+        <div class="pick none">NO PLAY</div>
+      </div>
+      
+    </article></div>
+  </section>
+  <p class="foot">Model trained on opponent-adjusted EPA, success rate, and Elo ratings. Edges in points vs. market. LEAN / EDGE / STRONG tiers. Not betting advice.</p>
+</div>
+<script>
+let F='all', C='';
+function apply(){
+  document.querySelectorAll('.card').forEach(c=>{
+    const okF = F==='plays' ? c.dataset.play==='1' : (F==='all' || c.dataset.day===F);
+    const okC = !C || (c.dataset.conf||'').split('|').includes(C);
+    c.classList.toggle('hide', !(okF && okC));
+  });
+  document.querySelectorAll('.day').forEach(s=>s.classList.toggle('hide', !s.querySelector('.card:not(.hide)')));
+}
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
+  F=b.dataset.f; apply();
+});
+const cs=document.querySelector('.tabs .conf'); if(cs) cs.onchange=()=>{C=cs.value; apply();};
+</script></body></html>

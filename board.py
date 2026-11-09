@@ -93,7 +93,7 @@ def _cfb(data):
     try:
         import sys
         sys.path.insert(0, str(data.parent))
-        from cfb_cards import _spread_tier, _total_tier
+        from cfb_cards_v2 import game_sp_tier, _total_tier
     except Exception:
         return []
     out = []
@@ -108,11 +108,12 @@ def _cfb(data):
             continue
         mu = f"{g['away_team']} at {g['home_team']}"
         se, te = g.get("spread_edge"), g.get("total_edge")
-        if _spread_tier(se):
+        st = game_sp_tier(g)          # includes the Pinnacle check (bumped / knocked down / pulled)
+        if st and se is not None:
             side = g["home_team"] if se > 0 else g["away_team"]
             bs = g.get("book_spread")
             line = "" if bs is None else f" {(bs if se > 0 else -bs):+g}"
-            out.append(dict(sport="CFB", pick=f"{side}{line}", odds="-110", tier=_spread_tier(se),
+            out.append(dict(sport="CFB", pick=f"{side}{line}", odds="-110", tier=st,
                             edge=abs(se), game=mu, when="", unit="pts", day=day))
         if _total_tier(te) and g.get("book_total") is not None:
             out.append(dict(sport="CFB", pick=f"{'Over' if te > 0 else 'Under'} {g['book_total']:g}", odds="-110",

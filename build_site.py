@@ -443,7 +443,7 @@ def nfl_matchups_html(season, week):
 
 
 def cfb(f):
-    from cfb_cards import render_cards, game_sp_tier, _total_tier
+    from cfb_cards_v2 import render_cards, game_sp_tier, _total_tier
     data = json.loads(f.read_text(encoding="utf-8"))
     games, week = data.get("games", []), data.get("week")
     card_rel = f"cards/cfb_{slug_from(f)}.html"
