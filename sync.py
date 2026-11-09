@@ -116,6 +116,12 @@ def main():
     except Exception as ex:
         print(f"  ! novig nhl skipped: {ex}")
     lap("novig nhl")
+    try:                                         # stale-line board: DK behind the sharp market
+        import stale
+        stale.main()
+    except Exception as ex:
+        print(f"  ! stale lines skipped: {ex}")
+    lap("stale lines")
     try:                                         # closing line value: every play vs Novig's closing line
         import clv
         clv.main()

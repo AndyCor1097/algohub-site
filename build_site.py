@@ -443,7 +443,7 @@ def nfl_matchups_html(season, week):
 
 
 def cfb(f):
-    from cfb_cards import render_cards, _spread_tier, _total_tier
+    from cfb_cards import render_cards, game_sp_tier, _total_tier
     data = json.loads(f.read_text(encoding="utf-8"))
     games, week = data.get("games", []), data.get("week")
     card_rel = f"cards/cfb_{slug_from(f)}.html"
@@ -452,15 +452,16 @@ def cfb(f):
     for g in games:
         mu = f"{g['away_team']} @ {g['home_team']}"
         se, te = g.get("spread_edge"), g.get("total_edge")
-        s_t, t_t = _spread_tier(se), _total_tier(te)
-        if s_t:
-            rows.append(dict(Matchup=mu, Market="Spread", Pick=f"{'Home' if se > 0 else 'Away'} {abs(se):.1f} pts",
-                             Tier=s_t, Edge=round(se, 1),
+        s_t, t_t = game_sp_tier(g), _total_tier(te)
+        if s_t and se is not None:
+            side = g.get("edge_pick") or ("Home" if se > 0 else "Away")
+            rows.append(dict(Matchup=mu, Market="Spread", Pick=f"{side} ({abs(se):.1f} pts)",
+                             Tier=s_t, Edge=round(se, 1), Pinnacle=g.get("pinnacle") or "",
                              Book=f"{g['book_spread']:+.1f}" if g.get("book_spread") is not None else "-",
                              Model=f"{g['pred_margin']:+.1f}" if g.get("pred_margin") is not None else "-"))
         if t_t:
             rows.append(dict(Matchup=mu, Market="Total", Pick=f"{'Over' if te > 0 else 'Under'} {abs(te):.1f}",
-                             Tier=t_t, Edge=round(te, 1),
+                             Tier=t_t, Edge=round(te, 1), Pinnacle="",
                              Book=f"{g['book_total']:.1f}" if g.get("book_total") is not None else "-",
                              Model=f"{g['pred_total']:.1f}" if g.get("pred_total") is not None else "-"))
     if rows:
@@ -630,8 +631,10 @@ def cbb(f):
     for _, r in g.iterrows():
         mu = f"{r.away_name} @ {r.home_name}"
         if isinstance(r.sp_tier, str) and r.sp_tier:
+            pn = r.get("pin_note")
             rows.append(dict(Time=r.start_et, Matchup=mu, Market="Spread", Pick=r.sp_pick, Tier=r.sp_tier,
-                             Edge=round(abs(r.sp_edge), 1), Book=f"{r.spread:+g}", Model=f"{-r.pred_margin:+.1f}"))
+                             Edge=round(abs(r.sp_edge), 1), Book=f"{r.spread:+g}", Model=f"{-r.pred_margin:+.1f}",
+                             Pinnacle=pn if isinstance(pn, str) else ""))
         if isinstance(r.tot_tier, str) and r.tot_tier:
             rows.append(dict(Time=r.start_et, Matchup=mu, Market="Total", Pick=r.tot_pick, Tier=r.tot_tier,
                              Edge=round(abs(r.tot_edge), 1), Book=f"{r.total:g}", Model=f"{r.pred_total:.1f}"))
@@ -959,9 +962,10 @@ def shell(current, body, plays, counts, live, title, members=True):
 # "How plays work" box at the top of each sport (keep in sync with each algo's tier settings)
 TIER_GUIDE = {
     "nfl": [("Spread", "LEAN 3+ pts", "PLAY 4.5+", "HAMMER 6+"),
-            ("Total", "LEAN 2.5+ pts", "PLAY 4+", "HAMMER 6+"),
+            ("Total", "LEAN 3.5+ pts", "PLAY 5+", "HAMMER 7+"),
             ("Moneyline value", "win % 4+ pts over the no-vig line", "", ""),
-            ("Yardage / receptions props", "LEAN 2+ pts over the price's break-even", "PLAY 3.5+", "HAMMER 5+"),
+            ("Yardage / receptions props", "PLAY 3.5+ pts over the price's break-even", "HAMMER 5+",
+             "(receiving yards needs 1.5 more; LEANs shown but not counted on the record)"),
             ("Anytime TD", "LEAN 3+ pts over break-even", "PLAY 5+", "")],
     "cfb": [("Spread", "LEAN 2+ pts", "EDGE 4+", "STRONG 7+")],
     "cbb": [("Spread", "LEAN 5+ pts", "PLAY 6+", "HAMMER 8+"),
@@ -1010,12 +1014,62 @@ def clv_html(slug):
     tiles = "".join(f'<div class="tile"><small>{e(k)}</small><b>{e(v)}</b></div>' for k, v in bits)
     return (f'<h3 class="sub">Closing line value</h3><div class="tiles">{tiles}</div>'
             '<p class="note">Our number vs the sharp market\'s final number (Novig) right before the game. '
-            'Beating the close more than half the time is the best early sign the picks are sharp, even in a losing week.</p>')
+            'Beating the close more than half the time is the best early sign the picks are sharp, even in a losing week.</p>'
+            + clv_breakdown(slug))
+
+
+def clv_breakdown(slug):
+    """CLV by market and tier: which kinds of plays actually beat the close (the ones that don't get cut)."""
+    f = DATA / "clv.csv"
+    if not f.exists():
+        return ""
+    d = pd.read_csv(f)
+    d = d[d.sport == slug]
+    if len(d) < 5:
+        return ""
+    rows = []
+    for (m, t), x in d.groupby(["market", "tier"]):
+        nz = x[x.clv != 0]
+        unit = x.unit.iloc[0]
+        rows.append({"Market": m, "Tier": t, "Plays": len(x),
+                     "Beat the close": f"{(nz.clv > 0).mean():.0%}" if len(nz) else "-",
+                     "Avg CLV": f"{x.clv.mean():+.1f}{' pts' if unit == 'pts' else '%'}"})
+    out = pd.DataFrame(rows).sort_values(["Market", "Plays"], ascending=[True, False])
+    return ('<details class="mu"><summary><b>CLV by market</b><span>which plays beat the close</span></summary>'
+            + table(out, tier_col="Tier") + "</details>")
+
+
+STALE_SPORTS = ("nfl", "cfb", "cbb")
+
+
+def stale_html(slug):
+    """'Stale lines' tab: where DraftKings is behind the sharp market (see stale.py)."""
+    intro = ('<p class="hint"><b>How to read this:</b> these are spots where DraftKings hasn\'t caught up to the sharp '
+             'market yet, so DK is giving you a better number than the sharpest books (Pinnacle, Novig). That\'s a '
+             '+EV bet on its own. <b>Model agrees</b> means our algo likes the same side, and those are the best bets on '
+             'the board. Bet them early: stale lines don\'t stay stale.</p>')
+    f = DATA / "stale.csv"
+    if not f.exists():
+        return intro + note("Nothing yet. This fills in on the next run.")
+    d = pd.read_csv(f)
+    d = d[d.sport == slug]
+    if d.empty:
+        return intro + note("No stale lines right now. DK matches the sharp market on every game.")
+    d = d.sort_values(["model_agrees", "ev"], ascending=[False, False])
+    both = d[d.model_agrees]
+    out = intro + tiles([("Stale lines", len(d)), ("Model agrees too", len(both))])
+    out += table(pd.DataFrame({"Day": d.day, "Game": d.game, "Market": d.market, "Bet at DK": d.bet,
+                               "DK": d.dk.astype(str), "Sharp": d.sharp, "Edge": d.ev.map(lambda v: f"+{v:.1f}%"),
+                               "Model": d.model_agrees.map(lambda v: "AGREES" if v else "")}))
+    return out
 
 
 def sport_body(slug, f, others):
     panes = SOURCES[slug][2](f)
     panes = [(n, (h + clv_html(slug)) if n == "Record" else h) for n, h in panes]
+    if slug in STALE_SPORTS:
+        i = next((k for k, (n, _) in enumerate(panes) if n == "Record"), len(panes))
+        panes.insert(i, ("Stale lines", stale_html(slug)))
     pane_ids = [f"p-{re.sub(r'[^a-z]', '', n.lower())}" for n, _ in panes]
     btns = "".join(f'<button role="tab" data-p="{pid}" aria-selected="{"true" if i == 0 else "false"}">{e(n)}</button>'
                    for i, ((n, _), pid) in enumerate(zip(panes, pane_ids)))

@@ -1,0 +1,14 @@
+sport,day,game,market,bet,dk,sharp,ev,model_agrees
+cbb,2026-11-09,Eastern Illinois @ Notre Dame,Spread,Eastern Illinois +28.5,+28.5,Pinnacle +27.5,1.2,True
+cbb,2026-11-09,Alabama A&M @ DePaul,Spread,Alabama A&M +24.5,+24.5,Pinnacle +23.5,1.2,True
+cbb,2026-11-09,Eastern Washington @ Oregon State,Spread,Eastern Washington +17.5,+17.5,Pinnacle +16.5,1.2,True
+cfb,2026-11-14,Syracuse @ North Carolina State,Spread,North Carolina State +3.5,-110,Novig 56%,7.9,True
+cfb,2026-11-14,Utah @ Arizona,Spread,Arizona +3.5,-110,Novig 56%,7.4,True
+cfb,2026-11-15,Nevada Las Vegas @ New Mexico,Spread,Nevada Las Vegas +14.5,-110,Novig 54%,2.6,True
+cfb,2026-11-15,Wyoming @ UTEP,Spread,Wyoming -7.5,-7.5,Pinnacle -9,2.6,True
+cfb,2026-11-14,Michigan @ Oregon,Spread,Michigan +11.5,+11.5,Pinnacle +10.5,0.2,True
+cfb,2026-11-14,Illinois @ UCLA,Spread,UCLA -9.5,-110,Novig 54%,2.6,False
+cfb,2026-11-14,Southern California @ Indiana,Spread,Southern California +7.5,-110,Novig 54%,2.1,False
+cfb,2026-11-15,Troy @ South Alabama,Spread,Troy +3.5,-110,Novig 54%,2.1,False
+cfb,2026-11-14,Missouri @ Georgia,Spread,Missouri +15.5,+15.5,Pinnacle +14.5,0.2,False
+cfb,2026-11-15,Stanford @ Virginia Tech,Spread,Stanford +15.5,+15.5,Pinnacle +14.5,0.2,False
