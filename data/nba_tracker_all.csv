@@ -110,3 +110,11 @@ game_id,date,matchup,score,pick,model_pct,result,ats_pick,ats_edge,ats_result
 401909949,2026-11-08,Celtics @ Bucks,117-97,Celtics,85.2,W,Bucks,0.2,L
 401909950,2026-11-08,Pelicans @ Clippers,123-139,Clippers,50.6,W,Clippers,0.8,W
 401909951,2026-11-08,Heat @ Kings,114-108,Heat,74.9,W,Kings,1.9,W
+401909952,2026-11-09,Lakers @ Hawks,124-114,Lakers,51.2,W,Lakers,1.1,W
+401909953,2026-11-09,Cavaliers @ Hornets,112-124,Cavaliers,76.3,L,Cavaliers,0.4,L
+401909954,2026-11-09,Wizards @ Pistons,111-122,Pistons,81.0,W,Wizards,0.1,L
+401909955,2026-11-09,Grizzlies @ Raptors,118-102,Raptors,57.7,L,Raptors,0.2,L
+401909956,2026-11-09,Pacers @ Mavericks,122-125,Mavericks,61.2,W,Mavericks,0.9,L
+401909957,2026-11-09,Nuggets @ Rockets,100-110,Rockets,71.9,W,Nuggets,0.9,L
+401909958,2026-11-09,Spurs @ Suns,122-96,Spurs,76.1,W,Suns,0.5,L
+401909959,2026-11-09,Pelicans @ Warriors,87-138,Warriors,78.4,W,Warriors,0.1,W

@@ -1,0 +1,2091 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AlgoHub CBB 2026-11-11</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0e13;--card:#12161d;--card2:#171c25;--line:#222a35;--tx:#e6edf3;--mu:#7d8590;--lean:#58a6ff;--play:#3fb950;--ham:#f2b134}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-serif;padding:28px 16px 60px}
+.wrap{max-width:1180px;margin:0 auto}
+.proj,.cols span,.top h1,.stats b,.wplab,.pick,.srow i{font-family:"Barlow Condensed",sans-serif}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:18px}
+.top .k{color:var(--mu);font-size:12px;letter-spacing:.18em;font-weight:600}
+.top h1{font-size:44px;font-weight:800;line-height:1}
+.stats{display:flex;gap:22px} .stats div{text-align:right} .stats small{display:block;color:var(--mu);font-size:11px;letter-spacing:.14em}
+.stats b{font-size:30px} .stats .h b{color:var(--ham)} .stats .p b{color:var(--play)}
+.tools{display:flex;gap:8px;margin:18px 0;flex-wrap:wrap;align-items:center}
+.tools button{background:transparent;border:1px solid var(--line);color:var(--mu);padding:7px 14px;border-radius:999px;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.08em;cursor:pointer}
+.tools button.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.tools input{flex:1;min-width:180px;max-width:320px;background:var(--card);border:1px solid var(--line);color:var(--tx);border-radius:999px;padding:8px 14px;font:500 13px Inter,sans-serif}
+.tools input:focus,.tools button:focus-visible{outline:2px solid var(--ham);outline-offset:2px}
+.count{color:var(--mu);font-size:12px;margin-left:auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;border-top:3px solid var(--line)}
+.card.b-lean{border-top-color:var(--lean)} .card.b-play{border-top-color:var(--play)}
+.card.b-hammer{border-top-color:var(--ham);box-shadow:0 0 0 1px rgba(242,177,52,.25),0 8px 30px rgba(242,177,52,.08)}
+.meta{display:flex;justify-content:space-between;gap:10px;padding:11px 16px;color:var(--mu);font-size:11px;letter-spacing:.06em;border-bottom:1px solid var(--line)}
+.meta span:last-child{text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.team{display:flex;align-items:center;gap:12px;padding:10px 16px}
+.badge{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font:800 12px "Barlow Condensed";flex:none}
+.tname{flex:1;min-width:0} .tname b{display:block;font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tname small{color:var(--mu);font-size:12px} .rk{font-style:normal;color:var(--mu);font-size:12px;font-weight:600;margin-right:6px}
+.proj{font-size:32px;font-weight:700;color:var(--mu)} .team.fav .proj{color:var(--tx)}
+.wp{padding:6px 16px 14px} .wplab{display:flex;justify-content:space-between;font-size:15px;font-weight:700;margin-bottom:6px}
+.wplab .cap{color:var(--mu);font:600 10px Inter,system-ui,sans-serif;letter-spacing:.16em;align-self:center}
+.wpbar{display:flex;height:8px;border-radius:99px;overflow:hidden;gap:2px;background:var(--line)} .wpbar i{display:block;height:100%}
+.mkt{border-top:1px solid var(--line);padding:12px 16px;background:var(--card2)}
+.mlabel{color:var(--mu);font:600 10px Inter,system-ui,sans-serif;letter-spacing:.18em;margin-bottom:8px}
+.cols{display:grid;grid-template-columns:1.4fr 1.4fr .6fr;gap:8px} .cols small{display:block;color:var(--mu);font-size:10px;letter-spacing:.14em}
+.cols span{font-size:17px;font-weight:700} .edge span{color:var(--mu)} .edge.hot span{color:var(--tx);font-size:24px}
+.pick{margin-top:10px;display:flex;align-items:center;gap:10px;font-size:19px;font-weight:700;flex-wrap:wrap}
+.pick small{color:var(--mu);font:600 12px Inter,sans-serif}
+.pick .tier{font:800 11px Inter,system-ui,sans-serif;letter-spacing:.14em;padding:4px 8px;border-radius:6px;color:#0b0e13}
+.t-lean .tier{background:var(--lean)} .t-play .tier{background:var(--play)} .t-hammer .tier{background:var(--ham)}
+.t-hammer{color:var(--ham)} .pick.none{color:#4b535d;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.16em}
+.ml{border-top:1px solid var(--line);padding:10px 16px;font-size:12px;color:var(--mu);display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.ml b{color:var(--play);font-size:14px}
+.strip{border-top:1px solid var(--line);padding:12px 16px}
+.srow{display:flex;gap:16px;font-size:11px;color:var(--mu);letter-spacing:.06em;padding:3px 0;align-items:baseline}
+.srow b{color:var(--tx);width:40px;font-size:12px} .srow i{font-style:normal;color:var(--tx);font-size:15px;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 14px}
+.chip{font:600 10px Inter,system-ui,sans-serif;letter-spacing:.1em;color:#c9d1d9;border:1px solid var(--line);background:#0f1319;padding:4px 8px;border-radius:6px}
+.chip.out{color:#ffb4ab;border-color:#5a2a27;background:#1d1212}
+.foot{color:var(--mu);font-size:11px;margin-top:30px}
+.hide{display:none}
+</style></head><body><div class="wrap">
+  <div class="top"><div><div class="k">THE ALGOHUB · CBB GAME ALGO</div><h1>WEDNESDAY, NOVEMBER 11</h1></div>
+    <div class="stats"><div><small>GAMES</small><b>65</b></div><div class="p"><small>PLAYS</small><b>0</b></div>
+      <div class="h"><small>HAMMERS</small><b>0</b></div></div></div>
+  <div class="tools">
+    <button data-f="plays" class="">PLAYS ONLY</button><button data-f="all" class="on">ALL GAMES</button>
+    <input type="search" placeholder="Find a team" aria-label="Find a team">
+    <span class="count"></span>
+  </div>
+  <div class="grid">
+    <article class="card b-none" data-play="0" data-s="east texas a&amp;m fairleigh dickinson etam fdu">
+      <header class="meta"><span>11:30 AM ET</span><span>The Field House</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#72293c;color:#fff">FDU</span>
+        <div class="tname"><b><i class="rk">#364</i>Fairleigh Dickinson</b><small>0-2</small></div>
+        <div class="proj">61</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#000000;color:#fff">ETAM</span>
+        <div class="tname"><b><i class="rk">#150</i>East Texas A&amp;M</b><small>2-0</small></div>
+        <div class="proj">81</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>FDU 4%</span><span class="cap">WIN PROB</span><span>ETAM 96%</span></div>
+        <div class="wpbar"><i style="width:3.7%;background:#72293c"></i><i style="width:96.3%;background:#000000"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>East Texas A&amp;M -19.3</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>141.9</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>FDU</b><span>OFF <i>#335</i></span><span>DEF <i>#364</i></span><span>TEMPO <i>#328</i></span></div><div class="srow"><b>ETAM</b><span>OFF <i>#221</i></span><span>DEF <i>#105</i></span><span>TEMPO <i>#297</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="kansas city florida a&amp;m kc famu">
+      <header class="meta"><span>12:00 PM ET</span><span>McArthur Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#F89728;color:#0b0e13">FAMU</span>
+        <div class="tname"><b><i class="rk">#359</i>Florida A&amp;M</b><small>0-2</small></div>
+        <div class="proj">74</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#004b87;color:#fff">KC</span>
+        <div class="tname"><b><i class="rk">#249</i>Kansas City</b><small>1-2</small></div>
+        <div class="proj">83</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>FAMU 19%</span><span class="cap">WIN PROB</span><span>KC 81%</span></div>
+        <div class="wpbar"><i style="width:19.1%;background:#F89728"></i><i style="width:80.9%;background:#004b87"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Kansas City -9.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>157.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>FAMU</b><span>OFF <i>#336</i></span><span>DEF <i>#355</i></span><span>TEMPO <i>#56</i></span></div><div class="srow"><b>KC</b><span>OFF <i>#207</i></span><span>DEF <i>#304</i></span><span>TEMPO <i>#130</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="ualbany dartmouth alb dart">
+      <header class="meta"><span>1:00 PM ET</span><span>Broadview Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#005730;color:#fff">DART</span>
+        <div class="tname"><b><i class="rk">#294</i>Dartmouth</b><small>1-1</small></div>
+        <div class="proj">72</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#3D2777;color:#fff">ALB</span>
+        <div class="tname"><b><i class="rk">#321</i>UAlbany</b><small>1-1</small></div>
+        <div class="proj">74</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>DART 42%</span><span class="cap">WIN PROB</span><span>ALB 58%</span></div>
+        <div class="wpbar"><i style="width:42.2%;background:#005730"></i><i style="width:57.8%;background:#3D2777"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>UAlbany -2.1</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>145.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>DART</b><span>OFF <i>#280</i></span><span>DEF <i>#296</i></span><span>TEMPO <i>#216</i></span></div><div class="srow"><b>ALB</b><span>OFF <i>#294</i></span><span>DEF <i>#318</i></span><span>TEMPO <i>#300</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="uc davis incarnate word ucd uiw">
+      <header class="meta"><span>2:00 PM ET</span><span>University Credit Union Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#000000;color:#fff">UIW</span>
+        <div class="tname"><b><i class="rk">#355</i>Incarnate Word</b><small>0-3</small></div>
+        <div class="proj">66</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#002855;color:#fff">UCD</span>
+        <div class="tname"><b><i class="rk">#230</i>UC Davis</b><small>0-1</small></div>
+        <div class="proj">80</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>UIW 10%</span><span class="cap">WIN PROB</span><span>UCD 90%</span></div>
+        <div class="wpbar"><i style="width:10.0%;background:#000000"></i><i style="width:90.0%;background:#002855"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>UC Davis -13.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>145.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>UIW</b><span>OFF <i>#363</i></span><span>DEF <i>#251</i></span><span>TEMPO <i>#217</i></span></div><div class="srow"><b>UCD</b><span>OFF <i>#249</i></span><span>DEF <i>#209</i></span><span>TEMPO <i>#58</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="air force loyola chicago afa luc">
+      <header class="meta"><span>3:00 PM ET</span><span>Clune Arena</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#9d1244;color:#fff">LUC</span>
+        <div class="tname"><b><i class="rk">#106</i>Loyola Chicago</b><small>2-0</small></div>
+        <div class="proj">78</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#004a7b;color:#fff">AFA</span>
+        <div class="tname"><b><i class="rk">#341</i>Air Force</b><small>1-1</small></div>
+        <div class="proj">71</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>LUC 73%</span><span class="cap">WIN PROB</span><span>AFA 27%</span></div>
+        <div class="wpbar"><i style="width:73.5%;background:#9d1244"></i><i style="width:26.5%;background:#004a7b"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Loyola Chicago -6.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>148.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>LUC</b><span>OFF <i>#135</i></span><span>DEF <i>#80</i></span><span>TEMPO <i>#349</i></span></div><div class="srow"><b>AFA</b><span>OFF <i>#305</i></span><span>DEF <i>#344</i></span><span>TEMPO <i>#40</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="south florida saint joseph&#x27;s usf joes">
+      <header class="meta"><span>3:00 PM ET</span><span>Alumni Hall (Navy)</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#C2071B;color:#fff">JOES</span>
+        <div class="tname"><b><i class="rk">#194</i>Saint Joseph&#x27;s</b><small>2-0</small></div>
+        <div class="proj">72</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#004A36;color:#fff">USF</span>
+        <div class="tname"><b><i class="rk">#60</i>South Florida</b><small>1-1</small></div>
+        <div class="proj">86</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>JOES 10%</span><span class="cap">WIN PROB</span><span>USF 90%</span></div>
+        <div class="wpbar"><i style="width:10.4%;background:#C2071B"></i><i style="width:89.6%;background:#004A36"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>South Florida -13.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>157.5</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>JOES</b><span>OFF <i>#304</i></span><span>DEF <i>#85</i></span><span>TEMPO <i>#45</i></span></div><div class="srow"><b>USF</b><span>OFF <i>#24</i></span><span>DEF <i>#139</i></span><span>TEMPO <i>#81</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="east carolina north carolina a&amp;t ecu ncat">
+      <header class="meta"><span>4:00 PM ET</span><span>Minges Coliseum</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#0505aa;color:#fff">NCAT</span>
+        <div class="tname"><b><i class="rk">#274</i>North Carolina A&amp;T</b><small>0-1</small></div>
+        <div class="proj">72</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#4b1869;color:#fff">ECU</span>
+        <div class="tname"><b><i class="rk">#210</i>East Carolina</b><small>1-1</small></div>
+        <div class="proj">79</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>NCAT 25%</span><span class="cap">WIN PROB</span><span>ECU 75%</span></div>
+        <div class="wpbar"><i style="width:25.0%;background:#0505aa"></i><i style="width:75.0%;background:#4b1869"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>East Carolina -7.3</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>151.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>NCAT</b><span>OFF <i>#269</i></span><span>DEF <i>#262</i></span><span>TEMPO <i>#224</i></span></div><div class="srow"><b>ECU</b><span>OFF <i>#224</i></span><span>DEF <i>#203</i></span><span>TEMPO <i>#53</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="san diego state bethune-cookman sdsu bcu">
+      <header class="meta"><span>5:00 PM ET</span><span>Viejas Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#7b1831;color:#fff">BCU</span>
+        <div class="tname"><b><i class="rk">#172</i>Bethune-Cookman</b><small>0-3</small></div>
+        <div class="proj">69</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#c41230;color:#fff">SDSU</span>
+        <div class="tname"><b><i class="rk">#67</i>San Diego State</b><small>2-0</small></div>
+        <div class="proj">85</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>BCU 8%</span><span class="cap">WIN PROB</span><span>SDSU 92%</span></div>
+        <div class="wpbar"><i style="width:7.9%;background:#7b1831"></i><i style="width:92.1%;background:#c41230"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>San Diego State -15.3</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>153.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>BCU</b><span>OFF <i>#184</i></span><span>DEF <i>#184</i></span><span>TEMPO <i>#163</i></span></div><div class="srow"><b>SDSU</b><span>OFF <i>#92</i></span><span>DEF <i>#44</i></span><span>TEMPO <i>#51</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="navy pennsylvania navy penn">
+      <header class="meta"><span>5:30 PM ET</span><span>Alumni Hall (Navy)</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#082A74;color:#fff">PENN</span>
+        <div class="tname"><b><i class="rk">#117</i>Pennsylvania</b><small>1-1</small></div>
+        <div class="proj">80</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#00225b;color:#fff">NAVY</span>
+        <div class="tname"><b><i class="rk">#340</i>Navy</b><small>1-1</small></div>
+        <div class="proj">68</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>PENN 88%</span><span class="cap">WIN PROB</span><span>NAVY 12%</span></div>
+        <div class="wpbar"><i style="width:87.9%;background:#082A74"></i><i style="width:12.1%;background:#00225b"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Pennsylvania -12.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>148.1</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>PENN</b><span>OFF <i>#216</i></span><span>DEF <i>#51</i></span><span>TEMPO <i>#3</i></span></div><div class="srow"><b>NAVY</b><span>OFF <i>#358</i></span><span>DEF <i>#227</i></span><span>TEMPO <i>#236</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="western carolina virginia-lynchburg wcu ">
+      <header class="meta"><span>6:00 PM ET</span><span>Ramsey Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#30363d;color:#fff">VIR</span>
+        <div class="tname"><b>Virginia-Lynchburg</b><small>0-0</small></div>
+        <div class="proj">51</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#492F91;color:#fff">WCU</span>
+        <div class="tname"><b><i class="rk">#130</i>Western Carolina</b><small>1-1</small></div>
+        <div class="proj">100</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>VIR 0%</span><span class="cap">WIN PROB</span><span>WCU 100%</span></div>
+        <div class="wpbar"><i style="width:0.0%;background:#30363d"></i><i style="width:100.0%;background:#492F91"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Western Carolina -49.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>150.1</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>VIR</b><span>OFF <i></i></span><span>DEF <i></i></span><span>TEMPO <i></i></span></div><div class="srow"><b>WCU</b><span>OFF <i>#117</i></span><span>DEF <i>#172</i></span><span>TEMPO <i>#258</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="new hampshire thomas (me) unh ">
+      <header class="meta"><span>6:00 PM ET</span><span>Lundholm Gymnasium</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#30363d;color:#fff">T(</span>
+        <div class="tname"><b>Thomas (ME)</b><small>0-0</small></div>
+        <div class="proj">52</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#004990;color:#fff">UNH</span>
+        <div class="tname"><b><i class="rk">#271</i>New Hampshire</b><small>2-1</small></div>
+        <div class="proj">92</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>T( 0%</span><span class="cap">WIN PROB</span><span>UNH 100%</span></div>
+        <div class="wpbar"><i style="width:0.0%;background:#30363d"></i><i style="width:100.0%;background:#004990"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>New Hampshire -40.3</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>144.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>T(</b><span>OFF <i></i></span><span>DEF <i></i></span><span>TEMPO <i></i></span></div><div class="srow"><b>UNH</b><span>OFF <i>#343</i></span><span>DEF <i>#124</i></span><span>TEMPO <i>#162</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="wofford voorhees wof ">
+      <header class="meta"><span>6:00 PM ET</span><span>Jerry Richardson Indoor Stadium</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#30363d;color:#fff">VOO</span>
+        <div class="tname"><b>Voorhees</b><small>0-0</small></div>
+        <div class="proj">57</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#533B22;color:#fff">WOF</span>
+        <div class="tname"><b><i class="rk">#298</i>Wofford</b><small>0-2</small></div>
+        <div class="proj">98</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>VOO 0%</span><span class="cap">WIN PROB</span><span>WOF 100%</span></div>
+        <div class="wpbar"><i style="width:0.0%;background:#30363d"></i><i style="width:100.0%;background:#533B22"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Wofford -41.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>155.5</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>VOO</b><span>OFF <i></i></span><span>DEF <i></i></span><span>TEMPO <i></i></span></div><div class="srow"><b>WOF</b><span>OFF <i>#239</i></span><span>DEF <i>#340</i></span><span>TEMPO <i>#82</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="vmi north carolina central vmi nccu">
+      <header class="meta"><span>6:00 PM ET</span><span>Cameron Hall</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#880023;color:#fff">NCCU</span>
+        <div class="tname"><b><i class="rk">#308</i>North Carolina Central</b><small>0-2</small></div>
+        <div class="proj">72</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#ae122a;color:#fff">VMI</span>
+        <div class="tname"><b><i class="rk">#301</i>VMI</b><small>0-2</small></div>
+        <div class="proj">77</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>NCCU 32%</span><span class="cap">WIN PROB</span><span>VMI 68%</span></div>
+        <div class="wpbar"><i style="width:31.7%;background:#880023"></i><i style="width:68.3%;background:#ae122a"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>VMI -5.1</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>148.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>NCCU</b><span>OFF <i>#341</i></span><span>DEF <i>#201</i></span><span>TEMPO <i>#111</i></span></div><div class="srow"><b>VMI</b><span>OFF <i>#302</i></span><span>DEF <i>#270</i></span><span>TEMPO <i>#92</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="alabama state panhandle st (ok) alst ">
+      <header class="meta"><span>6:00 PM ET</span><span>Dunn-Oliver Acadome</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#30363d;color:#fff">PS(</span>
+        <div class="tname"><b>Panhandle St (OK)</b><small>0-0</small></div>
+        <div class="proj">56</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#e9a900;color:#0b0e13">ALST</span>
+        <div class="tname"><b><i class="rk">#307</i>Alabama State</b><small>0-1</small></div>
+        <div class="proj">96</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>PS( 0%</span><span class="cap">WIN PROB</span><span>ALST 100%</span></div>
+        <div class="wpbar"><i style="width:0.0%;background:#30363d"></i><i style="width:100.0%;background:#e9a900"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Alabama State -39.7</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>151.9</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>PS(</b><span>OFF <i></i></span><span>DEF <i></i></span><span>TEMPO <i></i></span></div><div class="srow"><b>ALST</b><span>OFF <i>#312</i></span><span>DEF <i>#274</i></span><span>TEMPO <i>#61</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="temple charleston tem cofc">
+      <header class="meta"><span>6:30 PM ET</span><span>Liacouras Center</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#7a2531;color:#fff">COFC</span>
+        <div class="tname"><b><i class="rk">#137</i>Charleston</b><small>0-0</small></div>
+        <div class="proj">72</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#A80532;color:#fff">TEM</span>
+        <div class="tname"><b><i class="rk">#232</i>Temple</b><small>1-1</small></div>
+        <div class="proj">71</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>COFC 56%</span><span class="cap">WIN PROB</span><span>TEM 44%</span></div>
+        <div class="wpbar"><i style="width:55.7%;background:#7a2531"></i><i style="width:44.3%;background:#A80532"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Charleston -1.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>142.9</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>COFC</b><span>OFF <i>#145</i></span><span>DEF <i>#150</i></span><span>TEMPO <i>#161</i></span></div><div class="srow"><b>TEM</b><span>OFF <i>#317</i></span><span>DEF <i>#117</i></span><span>TEMPO <i>#281</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="south carolina upstate bob jones upst ">
+      <header class="meta"><span>6:30 PM ET</span><span>G.B. Hodge Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#30363d;color:#fff">BJ</span>
+        <div class="tname"><b>Bob Jones</b><small>0-0</small></div>
+        <div class="proj">55</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#008545;color:#fff">UPST</span>
+        <div class="tname"><b><i class="rk">#337</i>South Carolina Upstate</b><small>0-3</small></div>
+        <div class="proj">90</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>BJ 0%</span><span class="cap">WIN PROB</span><span>UPST 100%</span></div>
+        <div class="wpbar"><i style="width:0.1%;background:#30363d"></i><i style="width:99.9%;background:#008545"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>South Carolina Upstate -34.9</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>145.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>BJ</b><span>OFF <i></i></span><span>DEF <i></i></span><span>TEMPO <i></i></span></div><div class="srow"><b>UPST</b><span>OFF <i>#348</i></span><span>DEF <i>#278</i></span><span>TEMPO <i>#237</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="eastern michigan great lakes christian emu ">
+      <header class="meta"><span>6:30 PM ET</span><span>Gervin GameAbove Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#30363d;color:#fff">GLC</span>
+        <div class="tname"><b>Great Lakes Christian</b><small>0-0</small></div>
+        <div class="proj">50</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#00331b;color:#fff">EMU</span>
+        <div class="tname"><b><i class="rk">#187</i>Eastern Michigan</b><small>1-1</small></div>
+        <div class="proj">94</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>GLC 0%</span><span class="cap">WIN PROB</span><span>EMU 100%</span></div>
+        <div class="wpbar"><i style="width:0.0%;background:#30363d"></i><i style="width:100.0%;background:#00331b"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Eastern Michigan -44.3</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>143.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>GLC</b><span>OFF <i></i></span><span>DEF <i></i></span><span>TEMPO <i></i></span></div><div class="srow"><b>EMU</b><span>OFF <i>#242</i></span><span>DEF <i>#147</i></span><span>TEMPO <i>#330</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="iu indianapolis southern indiana iuin usi">
+      <header class="meta"><span>6:30 PM ET</span><span>James T. Morris Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#CF102D;color:#fff">USI</span>
+        <div class="tname"><b><i class="rk">#275</i>Southern Indiana</b><small>0-2</small></div>
+        <div class="proj">75</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#A81F30;color:#fff">IUIN</span>
+        <div class="tname"><b><i class="rk">#303</i>IU Indianapolis</b><small>1-0</small></div>
+        <div class="proj">76</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>USI 44%</span><span class="cap">WIN PROB</span><span>IUIN 56%</span></div>
+        <div class="wpbar"><i style="width:44.3%;background:#CF102D"></i><i style="width:55.7%;background:#A81F30"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>IU Indianapolis -1.5</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>151.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>USI</b><span>OFF <i>#327</i></span><span>DEF <i>#160</i></span><span>TEMPO <i>#73</i></span></div><div class="srow"><b>IUIN</b><span>OFF <i>#265</i></span><span>DEF <i>#321</i></span><span>TEMPO <i>#115</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="drexel american university drex amer">
+      <header class="meta"><span>7:00 PM ET</span><span>Daskalakis Athletic Center</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#c41130;color:#fff">AMER</span>
+        <div class="tname"><b><i class="rk">#154</i>American University</b><small>0-2</small></div>
+        <div class="proj">73</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#020260;color:#fff">DREX</span>
+        <div class="tname"><b><i class="rk">#218</i>Drexel</b><small>1-1</small></div>
+        <div class="proj">73</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>AMER 51%</span><span class="cap">WIN PROB</span><span>DREX 49%</span></div>
+        <div class="wpbar"><i style="width:51.4%;background:#c41130"></i><i style="width:48.6%;background:#020260"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>American University -0.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>145.9</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>AMER</b><span>OFF <i>#229</i></span><span>DEF <i>#113</i></span><span>TEMPO <i>#140</i></span></div><div class="srow"><b>DREX</b><span>OFF <i>#288</i></span><span>DEF <i>#138</i></span><span>TEMPO <i>#134</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="st. bonaventure cornell sbu cor">
+      <header class="meta"><span>7:00 PM ET</span><span>Reilly Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#d60027;color:#fff">COR</span>
+        <div class="tname"><b><i class="rk">#216</i>Cornell</b><small>1-1</small></div>
+        <div class="proj">72</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#70261D;color:#fff">SBU</span>
+        <div class="tname"><b><i class="rk">#149</i>St. Bonaventure</b><small>1-1</small></div>
+        <div class="proj">81</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>COR 22%</span><span class="cap">WIN PROB</span><span>SBU 78%</span></div>
+        <div class="wpbar"><i style="width:22.3%;background:#d60027"></i><i style="width:77.7%;background:#70261D"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>St. Bonaventure -8.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>153.1</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>COR</b><span>OFF <i>#178</i></span><span>DEF <i>#280</i></span><span>TEMPO <i>#87</i></span></div><div class="srow"><b>SBU</b><span>OFF <i>#156</i></span><span>DEF <i>#164</i></span><span>TEMPO <i>#263</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="massachusetts umass lowell mass uml">
+      <header class="meta"><span>7:00 PM ET</span><span>Mullins Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#00529C;color:#fff">UML</span>
+        <div class="tname"><b><i class="rk">#199</i>UMass Lowell</b><small>2-0</small></div>
+        <div class="proj">68</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#880007;color:#fff">MASS</span>
+        <div class="tname"><b><i class="rk">#164</i>Massachusetts</b><small>1-1</small></div>
+        <div class="proj">73</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>UML 31%</span><span class="cap">WIN PROB</span><span>MASS 69%</span></div>
+        <div class="wpbar"><i style="width:30.5%;background:#00529C"></i><i style="width:69.5%;background:#880007"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Massachusetts -5.5</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>140.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>UML</b><span>OFF <i>#244</i></span><span>DEF <i>#168</i></span><span>TEMPO <i>#286</i></span></div><div class="srow"><b>MASS</b><span>OFF <i>#218</i></span><span>DEF <i>#142</i></span><span>TEMPO <i>#291</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="michigan marquette mich marq">
+      <header class="meta"><span>7:00 PM ET</span><span>Crisler Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#003366;color:#fff">MARQ</span>
+        <div class="tname"><b><i class="rk">#7</i>Marquette</b><small>2-0</small></div>
+        <div class="proj">75</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#00274c;color:#fff">MICH</span>
+        <div class="tname"><b><i class="rk">#31</i>Michigan</b><small>1-1</small></div>
+        <div class="proj">75</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>MARQ 49%</span><span class="cap">WIN PROB</span><span>MICH 51%</span></div>
+        <div class="wpbar"><i style="width:49.2%;background:#003366"></i><i style="width:50.8%;background:#00274c"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>PK</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>150.3</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>MARQ</b><span>OFF <i>#44</i></span><span>DEF <i>#3</i></span><span>TEMPO <i>#211</i></span></div><div class="srow"><b>MICH</b><span>OFF <i>#27</i></span><span>DEF <i>#42</i></span><span>TEMPO <i>#91</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="unc greensboro lees-mcrae uncg ">
+      <header class="meta"><span>7:00 PM ET</span><span>First Horizon Coliseum</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#30363d;color:#fff">LEE</span>
+        <div class="tname"><b>Lees-McRae</b><small>0-0</small></div>
+        <div class="proj">53</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#003559;color:#fff">UNCG</span>
+        <div class="tname"><b><i class="rk">#226</i>UNC Greensboro</b><small>0-2</small></div>
+        <div class="proj">95</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>LEE 0%</span><span class="cap">WIN PROB</span><span>UNCG 100%</span></div>
+        <div class="wpbar"><i style="width:0.0%;background:#30363d"></i><i style="width:100.0%;background:#003559"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>UNC Greensboro -41.5</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>147.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>LEE</b><span>OFF <i></i></span><span>DEF <i></i></span><span>TEMPO <i></i></span></div><div class="srow"><b>UNCG</b><span>OFF <i>#202</i></span><span>DEF <i>#273</i></span><span>TEMPO <i>#307</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="notre dame south carolina state nd scst">
+      <header class="meta"><span>7:00 PM ET</span><span>Purcell Pavilion</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#7d1315;color:#fff">SCST</span>
+        <div class="tname"><b><i class="rk">#237</i>South Carolina State</b><small>2-0</small></div>
+        <div class="proj">66</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#0c2340;color:#fff">ND</span>
+        <div class="tname"><b><i class="rk">#69</i>Notre Dame</b><small>3-0</small></div>
+        <div class="proj">87</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>SCST 3%</span><span class="cap">WIN PROB</span><span>ND 97%</span></div>
+        <div class="wpbar"><i style="width:2.6%;background:#7d1315"></i><i style="width:97.4%;background:#0c2340"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Notre Dame -20.9</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>152.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>SCST</b><span>OFF <i>#241</i></span><span>DEF <i>#235</i></span><span>TEMPO <i>#131</i></span></div><div class="srow"><b>ND</b><span>OFF <i>#61</i></span><span>DEF <i>#84</i></span><span>TEMPO <i>#225</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="south carolina saint peter&#x27;s sc spu">
+      <header class="meta"><span>7:00 PM ET</span><span>Colonial Life Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#004CC2;color:#fff">SPU</span>
+        <div class="tname"><b><i class="rk">#343</i>Saint Peter&#x27;s</b><small>0-3</small></div>
+        <div class="proj">54</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#73000a;color:#fff">SC</span>
+        <div class="tname"><b><i class="rk">#77</i>South Carolina</b><small>2-0</small></div>
+        <div class="proj">75</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>SPU 3%</span><span class="cap">WIN PROB</span><span>SC 97%</span></div>
+        <div class="wpbar"><i style="width:2.7%;background:#004CC2"></i><i style="width:97.3%;background:#73000a"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>South Carolina -20.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>128.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>SPU</b><span>OFF <i>#364</i></span><span>DEF <i>#194</i></span><span>TEMPO <i>#364</i></span></div><div class="srow"><b>SC</b><span>OFF <i>#78</i></span><span>DEF <i>#90</i></span><span>TEMPO <i>#347</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="holy cross furman hc fur">
+      <header class="meta"><span>7:00 PM ET</span><span>Hart Center</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#582c83;color:#fff">FUR</span>
+        <div class="tname"><b><i class="rk">#115</i>Furman</b><small>2-0</small></div>
+        <div class="proj">83</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#0a0a0a;color:#fff">HC</span>
+        <div class="tname"><b><i class="rk">#349</i>Holy Cross</b><small>0-2</small></div>
+        <div class="proj">72</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>FUR 85%</span><span class="cap">WIN PROB</span><span>HC 15%</span></div>
+        <div class="wpbar"><i style="width:84.5%;background:#582c83"></i><i style="width:15.5%;background:#0a0a0a"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Furman -11.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>154.1</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>FUR</b><span>OFF <i>#74</i></span><span>DEF <i>#223</i></span><span>TEMPO <i>#271</i></span></div><div class="srow"><b>HC</b><span>OFF <i>#291</i></span><span>DEF <i>#357</i></span><span>TEMPO <i>#198</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="bellarmine franklin bell ">
+      <header class="meta"><span>7:00 PM ET</span><span>Knights Hall</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#30363d;color:#fff">FRA</span>
+        <div class="tname"><b>Franklin</b><small>0-0</small></div>
+        <div class="proj">55</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#000000;color:#fff">BELL</span>
+        <div class="tname"><b><i class="rk">#260</i>Bellarmine</b><small>0-3</small></div>
+        <div class="proj">96</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>FRA 0%</span><span class="cap">WIN PROB</span><span>BELL 100%</span></div>
+        <div class="wpbar"><i style="width:0.0%;background:#30363d"></i><i style="width:100.0%;background:#000000"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Bellarmine -40.9</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>150.3</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>FRA</b><span>OFF <i></i></span><span>DEF <i></i></span><span>TEMPO <i></i></span></div><div class="srow"><b>BELL</b><span>OFF <i>#185</i></span><span>DEF <i>#330</i></span><span>TEMPO <i>#290</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="northern illinois clarke niu ">
+      <header class="meta"><span>7:00 PM ET</span><span>NIU Convocation Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#30363d;color:#fff">CLA</span>
+        <div class="tname"><b>Clarke</b><small>0-0</small></div>
+        <div class="proj">55</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#F1122C;color:#fff">NIU</span>
+        <div class="tname"><b><i class="rk">#202</i>Northern Illinois</b><small>1-2</small></div>
+        <div class="proj">100</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>CLA 0%</span><span class="cap">WIN PROB</span><span>NIU 100%</span></div>
+        <div class="wpbar"><i style="width:0.0%;background:#30363d"></i><i style="width:100.0%;background:#F1122C"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Northern Illinois -44.5</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>155.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>CLA</b><span>OFF <i></i></span><span>DEF <i></i></span><span>TEMPO <i></i></span></div><div class="srow"><b>NIU</b><span>OFF <i>#123</i></span><span>DEF <i>#319</i></span><span>TEMPO <i>#172</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="east tennessee state campbell etsu cam">
+      <header class="meta"><span>7:00 PM ET</span><span>Freedom Hall (TN)</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#000000;color:#fff">CAM</span>
+        <div class="tname"><b><i class="rk">#262</i>Campbell</b><small>0-2</small></div>
+        <div class="proj">67</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#002d61;color:#fff">ETSU</span>
+        <div class="tname"><b><i class="rk">#131</i>East Tennessee State</b><small>0-2</small></div>
+        <div class="proj">78</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>CAM 16%</span><span class="cap">WIN PROB</span><span>ETSU 84%</span></div>
+        <div class="wpbar"><i style="width:15.7%;background:#000000"></i><i style="width:84.3%;background:#002d61"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>East Tennessee State -10.9</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>144.5</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>CAM</b><span>OFF <i>#174</i></span><span>DEF <i>#336</i></span><span>TEMPO <i>#284</i></span></div><div class="srow"><b>ETSU</b><span>OFF <i>#122</i></span><span>DEF <i>#158</i></span><span>TEMPO <i>#359</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="st. john&#x27;s colgate sju colg">
+      <header class="meta"><span>7:00 PM ET</span><span>Carnesecca Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#821019;color:#fff">COLG</span>
+        <div class="tname"><b><i class="rk">#213</i>Colgate</b><small>0-2</small></div>
+        <div class="proj">69</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#d10000;color:#fff">SJU</span>
+        <div class="tname"><b><i class="rk">#34</i>St. John&#x27;s</b><small>2-0</small></div>
+        <div class="proj">91</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>COLG 2%</span><span class="cap">WIN PROB</span><span>SJU 98%</span></div>
+        <div class="wpbar"><i style="width:1.9%;background:#821019"></i><i style="width:98.1%;background:#d10000"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>St. John&#x27;s -22.3</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>159.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>COLG</b><span>OFF <i>#161</i></span><span>DEF <i>#299</i></span><span>TEMPO <i>#160</i></span></div><div class="srow"><b>SJU</b><span>OFF <i>#21</i></span><span>DEF <i>#45</i></span><span>TEMPO <i>#90</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="wagner bryant &amp; stratton wag ">
+      <header class="meta"><span>7:00 PM ET</span><span>Spiro Sports Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#30363d;color:#fff">B&amp;S</span>
+        <div class="tname"><b>Bryant &amp; Stratton</b><small>0-0</small></div>
+        <div class="proj">53</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#00483A;color:#fff">WAG</span>
+        <div class="tname"><b><i class="rk">#325</i>Wagner</b><small>0-3</small></div>
+        <div class="proj">90</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>B&amp;S 0%</span><span class="cap">WIN PROB</span><span>WAG 100%</span></div>
+        <div class="wpbar"><i style="width:0.0%;background:#30363d"></i><i style="width:100.0%;background:#00483A"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Wagner -36.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>142.7</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>B&amp;S</b><span>OFF <i></i></span><span>DEF <i></i></span><span>TEMPO <i></i></span></div><div class="srow"><b>WAG</b><span>OFF <i>#340</i></span><span>DEF <i>#247</i></span><span>TEMPO <i>#311</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="norfolk state old dominion norf odu">
+      <header class="meta"><span>7:00 PM ET</span><span>Joseph G. Echols Hall</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#00507d;color:#fff">ODU</span>
+        <div class="tname"><b><i class="rk">#123</i>Old Dominion</b><small>2-0</small></div>
+        <div class="proj">77</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#0c8968;color:#fff">NORF</span>
+        <div class="tname"><b><i class="rk">#352</i>Norfolk State</b><small>0-1</small></div>
+        <div class="proj">68</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>ODU 81%</span><span class="cap">WIN PROB</span><span>NORF 19%</span></div>
+        <div class="wpbar"><i style="width:80.7%;background:#00507d"></i><i style="width:19.3%;background:#0c8968"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Old Dominion -9.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>144.5</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>ODU</b><span>OFF <i>#188</i></span><span>DEF <i>#75</i></span><span>TEMPO <i>#336</i></span></div><div class="srow"><b>NORF</b><span>OFF <i>#287</i></span><span>DEF <i>#358</i></span><span>TEMPO <i>#192</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="lamar centenary (la) lam ">
+      <header class="meta"><span>7:00 PM ET</span><span>Montagne Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#30363d;color:#fff">C(</span>
+        <div class="tname"><b>Centenary (LA)</b><small>0-0</small></div>
+        <div class="proj">55</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#000000;color:#fff">LAM</span>
+        <div class="tname"><b><i class="rk">#263</i>Lamar</b><small>0-1</small></div>
+        <div class="proj">97</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>C( 0%</span><span class="cap">WIN PROB</span><span>LAM 100%</span></div>
+        <div class="wpbar"><i style="width:0.0%;background:#30363d"></i><i style="width:100.0%;background:#000000"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Lamar -42.1</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>152.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>C(</b><span>OFF <i></i></span><span>DEF <i></i></span><span>TEMPO <i></i></span></div><div class="srow"><b>LAM</b><span>OFF <i>#256</i></span><span>DEF <i>#263</i></span><span>TEMPO <i>#109</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="rider william paterson rid ">
+      <header class="meta"><span>7:00 PM ET</span><span>Alumni Gymnasium (Rider)</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#30363d;color:#fff">WP</span>
+        <div class="tname"><b>William Paterson</b><small>0-0</small></div>
+        <div class="proj">57</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#a80532;color:#fff">RID</span>
+        <div class="tname"><b><i class="rk">#362</i>Rider</b><small>0-3</small></div>
+        <div class="proj">88</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>WP 0%</span><span class="cap">WIN PROB</span><span>RID 100%</span></div>
+        <div class="wpbar"><i style="width:0.2%;background:#30363d"></i><i style="width:99.8%;background:#a80532"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Rider -31.1</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>145.1</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>WP</b><span>OFF <i></i></span><span>DEF <i></i></span><span>TEMPO <i></i></span></div><div class="srow"><b>RID</b><span>OFF <i>#350</i></span><span>DEF <i>#354</i></span><span>TEMPO <i>#327</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="princeton stony brook prin stbk">
+      <header class="meta"><span>7:00 PM ET</span><span>Jadwin Gymnasium</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#990000;color:#fff">STBK</span>
+        <div class="tname"><b><i class="rk">#190</i>Stony Brook</b><small>0-1</small></div>
+        <div class="proj">70</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#000000;color:#fff">PRIN</span>
+        <div class="tname"><b><i class="rk">#221</i>Princeton</b><small>1-1</small></div>
+        <div class="proj">72</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>STBK 40%</span><span class="cap">WIN PROB</span><span>PRIN 60%</span></div>
+        <div class="wpbar"><i style="width:40.4%;background:#990000"></i><i style="width:59.6%;background:#000000"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Princeton -2.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>142.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>STBK</b><span>OFF <i>#162</i></span><span>DEF <i>#260</i></span><span>TEMPO <i>#306</i></span></div><div class="srow"><b>PRIN</b><span>OFF <i>#259</i></span><span>DEF <i>#178</i></span><span>TEMPO <i>#310</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="delaware james madison del jmu">
+      <header class="meta"><span>7:00 PM ET</span><span>Bob Carpenter Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#450084;color:#fff">JMU</span>
+        <div class="tname"><b><i class="rk">#165</i>James Madison</b><small>0-2</small></div>
+        <div class="proj">73</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#033594;color:#fff">DEL</span>
+        <div class="tname"><b><i class="rk">#208</i>Delaware</b><small>0-1</small></div>
+        <div class="proj">74</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>JMU 48%</span><span class="cap">WIN PROB</span><span>DEL 52%</span></div>
+        <div class="wpbar"><i style="width:47.7%;background:#450084"></i><i style="width:52.3%;background:#033594"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Delaware -0.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>146.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>JMU</b><span>OFF <i>#140</i></span><span>DEF <i>#243</i></span><span>TEMPO <i>#190</i></span></div><div class="srow"><b>DEL</b><span>OFF <i>#233</i></span><span>DEF <i>#190</i></span><span>TEMPO <i>#331</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="vcu njit vcu njit">
+      <header class="meta"><span>7:00 PM ET</span><span>Siegel Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#EE3024;color:#fff">NJIT</span>
+        <div class="tname"><b><i class="rk">#361</i>NJIT</b><small>1-2</small></div>
+        <div class="proj">59</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#ffaf00;color:#0b0e13">VCU</span>
+        <div class="tname"><b><i class="rk">#65</i>VCU</b><small>1-1</small></div>
+        <div class="proj">87</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>NJIT 0%</span><span class="cap">WIN PROB</span><span>VCU 100%</span></div>
+        <div class="wpbar"><i style="width:0.5%;background:#EE3024"></i><i style="width:99.5%;background:#ffaf00"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>VCU -28.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>145.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>NJIT</b><span>OFF <i>#361</i></span><span>DEF <i>#331</i></span><span>TEMPO <i>#345</i></span></div><div class="srow"><b>VCU</b><span>OFF <i>#43</i></span><span>DEF <i>#102</i></span><span>TEMPO <i>#152</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="florida atlantic william &amp; mary fau w&amp;m">
+      <header class="meta"><span>7:00 PM ET</span><span>Eleanor R. Baldwin Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#103217;color:#fff">W&amp;M</span>
+        <div class="tname"><b><i class="rk">#142</i>William &amp; Mary</b><small>1-0</small></div>
+        <div class="proj">78</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#00447c;color:#fff">FAU</span>
+        <div class="tname"><b><i class="rk">#183</i>Florida Atlantic</b><small>1-1</small></div>
+        <div class="proj">82</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>W&amp;M 35%</span><span class="cap">WIN PROB</span><span>FAU 65%</span></div>
+        <div class="wpbar"><i style="width:35.4%;background:#103217"></i><i style="width:64.6%;background:#00447c"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Florida Atlantic -4.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>160.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>W&amp;M</b><span>OFF <i>#108</i></span><span>DEF <i>#236</i></span><span>TEMPO <i>#63</i></span></div><div class="srow"><b>FAU</b><span>OFF <i>#209</i></span><span>DEF <i>#183</i></span><span>TEMPO <i>#79</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="west georgia unc asheville wga unca">
+      <header class="meta"><span>7:00 PM ET</span><span>The Coliseum</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#003da5;color:#fff">UNCA</span>
+        <div class="tname"><b><i class="rk">#266</i>UNC Asheville</b><small>0-2</small></div>
+        <div class="proj">73</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#0033a1;color:#fff">WGA</span>
+        <div class="tname"><b><i class="rk">#293</i>West Georgia</b><small>0-2</small></div>
+        <div class="proj">76</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>UNCA 39%</span><span class="cap">WIN PROB</span><span>WGA 61%</span></div>
+        <div class="wpbar"><i style="width:38.6%;background:#003da5"></i><i style="width:61.4%;background:#0033a1"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>West Georgia -3.1</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>149.7</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>UNCA</b><span>OFF <i>#198</i></span><span>DEF <i>#333</i></span><span>TEMPO <i>#194</i></span></div><div class="srow"><b>WGA</b><span>OFF <i>#332</i></span><span>DEF <i>#185</i></span><span>TEMPO <i>#126</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="indiana state milwaukee inst milw">
+      <header class="meta"><span>7:00 PM ET</span><span>Hulman Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#000000;color:#fff">MILW</span>
+        <div class="tname"><b><i class="rk">#279</i>Milwaukee</b><small>0-2</small></div>
+        <div class="proj">72</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#00669a;color:#fff">INST</span>
+        <div class="tname"><b><i class="rk">#198</i>Indiana State</b><small>1-1</small></div>
+        <div class="proj">79</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>MILW 28%</span><span class="cap">WIN PROB</span><span>INST 72%</span></div>
+        <div class="wpbar"><i style="width:27.9%;background:#000000"></i><i style="width:72.1%;background:#00669a"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Indiana State -6.3</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>150.9</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>MILW</b><span>OFF <i>#262</i></span><span>DEF <i>#279</i></span><span>TEMPO <i>#143</i></span></div><div class="srow"><b>INST</b><span>OFF <i>#208</i></span><span>DEF <i>#211</i></span><span>TEMPO <i>#187</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="unc wilmington kent state uncw kent">
+      <header class="meta"><span>7:00 PM ET</span><span>Trask Coliseum</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#003976;color:#fff">KENT</span>
+        <div class="tname"><b><i class="rk">#236</i>Kent State</b><small>0-1</small></div>
+        <div class="proj">73</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#00665e;color:#fff">UNCW</span>
+        <div class="tname"><b><i class="rk">#138</i>UNC Wilmington</b><small>1-0</small></div>
+        <div class="proj">82</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>KENT 19%</span><span class="cap">WIN PROB</span><span>UNCW 81%</span></div>
+        <div class="wpbar"><i style="width:18.6%;background:#003976"></i><i style="width:81.4%;background:#00665e"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>UNC Wilmington -9.7</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>154.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>KENT</b><span>OFF <i>#158</i></span><span>DEF <i>#329</i></span><span>TEMPO <i>#144</i></span></div><div class="srow"><b>UNCW</b><span>OFF <i>#182</i></span><span>DEF <i>#108</i></span><span>TEMPO <i>#128</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="misericordia binghamton  bing">
+      <header class="meta"><span>7:30 PM ET</span><span></span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#00614A;color:#fff">BING</span>
+        <div class="tname"><b><i class="rk">#323</i>Binghamton</b><small>2-1</small></div>
+        <div class="proj">86</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#30363d;color:#fff">MIS</span>
+        <div class="tname"><b>Misericordia</b><small>0-0</small></div>
+        <div class="proj">59</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>BING 99%</span><span class="cap">WIN PROB</span><span>MIS 1%</span></div>
+        <div class="wpbar"><i style="width:99.4%;background:#00614A"></i><i style="width:0.6%;background:#30363d"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Binghamton -27.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>145.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>BING</b><span>OFF <i>#252</i></span><span>DEF <i>#349</i></span><span>TEMPO <i>#361</i></span></div><div class="srow"><b>MIS</b><span>OFF <i></i></span><span>DEF <i></i></span><span>TEMPO <i></i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="wichita state friends university wich ">
+      <header class="meta"><span>7:30 PM ET</span><span>Charles Koch Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#30363d;color:#fff">FU</span>
+        <div class="tname"><b>Friends University</b><small>0-0</small></div>
+        <div class="proj">49</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#0d0a03;color:#fff">WICH</span>
+        <div class="tname"><b><i class="rk">#86</i>Wichita State</b><small>1-1</small></div>
+        <div class="proj">104</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>FU 0%</span><span class="cap">WIN PROB</span><span>WICH 100%</span></div>
+        <div class="wpbar"><i style="width:0.0%;background:#30363d"></i><i style="width:100.0%;background:#0d0a03"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Wichita State -55.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>152.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>FU</b><span>OFF <i></i></span><span>DEF <i></i></span><span>TEMPO <i></i></span></div><div class="srow"><b>WICH</b><span>OFF <i>#109</i></span><span>DEF <i>#77</i></span><span>TEMPO <i>#100</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="western kentucky campbellsville wku ">
+      <header class="meta"><span>7:30 PM ET</span><span>E.A. Diddle Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#30363d;color:#fff">CAM</span>
+        <div class="tname"><b>Campbellsville</b><small>0-0</small></div>
+        <div class="proj">52</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#F32026;color:#fff">WKU</span>
+        <div class="tname"><b><i class="rk">#134</i>Western Kentucky</b><small>1-1</small></div>
+        <div class="proj">103</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>CAM 0%</span><span class="cap">WIN PROB</span><span>WKU 100%</span></div>
+        <div class="wpbar"><i style="width:0.0%;background:#30363d"></i><i style="width:100.0%;background:#F32026"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Western Kentucky -50.9</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>155.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>CAM</b><span>OFF <i></i></span><span>DEF <i></i></span><span>TEMPO <i></i></span></div><div class="srow"><b>WKU</b><span>OFF <i>#149</i></span><span>DEF <i>#143</i></span><span>TEMPO <i>#42</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="sam houston pepperdine shsu pepp">
+      <header class="meta"><span>7:30 PM ET</span><span>Bernard G. Johnson Coliseum</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#003A72;color:#fff">PEPP</span>
+        <div class="tname"><b><i class="rk">#163</i>Pepperdine</b><small>0-1</small></div>
+        <div class="proj">76</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#fe5000;color:#fff">SHSU</span>
+        <div class="tname"><b><i class="rk">#155</i>Sam Houston</b><small>0-1</small></div>
+        <div class="proj">81</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>PEPP 32%</span><span class="cap">WIN PROB</span><span>SHSU 68%</span></div>
+        <div class="wpbar"><i style="width:32.4%;background:#003A72"></i><i style="width:67.6%;background:#fe5000"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Sam Houston -4.9</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>157.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>PEPP</b><span>OFF <i>#144</i></span><span>DEF <i>#232</i></span><span>TEMPO <i>#107</i></span></div><div class="srow"><b>SHSU</b><span>OFF <i>#212</i></span><span>DEF <i>#136</i></span><span>TEMPO <i>#49</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="gardner-webb erskine gweb ">
+      <header class="meta"><span>8:00 PM ET</span><span>Paul Porter Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#30363d;color:#fff">ERS</span>
+        <div class="tname"><b>Erskine</b><small>0-0</small></div>
+        <div class="proj">56</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#c12535;color:#fff">GWEB</span>
+        <div class="tname"><b><i class="rk">#345</i>Gardner-Webb</b><small>0-2</small></div>
+        <div class="proj">93</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>ERS 0%</span><span class="cap">WIN PROB</span><span>GWEB 100%</span></div>
+        <div class="wpbar"><i style="width:0.0%;background:#30363d"></i><i style="width:100.0%;background:#c12535"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Gardner-Webb -36.7</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>148.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>ERS</b><span>OFF <i></i></span><span>DEF <i></i></span><span>TEMPO <i></i></span></div><div class="srow"><b>GWEB</b><span>OFF <i>#356</i></span><span>DEF <i>#261</i></span><span>TEMPO <i>#71</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="tulsa oral roberts tlsa oru">
+      <header class="meta"><span>8:00 PM ET</span><span>Reynolds Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#002462;color:#fff">ORU</span>
+        <div class="tname"><b><i class="rk">#316</i>Oral Roberts</b><small>0-1</small></div>
+        <div class="proj">67</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#003595;color:#fff">TLSA</span>
+        <div class="tname"><b><i class="rk">#79</i>Tulsa</b><small>1-0</small></div>
+        <div class="proj">86</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>ORU 4%</span><span class="cap">WIN PROB</span><span>TLSA 96%</span></div>
+        <div class="wpbar"><i style="width:4.0%;background:#002462"></i><i style="width:96.0%;background:#003595"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Tulsa -18.9</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>152.3</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>ORU</b><span>OFF <i>#320</i></span><span>DEF <i>#281</i></span><span>TEMPO <i>#141</i></span></div><div class="srow"><b>TLSA</b><span>OFF <i>#48</i></span><span>DEF <i>#153</i></span><span>TEMPO <i>#246</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="houston jacksonville state hou jvst">
+      <header class="meta"><span>8:00 PM ET</span><span>Fertitta Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#b50500;color:#fff">JVST</span>
+        <div class="tname"><b><i class="rk">#252</i>Jacksonville State</b><small>0-1</small></div>
+        <div class="proj">59</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#c92a39;color:#fff">HOU</span>
+        <div class="tname"><b><i class="rk">#9</i>Houston</b><small>2-0</small></div>
+        <div class="proj">89</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>JVST 0%</span><span class="cap">WIN PROB</span><span>HOU 100%</span></div>
+        <div class="wpbar"><i style="width:0.3%;background:#b50500"></i><i style="width:99.7%;background:#c92a39"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Houston -30.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>148.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>JVST</b><span>OFF <i>#263</i></span><span>DEF <i>#219</i></span><span>TEMPO <i>#89</i></span></div><div class="srow"><b>HOU</b><span>OFF <i>#22</i></span><span>DEF <i>#9</i></span><span>TEMPO <i>#256</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="southern miss jackson state usm jkst">
+      <header class="meta"><span>8:00 PM ET</span><span>Reed Green Coliseum</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#123297;color:#fff">JKST</span>
+        <div class="tname"><b><i class="rk">#326</i>Jackson State</b><small>1-2</small></div>
+        <div class="proj">68</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#FFAA3C;color:#0b0e13">USM</span>
+        <div class="tname"><b><i class="rk">#228</i>Southern Miss</b><small>0-1</small></div>
+        <div class="proj">78</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>JKST 17%</span><span class="cap">WIN PROB</span><span>USM 83%</span></div>
+        <div class="wpbar"><i style="width:16.7%;background:#123297"></i><i style="width:83.3%;background:#FFAA3C"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Southern Miss -10.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>146.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>JKST</b><span>OFF <i>#338</i></span><span>DEF <i>#256</i></span><span>TEMPO <i>#106</i></span></div><div class="srow"><b>USM</b><span>OFF <i>#260</i></span><span>DEF <i>#187</i></span><span>TEMPO <i>#195</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="north texas santa clara unt scu">
+      <header class="meta"><span>8:00 PM ET</span><span>The Super Pit</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#690b0b;color:#fff">SCU</span>
+        <div class="tname"><b><i class="rk">#96</i>Santa Clara</b><small>3-0</small></div>
+        <div class="proj">75</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#ffffff;color:#0b0e13">UNT</span>
+        <div class="tname"><b><i class="rk">#94</i>North Texas</b><small>1-0</small></div>
+        <div class="proj">80</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>SCU 30%</span><span class="cap">WIN PROB</span><span>UNT 70%</span></div>
+        <div class="wpbar"><i style="width:30.0%;background:#690b0b"></i><i style="width:70.0%;background:#ffffff"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>North Texas -5.7</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>154.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>SCU</b><span>OFF <i>#105</i></span><span>DEF <i>#93</i></span><span>TEMPO <i>#5</i></span></div><div class="srow"><b>UNT</b><span>OFF <i>#128</i></span><span>DEF <i>#58</i></span><span>TEMPO <i>#287</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="eastern illinois blackburn eiu ">
+      <header class="meta"><span>8:00 PM ET</span><span>Groniger Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#30363d;color:#fff">BLA</span>
+        <div class="tname"><b>Blackburn</b><small>0-0</small></div>
+        <div class="proj">57</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#000000;color:#fff">EIU</span>
+        <div class="tname"><b><i class="rk">#351</i>Eastern Illinois</b><small>0-3</small></div>
+        <div class="proj">92</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>BLA 0%</span><span class="cap">WIN PROB</span><span>EIU 100%</span></div>
+        <div class="wpbar"><i style="width:0.1%;background:#30363d"></i><i style="width:99.9%;background:#000000"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Eastern Illinois -34.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>149.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>BLA</b><span>OFF <i></i></span><span>DEF <i></i></span><span>TEMPO <i></i></span></div><div class="srow"><b>EIU</b><span>OFF <i>#329</i></span><span>DEF <i>#339</i></span><span>TEMPO <i>#171</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="st. thomas-minnesota macalester stmn ">
+      <header class="meta"><span>8:00 PM ET</span><span>Lee &amp; Penny Anderson Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#30363d;color:#fff">MAC</span>
+        <div class="tname"><b>Macalester</b><small>0-0</small></div>
+        <div class="proj">53</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#000000;color:#fff">STMN</span>
+        <div class="tname"><b><i class="rk">#166</i>St. Thomas-Minnesota</b><small>1-2</small></div>
+        <div class="proj">98</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>MAC 0%</span><span class="cap">WIN PROB</span><span>STMN 100%</span></div>
+        <div class="wpbar"><i style="width:0.0%;background:#30363d"></i><i style="width:100.0%;background:#000000"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>St. Thomas-Minnesota -45.3</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>150.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>MAC</b><span>OFF <i></i></span><span>DEF <i></i></span><span>TEMPO <i></i></span></div><div class="srow"><b>STMN</b><span>OFF <i>#150</i></span><span>DEF <i>#220</i></span><span>TEMPO <i>#243</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="arkansas robert morris ark rmu">
+      <header class="meta"><span>8:00 PM ET</span><span>Bud Walton Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#00214D;color:#fff">RMU</span>
+        <div class="tname"><b><i class="rk">#283</i>Robert Morris</b><small>0-2</small></div>
+        <div class="proj">64</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#a41f35;color:#fff">ARK</span>
+        <div class="tname"><b><i class="rk">#54</i>Arkansas</b><small>1-1</small></div>
+        <div class="proj">85</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>RMU 2%</span><span class="cap">WIN PROB</span><span>ARK 98%</span></div>
+        <div class="wpbar"><i style="width:2.5%;background:#00214D"></i><i style="width:97.5%;background:#a41f35"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Arkansas -21.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>148.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>RMU</b><span>OFF <i>#316</i></span><span>DEF <i>#189</i></span><span>TEMPO <i>#325</i></span></div><div class="srow"><b>ARK</b><span>OFF <i>#31</i></span><span>DEF <i>#95</i></span><span>TEMPO <i>#114</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="south dakota state valparaiso sdst val">
+      <header class="meta"><span>8:00 PM ET</span><span>First Bank &amp; Trust Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#794500;color:#fff">VAL</span>
+        <div class="tname"><b><i class="rk">#103</i>Valparaiso</b><small>2-0</small></div>
+        <div class="proj">73</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#0033a0;color:#fff">SDST</span>
+        <div class="tname"><b><i class="rk">#143</i>South Dakota State</b><small>1-0</small></div>
+        <div class="proj">73</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>VAL 48%</span><span class="cap">WIN PROB</span><span>SDST 52%</span></div>
+        <div class="wpbar"><i style="width:47.5%;background:#794500"></i><i style="width:52.5%;background:#0033a0"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>South Dakota State -0.7</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>146.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>VAL</b><span>OFF <i>#130</i></span><span>DEF <i>#68</i></span><span>TEMPO <i>#96</i></span></div><div class="srow"><b>SDST</b><span>OFF <i>#173</i></span><span>DEF <i>#125</i></span><span>TEMPO <i>#324</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="grand canyon cal poly gcu cp">
+      <header class="meta"><span>9:00 PM ET</span><span>Global Credit Union Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#1E4D2B;color:#fff">CP</span>
+        <div class="tname"><b><i class="rk">#159</i>Cal Poly</b><small>0-1</small></div>
+        <div class="proj">79</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#522398;color:#fff">GCU</span>
+        <div class="tname"><b><i class="rk">#56</i>Grand Canyon</b><small>2-0</small></div>
+        <div class="proj">96</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>CP 7%</span><span class="cap">WIN PROB</span><span>GCU 93%</span></div>
+        <div class="wpbar"><i style="width:6.7%;background:#1E4D2B"></i><i style="width:93.3%;background:#522398"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Grand Canyon -16.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>175.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>CP</b><span>OFF <i>#114</i></span><span>DEF <i>#286</i></span><span>TEMPO <i>#13</i></span></div><div class="srow"><b>GCU</b><span>OFF <i>#32</i></span><span>DEF <i>#109</i></span><span>TEMPO <i>#18</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="nebraska lindenwood neb lin">
+      <header class="meta"><span>9:00 PM ET</span><span>Pinnacle Bank Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#101820;color:#fff">LIN</span>
+        <div class="tname"><b><i class="rk">#328</i>Lindenwood</b><small>0-1</small></div>
+        <div class="proj">59</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#d00000;color:#fff">NEB</span>
+        <div class="tname"><b><i class="rk">#13</i>Nebraska</b><small>2-0</small></div>
+        <div class="proj">92</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>LIN 0%</span><span class="cap">WIN PROB</span><span>NEB 100%</span></div>
+        <div class="wpbar"><i style="width:0.1%;background:#101820"></i><i style="width:99.9%;background:#d00000"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Nebraska -33.1</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>151.7</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>LIN</b><span>OFF <i>#324</i></span><span>DEF <i>#300</i></span><span>TEMPO <i>#35</i></span></div><div class="srow"><b>NEB</b><span>OFF <i>#18</i></span><span>DEF <i>#19</i></span><span>TEMPO <i>#272</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="colorado state portland state csu prst">
+      <header class="meta"><span>9:00 PM ET</span><span>Moby Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#00311e;color:#fff">PRST</span>
+        <div class="tname"><b><i class="rk">#272</i>Portland State</b><small>0-1</small></div>
+        <div class="proj">65</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#1e4d2b;color:#fff">CSU</span>
+        <div class="tname"><b><i class="rk">#87</i>Colorado State</b><small>2-0</small></div>
+        <div class="proj">82</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>PRST 5%</span><span class="cap">WIN PROB</span><span>CSU 95%</span></div>
+        <div class="wpbar"><i style="width:5.1%;background:#00311e"></i><i style="width:94.9%;background:#1e4d2b"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Colorado State -17.7</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>146.7</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>PRST</b><span>OFF <i>#277</i></span><span>DEF <i>#249</i></span><span>TEMPO <i>#251</i></span></div><div class="srow"><b>CSU</b><span>OFF <i>#91</i></span><span>DEF <i>#94</i></span><span>TEMPO <i>#232</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="abilene christian stephen f. austin acu sfa">
+      <header class="meta"><span>9:00 PM ET</span><span>Moody Coliseum (Abilene)</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#393996;color:#fff">SFA</span>
+        <div class="tname"><b><i class="rk">#153</i>Stephen F. Austin</b><small>0-0</small></div>
+        <div class="proj">76</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#592d82;color:#fff">ACU</span>
+        <div class="tname"><b><i class="rk">#312</i>Abilene Christian</b><small>1-1</small></div>
+        <div class="proj">73</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>SFA 63%</span><span class="cap">WIN PROB</span><span>ACU 37%</span></div>
+        <div class="wpbar"><i style="width:63.4%;background:#393996"></i><i style="width:36.6%;background:#592d82"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Stephen F. Austin -3.7</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>149.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>SFA</b><span>OFF <i>#177</i></span><span>DEF <i>#154</i></span><span>TEMPO <i>#273</i></span></div><div class="srow"><b>ACU</b><span>OFF <i>#272</i></span><span>DEF <i>#324</i></span><span>TEMPO <i>#124</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="boise state oakland bois oak">
+      <header class="meta"><span>9:00 PM ET</span><span>ExtraMile Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#04091c;color:#fff">OAK</span>
+        <div class="tname"><b><i class="rk">#257</i>Oakland</b><small>0-4</small></div>
+        <div class="proj">68</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#0033a0;color:#fff">BOIS</span>
+        <div class="tname"><b><i class="rk">#68</i>Boise State</b><small>1-0</small></div>
+        <div class="proj">86</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>OAK 5%</span><span class="cap">WIN PROB</span><span>BOIS 95%</span></div>
+        <div class="wpbar"><i style="width:5.2%;background:#04091c"></i><i style="width:94.8%;background:#0033a0"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Boise State -17.5</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>154.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>OAK</b><span>OFF <i>#183</i></span><span>DEF <i>#328</i></span><span>TEMPO <i>#292</i></span></div><div class="srow"><b>BOIS</b><span>OFF <i>#79</i></span><span>DEF <i>#56</i></span><span>TEMPO <i>#52</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="oregon mississippi valley state ore mvsu">
+      <header class="meta"><span>10:00 PM ET</span><span>Matthew Knight Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#005328;color:#fff">MVSU</span>
+        <div class="tname"><b><i class="rk">#346</i>Mississippi Valley State</b><small>0-2</small></div>
+        <div class="proj">61</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#007030;color:#fff">ORE</span>
+        <div class="tname"><b><i class="rk">#53</i>Oregon</b><small>2-0</small></div>
+        <div class="proj">87</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>MVSU 1%</span><span class="cap">WIN PROB</span><span>ORE 99%</span></div>
+        <div class="wpbar"><i style="width:0.9%;background:#005328"></i><i style="width:99.1%;background:#007030"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Oregon -25.7</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>148.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>MVSU</b><span>OFF <i>#342</i></span><span>DEF <i>#311</i></span><span>TEMPO <i>#259</i></span></div><div class="srow"><b>ORE</b><span>OFF <i>#38</i></span><span>DEF <i>#76</i></span><span>TEMPO <i>#176</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="seattle u utsa sea utsa">
+      <header class="meta"><span>10:00 PM ET</span><span>Redhawk Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#002A5C;color:#fff">UTSA</span>
+        <div class="tname"><b><i class="rk">#296</i>UTSA</b><small>1-1</small></div>
+        <div class="proj">67</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#BF2E1A;color:#fff">SEA</span>
+        <div class="tname"><b><i class="rk">#120</i>Seattle U</b><small>1-1</small></div>
+        <div class="proj">82</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>UTSA 8%</span><span class="cap">WIN PROB</span><span>SEA 92%</span></div>
+        <div class="wpbar"><i style="width:8.0%;background:#002A5C"></i><i style="width:92.0%;background:#BF2E1A"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Seattle U -15.1</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>149.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>UTSA</b><span>OFF <i>#286</i></span><span>DEF <i>#289</i></span><span>TEMPO <i>#119</i></span></div><div class="srow"><b>SEA</b><span>OFF <i>#187</i></span><span>DEF <i>#73</i></span><span>TEMPO <i>#153</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="california baptist chicago state cbu chst">
+      <header class="meta"><span>10:00 PM ET</span><span>Dale E. and Sarah Ann Fowler Events Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#006700;color:#fff">CHST</span>
+        <div class="tname"><b><i class="rk">#347</i>Chicago State</b><small>1-2</small></div>
+        <div class="proj">69</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#000080;color:#fff">CBU</span>
+        <div class="tname"><b><i class="rk">#309</i>California Baptist</b><small>0-2</small></div>
+        <div class="proj">75</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>CHST 27%</span><span class="cap">WIN PROB</span><span>CBU 73%</span></div>
+        <div class="wpbar"><i style="width:27.5%;background:#006700"></i><i style="width:72.5%;background:#000080"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>California Baptist -6.5</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>144.3</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>CHST</b><span>OFF <i>#333</i></span><span>DEF <i>#322</i></span><span>TEMPO <i>#189</i></span></div><div class="srow"><b>CBU</b><span>OFF <i>#293</i></span><span>DEF <i>#302</i></span><span>TEMPO <i>#296</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="long beach state pacific lbsu pac">
+      <header class="meta"><span>10:00 PM ET</span><span>Walter Pyramid</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#F47820;color:#fff">PAC</span>
+        <div class="tname"><b><i class="rk">#128</i>Pacific</b><small>1-0</small></div>
+        <div class="proj">69</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#000000;color:#fff">LBSU</span>
+        <div class="tname"><b><i class="rk">#195</i>Long Beach State</b><small>0-2</small></div>
+        <div class="proj">69</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>PAC 49%</span><span class="cap">WIN PROB</span><span>LBSU 51%</span></div>
+        <div class="wpbar"><i style="width:48.9%;background:#F47820"></i><i style="width:51.1%;background:#000000"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Long Beach State -0.3</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>138.5</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>PAC</b><span>OFF <i>#213</i></span><span>DEF <i>#64</i></span><span>TEMPO <i>#337</i></span></div><div class="srow"><b>LBSU</b><span>OFF <i>#205</i></span><span>DEF <i>#212</i></span><span>TEMPO <i>#294</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="uc irvine lincoln university (ca) uci ">
+      <header class="meta"><span>10:00 PM ET</span><span>Bren Events Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#30363d;color:#fff">LU(</span>
+        <div class="tname"><b>Lincoln University (CA)</b><small>0-0</small></div>
+        <div class="proj">51</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#002B5C;color:#fff">UCI</span>
+        <div class="tname"><b><i class="rk">#129</i>UC Irvine</b><small>1-0</small></div>
+        <div class="proj">101</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>LU( 0%</span><span class="cap">WIN PROB</span><span>UCI 100%</span></div>
+        <div class="wpbar"><i style="width:0.0%;background:#30363d"></i><i style="width:100.0%;background:#002B5C"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>UC Irvine -50.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>152.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>LU(</b><span>OFF <i></i></span><span>DEF <i></i></span><span>TEMPO <i></i></span></div><div class="srow"><b>UCI</b><span>OFF <i>#152</i></span><span>DEF <i>#119</i></span><span>TEMPO <i>#105</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="california usc cal usc">
+      <header class="meta"><span>11:00 PM ET</span><span>Haas Pavilion</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#9e2237;color:#fff">USC</span>
+        <div class="tname"><b><i class="rk">#46</i>USC</b><small>2-0</small></div>
+        <div class="proj">83</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#031522;color:#fff">CAL</span>
+        <div class="tname"><b><i class="rk">#107</i>California</b><small>1-1</small></div>
+        <div class="proj">80</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>USC 59%</span><span class="cap">WIN PROB</span><span>CAL 41%</span></div>
+        <div class="wpbar"><i style="width:58.8%;background:#9e2237"></i><i style="width:41.2%;background:#031522"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>USC -2.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>162.7</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>USC</b><span>OFF <i>#34</i></span><span>DEF <i>#57</i></span><span>TEMPO <i>#28</i></span></div><div class="srow"><b>CAL</b><span>OFF <i>#97</i></span><span>DEF <i>#137</i></span><span>TEMPO <i>#132</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article></div>
+  <p class="foot">Opponent-adjusted offense, defense and tempo, rebuilt every morning from every game played. Edges are points vs the book. LEAN / PLAY / HAMMER. Not betting advice.</p>
+</div>
+<script>
+let mode='all', q='';
+const cards=[...document.querySelectorAll('.card')], cnt=document.querySelector('.count');
+function apply(){let n=0;cards.forEach(c=>{const show=(q?c.dataset.s.includes(q):(mode==='all'||c.dataset.play==='1'));
+  c.classList.toggle('hide',!show); if(show)n++;}); cnt.textContent=n+' of '+cards.length+' games';}
+document.querySelectorAll('.tools button').forEach(b=>b.onclick=()=>{mode=b.dataset.f;
+  document.querySelectorAll('.tools button').forEach(x=>x.classList.toggle('on',x===b));apply();});
+document.querySelector('.tools input').oninput=ev=>{q=ev.target.value.trim().toLowerCase();apply();};
+apply();
+</script></body></html>
