@@ -14,5 +14,11 @@ nhl,2026-11-09,PHI @ VAN,ML,PLAY,VAN ML,44%,-1.3,%
 nhl,2026-11-09,PHI @ VAN,PUCK LINE,PLAY,VAN +1.5,+1.5,-0.3,%
 nhl,2026-11-09,PHI @ VAN,TOTAL,LEAN,UNDER 6.5,6.5,-2.7,%
 nhl,2026-11-09,NYI @ SJS,ML,LEAN,SJS ML,43%,-0.2,%
+nhl,2026-11-10,DET @ STL,ML,PLAY,DET ML,43%,-0.4,%
+nhl,2026-11-10,DET @ STL,PUCK LINE,LEAN,DET +1.5,+1.5,0.3,%
 nba,2026-11-04,Heat @ Clippers,SPREAD,LEAN,Clippers +5.5,+5.5,0.0,pts
 nba,2026-11-04,Heat @ Clippers,ML,VALUE,Clippers ML,33%,-2.2,%
+nba,2026-11-10,Clippers @ Suns,SPREAD,LEAN,Clippers +3.5,+3.5,0.0,pts
+nba,2026-11-10,Clippers @ Suns,ML,VALUE,Clippers ML,38%,-3.4,%
+nba,2026-11-10,Heat @ Jazz,SPREAD,LEAN,Jazz +8.5,+8.5,0.0,pts
+nba,2026-11-10,Heat @ Jazz,ML,VALUE,Jazz ML,23%,-3.1,%

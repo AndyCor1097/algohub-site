@@ -109,3 +109,8 @@ date,game_id,player,team,market,tier,pick,odds,edge,actual,result,units
 2026-11-09,401909955,Cam Spencer,MEM,PROP THREES,LEAN,Cam Spencer Threes O 1.5,153.0,3.9,1,L,-1.0
 2026-11-09,401909955,Collin Murray-Boyles,TOR,PROP POINTS,PLAY,Collin Murray-Boyles Points U 12.5,-104.0,5.3,DNP,P,0.0
 2026-11-09,401909955,RJ Barrett,TOR,PROP POINTS,LEAN,RJ Barrett Points U 23.5,-100.0,3.6,19,W,1.0
+2026-11-10,401909960,Brayden Burries,MIL,PROP THREES,LEAN,Brayden Burries Threes U 1.5,-138.0,4.4,1,W,0.7246376811594203
+2026-11-10,401909962,Brook Lopez,LAC,PROP REBOUNDS,LEAN,Brook Lopez Rebounds U 5.5,-117.0,4.7,4,W,0.8547008547008547
+2026-11-10,401909962,Darius Garland,LAC,PROP REBOUNDS,LEAN,Darius Garland Rebounds U 2.5,-117.0,3.9,5,L,-1.0
+2026-11-10,401909964,Franz Wagner,ORL,PROP ASSISTS,LEAN,Franz Wagner Assists U 7.5,115.0,3.9,7,W,1.15
+2026-11-10,401909961,Jaylen Brown,PHI,PROP ASSISTS,LEAN,Jaylen Brown Assists O 3.5,-100.0,3.1,2,L,-1.0

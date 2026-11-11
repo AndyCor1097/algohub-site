@@ -63,7 +63,7 @@ def _novig_rows(sport, f, ml_lookup):
         if MIN_EV <= ev <= MAX_EV:
             model = _num(r.model)
             rows.append(dict(sport=sport, day=str(r.day)[:10], game=r.matchup, market=r.market, bet=r.side,
-                             dk=f"{price:+.0f}", sharp=f"Novig {fair:.0%}", ev=round(ev * 100, 1),
+                             dk=f"{price:+.0f}" if r.market not in ("Spread", "Total") else "-110 (assumed)", sharp=f"Novig {fair:.0%}", ev=round(ev * 100, 1),
                              model_agrees=bool(model is not None and model > fair)))
     return rows
 
@@ -103,10 +103,12 @@ def _cfb():
         line = bs if home_better else -bs
         gap = abs(bs - ps)
         ev = (0.5 + gap * PTS_K["cfb"]) * _dec(-110) - 1
+        if not MIN_EV <= ev <= MAX_EV:
+            continue
         me = _num(g.get("spread_edge"))
         rows.append(dict(sport="cfb", day=str(g.get("commence_time") or g.get("start_date") or "")[:10],
                          game=f"{g['away_team']} @ {g['home_team']}", market="Spread", bet=f"{side} {line:+g}",
-                         dk=f"{line:+g}", sharp=f"Pinnacle {(ps if home_better else -ps):+g}", ev=round(ev * 100, 1),
+                         dk=f"{line:+g} (-110)", sharp=f"Pinnacle {(ps if home_better else -ps):+g}", ev=round(ev * 100, 1),
                          model_agrees=bool(me is not None and ((me > 0) == home_better))))
     return rows
 
@@ -128,17 +130,21 @@ def _cbb():
                 home_better = bs > ps
                 side, line, gap = (r.home_name, bs, bs - ps) if home_better else (r.away_name, -bs, ps - bs)
                 ev = (0.5 + gap * PTS_K["cbb"]) * _dec(-110) - 1
+                if not MIN_EV <= ev <= MAX_EV:
+                    continue
                 rows.append(dict(sport="cbb", day=day, game=mu, market="Spread", bet=f"{side} {line:+g}",
-                                 dk=f"{line:+g}", sharp=f"Pinnacle {(ps if home_better else -ps):+g}",
+                                 dk=f"{line:+g} (-110)", sharp=f"Pinnacle {(ps if home_better else -ps):+g}",
                                  ev=round(ev * 100, 1),
                                  model_agrees=bool((_num(r.sp_edge) or 0) > 0) == home_better))
             bt, pt = _num(r.total), _num(getattr(r, "pin_total", None))
             if bt is not None and pt is not None and abs(bt - pt) >= 1.5:
                 over = bt < pt                 # DK total lower than Pinnacle -> over is the better number at DK
                 ev = (0.5 + abs(bt - pt) * TOT_K) * _dec(-110) - 1
+                if not MIN_EV <= ev <= MAX_EV:
+                    continue
                 mt = _num(r.pred_total)
                 rows.append(dict(sport="cbb", day=day, game=mu, market="Total",
-                                 bet=f"{'Over' if over else 'Under'} {bt:g}", dk=f"{bt:g}", sharp=f"Pinnacle {pt:g}",
+                                 bet=f"{'Over' if over else 'Under'} {bt:g}", dk=f"{bt:g} (-110)", sharp=f"Pinnacle {pt:g}",
                                  ev=round(ev * 100, 1),
                                  model_agrees=bool(mt is not None and ((mt > bt) == over))))
     return rows

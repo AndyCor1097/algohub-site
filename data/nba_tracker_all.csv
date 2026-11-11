@@ -118,3 +118,9 @@ game_id,date,matchup,score,pick,model_pct,result,ats_pick,ats_edge,ats_result
 401909957,2026-11-09,Nuggets @ Rockets,100-110,Rockets,71.9,W,Nuggets,0.9,L
 401909958,2026-11-09,Spurs @ Suns,122-96,Spurs,76.1,W,Suns,0.5,L
 401909959,2026-11-09,Pelicans @ Warriors,87-138,Warriors,78.4,W,Warriors,0.1,W
+401909960,2026-11-10,Bucks @ Knicks,85-117,Knicks,86.3,W,Bucks,0.8,L
+401909961,2026-11-10,Celtics @ 76ers,123-101,Celtics,54.7,W,Celtics,0.9,W
+401909962,2026-11-10,Clippers @ Suns,110-133,Clippers,54.0,L,Clippers,2.2,L
+401909963,2026-11-10,Heat @ Jazz,115-109,Heat,70.4,W,Jazz,1.8,W
+401909964,2026-11-10,Magic @ Kings,107-100,Magic,64.8,W,Kings,1.0,L
+401909965,2026-11-10,Thunder @ Trail Blazers,103-123,Thunder,56.5,L,Thunder,0.5,L
