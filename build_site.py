@@ -37,6 +37,7 @@ ON_HOLD = {}
 SPORTS = [  # slug, tab label, board key
     ("nfl", "NFL", "NFL"), ("cfb", "CFB", "CFB"), ("cbb", "CBB", "CBB"), ("nba", "NBA", "NBA"),
     ("nhl", "NHL", "NHL"), ("epl", "Premier League", "EPL"), ("mlb", "MLB", "MLB"), ("hr", "Home Runs", "HR"),
+    ("golf", "Golf", ""),
 ]
 e = lambda s: html.escape(str(s)) if s is not None and not (isinstance(s, float) and math.isnan(s)) else ""
 
@@ -55,6 +56,11 @@ def files_for(sport, pattern="*"):
 
 def label_from(path):
     s = path.stem
+    if s.startswith("golf_"):
+        m = re.search(r"_r(\d+)$", s)
+        name = s[5:m.start()] if m else s[5:]
+        name = " ".join(w.capitalize() for w in name.split("_")[:2])
+        return f"{name} R{m.group(1)}" if m else name
     m = re.search(r"wk(\d+)", s) or re.search(r"week(\d+)", s)
     if m:
         return f"Week {int(m.group(1))}"
@@ -64,6 +70,8 @@ def label_from(path):
 
 def slug_from(path):
     s = path.stem
+    if s.startswith("golf_"):
+        return s[5:].replace("_", "-")
     m = re.search(r"wk(\d+)", s) or re.search(r"week(\d+)", s)
     if m:
         return f"week-{int(m.group(1))}"
@@ -810,6 +818,77 @@ def nba_props_html(day):
     return intro + top + '<h3 class="sub">Every line</h3>' + search + "".join(rows)
 
 
+def golf(f):
+    """Golf 3-balls (golf_algo/threeball.py). Tracking only until it has a record: no backtest (DataGolf plan has no history)."""
+    g = pd.read_csv(f)
+    g["tier"] = g.tier.fillna("")
+    ev, rnd = g.event.iloc[0], int(g["round"].iloc[0])
+    intro = note(f"{ev}, round {rnd}. Win % for every 3-ball: 60% DataGolf's model + 40% ours (20,000 sims from "
+                 "strokes-gained ratings, ties split dead-heat), against DraftKings with the vig taken out. "
+                 "TRACKING ONLY: new model, not backtested yet. Small or no stakes until it has a record.")
+    plays = g[g.tier != ""].sort_values("ev", ascending=False)
+    pr = lambda v: "" if pd.isna(v) else f"{v:.0%}"
+    am = lambda d: "" if pd.isna(d) or d <= 1 else (f"+{round((d - 1) * 100)}" if d >= 2 else f"{round(-100 / (d - 1))}")
+    if len(plays):
+        top = tiles([("Hammers", int((plays.tier == "HAMMER").sum())), ("Plays", int((plays.tier == "PLAY").sum())),
+                     ("Leans", int((plays.tier == "LEAN").sum()))]) + table(pd.DataFrame({
+            "Group": plays.group, "Player": plays.player, "DK": plays.dk_odds.map(am), "Ours": plays.fair_p.map(pr),
+            "DK no-vig": plays.dk_p.map(pr), "EV": plays.ev.map(lambda v: f"{v:+.1%}"),
+            "Best price": plays.best_book.fillna("") + " " + plays.best_odds.map(am), "Tier": plays.tier}))
+    else:
+        top = note("No plays this round. DraftKings' 3-ball prices are right on top of the models, so nothing clears the "
+                   "LEAN bar (+5% expected value). That's normal: golf 3-balls only have value on some rounds.")
+    rows = []
+    for gid, sub in g.groupby("group"):
+        body = "".join(
+            f'<tr><td><b>{e(r.player)}</b> <small class="rk">{e(str(r.wave or "").upper())} {e(str(r.teetime or "")[-5:])}</small></td>'
+            f'<td>{pr(r.fair_p)}</td><td>{pr(r.dg_p)}</td><td>{pr(r.our_p)}</td><td>{am(r.dk_odds)}</td><td>{pr(r.dk_p)}</td>'
+            f'<td>{"" if pd.isna(r.ev) else f"{r.ev:+.1%}"}</td><td>{e(r.best_book or "")} {am(r.best_odds)}</td>'
+            f'<td>{"" if not r.tier else f"<span class=tg>{e(r.tier.title())}</span>"}</td></tr>'
+            for r in sub.itertuples())
+        names = " / ".join(sub.player)
+        rows.append(f'<details class="mu td"><summary><b>{e(names)}</b><span>group {gid}</span></summary><div class="tbl"><table>'
+                    '<thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th>'
+                    f'<th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody>{body}</tbody></table></div></details>')
+    # always show the closest-to-value spots and the model's pick in every group, even on no-play rounds
+    g["ev_best"] = g.fair_p * g.best_odds - 1
+    near = g.sort_values("ev_best", ascending=False).head(10)
+    top += '<h3 class="sub">Best values this round</h3>' + note(
+        "Highest expected value at the best price we found. Only ones with a tier are plays; the rest are just "
+        "the closest the board gets to value.") + table(pd.DataFrame({
+            "Player": near.player, "Group": near.group, "Ours": near.fair_p.map(pr), "DK": near.dk_odds.map(am),
+            "Best price": near.best_book.fillna("") + " " + near.best_odds.map(am),
+            "EV at best": near.ev_best.map(lambda v: "" if pd.isna(v) else f"{v:+.1%}"),
+            "EV at DK": near.ev.map(lambda v: "" if pd.isna(v) else f"{v:+.1%}"), "Tier": near.tier}))
+    fav = g.loc[g.groupby("group").fair_p.idxmax()].sort_values("fair_p", ascending=False)
+    top += '<h3 class="sub">Model pick in every 3-ball</h3>' + note(
+        "Who wins each group most often in our numbers. Most likely to win is not the same as a good bet: "
+        "check the EV column.") + table(pd.DataFrame({
+            "Pick": fav.player, "Win %": fav.fair_p.map(pr), "DK": fav.dk_odds.map(am), "DK no-vig": fav.dk_p.map(pr),
+            "EV at DK": fav.ev.map(lambda v: "" if pd.isna(v) else f"{v:+.1%}"),
+            "Group": [" / ".join(g[g.group == x].player) for x in fav.group], "Tier": fav.tier}))
+    allg = '<h3 class="sub">Every 3-ball</h3>' + "".join(rows)
+    # record across every graded round
+    rec = []
+    for x in files_for("golf", "golf_*.csv"):
+        d = pd.read_csv(x)
+        if "result" in d:
+            d = d[(d.tier.fillna("") != "") & d.result.notna()]
+            if len(d):
+                rec.append(d)
+    if rec:
+        r = pd.concat(rec)
+        w, u = r.result.sum(), r.units.sum()
+        record = tiles([("Plays", len(r)), ("Wins (dead heats split)", f"{w:.1f}"), ("Units", f"{u:+.2f}"),
+                        ("ROI", f"{u / len(r):+.1%}")]) + table(pd.DataFrame({
+            "Event": r.event, "Round": r["round"], "Player": r.player, "DK": r.dk_odds.map(am),
+            "Result": r.result.map(lambda v: "W" if v == 1 else "L" if v == 0 else f"DH {v:.2f}"),
+            "Units": r.units.round(2), "Tier": r.tier}))
+    else:
+        record = note("No graded plays yet. Every round gets graded after it finishes.")
+    return [("Plays", intro + top), ("All 3-balls", allg), ("Record", record)]
+
+
 SOURCES = {  # slug -> (data folder, file pattern, builder, empty message)
     "nfl": ("nfl", "2026_wk*.csv", nfl, "NFL picks coming soon."),
     "cfb": ("cfb", "predictions_week*.json", cfb, "CFB picks coming soon."),
@@ -819,6 +898,7 @@ SOURCES = {  # slug -> (data folder, file pattern, builder, empty message)
     "cbb": ("cbb", "cbb_*.csv", cbb, "College basketball picks start on opening day in early November."),
     "epl": ("epl", "epl_*.csv", epl, "Premier League picks show up when the next matchweek's odds are posted."),
     "nba": ("nba", "nba_2*.csv", nba, "NBA picks show up each morning on game days."),
+    "golf": ("golf", "golf_*.csv", golf, "Golf 3-balls post when DraftKings has the next round up."),
 }
 
 
@@ -961,6 +1041,7 @@ def shell(current, body, plays, counts, live, title, members=True):
 
 # "How plays work" box at the top of each sport (keep in sync with each algo's tier settings)
 TIER_GUIDE = {
+    "golf": [("3-ball", "LEAN +5% expected value at DK", "PLAY +9% (DataGolf must agree)", "HAMMER +14% (DataGolf must agree)")],
     "nfl": [("Spread", "LEAN 3+ pts", "PLAY 4.5+", "HAMMER 6+"),
             ("Total", "LEAN 3.5+ pts", "PLAY 5+", "HAMMER 7+"),
             ("Moneyline value", "win % 4+ pts over the no-vig line", "", ""),

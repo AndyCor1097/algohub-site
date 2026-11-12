@@ -22,3 +22,6 @@ nba,2026-11-10,Clippers @ Suns,SPREAD,LEAN,Clippers +3.5,+3.5,0.0,pts
 nba,2026-11-10,Clippers @ Suns,ML,VALUE,Clippers ML,38%,-3.4,%
 nba,2026-11-10,Heat @ Jazz,SPREAD,LEAN,Jazz +8.5,+8.5,0.0,pts
 nba,2026-11-10,Heat @ Jazz,ML,VALUE,Jazz ML,23%,-3.1,%
+nba,2026-11-11,Nuggets @ Grizzlies,SPREAD,LEAN,Grizzlies +3.5,+3.5,0.0,pts
+nba,2026-11-11,Nuggets @ Grizzlies,ML,VALUE,Grizzlies ML,40%,0.5,%
+nba,2026-11-11,Magic @ Jazz,TOTAL,LEAN,OVER 214.5,216.5,2.0,pts

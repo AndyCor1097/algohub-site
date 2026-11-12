@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Golf picks, Austin Championship R1 | The AlgoHub</title>
+<meta name="description" content="Algorithmic picks for NFL, college football, NHL, MLB and home run props. Updated every morning.">
+<meta property="og:title" content="Golf picks, Austin Championship R1 | The AlgoHub"><meta property="og:description" content="Today's model picks across every sport.">
+<meta name="theme-color" content="#0b0e13">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230b0e13'/><text x='32' y='45' font-family='Arial Black,sans-serif' font-size='34' font-weight='900' text-anchor='middle' fill='%23f2b134'>A</text></svg>">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Archivo:wght@400;500;600;700&display=swap');
+:root{--ink:#0b0e13;--panel:#121821;--rule:#232c39;--chalk:#eef2f6;--dim:#8792a2;
+      --amber:#f2b134;--turf:#3fb950;--ice:#58a6ff;--red:#f85149}
+html,body,.stApp{background:var(--ink)!important}
+.stApp{background:
+  radial-gradient(1200px 380px at 50% -140px, rgba(242,177,52,.10), transparent 70%),
+  var(--ink)!important}
+[data-testid="stHeader"],[data-testid="stToolbar"],#MainMenu,footer,.stDeployButton,[data-testid="stDecoration"]{display:none!important}
+.block-container{padding-top:1.4rem!important;max-width:1240px}
+html,body,[class*="st-"],.stMarkdown,p,div,span,label{font-family:Archivo,system-ui,sans-serif}
+
+/* hero */
+.ah-hero{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;
+  padding:6px 0 18px;border-bottom:1px solid var(--rule)}
+.ah-mark{font:900 clamp(56px,9vw,104px)/.82 "Big Shoulders Display",sans-serif;color:var(--chalk);letter-spacing:-.01em}
+.ah-mark span{display:block;font-size:.3em;font-weight:600;color:var(--amber);letter-spacing:.02em;line-height:1.1}
+.ah-today{text-align:right;color:var(--dim);font-size:14px;line-height:1.5}
+.ah-today b{display:block;color:var(--chalk);font:800 28px/1 "Big Shoulders Display",sans-serif;margin-bottom:4px}
+.ah-empty{color:var(--dim);padding:18px 0}
+
+/* the board: bet slips */
+.ah-board{display:flex;gap:12px;overflow-x:auto;padding:18px 2px 22px;scroll-snap-type:x mandatory;scrollbar-width:thin}
+.ah-slip{flex:0 0 212px;scroll-snap-align:start;position:relative;background:var(--panel);border:1px solid var(--rule);
+  border-radius:12px;padding:12px 14px 12px;display:flex;flex-direction:column;gap:4px;
+  -webkit-mask:radial-gradient(circle 7px at 0 62%,transparent 98%,#000) left/51% 100% no-repeat,
+                radial-gradient(circle 7px at 100% 62%,transparent 98%,#000) right/51% 100% no-repeat;
+          mask:radial-gradient(circle 7px at 0 62%,transparent 98%,#000) left/51% 100% no-repeat,
+                radial-gradient(circle 7px at 100% 62%,transparent 98%,#000) right/51% 100% no-repeat}
+.ah-slip-top{display:flex;justify-content:space-between;font-size:12px;color:var(--dim)}
+.ah-sport{font-weight:700;color:var(--chalk)}
+.ah-tier{font-weight:600}
+.ah-pick{font:800 26px/1.05 "Big Shoulders Display",sans-serif;color:var(--chalk);margin-top:2px}
+.ah-pick span{font:600 15px Archivo,sans-serif;color:var(--dim);margin-left:8px;vertical-align:3px}
+.ah-sub{font-size:12px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  padding-bottom:8px;border-bottom:1px dashed var(--rule)}
+.ah-stat{display:flex;align-items:baseline;gap:6px;padding-top:4px}
+.ah-stat em{font:800 24px "Big Shoulders Display",sans-serif;font-style:normal}
+.ah-stat small{font-size:12px;color:var(--dim)}
+.s-top{background:linear-gradient(180deg,rgba(242,177,52,.16),var(--panel) 60%);border-color:rgba(242,177,52,.45)}
+.s-top .ah-tier,.s-top .ah-stat em{color:var(--amber)}
+.s-mid .ah-tier,.s-mid .ah-stat em{color:var(--turf)}
+.s-low .ah-tier,.s-low .ah-stat em{color:var(--ice)}
+.s-hr .ah-tier,.s-hr .ah-stat em{color:#ff8a5c}
+
+/* sport tabs = scoreboard */
+.stTabs [data-baseweb="tab-list"]{gap:4px;border-bottom:1px solid var(--rule);background:transparent}
+.stTabs [data-baseweb="tab"]{font:800 22px "Big Shoulders Display",sans-serif!important;color:var(--dim);
+  padding:10px 16px 8px!important;background:transparent;border-radius:8px 8px 0 0;height:auto}
+.stTabs [data-baseweb="tab"] p{font:inherit!important;letter-spacing:.02em;white-space:nowrap}
+.stTabs [data-baseweb="tab-list"]{overflow-x:auto;scrollbar-width:none}
+.stTabs [data-baseweb="tab"]:hover{color:var(--chalk);background:rgba(255,255,255,.03)}
+.stTabs [aria-selected="true"]{color:var(--chalk)!important}
+.stTabs [data-baseweb="tab-highlight"]{background:var(--amber)!important;height:3px}
+.stTabs [data-baseweb="tab-border"]{display:none}
+/* inner tabs (Cards / Best Bets / Record) stay small */
+.stTabs .stTabs [data-baseweb="tab"]{font:600 14px Archivo,sans-serif!important;padding:6px 12px!important}
+.stTabs .stTabs [data-baseweb="tab-highlight"]{background:var(--chalk)!important;height:2px}
+
+/* metrics, tables, notes */
+[data-testid="stMetric"]{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:12px 16px}
+[data-testid="stMetricLabel"] p{color:var(--dim)!important;font-size:13px!important}
+[data-testid="stMetricValue"]{font:800 34px "Big Shoulders Display",sans-serif!important;color:var(--chalk)}
+[data-testid="stDataFrame"]{border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+[data-testid="stAlert"]{background:var(--panel)!important;border:1px solid var(--rule)!important;border-radius:12px;color:var(--dim)}
+[data-testid="stSelectbox"] [data-baseweb="select"]>div{background:var(--panel);border-color:var(--rule);border-radius:10px}
+iframe{border-radius:14px}
+.ah-foot{color:var(--dim);font-size:12px;border-top:1px solid var(--rule);margin-top:28px;padding-top:14px;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.ah-foot a{color:var(--chalk);text-decoration:none;font-weight:600}
+@media (max-width:640px){.ah-today{text-align:left}.stTabs [data-baseweb="tab"]{font-size:19px!important;padding:8px 10px 6px!important}}
+@media (prefers-reduced-motion:reduce){.ah-board{scroll-behavior:auto}}
+</style>
+
+<style>
+.mf-btns{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.mf-btns button{background:transparent;border:1px solid var(--rule);color:var(--dim);padding:6px 12px;border-radius:999px;font:600 12px Archivo,sans-serif;cursor:pointer}
+.mf-btns button small{opacity:.7;margin-left:3px}
+.mf-btns button.on{background:var(--chalk);color:var(--ink);border-color:var(--chalk)}
+body{margin:0;background:var(--ink);color:var(--chalk);font:15px/1.5 Archivo,system-ui,sans-serif}
+.page{max-width:1240px;margin:0 auto;padding:22px 16px 40px}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:6px}
+.sports{display:flex;gap:4px;border-bottom:1px solid var(--rule);overflow-x:auto;scrollbar-width:none;margin-top:6px}
+.sports a{position:relative;font:800 22px "Big Shoulders Display",sans-serif;color:var(--dim);text-decoration:none;
+  padding:10px 16px 9px;white-space:nowrap;border-radius:8px 8px 0 0}
+.sports a:hover{color:var(--chalk);background:rgba(255,255,255,.03)}
+.sports a[aria-current="page"]{color:var(--chalk)}
+.sports a[aria-current="page"]::before{content:"";position:absolute;left:12px;right:12px;bottom:-1px;height:3px;background:var(--amber);border-radius:3px}
+.sports a.live::after{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--amber);
+  margin-left:7px;vertical-align:5px;animation:ahlive 2.4s ease-out infinite}
+@keyframes ahlive{0%{box-shadow:0 0 0 0 rgba(242,177,52,.55)}70%,100%{box-shadow:0 0 0 7px rgba(242,177,52,0)}}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:14px 0 6px}
+.panes{display:flex;gap:4px;border-bottom:1px solid var(--rule)}
+.panes button{background:none;border:0;color:var(--dim);font:600 14px Archivo,sans-serif;padding:8px 12px;cursor:pointer;
+  border-bottom:2px solid transparent;margin-bottom:-1px}
+.panes button[aria-selected="true"]{color:var(--chalk);border-color:var(--chalk)}
+.slate select{background:var(--panel);color:var(--chalk);border:1px solid var(--rule);border-radius:10px;
+  padding:8px 34px 8px 12px;font:600 14px Archivo,sans-serif;appearance:none;cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,var(--dim) 50%),linear-gradient(135deg,var(--dim) 50%,transparent 50%);
+  background-position:calc(100% - 17px) 55%,calc(100% - 12px) 55%;background-size:5px 5px;background-repeat:no-repeat}
+.pane{padding-top:14px} .pane[hidden]{display:none}
+iframe.cards{width:100%;border:0;border-radius:14px;min-height:600px;display:block;background:var(--ink)}
+.hint{color:var(--dim);font-size:13px;margin:0 0 8px}
+.note{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:12px 16px;color:var(--dim);margin:0 0 12px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
+.tile{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:12px 16px}
+.tile small{display:block;color:var(--dim);font-size:13px}
+.tile b{font:800 34px/1.1 "Big Shoulders Display",sans-serif}
+.tbl{overflow-x:auto;border:1px solid var(--rule);border-radius:12px;margin-bottom:16px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;color:var(--dim);font-weight:600;font-size:12px;padding:10px 12px;background:var(--panel);
+  position:sticky;top:0;white-space:nowrap}
+td{padding:9px 12px;border-top:1px solid var(--rule);white-space:nowrap}
+tbody tr:hover{background:rgba(255,255,255,.025)}
+.tg{font-weight:700;font-size:12px;padding:3px 8px;border-radius:6px;color:#0b0e13}
+.tg-3{background:var(--amber)} .tg-2{background:var(--turf)} .tg-1{background:var(--ice)} .tg-0{background:var(--dim)}
+h3.sub{font:800 24px "Big Shoulders Display",sans-serif;margin:22px 0 10px}
+.chart{margin:0 0 16px;background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:12px 14px}
+.chart figcaption{color:var(--dim);font-size:13px;margin-bottom:6px} .chart svg{width:100%;height:auto;display:block}
+.posts{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.post{margin:0;background:var(--panel);border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+.post img{width:100%;display:block}
+.btn{display:block;text-align:center;padding:10px;font-weight:600;text-decoration:none;color:var(--ink);background:var(--amber)}
+.ah-hero a{text-decoration:none}
+details.mu{background:var(--panel);border:1px solid var(--rule);border-radius:12px;margin-bottom:10px;padding:0 14px}
+details.mu summary{cursor:pointer;padding:12px 0;display:flex;justify-content:space-between;gap:10px;font-size:16px}
+details.mu summary span{color:var(--dim);font-size:13px} details.mu[open] summary{border-bottom:1px solid var(--rule);margin-bottom:6px}
+details.mu .tbl{background:var(--ink)} h4.mu-h{font:800 20px "Big Shoulders Display",sans-serif;margin:14px 0 2px}
+.mu-role{font-weight:700;color:var(--dim)} .mu-tag{font-size:11px;font-weight:700;color:var(--ink);background:var(--dim);border-radius:4px;padding:1px 5px}
+td small.rk{color:var(--dim);font-size:11px;margin-left:3px}
+.mu-key{font-size:12px;font-weight:600;padding:1px 6px;border-radius:4px} .mu-key.g{background:rgba(63,185,80,.45)} .mu-key.r{background:rgba(248,81,73,.45)}
+.tdp{min-width:96px} .tdp b{margin-left:8px}
+@media (max-width:600px){.tdbar{width:36px}.tdp{min-width:0}}
+.tdbar{display:inline-block;width:48px;height:7px;border-radius:4px;background:var(--rule);vertical-align:middle;overflow:hidden}
+.tdbar i{display:block;height:100%;background:var(--turf);border-radius:4px}
+.tdm{font-size:11px;font-weight:700;padding:1px 6px;border-radius:4px;color:var(--dim);border:1px solid var(--rule)} .tdm.g{color:var(--chalk);background:rgba(63,185,80,.45);border-color:transparent} .tdm.r{color:var(--chalk);background:rgba(248,81,73,.45);border-color:transparent}
+.tdi{font-size:11px;font-weight:700;padding:1px 5px;border-radius:4px;background:rgba(88,166,255,.25);color:var(--chalk);margin-left:4px;white-space:nowrap}
+.tdv{font-size:11px;font-weight:700;color:var(--ink);background:var(--amber);border-radius:4px;padding:1px 5px;margin-left:4px}
+.tdsearch{width:100%;max-width:320px;background:var(--panel);color:var(--chalk);border:1px solid var(--rule);border-radius:10px;padding:9px 12px;font:14px Archivo,sans-serif;margin:4px 0 8px;box-sizing:border-box}
+.td-sides{display:grid;grid-template-columns:1fr;gap:0 16px}
+@media (prefers-reduced-motion:reduce){.sports a.live::after{animation:none}}
+</style>
+<style>
+.tk{position:sticky;top:0;z-index:20;margin:-22px -16px 14px;background:rgba(11,14,19,.92);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);overflow:hidden}
+.tk[hidden]{display:none}
+.tk-row{display:flex;align-items:stretch}
+.tk-live{flex:none;display:flex;align-items:center;gap:7px;padding:0 14px;font:800 15px "Big Shoulders Display",sans-serif;
+  color:var(--ink);background:var(--amber);letter-spacing:.04em}
+.tk-live i{width:7px;height:7px;border-radius:50%;background:var(--ink);animation:tkb 1.4s ease-in-out infinite}
+@keyframes tkb{50%{opacity:.25}}
+.tk-view{flex:1;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent)}
+.tk-track{display:flex;width:max-content;animation:tks var(--dur,80s) linear infinite}
+.tk:hover .tk-track,.tk:focus-within .tk-track{animation-play-state:paused}
+@keyframes tks{to{transform:translateX(-50%)}}
+.tk-g{display:flex;align-items:center;gap:10px;padding:8px 18px;border-right:1px solid var(--rule);white-space:nowrap;font-size:13px}
+.tk-sp{font:700 11px Archivo,sans-serif;color:var(--dim)}
+.tk-t{display:flex;gap:6px;align-items:baseline}
+.tk-t b{font:800 17px "Big Shoulders Display",sans-serif;color:var(--chalk)}
+.tk-t span{font:800 17px "Big Shoulders Display",sans-serif;color:var(--chalk);min-width:14px;text-align:right}
+.tk-t.lose b,.tk-t.lose span{color:var(--dim)}
+.tk-st{font-size:12px;color:var(--dim)}
+.tk-st.in{color:var(--amber);font-weight:600}
+.tk-p{font:700 11px Archivo,sans-serif;padding:3px 7px;border-radius:6px;border:1px solid var(--rule);color:var(--chalk)}
+.tk-p.up{background:rgba(63,185,80,.15);border-color:rgba(63,185,80,.5);color:#7ee787}
+.tk-p.down{background:rgba(248,81,73,.12);border-color:rgba(248,81,73,.45);color:#ffa198}
+.tk-p.push{color:var(--dim)}
+.ah-live{display:inline-block;margin-top:6px;font:700 11px Archivo,sans-serif;padding:3px 8px;border-radius:6px;
+  border:1px solid var(--rule);color:var(--dim)}
+.ah-live.up{background:rgba(63,185,80,.15);border-color:rgba(63,185,80,.5);color:#7ee787}
+.ah-live.down{background:rgba(248,81,73,.12);border-color:rgba(248,81,73,.45);color:#ffa198}
+@media (prefers-reduced-motion:reduce){.tk-track{animation:none}.tk-view{overflow-x:auto;mask-image:none}.tk-live i{animation:none}}
+@media (max-width:640px){.tk-g{padding:7px 14px}.tk-live{padding:0 10px}}
+</style>
+<style>
+.st{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(11,14,19,.94);backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);border-top:1px solid var(--rule);overflow:hidden}
+.st[hidden]{display:none}
+.st-row{display:flex;align-items:stretch}
+.st-tag{flex:none;display:flex;align-items:center;gap:7px;padding:0 14px;font:800 15px "Big Shoulders Display",sans-serif;
+  color:var(--ink);background:var(--turf);letter-spacing:.04em}
+.st-view{flex:1;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent)}
+.st-track{display:flex;width:max-content;animation:sts var(--dur,70s) linear infinite}
+.st:hover .st-track,.st:focus-within .st-track{animation-play-state:paused}
+@keyframes sts{to{transform:translateX(-50%)}}
+.st-g{display:flex;align-items:center;gap:9px;padding:8px 18px;border-right:1px solid var(--rule);white-space:nowrap;font-size:13px}
+.st-sp{font:700 11px Archivo,sans-serif;color:var(--dim)}
+.st-amt{font:800 18px "Big Shoulders Display",sans-serif;color:#7ee787}
+.st-amt.hot{color:var(--amber)}
+.st-side{font-weight:700;color:var(--chalk)}
+.st-mu,.st-ago{color:var(--dim);font-size:12px}
+body{padding-bottom:46px}
+@media (prefers-reduced-motion:reduce){.st-track{animation:none}.st-view{overflow-x:auto;mask-image:none}}
+@media (max-width:640px){.st-g{padding:7px 14px}.st-tag{padding:0 10px}}
+</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+window.AH = (function(){
+  const sb = supabase.createClient("https://egqzxbvmbbrusbxinffj.supabase.co", "sb_publishable_DS9iJ4ddhoo57C4hROp2lA_UAU8TFln",
+    {auth: {flowType: 'implicit', persistSession: true, autoRefreshToken: true, detectSessionInUrl: true}});
+  function setCookie(s){
+    if (s && s.access_token) {
+      const age = Math.max(60, (s.expires_at || 0) - Math.floor(Date.now()/1000));
+      document.cookie = 'ah_at=' + s.access_token + '; Path=/; Max-Age=' + age + '; SameSite=Lax; Secure';
+    } else {
+      document.cookie = 'ah_at=; Path=/; Max-Age=0; SameSite=Lax; Secure';
+    }
+  }
+  sb.auth.onAuthStateChange((_e, s) => setCookie(s));
+  sb.auth.getSession().then(r => setCookie(r.data.session));
+  return {sb, setCookie,
+    async signOut(){ await sb.auth.signOut(); setCookie(null); location.href = '/login'; }};
+})();
+</script><script>
+document.addEventListener('DOMContentLoaded',()=>{const f=document.querySelector('.ah-foot');
+ if(f){const a=document.createElement('a');a.href='#';a.textContent='Sign out';a.style.cssText='color:var(--dim)';
+  a.onclick=e=>{e.preventDefault();AH.signOut();};f.appendChild(a);}});
+</script></head>
+<body><div class="page"><div class="tk" id="tk" hidden aria-label="Live scores">
+  <div class="tk-row"><div class="tk-live"><i></i>LIVE</div>
+  <div class="tk-view"><div class="tk-track" id="tk-track"></div></div></div></div>
+<header class="ah-hero">
+  <a href="/" class="ah-mark" aria-label="The AlgoHub home"><span>The</span>AlgoHub</a>
+  <div class="ah-today"><b>Wednesday, November 11</b>
+    <span>6 plays on the board across 2 sports</span></div>
+</header><section class="ah-board" aria-label="Top plays today">
+  <div class="ah-slip s-low" data-sport="NBA" data-pick="OVER 214.5" data-game="Magic at Jazz">
+    <div class="ah-slip-top"><span class="ah-sport">NBA</span><span class="ah-tier">Lean</span></div>
+    <div class="ah-pick">OVER 214.5<span>-110</span></div>
+    <div class="ah-sub">Magic at Jazz, 9:00 PM</div>
+    <div class="ah-stat"><em>+2.9</em><small>pts edge</small></div>
+  </div>
+  <div class="ah-slip s-low" data-sport="NHL" data-pick="UNDER 6.5" data-game="UTA at VGK">
+    <div class="ah-slip-top"><span class="ah-sport">NHL</span><span class="ah-tier">Lean</span></div>
+    <div class="ah-pick">UNDER 6.5<span>-106</span></div>
+    <div class="ah-sub">UTA at VGK, 9:30 PM</div>
+    <div class="ah-stat"><em>+4.0</em><small>% edge</small></div>
+  </div>
+  <div class="ah-slip s-low" data-sport="NBA" data-pick="OVER 215.5" data-game="Celtics at Raptors">
+    <div class="ah-slip-top"><span class="ah-sport">NBA</span><span class="ah-tier">Lean</span></div>
+    <div class="ah-pick">OVER 215.5<span>-110</span></div>
+    <div class="ah-sub">Celtics at Raptors, 7:00 PM</div>
+    <div class="ah-stat"><em>+2.3</em><small>pts edge</small></div>
+  </div>
+  <div class="ah-slip s-low" data-sport="NHL" data-pick="ANA ML" data-game="NSH at ANA">
+    <div class="ah-slip-top"><span class="ah-sport">NHL</span><span class="ah-tier">Lean</span></div>
+    <div class="ah-pick">ANA ML<span>-127</span></div>
+    <div class="ah-sub">NSH at ANA, 10:00 PM</div>
+    <div class="ah-stat"><em>+3.9</em><small>% edge</small></div>
+  </div></section>
+<nav class="sports" aria-label="Sports"><a href="/nfl/" class="">NFL</a><a href="/cfb/" class="">CFB</a><a href="/cbb/" class="">CBB</a><a href="/nba/" class="live">NBA</a><a href="/nhl/" class="live">NHL</a><a href="/epl/" class="">Premier League</a><a href="/mlb/" class="">MLB</a><a href="/hr/" class="">Home Runs</a><a href="/golf/" class="" aria-current=page>Golf</a></nav>
+<main><div class="bar"><div class="panes" role="tablist"><button role="tab" data-p="p-plays" aria-selected="true">Plays</button><button role="tab" data-p="p-allballs" aria-selected="false">All 3-balls</button><button role="tab" data-p="p-record" aria-selected="false">Record</button></div></div><details class="mu"><summary><b>How plays work</b><span>edge needed for each tier</span></summary><div style="padding:10px 14px 14px"><p class="note" style="margin:0 0 8px">Edge = how far our number is from the market. Under the LEAN cutoff the card says NO PLAY: the model has a side, but not enough to bet.</p><ul style="margin:0;padding-left:18px;line-height:1.7"><li><b>3-ball:</b> LEAN +5% expected value at DK · PLAY +9% (DataGolf must agree) · HAMMER +14% (DataGolf must agree)</li></ul></div></details><section class="pane" id="p-plays"><p class="note">Austin Championship presented by Compliance Solutions, round 1. Win % for every 3-ball: 60% DataGolf&#x27;s model + 40% ours (20,000 sims from strokes-gained ratings, ties split dead-heat), against DraftKings with the vig taken out. TRACKING ONLY: new model, not backtested yet. Small or no stakes until it has a record.</p><p class="note">No plays this round. DraftKings&#x27; 3-ball prices are right on top of the models, so nothing clears the LEAN bar (+5% expected value). That&#x27;s normal: golf 3-balls only have value on some rounds.</p><h3 class="sub">Best values this round</h3><p class="note">Highest expected value at the best price we found. Only ones with a tier are plays; the rest are just the closest the board gets to value.</p><div class="tbl"><table><thead><tr><th>Player</th><th>Group</th><th>Ours</th><th>DK</th><th>Best price</th><th>EV at best</th><th>EV at DK</th><th>Tier</th></tr></thead><tbody><tr><td>Nicholas Lindheim</td><td>37</td><td>25%</td><td></td><td>bet365 +320</td><td>+3.7%</td><td></td><td></td></tr><tr><td>Adrien Saddier</td><td>19</td><td>30%</td><td></td><td>bet365 +240</td><td>+3.5%</td><td></td><td></td></tr><tr><td>Zecheng Dou</td><td>19</td><td>42%</td><td></td><td>fanduel +145</td><td>+3.1%</td><td></td><td></td></tr><tr><td>Adrien Dumont De Chassart</td><td>15</td><td>35%</td><td>+182</td><td>fanduel +190</td><td>+2.7%</td><td>-0.1%</td><td></td></tr><tr><td>Mackenzie Hughes</td><td>13</td><td>35%</td><td>+178</td><td>fanduel +190</td><td>+2.4%</td><td>-1.8%</td><td></td></tr><tr><td>Taylor Moore</td><td>14</td><td>37%</td><td>+156</td><td>fanduel +175</td><td>+1.4%</td><td>-5.6%</td><td></td></tr><tr><td>Christiaan Bezuidenhout</td><td>21</td><td>53%</td><td>-108</td><td>draftkings -108</td><td>+1.1%</td><td>+1.1%</td><td></td></tr><tr><td>Gordon Sargent</td><td>35</td><td>31%</td><td>+215</td><td>fanduel +230</td><td>+0.9%</td><td>-3.7%</td><td></td></tr><tr><td>Casey Russell</td><td>40</td><td>20%</td><td></td><td>bet365 +400</td><td>+0.0%</td><td></td><td></td></tr><tr><td>Davis Chatfield</td><td>36</td><td>34%</td><td>+190</td><td>draftkings +190</td><td>-0.0%</td><td>-0.0%</td><td></td></tr></tbody></table></div><h3 class="sub">Model pick in every 3-ball</h3><p class="note">Who wins each group most often in our numbers. Most likely to win is not the same as a good bet: check the EV column.</p><div class="tbl"><table><thead><tr><th>Pick</th><th>Win %</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Group</th><th>Tier</th></tr></thead><tbody><tr><td>Christiaan Bezuidenhout</td><td>53%</td><td>-108</td><td>47%</td><td>+1.1%</td><td>Michael Thompson / Christiaan Bezuidenhout / Nick Dunlap</td><td></td></tr><tr><td>Andrew Putnam</td><td>45%</td><td></td><td></td><td></td><td>Brendon Todd / Andrew Putnam / Vince Whaley</td><td></td></tr><tr><td>Ben Kohles</td><td>45%</td><td>+106</td><td>45%</td><td>-6.6%</td><td>Ben Martin / Mark Hubbard / Ben Kohles</td><td></td></tr><tr><td>Doug Ghim</td><td>45%</td><td>+116</td><td>43%</td><td>-2.3%</td><td>Billy Horschel / Daniel Berger / Doug Ghim</td><td></td></tr><tr><td>Kevin Yu</td><td>44%</td><td>+124</td><td>41%</td><td>-1.0%</td><td>Kevin Streelman / Kevin Yu / Aaron Wise</td><td></td></tr><tr><td>Mac Meissner</td><td>44%</td><td>+116</td><td>43%</td><td>-5.5%</td><td>Takumi Kanaya / Nick Hardy / Mac Meissner</td><td></td></tr><tr><td>David Ford</td><td>44%</td><td>+112</td><td>44%</td><td>-7.6%</td><td>Hayden Springer / David Ford / Frankie Harris</td><td></td></tr><tr><td>Jackson Koivun</td><td>43%</td><td>+120</td><td>42%</td><td>-5.0%</td><td>Austin Smotherman / Jackson Koivun / Tommy Morrison</td><td></td></tr><tr><td>Thomas Rosenmueller</td><td>43%</td><td></td><td></td><td></td><td>Thomas Rosenmueller / Christo Lamprecht / Pontus Nyholm</td><td></td></tr><tr><td>Haotong Li</td><td>43%</td><td></td><td></td><td></td><td>Haotong Li / Alejandro Tosti / Emilio Gonzalez</td><td></td></tr><tr><td>Isaiah Salinda</td><td>43%</td><td></td><td></td><td></td><td>Paul Peterson / Casey Russell / Isaiah Salinda</td><td></td></tr><tr><td>Zecheng Dou</td><td>42%</td><td></td><td></td><td></td><td>Adrien Saddier / Zecheng Dou / Christiaan Maas</td><td></td></tr><tr><td>Max McGreevy</td><td>41%</td><td>+132</td><td>40%</td><td>-4.6%</td><td>David Lipsky / Max McGreevy / Dylan Wu</td><td></td></tr><tr><td>Ricky Castillo</td><td>41%</td><td>+132</td><td>40%</td><td>-4.7%</td><td>Matt Kuchar / Ricky Castillo / William Mouw</td><td></td></tr><tr><td>William Sides</td><td>41%</td><td></td><td></td><td></td><td>Nicholas Lindheim / Rikuya Hoshino / William Sides</td><td></td></tr><tr><td>Kevin Roy</td><td>41%</td><td>+138</td><td>39%</td><td>-2.3%</td><td>Peter Malnati / Justin Lower / Kevin Roy</td><td></td></tr><tr><td>Zach Bauchou</td><td>41%</td><td>+136</td><td>39%</td><td>-3.9%</td><td>Zach Bauchou / Danny Walker / Jackson Suber</td><td></td></tr><tr><td>Marco Penge</td><td>41%</td><td>+138</td><td>39%</td><td>-3.3%</td><td>Marco Penge / Gordon Sargent / Cole Sherwood</td><td></td></tr><tr><td>Jesper Svensson</td><td>40%</td><td>+134</td><td>40%</td><td>-5.2%</td><td>Marcelo Rozo / Jesper Svensson / Trace Crowe</td><td></td></tr><tr><td>Rico Hoey</td><td>40%</td><td>+134</td><td>39%</td><td>-5.7%</td><td>Chad Ramey / A.J. Ewart / Rico Hoey</td><td></td></tr><tr><td>Lee Hodges</td><td>40%</td><td>+146</td><td>38%</td><td>-1.4%</td><td>David Skinns / Tyler Duncan / Lee Hodges</td><td></td></tr><tr><td>Sudarshan Yellamaraju</td><td>40%</td><td>+136</td><td>39%</td><td>-5.7%</td><td>Hank Lebioda / Taylor Moore / Sudarshan Yellamaraju</td><td></td></tr><tr><td>Patrick Rodgers</td><td>40%</td><td>+134</td><td>39%</td><td>-6.6%</td><td>Patton Kizzire / Adam Svensson / Patrick Rodgers</td><td></td></tr><tr><td>Karl Vilips</td><td>40%</td><td>+148</td><td>37%</td><td>-1.7%</td><td>Cam Davis / Davis Riley / Karl Vilips</td><td></td></tr><tr><td>John Parry</td><td>40%</td><td>+144</td><td>38%</td><td>-3.5%</td><td>Rafael Campos / John Parry / Zac Blair</td><td></td></tr><tr><td>Jordan Smith</td><td>39%</td><td>+144</td><td>38%</td><td>-4.0%</td><td>Jordan Smith / Eric Cole / Sam Stevens</td><td></td></tr><tr><td>Neal Shipley</td><td>38%</td><td>+148</td><td>37%</td><td>-5.5%</td><td>Patrick Fishburn / Neal Shipley / Miles Russell</td><td></td></tr><tr><td>Chandler Phillips</td><td>38%</td><td>+144</td><td>38%</td><td>-7.0%</td><td>C.T. Pan / Erik Van Rooyen / Chandler Phillips</td><td></td></tr><tr><td>Lucas Glover</td><td>38%</td><td>+142</td><td>38%</td><td>-7.9%</td><td>Lucas Glover / Adam Schenk / Joe Highsmith</td><td></td></tr><tr><td>Kensei Hirata</td><td>38%</td><td>+140</td><td>38%</td><td>-9.0%</td><td>Kensei Hirata / Jimmy Stanger / Davis Chatfield</td><td></td></tr><tr><td>Blades Brown</td><td>37%</td><td>+154</td><td>36%</td><td>-5.7%</td><td>Max Homa / Andrew Novak / Blades Brown</td><td></td></tr><tr><td>John VanDerLaan</td><td>37%</td><td>+148</td><td>37%</td><td>-8.4%</td><td>Jeffrey Kang / Chandler Blanchet / John VanDerLaan</td><td></td></tr><tr><td>Rasmus Hojgaard</td><td>37%</td><td>+152</td><td>37%</td><td>-7.0%</td><td>Brice Garnett / Matthieu Pavon / Rasmus Hojgaard</td><td></td></tr><tr><td>Nick Taylor</td><td>37%</td><td>+158</td><td>36%</td><td>-5.7%</td><td>Nick Taylor / Taylor Pendrith / Matt McCarty</td><td></td></tr><tr><td>Austin Eckroat</td><td>35%</td><td>+170</td><td>34%</td><td>-4.2%</td><td>Joel Dahmen / Max Greyserman / Austin Eckroat</td><td></td></tr><tr><td>Kristoffer Ventura</td><td>35%</td><td>+158</td><td>36%</td><td>-8.6%</td><td>Kristoffer Ventura / Rasmus Neergaard-Petersen / Johnny Keefer</td><td></td></tr><tr><td>Adrien Dumont De Chassart</td><td>35%</td><td>+182</td><td>33%</td><td>-0.1%</td><td>Adrien Dumont De Chassart / Alvaro Ortiz / Luke Clanton</td><td></td></tr><tr><td>Mackenzie Hughes</td><td>35%</td><td>+178</td><td>33%</td><td>-1.8%</td><td>Seamus Power / Emiliano Grillo / Mackenzie Hughes</td><td></td></tr><tr><td>Stephan Jaeger</td><td>35%</td><td>+156</td><td>36%</td><td>-10.9%</td><td>Stephan Jaeger / Sami Valimaki / Davis Thompson</td><td></td></tr><tr><td>Brian Harman</td><td>34%</td><td>+178</td><td>33%</td><td>-4.4%</td><td>Brian Harman / Chris Kirk / Pierceson Coody</td><td></td></tr></tbody></table></div></section><section class="pane" id="p-allballs" hidden><h3 class="sub">Every 3-ball</h3><details class="mu td"><summary><b>Takumi Kanaya / Nick Hardy / Mac Meissner</b><span>group 1</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Takumi Kanaya</b> <small class="rk">EARLY 07:00</small></td><td>33%</td><td>33%</td><td>33%</td><td>+182</td><td>33%</td><td>-7.0%</td><td>betmgm +190</td><td></td></tr><tr><td><b>Nick Hardy</b> <small class="rk">EARLY 07:00</small></td><td>23%</td><td>23%</td><td>24%</td><td>+280</td><td>24%</td><td>-11.6%</td><td>unibet +300</td><td></td></tr><tr><td><b>Mac Meissner</b> <small class="rk">EARLY 07:00</small></td><td>44%</td><td>44%</td><td>43%</td><td>+116</td><td>43%</td><td>-5.5%</td><td>bet365 +120</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>C.T. Pan / Erik Van Rooyen / Chandler Phillips</b><span>group 2</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>C.T. Pan</b> <small class="rk">EARLY 07:00</small></td><td>24%</td><td>22%</td><td>28%</td><td>+265</td><td>25%</td><td>-10.8%</td><td>bet365 +280</td><td></td></tr><tr><td><b>Erik Van Rooyen</b> <small class="rk">EARLY 07:00</small></td><td>37%</td><td>39%</td><td>35%</td><td>+150</td><td>37%</td><td>-6.4%</td><td>fanduel +160</td><td></td></tr><tr><td><b>Chandler Phillips</b> <small class="rk">EARLY 07:00</small></td><td>38%</td><td>39%</td><td>36%</td><td>+144</td><td>38%</td><td>-7.0%</td><td>fanduel +145</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Rafael Campos / John Parry / Zac Blair</b><span>group 3</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Rafael Campos</b> <small class="rk">EARLY 07:11</small></td><td>23%</td><td>23%</td><td>23%</td><td>+270</td><td>25%</td><td>-13.7%</td><td>bet365 +300</td><td></td></tr><tr><td><b>John Parry</b> <small class="rk">EARLY 07:11</small></td><td>40%</td><td>40%</td><td>39%</td><td>+144</td><td>38%</td><td>-3.5%</td><td>draftkings +144</td><td></td></tr><tr><td><b>Zac Blair</b> <small class="rk">EARLY 07:11</small></td><td>37%</td><td>37%</td><td>37%</td><td>+148</td><td>37%</td><td>-7.9%</td><td>unibet +150</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Brendon Todd / Andrew Putnam / Vince Whaley</b><span>group 4</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Brendon Todd</b> <small class="rk">EARLY 07:11</small></td><td>21%</td><td>19%</td><td>25%</td><td></td><td></td><td></td><td>bet365 +300</td><td></td></tr><tr><td><b>Andrew Putnam</b> <small class="rk">EARLY 07:11</small></td><td>45%</td><td>47%</td><td>43%</td><td></td><td></td><td></td><td>bet365 +110</td><td></td></tr><tr><td><b>Vince Whaley</b> <small class="rk">EARLY 07:11</small></td><td>34%</td><td>34%</td><td>32%</td><td></td><td></td><td></td><td>bet365 +170</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Brice Garnett / Matthieu Pavon / Rasmus Hojgaard</b><span>group 5</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Brice Garnett</b> <small class="rk">EARLY 07:22</small></td><td>28%</td><td>28%</td><td>28%</td><td>+225</td><td>28%</td><td>-9.2%</td><td>betonline +250</td><td></td></tr><tr><td><b>Matthieu Pavon</b> <small class="rk">EARLY 07:22</small></td><td>35%</td><td>35%</td><td>35%</td><td>+166</td><td>35%</td><td>-6.4%</td><td>fanduel +170</td><td></td></tr><tr><td><b>Rasmus Hojgaard</b> <small class="rk">EARLY 07:22</small></td><td>37%</td><td>37%</td><td>37%</td><td>+152</td><td>37%</td><td>-7.0%</td><td>draftkings +152</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>David Skinns / Tyler Duncan / Lee Hodges</b><span>group 6</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>David Skinns</b> <small class="rk">EARLY 07:22</small></td><td>29%</td><td>30%</td><td>29%</td><td>+205</td><td>30%</td><td>-10.0%</td><td>fanduel +210</td><td></td></tr><tr><td><b>Tyler Duncan</b> <small class="rk">EARLY 07:22</small></td><td>30%</td><td>30%</td><td>31%</td><td>+188</td><td>32%</td><td>-12.4%</td><td>fanduel +220</td><td></td></tr><tr><td><b>Lee Hodges</b> <small class="rk">EARLY 07:22</small></td><td>40%</td><td>40%</td><td>40%</td><td>+146</td><td>38%</td><td>-1.4%</td><td>draftkings +146</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Max Homa / Andrew Novak / Blades Brown</b><span>group 7</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Max Homa</b> <small class="rk">EARLY 07:33</small></td><td>27%</td><td>27%</td><td>28%</td><td>+220</td><td>29%</td><td>-12.6%</td><td>fanduel +250</td><td></td></tr><tr><td><b>Andrew Novak</b> <small class="rk">EARLY 07:33</small></td><td>36%</td><td>35%</td><td>36%</td><td>+168</td><td>35%</td><td>-4.7%</td><td>fanduel +175</td><td></td></tr><tr><td><b>Blades Brown</b> <small class="rk">EARLY 07:33</small></td><td>37%</td><td>38%</td><td>36%</td><td>+154</td><td>36%</td><td>-5.7%</td><td>draftkings +154</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Kevin Streelman / Kevin Yu / Aaron Wise</b><span>group 8</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Kevin Streelman</b> <small class="rk">EARLY 07:33</small></td><td>31%</td><td>31%</td><td>32%</td><td>+184</td><td>33%</td><td>-10.7%</td><td>fanduel +210</td><td></td></tr><tr><td><b>Kevin Yu</b> <small class="rk">EARLY 07:33</small></td><td>44%</td><td>44%</td><td>44%</td><td>+124</td><td>41%</td><td>-1.0%</td><td>draftkings +124</td><td></td></tr><tr><td><b>Aaron Wise</b> <small class="rk">EARLY 07:33</small></td><td>24%</td><td>24%</td><td>25%</td><td>+260</td><td>26%</td><td>-12.4%</td><td>unibet +280</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Billy Horschel / Daniel Berger / Doug Ghim</b><span>group 9</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Billy Horschel</b> <small class="rk">EARLY 07:44</small></td><td>28%</td><td>28%</td><td>27%</td><td>+230</td><td>28%</td><td>-8.3%</td><td>fanduel +240</td><td></td></tr><tr><td><b>Daniel Berger</b> <small class="rk">EARLY 07:44</small></td><td>27%</td><td>26%</td><td>28%</td><td>+220</td><td>29%</td><td>-13.7%</td><td>unibet +250</td><td></td></tr><tr><td><b>Doug Ghim</b> <small class="rk">EARLY 07:44</small></td><td>45%</td><td>46%</td><td>45%</td><td>+116</td><td>43%</td><td>-2.3%</td><td>draftkings +116</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Stephan Jaeger / Sami Valimaki / Davis Thompson</b><span>group 10</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Stephan Jaeger</b> <small class="rk">EARLY 07:44</small></td><td>35%</td><td>35%</td><td>34%</td><td>+156</td><td>36%</td><td>-10.9%</td><td>fanduel +175</td><td></td></tr><tr><td><b>Sami Valimaki</b> <small class="rk">EARLY 07:44</small></td><td>31%</td><td>31%</td><td>30%</td><td>+200</td><td>31%</td><td>-8.1%</td><td>bet365 +200</td><td></td></tr><tr><td><b>Davis Thompson</b> <small class="rk">EARLY 07:44</small></td><td>35%</td><td>34%</td><td>36%</td><td>+178</td><td>33%</td><td>-3.9%</td><td>unibet +180</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Lucas Glover / Adam Schenk / Joe Highsmith</b><span>group 11</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Lucas Glover</b> <small class="rk">EARLY 07:55</small></td><td>38%</td><td>38%</td><td>38%</td><td>+142</td><td>38%</td><td>-7.9%</td><td>draftkings +142</td><td></td></tr><tr><td><b>Adam Schenk</b> <small class="rk">EARLY 07:55</small></td><td>27%</td><td>26%</td><td>27%</td><td>+230</td><td>28%</td><td>-12.2%</td><td>bet365 +240</td><td></td></tr><tr><td><b>Joe Highsmith</b> <small class="rk">EARLY 07:55</small></td><td>35%</td><td>36%</td><td>35%</td><td>+176</td><td>34%</td><td>-2.5%</td><td>draftkings +176</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Cam Davis / Davis Riley / Karl Vilips</b><span>group 12</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Cam Davis</b> <small class="rk">EARLY 07:55</small></td><td>31%</td><td>31%</td><td>31%</td><td>+186</td><td>32%</td><td>-11.4%</td><td>fanduel +200</td><td></td></tr><tr><td><b>Davis Riley</b> <small class="rk">EARLY 07:55</small></td><td>29%</td><td>30%</td><td>29%</td><td>+205</td><td>30%</td><td>-10.3%</td><td>betmgm +210</td><td></td></tr><tr><td><b>Karl Vilips</b> <small class="rk">EARLY 07:55</small></td><td>40%</td><td>39%</td><td>40%</td><td>+148</td><td>37%</td><td>-1.7%</td><td>draftkings +148</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Seamus Power / Emiliano Grillo / Mackenzie Hughes</b><span>group 13</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Seamus Power</b> <small class="rk">EARLY 08:06</small></td><td>34%</td><td>35%</td><td>34%</td><td>+154</td><td>36%</td><td>-12.7%</td><td>fanduel +160</td><td></td></tr><tr><td><b>Emiliano Grillo</b> <small class="rk">EARLY 08:06</small></td><td>30%</td><td>30%</td><td>31%</td><td>+205</td><td>30%</td><td>-7.6%</td><td>bet365 +210</td><td></td></tr><tr><td><b>Mackenzie Hughes</b> <small class="rk">EARLY 08:06</small></td><td>35%</td><td>35%</td><td>35%</td><td>+178</td><td>33%</td><td>-1.8%</td><td>fanduel +190</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Hank Lebioda / Taylor Moore / Sudarshan Yellamaraju</b><span>group 14</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Hank Lebioda</b> <small class="rk">EARLY 08:06</small></td><td>23%</td><td>23%</td><td>24%</td><td>+280</td><td>24%</td><td>-11.9%</td><td>betmgm +300</td><td></td></tr><tr><td><b>Taylor Moore</b> <small class="rk">EARLY 08:06</small></td><td>37%</td><td>37%</td><td>37%</td><td>+156</td><td>36%</td><td>-5.6%</td><td>fanduel +175</td><td></td></tr><tr><td><b>Sudarshan Yellamaraju</b> <small class="rk">EARLY 08:06</small></td><td>40%</td><td>40%</td><td>40%</td><td>+136</td><td>39%</td><td>-5.7%</td><td>draftkings +136</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Adrien Dumont De Chassart / Alvaro Ortiz / Luke Clanton</b><span>group 15</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Adrien Dumont De Chassart</b> <small class="rk">EARLY 08:17</small></td><td>35%</td><td>34%</td><td>37%</td><td>+182</td><td>33%</td><td>-0.1%</td><td>fanduel +190</td><td></td></tr><tr><td><b>Alvaro Ortiz</b> <small class="rk">EARLY 08:17</small></td><td>31%</td><td>33%</td><td>28%</td><td>+180</td><td>33%</td><td>-12.8%</td><td>draftkings +180</td><td></td></tr><tr><td><b>Luke Clanton</b> <small class="rk">EARLY 08:17</small></td><td>33%</td><td>32%</td><td>35%</td><td>+172</td><td>34%</td><td>-9.1%</td><td>unibet +188</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Marcelo Rozo / Jesper Svensson / Trace Crowe</b><span>group 16</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Marcelo Rozo</b> <small class="rk">EARLY 08:17</small></td><td>19%</td><td>19%</td><td>20%</td><td>+355</td><td>20%</td><td>-11.8%</td><td>unibet +400</td><td></td></tr><tr><td><b>Jesper Svensson</b> <small class="rk">EARLY 08:17</small></td><td>40%</td><td>41%</td><td>40%</td><td>+134</td><td>40%</td><td>-5.2%</td><td>draftkings +134</td><td></td></tr><tr><td><b>Trace Crowe</b> <small class="rk">EARLY 08:17</small></td><td>40%</td><td>40%</td><td>40%</td><td>+132</td><td>40%</td><td>-6.9%</td><td>draftkings +132</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Jeffrey Kang / Chandler Blanchet / John VanDerLaan</b><span>group 17</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Jeffrey Kang</b> <small class="rk">EARLY 08:28</small></td><td>31%</td><td>31%</td><td>31%</td><td>+205</td><td>30%</td><td>-5.6%</td><td>fanduel +210</td><td></td></tr><tr><td><b>Chandler Blanchet</b> <small class="rk">EARLY 08:28</small></td><td>32%</td><td>32%</td><td>32%</td><td>+184</td><td>33%</td><td>-8.8%</td><td>draftkings +184</td><td></td></tr><tr><td><b>John VanDerLaan</b> <small class="rk">EARLY 08:28</small></td><td>37%</td><td>37%</td><td>37%</td><td>+148</td><td>37%</td><td>-8.4%</td><td>fanduel +155</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Patrick Fishburn / Neal Shipley / Miles Russell</b><span>group 18</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Patrick Fishburn</b> <small class="rk">EARLY 08:28</small></td><td>33%</td><td>32%</td><td>34%</td><td>+194</td><td>32%</td><td>-3.1%</td><td>bet365 +200</td><td></td></tr><tr><td><b>Neal Shipley</b> <small class="rk">EARLY 08:28</small></td><td>38%</td><td>38%</td><td>39%</td><td>+148</td><td>37%</td><td>-5.5%</td><td>fanduel +155</td><td></td></tr><tr><td><b>Miles Russell</b> <small class="rk">EARLY 08:28</small></td><td>29%</td><td>30%</td><td>27%</td><td>+198</td><td>31%</td><td>-13.8%</td><td>unibet +210</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Adrien Saddier / Zecheng Dou / Christiaan Maas</b><span>group 19</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Adrien Saddier</b> <small class="rk">EARLY 08:39</small></td><td>30%</td><td>29%</td><td>32%</td><td></td><td></td><td></td><td>bet365 +240</td><td></td></tr><tr><td><b>Zecheng Dou</b> <small class="rk">EARLY 08:39</small></td><td>42%</td><td>42%</td><td>42%</td><td></td><td></td><td></td><td>fanduel +145</td><td></td></tr><tr><td><b>Christiaan Maas</b> <small class="rk">EARLY 08:39</small></td><td>27%</td><td>29%</td><td>26%</td><td></td><td></td><td></td><td>unibet +225</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Haotong Li / Alejandro Tosti / Emilio Gonzalez</b><span>group 20</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Haotong Li</b> <small class="rk">EARLY 08:39</small></td><td>43%</td><td>43%</td><td>43%</td><td></td><td></td><td></td><td>bet365 +125</td><td></td></tr><tr><td><b>Alejandro Tosti</b> <small class="rk">EARLY 08:39</small></td><td>32%</td><td>33%</td><td>32%</td><td></td><td></td><td></td><td>unibet +188</td><td></td></tr><tr><td><b>Emilio Gonzalez</b> <small class="rk">EARLY 08:39</small></td><td>25%</td><td>25%</td><td>25%</td><td></td><td></td><td></td><td>betmgm +275</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Michael Thompson / Christiaan Bezuidenhout / Nick Dunlap</b><span>group 21</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Michael Thompson</b> <small class="rk">LATE 11:40</small></td><td>20%</td><td>19%</td><td>21%</td><td>+325</td><td>21%</td><td>-15.6%</td><td>bet365 +400</td><td></td></tr><tr><td><b>Christiaan Bezuidenhout</b> <small class="rk">LATE 11:40</small></td><td>53%</td><td>53%</td><td>52%</td><td>-108</td><td>47%</td><td>+1.1%</td><td>draftkings -108</td><td></td></tr><tr><td><b>Nick Dunlap</b> <small class="rk">LATE 11:40</small></td><td>28%</td><td>28%</td><td>27%</td><td>+192</td><td>31%</td><td>-19.4%</td><td>draftkings +192</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>David Lipsky / Max McGreevy / Dylan Wu</b><span>group 22</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>David Lipsky</b> <small class="rk">LATE 11:40</small></td><td>29%</td><td>29%</td><td>29%</td><td>+205</td><td>30%</td><td>-11.3%</td><td>fanduel +220</td><td></td></tr><tr><td><b>Max McGreevy</b> <small class="rk">LATE 11:40</small></td><td>41%</td><td>41%</td><td>41%</td><td>+132</td><td>40%</td><td>-4.6%</td><td>bet365 +137</td><td></td></tr><tr><td><b>Dylan Wu</b> <small class="rk">LATE 11:40</small></td><td>30%</td><td>29%</td><td>30%</td><td>+205</td><td>30%</td><td>-9.1%</td><td>fanduel +220</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Patton Kizzire / Adam Svensson / Patrick Rodgers</b><span>group 23</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Patton Kizzire</b> <small class="rk">LATE 11:51</small></td><td>29%</td><td>29%</td><td>30%</td><td>+210</td><td>30%</td><td>-8.9%</td><td>draftkings +210</td><td></td></tr><tr><td><b>Adam Svensson</b> <small class="rk">LATE 11:51</small></td><td>31%</td><td>31%</td><td>31%</td><td>+200</td><td>31%</td><td>-7.9%</td><td>fanduel +210</td><td></td></tr><tr><td><b>Patrick Rodgers</b> <small class="rk">LATE 11:51</small></td><td>40%</td><td>40%</td><td>39%</td><td>+134</td><td>39%</td><td>-6.6%</td><td>fanduel +145</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Zach Bauchou / Danny Walker / Jackson Suber</b><span>group 24</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Zach Bauchou</b> <small class="rk">LATE 11:51</small></td><td>41%</td><td>41%</td><td>41%</td><td>+136</td><td>39%</td><td>-3.9%</td><td>draftkings +136</td><td></td></tr><tr><td><b>Danny Walker</b> <small class="rk">LATE 11:51</small></td><td>22%</td><td>22%</td><td>22%</td><td>+295</td><td>23%</td><td>-14.4%</td><td>unibet +350</td><td></td></tr><tr><td><b>Jackson Suber</b> <small class="rk">LATE 11:51</small></td><td>38%</td><td>37%</td><td>38%</td><td>+148</td><td>37%</td><td>-6.8%</td><td>fanduel +155</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Joel Dahmen / Max Greyserman / Austin Eckroat</b><span>group 25</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Joel Dahmen</b> <small class="rk">LATE 12:02</small></td><td>29%</td><td>28%</td><td>30%</td><td>+215</td><td>29%</td><td>-8.5%</td><td>fanduel +240</td><td></td></tr><tr><td><b>Max Greyserman</b> <small class="rk">LATE 12:02</small></td><td>35%</td><td>36%</td><td>35%</td><td>+154</td><td>36%</td><td>-9.9%</td><td>fanduel +165</td><td></td></tr><tr><td><b>Austin Eckroat</b> <small class="rk">LATE 12:02</small></td><td>35%</td><td>36%</td><td>35%</td><td>+170</td><td>34%</td><td>-4.2%</td><td>draftkings +170</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Peter Malnati / Justin Lower / Kevin Roy</b><span>group 26</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Peter Malnati</b> <small class="rk">LATE 12:02</small></td><td>30%</td><td>30%</td><td>30%</td><td>+200</td><td>31%</td><td>-10.5%</td><td>unibet +210</td><td></td></tr><tr><td><b>Justin Lower</b> <small class="rk">LATE 12:02</small></td><td>29%</td><td>29%</td><td>29%</td><td>+205</td><td>30%</td><td>-11.1%</td><td>bet365 +220</td><td></td></tr><tr><td><b>Kevin Roy</b> <small class="rk">LATE 12:02</small></td><td>41%</td><td>41%</td><td>42%</td><td>+138</td><td>39%</td><td>-2.3%</td><td>draftkings +138</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Austin Smotherman / Jackson Koivun / Tommy Morrison</b><span>group 27</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Austin Smotherman</b> <small class="rk">LATE 12:13</small></td><td>33%</td><td>32%</td><td>33%</td><td>+186</td><td>32%</td><td>-6.9%</td><td>fanduel +200</td><td></td></tr><tr><td><b>Jackson Koivun</b> <small class="rk">LATE 12:13</small></td><td>43%</td><td>45%</td><td>41%</td><td>+120</td><td>42%</td><td>-5.0%</td><td>bet365 +120</td><td></td></tr><tr><td><b>Tommy Morrison</b> <small class="rk">LATE 12:13</small></td><td>24%</td><td>23%</td><td>26%</td><td>+260</td><td>26%</td><td>-12.8%</td><td>unibet +300</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Nick Taylor / Taylor Pendrith / Matt McCarty</b><span>group 28</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Nick Taylor</b> <small class="rk">LATE 12:13</small></td><td>37%</td><td>37%</td><td>36%</td><td>+158</td><td>36%</td><td>-5.7%</td><td>bovada +165</td><td></td></tr><tr><td><b>Taylor Pendrith</b> <small class="rk">LATE 12:13</small></td><td>31%</td><td>32%</td><td>31%</td><td>+194</td><td>31%</td><td>-8.1%</td><td>fanduel +200</td><td></td></tr><tr><td><b>Matt McCarty</b> <small class="rk">LATE 12:13</small></td><td>32%</td><td>31%</td><td>33%</td><td>+182</td><td>33%</td><td>-9.2%</td><td>unibet +188</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Matt Kuchar / Ricky Castillo / William Mouw</b><span>group 29</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Matt Kuchar</b> <small class="rk">LATE 12:24</small></td><td>26%</td><td>26%</td><td>27%</td><td>+240</td><td>27%</td><td>-10.1%</td><td>betmgm +250</td><td></td></tr><tr><td><b>Ricky Castillo</b> <small class="rk">LATE 12:24</small></td><td>41%</td><td>40%</td><td>42%</td><td>+132</td><td>40%</td><td>-4.7%</td><td>fanduel +135</td><td></td></tr><tr><td><b>William Mouw</b> <small class="rk">LATE 12:24</small></td><td>32%</td><td>33%</td><td>31%</td><td>+180</td><td>33%</td><td>-9.1%</td><td>draftkings +180</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Brian Harman / Chris Kirk / Pierceson Coody</b><span>group 30</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Brian Harman</b> <small class="rk">LATE 12:24</small></td><td>34%</td><td>34%</td><td>35%</td><td>+178</td><td>33%</td><td>-4.4%</td><td>fanduel +180</td><td></td></tr><tr><td><b>Chris Kirk</b> <small class="rk">LATE 12:24</small></td><td>34%</td><td>34%</td><td>34%</td><td>+170</td><td>34%</td><td>-8.5%</td><td>fanduel +180</td><td></td></tr><tr><td><b>Pierceson Coody</b> <small class="rk">LATE 12:24</small></td><td>32%</td><td>32%</td><td>31%</td><td>+184</td><td>33%</td><td>-9.9%</td><td>betmgm +188</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Jordan Smith / Eric Cole / Sam Stevens</b><span>group 31</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Jordan Smith</b> <small class="rk">LATE 12:35</small></td><td>39%</td><td>41%</td><td>37%</td><td>+144</td><td>38%</td><td>-4.0%</td><td>fanduel +145</td><td></td></tr><tr><td><b>Eric Cole</b> <small class="rk">LATE 12:35</small></td><td>32%</td><td>32%</td><td>32%</td><td>+182</td><td>33%</td><td>-10.5%</td><td>fanduel +190</td><td></td></tr><tr><td><b>Sam Stevens</b> <small class="rk">LATE 12:35</small></td><td>29%</td><td>28%</td><td>31%</td><td>+215</td><td>29%</td><td>-8.9%</td><td>fanduel +240</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Ben Martin / Mark Hubbard / Ben Kohles</b><span>group 32</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Ben Martin</b> <small class="rk">LATE 12:35</small></td><td>27%</td><td>27%</td><td>27%</td><td>+235</td><td>28%</td><td>-8.6%</td><td>betonline +250</td><td></td></tr><tr><td><b>Mark Hubbard</b> <small class="rk">LATE 12:35</small></td><td>27%</td><td>27%</td><td>28%</td><td>+240</td><td>27%</td><td>-6.9%</td><td>bet365 +250</td><td></td></tr><tr><td><b>Ben Kohles</b> <small class="rk">LATE 12:35</small></td><td>45%</td><td>46%</td><td>45%</td><td>+106</td><td>45%</td><td>-6.6%</td><td>draftkings +106</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Chad Ramey / A.J. Ewart / Rico Hoey</b><span>group 33</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Chad Ramey</b> <small class="rk">LATE 12:46</small></td><td>32%</td><td>31%</td><td>32%</td><td>+194</td><td>31%</td><td>-7.1%</td><td>fanduel +200</td><td></td></tr><tr><td><b>A.J. Ewart</b> <small class="rk">LATE 12:46</small></td><td>28%</td><td>28%</td><td>28%</td><td>+215</td><td>29%</td><td>-11.5%</td><td>fanduel +240</td><td></td></tr><tr><td><b>Rico Hoey</b> <small class="rk">LATE 12:46</small></td><td>40%</td><td>41%</td><td>40%</td><td>+134</td><td>39%</td><td>-5.7%</td><td>draftkings +134</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Kristoffer Ventura / Rasmus Neergaard-Petersen / Johnny Keefer</b><span>group 34</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Kristoffer Ventura</b> <small class="rk">LATE 12:46</small></td><td>35%</td><td>35%</td><td>36%</td><td>+158</td><td>36%</td><td>-8.6%</td><td>fanduel +175</td><td></td></tr><tr><td><b>Rasmus Neergaard-Petersen</b> <small class="rk">LATE 12:46</small></td><td>31%</td><td>31%</td><td>30%</td><td>+205</td><td>30%</td><td>-6.6%</td><td>caesars +215</td><td></td></tr><tr><td><b>Johnny Keefer</b> <small class="rk">LATE 12:46</small></td><td>34%</td><td>34%</td><td>34%</td><td>+170</td><td>34%</td><td>-8.4%</td><td>caesars +180</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Marco Penge / Gordon Sargent / Cole Sherwood</b><span>group 35</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Marco Penge</b> <small class="rk">LATE 12:57</small></td><td>41%</td><td>39%</td><td>43%</td><td>+138</td><td>39%</td><td>-3.3%</td><td>bet365 +140</td><td></td></tr><tr><td><b>Gordon Sargent</b> <small class="rk">LATE 12:57</small></td><td>31%</td><td>29%</td><td>32%</td><td>+215</td><td>29%</td><td>-3.7%</td><td>fanduel +230</td><td></td></tr><tr><td><b>Cole Sherwood</b> <small class="rk">LATE 12:57</small></td><td>29%</td><td>31%</td><td>25%</td><td>+194</td><td>32%</td><td>-15.3%</td><td>unibet +200</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Kensei Hirata / Jimmy Stanger / Davis Chatfield</b><span>group 36</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Kensei Hirata</b> <small class="rk">LATE 12:57</small></td><td>38%</td><td>38%</td><td>38%</td><td>+140</td><td>38%</td><td>-9.0%</td><td>draftkings +140</td><td></td></tr><tr><td><b>Jimmy Stanger</b> <small class="rk">LATE 12:57</small></td><td>28%</td><td>28%</td><td>27%</td><td>+210</td><td>30%</td><td>-14.4%</td><td>fanduel +240</td><td></td></tr><tr><td><b>Davis Chatfield</b> <small class="rk">LATE 12:57</small></td><td>34%</td><td>34%</td><td>35%</td><td>+190</td><td>32%</td><td>-0.0%</td><td>draftkings +190</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Nicholas Lindheim / Rikuya Hoshino / William Sides</b><span>group 37</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Nicholas Lindheim</b> <small class="rk">LATE 13:08</small></td><td>25%</td><td>20%</td><td>31%</td><td></td><td></td><td></td><td>bet365 +320</td><td></td></tr><tr><td><b>Rikuya Hoshino</b> <small class="rk">LATE 13:08</small></td><td>34%</td><td>32%</td><td>38%</td><td></td><td></td><td></td><td>bet365 +187</td><td></td></tr><tr><td><b>William Sides</b> <small class="rk">LATE 13:08</small></td><td>41%</td><td>48%</td><td>30%</td><td></td><td></td><td></td><td>bovada -105</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Hayden Springer / David Ford / Frankie Harris</b><span>group 38</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Hayden Springer</b> <small class="rk">LATE 13:08</small></td><td>32%</td><td>32%</td><td>32%</td><td>+194</td><td>31%</td><td>-5.4%</td><td>bet365 +200</td><td></td></tr><tr><td><b>David Ford</b> <small class="rk">LATE 13:08</small></td><td>44%</td><td>44%</td><td>42%</td><td>+112</td><td>44%</td><td>-7.6%</td><td>bet365 +120</td><td></td></tr><tr><td><b>Frankie Harris</b> <small class="rk">LATE 13:08</small></td><td>24%</td><td>23%</td><td>26%</td><td>+270</td><td>25%</td><td>-10.3%</td><td>unibet +300</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Thomas Rosenmueller / Christo Lamprecht / Pontus Nyholm</b><span>group 39</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Thomas Rosenmueller</b> <small class="rk">LATE 13:19</small></td><td>43%</td><td>42%</td><td>45%</td><td></td><td></td><td></td><td>bet365 +115</td><td></td></tr><tr><td><b>Christo Lamprecht</b> <small class="rk">LATE 13:19</small></td><td>22%</td><td>23%</td><td>21%</td><td></td><td></td><td></td><td>bet365 +280</td><td></td></tr><tr><td><b>Pontus Nyholm</b> <small class="rk">LATE 13:19</small></td><td>35%</td><td>35%</td><td>34%</td><td></td><td></td><td></td><td>bet365 +175</td><td></td></tr></tbody></table></div></details><details class="mu td"><summary><b>Paul Peterson / Casey Russell / Isaiah Salinda</b><span>group 40</span></summary><div class="tbl"><table><thead><tr><th>Player</th><th>Ours</th><th>DataGolf</th><th>Sim</th><th>DK</th><th>DK no-vig</th><th>EV at DK</th><th>Best price</th><th>Tier</th></tr></thead><tbody><tr><td><b>Paul Peterson</b> <small class="rk">LATE 13:19</small></td><td>37%</td><td>40%</td><td>34%</td><td></td><td></td><td></td><td>bet365 +145</td><td></td></tr><tr><td><b>Casey Russell</b> <small class="rk">LATE 13:19</small></td><td>20%</td><td>15%</td><td>28%</td><td></td><td></td><td></td><td>bet365 +400</td><td></td></tr><tr><td><b>Isaiah Salinda</b> <small class="rk">LATE 13:19</small></td><td>43%</td><td>45%</td><td>38%</td><td></td><td></td><td></td><td>bet365 +105</td><td></td></tr></tbody></table></div></details></section><section class="pane" id="p-record" hidden><p class="note">No graded plays yet. Every round gets graded after it finishes.</p></section></main>
+<footer class="ah-foot"><span>Model picks for entertainment. Not betting advice.</span><span>@TheAlgoHub</span></footer>
+</div><div class="st" id="st" hidden aria-label="Big bets on the Novig exchange">
+  <div class="st-row"><div class="st-tag" title="Big trades on the Novig betting exchange">SHARP $</div>
+  <div class="st-view"><div class="st-track" id="st-track"></div></div></div></div><script>
+function fit(f){try{const d=f.contentDocument,set=()=>{f.style.height=(d.documentElement.scrollHeight+4)+'px'};
+ set();new ResizeObserver(set).observe(d.body);}catch(e){f.style.height='2400px'}}
+document.querySelectorAll('.panes button').forEach(b=>b.onclick=()=>{
+ document.querySelectorAll('.panes button').forEach(x=>x.setAttribute('aria-selected',x===b));
+ document.querySelectorAll('.pane').forEach(p=>p.hidden=p.id!==b.dataset.p);
+ const fr=document.querySelector('#'+b.dataset.p+' iframe.cards'); if(fr) fit(fr);
+ history.replaceState(null,'','#'+b.dataset.p);});
+const h=location.hash.slice(1); const hb=h&&document.querySelector('.panes button[data-p="'+h+'"]'); if(hb) hb.click();
+</script><script>
+(function(){
+const PICKS=[{"sport": "NBA", "pick": "Raptors +6.5", "game": "Celtics at Raptors"}, {"sport": "NBA", "pick": "OVER 215.5", "game": "Celtics at Raptors"}, {"sport": "NBA", "pick": "Grizzlies +3.5", "game": "Nuggets at Grizzlies"}, {"sport": "NBA", "pick": "OVER 214.5", "game": "Magic at Jazz"}, {"sport": "NHL", "pick": "UNDER 6.5", "game": "UTA at VGK"}, {"sport": "NHL", "pick": "ANA ML", "game": "NSH at ANA"}], SP={"NBA": ["basketball/nba", ""], "NHL": ["hockey/nhl", ""]};
+const ALIAS={NHL:{TBL:'TB',NJD:'NJ',SJS:'SJ',LAK:'LA',UTA:'UTAH'},MLB:{CWS:'CHW',TBR:'TB',KCR:'KC',SDP:'SD',SFG:'SF',WSN:'WSH'},NFL:{LA:'LAR',WAS:'WSH'},EPL:{'Man United':'Manchester United','Man City':'Manchester City',"Nott'm Forest":'Nottingham Forest',Wolves:'Wolverhampton Wanderers'}};
+const norm=s=>(s||'').toLowerCase().replace(/&/g,'and').replace(/\bstate\b/g,'st').replace(/\bsaint\b/g,'st').replace(/[^a-z0-9]/g,'');
+const keys=t=>[t.abbreviation,t.displayName,t.shortDisplayName,t.location,t.nickname,(t.location||'')+' '+(t.name||'')].filter(Boolean).map(norm);
+function hit(name,sport,comp){const k=norm((ALIAS[sport]||{})[name]||name); if(!k)return false;
+  const ks=keys(comp.team); return ks.includes(k)||ks.some(x=>x.length>3&&k.length>3&&(x.startsWith(k)||k.startsWith(x)));}
+function parse(p){const t=(p||'').trim();let m;
+  if(m=t.match(/^(over|under)\s+([\d.]+)/i))return{k:'tot',side:m[1].toLowerCase(),line:+m[2]};
+  if(m=t.match(/^(.*)\s+ML$/i))return{k:'ml',team:m[1]};
+  if(m=t.match(/^(.*)\s+PK$/i))return{k:'sp',team:m[1],line:0};
+  if(m=t.match(/^(.*)\s+([+-][\d.]+)$/))return{k:'sp',team:m[1],line:+m[2]};
+  return null;}
+function findEvent(pk,events){const [a,h]=(pk.game||'').split(' at ');
+  return events.find(ev=>{const c=ev.competitions[0].competitors;return c.some(x=>hit(h,pk.sport,x))&&c.some(x=>hit(a,pk.sport,x));});}
+function status(pk,ev){const pp=parse(pk.pick); if(!pp||!ev)return null;
+  const st=ev.status.type.state; if(st==='pre')return{cls:'',txt:ev.status.type.shortDetail};
+  const c=ev.competitions[0].competitors, sc=x=>+x.score||0; let v;
+  if(pp.k==='tot'){const t=sc(c[0])+sc(c[1]); v=pp.side==='over'?t-pp.line:pp.line-t;}
+  else{const me=c.find(x=>hit(pp.team,pk.sport,x)); if(!me)return null; const op=c.find(x=>x!==me);
+    v=sc(me)-sc(op)+(pp.k==='sp'?pp.line:0);}
+  const done=st==='post';
+  if(v===0)return{cls:'push',txt:done?'Push':'Even'};
+  return v>0?{cls:'up',txt:done?'Win':(pp.k==='ml'?'Winning':pp.k==='tot'?'On pace':'Covering')}
+            :{cls:'down',txt:done?'Loss':(pp.k==='ml'?'Losing':pp.k==='tot'?'Off pace':'Not covering')};}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let timer;
+async function load(){
+  const day=new Date(); const ymd=day.getFullYear()+String(day.getMonth()+1).padStart(2,'0')+String(day.getDate()).padStart(2,'0');
+  const all={}; let anyLive=false;
+  await Promise.all(Object.entries(SP).map(async([s,[path,extra]])=>{
+    try{const r=await fetch(`https://site.api.espn.com/apis/site/v2/sports/${path}/scoreboard?dates=${ymd}${extra}`);
+      if(!r.ok)return; const j=await r.json(); all[s]=j.events||[];}catch(e){}
+  }));
+  const items=[], used=new Set();
+  // picks first, with live status; then the rest of the board
+  const byEv={};
+  PICKS.forEach(pk=>{const ev=findEvent(pk,all[pk.sport]||[]); if(!ev)return;
+    if(!byEv[ev.id]){byEv[ev.id]=[pk.sport,ev,[]]; items.push(byEv[ev.id]);} byEv[ev.id][2].push([pk,status(pk,ev)]); used.add(ev.id);});
+  Object.entries(all).forEach(([s,evs])=>evs.filter(e=>!used.has(e.id)).sort((a,b)=>
+    (a.status.type.state==='in'?0:a.status.type.state==='pre'?1:2)-(b.status.type.state==='in'?0:b.status.type.state==='pre'?1:2))
+    .slice(0,s==='CBB'||s==='CFB'?25:40).forEach(ev=>items.push([s,ev,[]])));
+  // board slips
+  document.querySelectorAll('.ah-slip[data-pick]').forEach(el=>{
+    const pk={sport:el.dataset.sport,pick:el.dataset.pick,game:el.dataset.game};
+    const ev=findEvent(pk,all[pk.sport]||[]); const s=status(pk,ev); let b=el.querySelector('.ah-live');
+    if(!s||!ev||ev.status.type.state==='pre'){if(b)b.remove();return;}
+    if(!b){b=document.createElement('span');b.className='ah-live';el.appendChild(b);}
+    const c=ev.competitions[0].competitors; const sc=c.map(x=>x.team.abbreviation+' '+(x.score||0)).join(' – ');
+    b.className='ah-live '+s.cls; b.textContent=s.txt+' · '+sc+' · '+ev.status.type.shortDetail;});
+  const html=items.map(([s,ev,pks])=>{const c=ev.competitions[0].competitors.slice().sort((x,y)=>x.homeAway==='away'?-1:1);
+    const state=ev.status.type.state; if(state==='in')anyLive=true;
+    const lead=state==='pre'?null:(+c[0].score>+c[1].score?0:+c[1].score>+c[0].score?1:null);
+    const team=(x,i)=>`<span class="tk-t ${lead!==null&&lead!==i?'lose':''}"><b>${esc(x.team.abbreviation||x.team.shortDisplayName)}</b>${state==='pre'?'':`<span>${esc(x.score||0)}</span>`}</span>`;
+    const p=pks.filter(([pk,st])=>st).map(([pk,st])=>`<span class="tk-p ${st.cls}">${esc(pk.pick)}${state==='pre'?'':' · '+esc(st.txt)}</span>`).join('');
+    return `<div class="tk-g"><span class="tk-sp">${esc(s)}</span>${team(c[0],0)}${team(c[1],1)}<span class="tk-st ${state==='in'?'in':''}">${esc(ev.status.type.shortDetail)}</span>${p}</div>`;}).join('');
+  const tk=document.getElementById('tk'), tr=document.getElementById('tk-track');
+  if(!items.length){tk.hidden=true;}else{tk.hidden=false; tr.innerHTML=html+html;
+    tr.style.setProperty('--dur',Math.max(30,items.length*6)+'s');
+    document.querySelector('.tk-live').lastChild.textContent=anyLive?'LIVE':'TODAY';}
+  clearTimeout(timer); timer=setTimeout(load,anyLive?30000:300000);
+}
+load();
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)load();});
+})();
+</script><script>
+(function(){
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ago=ms=>{const m=Math.round((Date.now()-ms)/60000);return m<1?'just now':m<60?m+'m ago':Math.round(m/60)+'h ago';};
+const money=n=>'$'+n.toLocaleString('en-US');
+let timer;
+const PER_SPORT=10, MAX_ITEMS=40;
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+async function part(i){const r=await fetch('/api/sharp?part='+i,{cache:'no-store'}); if(!r.ok)throw 0; return r.json();}
+function show(all){
+  const el=document.getElementById('st'), tr=document.getElementById('st-track');
+  all.sort((a,b)=>b.ts-a.ts);
+  // each sport gets up to PER_SPORT spots so a busy NFL Sunday can't crowd everything else off
+  const n={}, pick=[], rest=[]; all.forEach(t=>{n[t.sport]=(n[t.sport]||0)+1;(n[t.sport]<=PER_SPORT?pick:rest).push(t);});
+  const t=pick.concat(rest).slice(0,MAX_ITEMS).sort((a,b)=>b.ts-a.ts);
+  if(!t.length){el.hidden=true;return;}
+  const html=t.map(x=>`<div class="st-g"><span class="st-sp">${esc(x.sport)}</span>`+
+    `<span class="st-amt ${x.staked>=5000?'hot':''}">${x.staked>=5000?'&#128293; ':''}${money(x.staked)}</span>`+
+    `<span class="st-side">${esc(x.side||x.market)}</span><span class="st-mu">@ ${Math.round(x.price*100)}&cent; &middot; ${esc(x.matchup)}</span>`+
+    `<span class="st-ago">${ago(x.ts)}</span></div>`).join('');
+  tr.innerHTML=html+html; tr.style.setProperty('--dur',Math.max(25,t.length*7)+'s'); el.hidden=false;}
+async function load(){
+  try{
+    const first=await part(0); let all=first.trades||[]; show(all.slice());
+    for(let i=1;i<(first.parts||1);i++){            // the rest, a second apart (Novig rate limits)
+      await sleep(1000);
+      try{const j=await part(i); all=all.concat(j.trades||[]); show(all.slice());}catch(e){}
+    }
+  }catch(e){document.getElementById('st').hidden=true;}
+  clearTimeout(timer); timer=setTimeout(load,90000);
+}
+load();
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)load();});
+})();
+</script></body></html>

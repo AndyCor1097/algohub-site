@@ -25,6 +25,7 @@ SOURCES = {
     "nba_props": (DESKTOP / "nba_algo" / "picks",               "nba_props_*.csv",        7),
     "cbb":       (DESKTOP / "cbb_algo" / "picks",               "cbb_*.csv",              14),
     "epl":       (DESKTOP / "epl_algo" / "picks",               "epl_*.csv",              21),
+    "golf":      (DESKTOP / "golf_algo" / "picks",              "golf_*.csv",             12),
 }
 
 # single files: (source, destination inside this site)
