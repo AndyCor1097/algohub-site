@@ -95,6 +95,14 @@ def _strip(r):
     return f'<div class="strip"><div class="mlabel">ADJUSTED RANKS</div>{row("away")}{row("home")}</div>'
 
 
+def _alt(r):
+    """CBBD's own ratings as a second projected score, small, under ours."""
+    if _na(r.get("cbbd_home")) or _na(r.get("cbbd_away")):
+        return ""
+    return (f'<div class="alt">CBBD ratings: {e(_abbr(r, "away"))} {float(r["cbbd_away"]):.0f} - '
+            f'{e(_abbr(r, "home"))} {float(r["cbbd_home"]):.0f}</div>')
+
+
 def _card(r):
     sp_t, tot_t = _s(r.get("sp_tier")), _s(r.get("tot_tier"))
     best = max((sp_t, tot_t), key=lambda x: TIER_RANK.get(x, 0))
@@ -113,6 +121,7 @@ def _card(r):
       {_team(r, 'away', hw < .5)}{_team(r, 'home', hw >= .5)}
       <div class="wp"><div class="wplab"><span>{e(_abbr(r, 'away'))} {1 - hw:.0%}</span><span class="cap">WIN PROB</span><span>{e(_abbr(r, 'home'))} {hw:.0%}</span></div>
         <div class="wpbar"><i style="width:{(1 - hw) * 100:.1f}%;background:{ca}"></i><i style="width:{hw * 100:.1f}%;background:{ch}"></i></div></div>
+      {_alt(r)}
       {_market("SPREAD", _line_txt(r, r.get("spread")), _line_txt(r, -float(r["pred_margin"]), model=True), r.get("sp_edge"), sp_t, _s(r.get("sp_pick")), sp_extra)}
       {_market("TOTAL", "-" if _na(r.get("total")) else f"{float(r['total']):g}", f"{float(r['pred_total']):.1f}", r.get("tot_edge"), tot_t, _s(r.get("tot_pick")))}
       {ml_html}
@@ -163,6 +172,7 @@ body{{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-se
 .tname{{flex:1;min-width:0}} .tname b{{display:block;font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
 .tname small{{color:var(--mu);font-size:12px}} .rk{{font-style:normal;color:var(--mu);font-size:12px;font-weight:600;margin-right:6px}}
 .proj{{font-size:32px;font-weight:700;color:var(--mu)}} .team.fav .proj{{color:var(--tx)}}
+.alt{{padding:0 16px 10px;color:var(--mu);font-size:12px;letter-spacing:.04em}}
 .wp{{padding:6px 16px 14px}} .wplab{{display:flex;justify-content:space-between;font-size:15px;font-weight:700;margin-bottom:6px}}
 .wplab .cap{{color:var(--mu);font:600 10px Inter,system-ui,sans-serif;letter-spacing:.16em;align-self:center}}
 .wpbar{{display:flex;height:8px;border-radius:99px;overflow:hidden;gap:2px;background:var(--line)}} .wpbar i{{display:block;height:100%}}
