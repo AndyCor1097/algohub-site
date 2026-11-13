@@ -116,6 +116,10 @@ date,game_id,player,team,market,tier,pick,odds,edge,actual,result,units
 2026-11-10,401909961,Jaylen Brown,PHI,PROP ASSISTS,LEAN,Jaylen Brown Assists O 3.5,-100.0,3.1,2,L,-1.0
 2026-11-11,401909966,Ivica Zubac,IND,PROP POINTS,LEAN,Ivica Zubac Points U 13.5,-106.0,3.7,20,L,-1.0
 2026-11-11,401909968,Ja'Kobe Walter,TOR,PROP POINTS,LEAN,Ja'Kobe Walter Points U 12.5,-104.0,3.5,17,L,-1.0
-2026-11-11,401909968,Jayson Tatum,BOS,PROP POINTS,LEAN,Jayson Tatum Points U 26.5,-102.0,3.6,24,W,0.9803921568627451
+2026-11-11,401909968,Jayson Tatum,BOS,PROP POINTS,LEAN,Jayson Tatum Points U 26.5,-102.0,3.6,24,W,0.9803921568627452
 2026-11-11,401909967,Miles McBride,NYK,PROP THREES,LEAN,Miles McBride Threes O 1.5,108.0,3.2,5,W,1.08
 2026-11-11,401909972,Trey Murphy III,NOP,PROP POINTS,LEAN,Trey Murphy III Points O 15.5,-102.0,3.5,DNP,P,0.0
+2026-11-12,401909977,Daniss Jenkins,DET,PROP POINTS,LEAN,Daniss Jenkins Points U 14.5,-102.0,4.6,21,L,-1.0
+2026-11-12,401909976,Immanuel Quickley,TOR,PROP ASSISTS,LEAN,Immanuel Quickley Assists O 5.5,135.0,3.9,6,W,1.35
+2026-11-12,401909977,John Collins,DET,PROP REBOUNDS,LEAN,John Collins Rebounds U 6.5,115.0,3.7,4,W,1.15
+2026-11-12,401909978,Naji Marshall,DAL,PROP POINTS,LEAN,Naji Marshall Points O 9.5,106.0,3.4,13,W,1.06

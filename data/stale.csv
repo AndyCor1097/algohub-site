@@ -1,11 +1,10 @@
 sport,day,game,market,bet,dk,sharp,ev,model_agrees
-cfb,2026-11-14,Mississippi @ Oklahoma,Spread,Mississippi +1.5,+1.5 (-110),Pinnacle -1,7.4,True
+cbb,2026-11-13,East Texas A&M @ Portland,Total,Under 152.5,152.5 (-110),Pinnacle 150,5.0,True
 cfb,2026-11-14,Syracuse @ North Carolina State,Spread,North Carolina State +3.5,-110 (assumed),Novig 56%,6.4,True
-cfb,2026-11-14,Nevada @ Northern Illinois,Spread,Northern Illinois +7.5,-110 (assumed),Novig 55%,4.5,True
-cfb,2026-11-14,California @ Virginia,Spread,Virginia -9.5,-110 (assumed),Novig 54%,3.1,True
-cfb,2026-11-14,Arizona State @ Central Florida,Spread,Central Florida -2.5,-110 (assumed),Novig 55%,5.0,False
-cfb,2026-11-14,Kennesaw State @ Sam Houston,Spread,Kennesaw State -6.5,-110 (assumed),Novig 55%,5.0,False
+cfb,2026-11-14,Kennesaw State @ Sam Houston,Spread,Kennesaw State -6.5,-110 (assumed),Novig 56%,6.0,False
+cfb,2026-11-14,Florida @ Kentucky,Spread,Florida +3.5,-110 (assumed),Novig 55%,4.0,False
+cfb,2026-11-14,Arizona State @ Central Florida,Spread,Central Florida -2.5,-110 (assumed),Novig 54%,3.6,False
 cfb,2026-11-15,Troy @ South Alabama,Spread,Troy +3.5,-110 (assumed),Novig 54%,3.1,False
-cfb,2026-11-14,Texas @ Louisiana State,Spread,Louisiana State -3.5,-110 (assumed),Novig 54%,2.6,False
-nfl,2026-11-15,NE @ DET,Spread,DET -2.5,-110 (assumed),Novig 54%,2.1,True
-nfl,2026-11-15,MIN @ GB,Spread,MIN +3.5,-110 (assumed),Novig 55%,4.5,False
+cfb,2026-11-14,Illinois @ UCLA,Spread,UCLA -9.5,-110 (assumed),Novig 54%,2.6,False
+cfb,2026-11-14,Kansas @ West Virginia,Spread,West Virginia -2.5,-110 (assumed),Novig 54%,2.1,False
+nfl,2026-11-15,MIN @ GB,Spread,GB -2.5,-110 (assumed),Novig 54%,2.6,True
