@@ -1,10 +1,12 @@
 sport,day,game,market,bet,dk,sharp,ev,model_agrees
-cbb,2026-11-13,East Texas A&M @ Portland,Total,Under 152.5,152.5 (-110),Pinnacle 150,5.0,True
-cfb,2026-11-14,Syracuse @ North Carolina State,Spread,North Carolina State +3.5,-110 (assumed),Novig 56%,6.4,True
-cfb,2026-11-14,Kennesaw State @ Sam Houston,Spread,Kennesaw State -6.5,-110 (assumed),Novig 56%,6.0,False
+cfb,2026-11-14,Syracuse @ North Carolina State,Spread,North Carolina State +3.5,-110 (assumed),Novig 56%,6.9,True
+cfb,2026-11-14,Alabama @ Vanderbilt,Spread,Vanderbilt +17.5,-110 (assumed),Novig 56%,6.9,True
+cfb,2026-11-14,Georgia Tech @ Clemson,Spread,Clemson -13.5,-110 (assumed),Novig 56%,7.4,False
+cfb,2026-11-14,Kennesaw State @ Sam Houston,Spread,Kennesaw State -6.5,-110 (assumed),Novig 55%,5.0,False
+cfb,2026-11-14,Illinois @ UCLA,Spread,UCLA -9.5,-110 (assumed),Novig 55%,4.5,False
 cfb,2026-11-14,Florida @ Kentucky,Spread,Florida +3.5,-110 (assumed),Novig 55%,4.0,False
 cfb,2026-11-14,Arizona State @ Central Florida,Spread,Central Florida -2.5,-110 (assumed),Novig 54%,3.6,False
 cfb,2026-11-15,Troy @ South Alabama,Spread,Troy +3.5,-110 (assumed),Novig 54%,3.1,False
-cfb,2026-11-14,Illinois @ UCLA,Spread,UCLA -9.5,-110 (assumed),Novig 54%,2.6,False
-cfb,2026-11-14,Kansas @ West Virginia,Spread,West Virginia -2.5,-110 (assumed),Novig 54%,2.1,False
 nfl,2026-11-15,MIN @ GB,Spread,GB -2.5,-110 (assumed),Novig 54%,2.6,True
+nfl,2026-11-15,KC @ ATL,Spread,ATL +3.5,-110 (assumed),Novig 54%,2.6,False
+nfl,2026-11-15,KC @ ATL,Moneyline,ATL ML,+167,Novig 38%,2.1,False
