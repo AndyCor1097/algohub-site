@@ -1,6 +1,6 @@
 {
   "week": 11,
-  "generated": "2026-11-15 02:59",
+  "generated": "2026-11-15 12:27",
   "model": "CSV-based opponent-adjusted metrics (85% ratings / 15% market)",
   "games": [
     {
@@ -723,11 +723,11 @@
       "book_total": 48.5,
       "home_moneyline": -166,
       "away_moneyline": 60,
-      "home_moneyline_book": -142.0,
-      "away_moneyline_book": 120.0,
+      "home_moneyline_book": -135.0,
+      "away_moneyline_book": 114.0,
       "spread_edge": -6.3,
       "total_edge": -0.5,
-      "ml_edge": -0.211,
+      "ml_edge": -0.198,
       "edge_label": "\u2705 EDGE",
       "edge_pick": "Mississippi",
       "edge_side": "away",
@@ -2451,10 +2451,10 @@
       "away_team": "North Dakota State",
       "start_date": "2026-11-15 04:00:00",
       "neutral_site": false,
-      "pred_home": 18,
+      "pred_home": 19,
       "pred_away": 21,
       "pred_margin": -2.1,
-      "pred_total": 39,
+      "pred_total": 40,
       "ratings_margin": -1.0,
       "home_win_prob": 43.0,
       "home_field_adv": 2.2,
@@ -2465,7 +2465,7 @@
       "home_moneyline_book": 245.0,
       "away_moneyline_book": -305.0,
       "spread_edge": 6.4,
-      "total_edge": -0.5,
+      "total_edge": 0.5,
       "ml_edge": 0.14,
       "edge_label": "\u2705 EDGE",
       "edge_pick": "Hawai'i",
@@ -2477,10 +2477,10 @@
       "commence_time": "2026-11-15T04:00:00.000Z",
       "home_conf": "Mountain West",
       "away_conf": "Mountain West",
-      "weather": "74\u00b0F \u00b7 13 MPH",
-      "wx_wind": 13,
-      "wx_temp": 74,
-      "wx_shade": -0.6
+      "weather": "",
+      "wx_wind": null,
+      "wx_temp": null,
+      "wx_shade": 0.0
     }
   ]
 }
