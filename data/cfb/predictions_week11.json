@@ -1,6 +1,6 @@
 {
   "week": 11,
-  "generated": "2026-11-15 12:27",
+  "generated": "2026-11-16 12:33",
   "model": "CSV-based opponent-adjusted metrics (85% ratings / 15% market)",
   "games": [
     {
@@ -731,7 +731,7 @@
       "edge_label": "\u2705 EDGE",
       "edge_pick": "Mississippi",
       "edge_side": "away",
-      "pinnacle_spread": -2.5,
+      "pinnacle_spread": null,
       "pinnacle": "",
       "home_elo": 1709,
       "away_elo": 1880,

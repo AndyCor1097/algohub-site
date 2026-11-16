@@ -40,3 +40,5 @@ nba,2026-11-11,Nuggets @ Grizzlies,ML,VALUE,Grizzlies ML,40%,0.5,%
 nba,2026-11-11,Magic @ Jazz,TOTAL,LEAN,OVER 214.5,215.5,1.0,pts
 nba,2026-11-12,Raptors @ 76ers,SPREAD,LEAN,Raptors +8.5,+7.5,1.0,pts
 nba,2026-11-12,Raptors @ 76ers,ML,VALUE,Raptors ML,28%,1.5,%
+nba,2026-11-15,Hornets @ Clippers,SPREAD,PLAY,Clippers +1.5,-1.5,3.0,pts
+nba,2026-11-15,Hornets @ Clippers,ML,VALUE,Clippers ML,51%,1.0,%

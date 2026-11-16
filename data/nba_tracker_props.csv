@@ -123,3 +123,8 @@ date,game_id,player,team,market,tier,pick,odds,edge,actual,result,units
 2026-11-12,401909976,Immanuel Quickley,TOR,PROP ASSISTS,LEAN,Immanuel Quickley Assists O 5.5,135.0,3.9,6,W,1.35
 2026-11-12,401909977,John Collins,DET,PROP REBOUNDS,LEAN,John Collins Rebounds U 6.5,115.0,3.7,4,W,1.15
 2026-11-12,401909978,Naji Marshall,DAL,PROP POINTS,LEAN,Naji Marshall Points O 9.5,106.0,3.4,13,W,1.06
+2026-11-15,401909985,Obi Toppin,IND,PROP ASSISTS,LEAN,Obi Toppin Assists O 1.5,122.0,4.1,1,L,-1.0
+2026-11-15,401909987,Ryan Kalkbrenner,CHA,PROP REBOUNDS,LEAN,Ryan Kalkbrenner Rebounds O 4.5,117.0,3.7,5,W,1.17
+2026-11-15,401909985,Tyrese Maxey,PHI,PROP ASSISTS,LEAN,Tyrese Maxey Assists O 5.5,138.0,4.3,6,W,1.38
+2026-11-15,401909985,VJ Edgecombe,PHI,PROP ASSISTS,LEAN,VJ Edgecombe Assists O 3.5,138.0,4.3,6,W,1.38
+2026-11-15,401909986,Walker Kessler,LAL,PROP ASSISTS,LEAN,Walker Kessler Assists O 1.5,-113.0,3.7,3,W,0.8849557522123894
