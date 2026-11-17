@@ -128,3 +128,5 @@ date,game_id,player,team,market,tier,pick,odds,edge,actual,result,units
 2026-11-15,401909985,Tyrese Maxey,PHI,PROP ASSISTS,LEAN,Tyrese Maxey Assists O 5.5,138.0,4.3,6,W,1.38
 2026-11-15,401909985,VJ Edgecombe,PHI,PROP ASSISTS,LEAN,VJ Edgecombe Assists O 3.5,138.0,4.3,6,W,1.38
 2026-11-15,401909986,Walker Kessler,LAL,PROP ASSISTS,LEAN,Walker Kessler Assists O 1.5,-113.0,3.7,3,W,0.8849557522123894
+2026-11-16,401909995,Donovan Mitchell,CLE,PROP ASSISTS,LEAN,Donovan Mitchell Assists O 5.5,102.0,3.1,4,L,-1.0
+2026-11-16,401909995,Tre Jones,CHI,PROP ASSISTS,LEAN,Tre Jones Assists O 3.5,120.0,3.4,6,W,1.2
