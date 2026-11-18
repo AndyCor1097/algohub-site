@@ -232,11 +232,11 @@ document.addEventListener('DOMContentLoaded',()=>{const f=document.querySelector
   <div class="ah-today"><b>Wednesday, November 18</b>
     <span>9 plays on the board across 3 sports</span></div>
 </header><section class="ah-board" aria-label="Top plays today">
-  <div class="ah-slip s-mid" data-sport="CBB" data-pick="Coppin State +14.5" data-game="Coppin State at La Salle">
+  <div class="ah-slip s-mid" data-sport="CBB" data-pick="Alcorn State +42.75" data-game="Alcorn State at Missouri">
     <div class="ah-slip-top"><span class="ah-sport">CBB</span><span class="ah-tier">Play</span></div>
-    <div class="ah-pick">Coppin State +14.5<span>-110</span></div>
-    <div class="ah-sub">Coppin State at La Salle, 7:00 PM</div>
-    <div class="ah-stat"><em>+7.3</em><small>pts edge</small></div>
+    <div class="ah-pick">Alcorn State +42.75<span>-110</span></div>
+    <div class="ah-sub">Alcorn State at Missouri, 9:00 PM</div>
+    <div class="ah-stat"><em>+8.4</em><small>pts edge</small></div>
   </div>
   <div class="ah-slip s-mid" data-sport="NBA" data-pick="Warriors +4.5" data-game="Warriors at Mavericks">
     <div class="ah-slip-top"><span class="ah-sport">NBA</span><span class="ah-tier">Play</span></div>
@@ -250,11 +250,11 @@ document.addEventListener('DOMContentLoaded',()=>{const f=document.querySelector
     <div class="ah-sub">BOS at DET, 7:30 PM</div>
     <div class="ah-stat"><em>+4.4</em><small>% edge</small></div>
   </div>
-  <div class="ah-slip s-mid" data-sport="CBB" data-pick="Campbell +20.5" data-game="Campbell at Oklahoma">
-    <div class="ah-slip-top"><span class="ah-sport">CBB</span><span class="ah-tier">Play</span></div>
-    <div class="ah-pick">Campbell +20.5<span>-110</span></div>
-    <div class="ah-sub">Campbell at Oklahoma, 8:00 PM</div>
-    <div class="ah-stat"><em>+6.0</em><small>pts edge</small></div>
+  <div class="ah-slip s-low" data-sport="CBB" data-pick="UL Monroe +37.5" data-game="UL Monroe at LSU">
+    <div class="ah-slip-top"><span class="ah-sport">CBB</span><span class="ah-tier">Lean</span></div>
+    <div class="ah-pick">UL Monroe +37.5<span>-110</span></div>
+    <div class="ah-sub">UL Monroe at LSU, 8:00 PM</div>
+    <div class="ah-stat"><em>+5.9</em><small>pts edge</small></div>
   </div>
   <div class="ah-slip s-low" data-sport="NBA" data-pick="Grizzlies +4.5" data-game="Grizzlies at Cavaliers">
     <div class="ah-slip-top"><span class="ah-sport">NBA</span><span class="ah-tier">Lean</span></div>
@@ -288,7 +288,7 @@ document.querySelectorAll('.panes button').forEach(b=>b.onclick=()=>{
 const h=location.hash.slice(1); const hb=h&&document.querySelector('.panes button[data-p="'+h+'"]'); if(hb) hb.click();
 </script><script>
 (function(){
-const PICKS=[{"sport": "CBB", "pick": "Coppin State +14.5", "game": "Coppin State at La Salle"}, {"sport": "CBB", "pick": "North Carolina Central +23.5", "game": "North Carolina Central at George Mason"}, {"sport": "CBB", "pick": "Campbell +20.5", "game": "Campbell at Oklahoma"}, {"sport": "CBB", "pick": "Texas State -17.75", "game": "Incarnate Word at Texas State"}, {"sport": "CBB", "pick": "Nebraska -32.75", "game": "South Dakota at Nebraska"}, {"sport": "NBA", "pick": "Grizzlies +4.5", "game": "Grizzlies at Cavaliers"}, {"sport": "NBA", "pick": "Warriors +4.5", "game": "Warriors at Mavericks"}, {"sport": "NHL", "pick": "DET ML", "game": "BOS at DET"}, {"sport": "NHL", "pick": "DET +1.5", "game": "BOS at DET"}], SP={"CBB": ["basketball/mens-college-basketball", "&groups=50&limit=400"], "NBA": ["basketball/nba", ""], "NHL": ["hockey/nhl", ""]};
+const PICKS=[{"sport": "CBB", "pick": "Jackson State +33.5", "game": "Jackson State at Baylor"}, {"sport": "CBB", "pick": "North Carolina Central +23.5", "game": "North Carolina Central at George Mason"}, {"sport": "CBB", "pick": "UL Monroe +37.5", "game": "UL Monroe at LSU"}, {"sport": "CBB", "pick": "Bethune-Cookman +23.5", "game": "Bethune-Cookman at Creighton"}, {"sport": "CBB", "pick": "Alcorn State +42.75", "game": "Alcorn State at Missouri"}, {"sport": "NBA", "pick": "Grizzlies +4.5", "game": "Grizzlies at Cavaliers"}, {"sport": "NBA", "pick": "Warriors +4.5", "game": "Warriors at Mavericks"}, {"sport": "NHL", "pick": "DET ML", "game": "BOS at DET"}, {"sport": "NHL", "pick": "DET +1.5", "game": "BOS at DET"}], SP={"CBB": ["basketball/mens-college-basketball", "&groups=50&limit=400"], "NBA": ["basketball/nba", ""], "NHL": ["hockey/nhl", ""]};
 const ALIAS={NHL:{TBL:'TB',NJD:'NJ',SJS:'SJ',LAK:'LA',UTA:'UTAH'},MLB:{CWS:'CHW',TBR:'TB',KCR:'KC',SDP:'SD',SFG:'SF',WSN:'WSH'},NFL:{LA:'LAR',WAS:'WSH'},EPL:{'Man United':'Manchester United','Man City':'Manchester City',"Nott'm Forest":'Nottingham Forest',Wolves:'Wolverhampton Wanderers'}};
 const norm=s=>(s||'').toLowerCase().replace(/&/g,'and').replace(/\bstate\b/g,'st').replace(/\bsaint\b/g,'st').replace(/[^a-z0-9]/g,'');
 const keys=t=>[t.abbreviation,t.displayName,t.shortDisplayName,t.location,t.nickname,(t.location||'')+' '+(t.name||'')].filter(Boolean).map(norm);
