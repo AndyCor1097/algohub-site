@@ -164,3 +164,8 @@ game_id,date,matchup,score,pick,model_pct,result,ats_pick,ats_edge,ats_result
 401909999,2026-11-16,Trail Blazers @ Timberwolves,98-106,Timberwolves,56.1,W,Timberwolves,0.3,W
 401910000,2026-11-16,Warriors @ Pelicans,94-115,Warriors,66.7,L,Warriors,3.0,L
 401910001,2026-11-16,Suns @ Nuggets,117-105,Nuggets,77.5,L,Suns,0.5,W
+401910002,2026-11-17,Knicks @ Raptors,111-102,Knicks,59.0,W,Raptors,1.0,L
+401910003,2026-11-17,Trail Blazers @ Timberwolves,105-106,Timberwolves,55.9,W,Timberwolves,1.0,L
+401910004,2026-11-17,Pistons @ Spurs,105-93,Spurs,77.2,L,Pistons,0.8,W
+401910005,2026-11-17,Hornets @ Lakers,114-118,Lakers,79.2,W,Lakers,2.9,L
+401910006,2026-11-17,Jazz @ Clippers,132-107,Clippers,68.7,L,Clippers,0.2,L
