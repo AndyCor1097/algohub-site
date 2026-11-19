@@ -169,3 +169,15 @@ game_id,date,matchup,score,pick,model_pct,result,ats_pick,ats_edge,ats_result
 401910004,2026-11-17,Pistons @ Spurs,105-93,Spurs,77.2,L,Pistons,0.8,W
 401910005,2026-11-17,Hornets @ Lakers,114-118,Lakers,79.2,W,Lakers,2.9,L
 401910006,2026-11-17,Jazz @ Clippers,132-107,Clippers,68.7,L,Clippers,0.2,L
+401910007,2026-11-18,Grizzlies @ Cavaliers,124-121,Cavaliers,59.2,L,Grizzlies,1.6,W
+401910008,2026-11-18,Rockets @ Pacers,119-104,Rockets,74.0,W,Rockets,0.5,W
+401910009,2026-11-18,Bucks @ Heat,130-137,Heat,85.1,W,Heat,0.5,L
+401910010,2026-11-18,76ers @ Magic,121-116,76ers,50.0,W,Magic,0.3,L
+401910011,2026-11-18,Bulls @ Nets,137-107,Nets,54.7,L,Bulls,0.5,W
+401910012,2026-11-18,Wizards @ Raptors,103-99,Raptors,68.8,L,Raptors,0.3,L
+401910013,2026-11-18,Pistons @ Pelicans,122-109,Pistons,71.4,W,Pistons,0.7,W
+401910014,2026-11-18,Hawks @ Thunder,117-112,Thunder,71.3,L,Thunder,0.7,L
+401910015,2026-11-18,Celtics @ Nuggets,101-105,Celtics,58.4,L,Celtics,0.9,L
+401910016,2026-11-18,Warriors @ Mavericks,94-116,Warriors,56.4,L,Warriors,2.7,L
+401910017,2026-11-18,Jazz @ Lakers,109-97,Lakers,80.0,L,,,
+401910018,2026-11-18,Suns @ Kings,128-107,Suns,67.6,W,,,

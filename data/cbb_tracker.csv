@@ -1,12 +1,20 @@
 game_id,date,matchup,score,market,tier,pick,odds,edge,result,units
 375009,2026-11-15,Quinnipiac @ Central Connecticut,67-72,ML,VALUE,Central Connecticut ML,150.0,4.7,W,1.5
-372830,2026-11-17,Arkansas @ Indiana,76-81,SPREAD,LEAN,Indiana +0.5,-110.0,5.5,W,0.9090909090909091
+372830,2026-11-17,Arkansas @ Indiana,76-81,SPREAD,LEAN,Indiana +0.5,-110.0,5.5,W,0.9090909090909092
 372830,2026-11-17,Arkansas @ Indiana,76-81,ML,VALUE,Indiana ML,5.0,4.6,W,0.05
 372832,2026-11-17,Fordham @ Manhattan,80-61,ML,VALUE,Manhattan ML,500.0,7.3,L,-1.0
-372838,2026-11-17,Villanova @ Pittsburgh,61-81,SPREAD,PLAY,Pittsburgh +1.5,-110.0,11.0,W,0.9090909090909091
+372838,2026-11-17,Villanova @ Pittsburgh,61-81,SPREAD,PLAY,Pittsburgh +1.5,-110.0,11.0,W,0.9090909090909092
 372838,2026-11-17,Villanova @ Pittsburgh,61-81,ML,VALUE,Pittsburgh ML,102.5,33.9,W,1.025
 372843,2026-11-17,Maryland Eastern Shore @ DePaul,39-83,SPREAD,PLAY,Maryland Eastern Shore +30.5,-110.0,-6.8,L,-1.0
 372847,2026-11-17,Notre Dame @ Florida,78-86,ML,VALUE,Notre Dame ML,975.0,5.5,L,-1.0
 375056,2026-11-17,Mississippi State @ UCF,86-83,ML,VALUE,Mississippi State ML,-112.0,14.1,W,0.8928571428571429
 375079,2026-11-17,Charlotte @ Davidson,73-66,ML,VALUE,Davidson ML,-172.5,17.2,L,-1.0
 375086,2026-11-17,Seattle U @ California Baptist,83-54,ML,VALUE,California Baptist ML,317.5,9.6,L,-1.0
+372859,2026-11-18,Bethune-Cookman @ Creighton,65-88,SPREAD,LEAN,Bethune-Cookman +23.5,-110.0,-5.2,W,0.9090909090909091
+372861,2026-11-18,Jackson State @ Baylor,55-104,SPREAD,LEAN,Jackson State +33.5,-110.0,-5.3,L,-1.0
+375091,2026-11-18,Coppin State @ La Salle,61-88,ML,VALUE,Coppin State ML,800.0,7.8,L,-1.0
+375095,2026-11-18,Alcorn State @ Missouri,41-102,SPREAD,PLAY,Alcorn State +42.75,-110.0,-8.4,L,-1.0
+375108,2026-11-18,North Carolina Central @ George Mason,60-83,SPREAD,LEAN,North Carolina Central +23.5,-110.0,-5.7,W,0.9090909090909091
+375110,2026-11-18,NJIT @ Fairleigh Dickinson,66-78,ML,VALUE,Fairleigh Dickinson ML,-185.0,10.9,W,0.5405405405405406
+375112,2026-11-18,UL Monroe @ LSU,67-79,SPREAD,LEAN,UL Monroe +37.5,-110.0,-5.9,W,0.9090909090909091
+378058,2026-11-18,James Madison @ Towson,70-52,ML,VALUE,Towson ML,-163.0,9.1,L,-1.0

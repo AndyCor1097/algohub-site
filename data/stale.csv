@@ -1,3 +1,2 @@
 sport,day,game,market,bet,dk,sharp,ev,model_agrees
-nfl,2026-11-22,NYJ @ LAC,Moneyline,NYJ ML,+170,Novig 38%,2.6,True
-nfl,2026-11-22,MIN @ SF,Spread,MIN +3.5,-110 (assumed),Novig 54%,2.1,False
+nfl,2026-11-22,NYJ @ LAC,Spread,LAC -2.5,-110 (assumed),Novig 55%,5.5,False
