@@ -1,2 +1,30 @@
 sport,day,game,market,bet,dk,sharp,ev,model_agrees
+cfb,2026-11-22,Oklahoma State @ Arizona State,Spread,Arizona State +3.5,-110 (assumed),Novig 57%,8.8,True
+cfb,2026-11-22,Nevada Las Vegas @ San José State,Spread,San José State +7.5,-110 (assumed),Novig 56%,7.4,True
+cfb,2026-11-21,Oregon @ Michigan State,Spread,Michigan State +17,+17 (-110),Pinnacle +14.5,7.4,True
+cfb,2026-11-21,South Florida @ Florida Atlantic,Spread,Florida Atlantic +1.5,+1.5 (-110),Pinnacle -1,7.4,True
+cfb,2026-11-21,Washington State @ Texas State,Spread,Washington State +12,+12 (-110),Pinnacle +10,5.0,True
+cfb,2026-11-21,Wake Forest @ Georgia Tech,Spread,Georgia Tech +21.5,-110 (assumed),Novig 55%,4.0,True
+cfb,2026-11-22,San Diego State @ Boise State,Spread,Boise State -16.5,-110 (assumed),Novig 55%,4.0,True
+cfb,2026-11-21,Western Kentucky @ Liberty,Spread,Liberty -16.5,-110 (assumed),Novig 54%,3.6,True
+cfb,2026-11-21,Colorado @ Cincinnati,Spread,Cincinnati -2.5,-110 (assumed),Novig 54%,3.1,True
+cfb,2026-11-21,Houston @ West Virginia,Spread,West Virginia +8.5,-110 (assumed),Novig 54%,2.6,True
+cfb,2026-11-21,Texas A&M @ Oklahoma,Spread,Texas A&M +7.5,-110 (assumed),Novig 54%,2.6,True
+cfb,2026-11-21,Rutgers @ Penn State,Spread,Rutgers +25.5,+25.5 (-110),Pinnacle +24,2.6,True
+cfb,2026-11-22,Hawai'i @ Nevada,Spread,Hawai'i +5,+5 (-110),Pinnacle +3.5,2.6,True
+cfb,2026-11-21,Northwestern @ Minnesota,Spread,Minnesota +3.5,-110 (assumed),Novig 58%,10.3,False
+cfb,2026-11-20,Iowa State @ Central Florida,Spread,Central Florida +0,+0 (-110),Pinnacle -2.5,7.4,False
+cfb,2026-11-22,Arkansas State @ Louisiana Tech,Spread,Louisiana Tech -13.5,-110 (assumed),Novig 55%,5.5,False
+cfb,2026-11-21,Washington State @ Texas State,Spread,Texas State -11.5,-110 (assumed),Novig 55%,5.0,False
+cfb,2026-11-21,Syracuse @ Boston College,Spread,Syracuse -2.5,-110 (assumed),Novig 55%,4.5,False
+cfb,2026-11-21,Georgia State @ Marshall,Moneyline,Marshall ML,-120,Novig 57%,4.0,False
+cfb,2026-11-21,Delaware @ New Mexico State,Spread,New Mexico State +3.5,-110 (assumed),Novig 54%,3.6,False
+cfb,2026-11-21,North Carolina State @ Florida State,Spread,Florida State -9.5,-110 (assumed),Novig 54%,3.6,False
+cfb,2026-11-21,Georgia State @ Marshall,Spread,Marshall -1.5,-110 (assumed),Novig 54%,3.6,False
+cfb,2026-11-21,Georgia State @ Marshall,Spread,Georgia State +0.5,+0.5 (-110),Pinnacle -1,2.6,False
+cfb,2026-11-21,Syracuse @ Boston College,Moneyline,Syracuse ML,-135,Novig 59%,2.3,False
+cfb,2026-11-21,New Mexico @ Wyoming,Spread,New Mexico -8.5,-110 (assumed),Novig 54%,2.1,False
+cfb,2026-11-22,Hawai'i @ Nevada,Spread,Nevada -4.5,-110 (assumed),Novig 54%,2.1,False
+cfb,2026-11-21,Florida International @ Kennesaw State,Moneyline,Florida International ML,+128,Novig 45%,2.0,False
+nfl,2026-11-22,TB @ DET,Moneyline,TB ML,+233,Novig 31%,4.1,True
 nfl,2026-11-22,NYJ @ LAC,Spread,NYJ +3.5,-110 (assumed),Novig 54%,3.6,True
