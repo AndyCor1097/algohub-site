@@ -10,11 +10,20 @@ game_id,date,matchup,score,market,tier,pick,odds,edge,result,units
 375056,2026-11-17,Mississippi State @ UCF,86-83,ML,VALUE,Mississippi State ML,-112.0,14.1,W,0.8928571428571429
 375079,2026-11-17,Charlotte @ Davidson,73-66,ML,VALUE,Davidson ML,-172.5,17.2,L,-1.0
 375086,2026-11-17,Seattle U @ California Baptist,83-54,ML,VALUE,California Baptist ML,317.5,9.6,L,-1.0
-372859,2026-11-18,Bethune-Cookman @ Creighton,65-88,SPREAD,LEAN,Bethune-Cookman +23.5,-110.0,-5.2,W,0.9090909090909091
+372859,2026-11-18,Bethune-Cookman @ Creighton,65-88,SPREAD,LEAN,Bethune-Cookman +23.5,-110.0,-5.2,W,0.9090909090909092
 372861,2026-11-18,Jackson State @ Baylor,55-104,SPREAD,LEAN,Jackson State +33.5,-110.0,-5.3,L,-1.0
 375091,2026-11-18,Coppin State @ La Salle,61-88,ML,VALUE,Coppin State ML,800.0,7.8,L,-1.0
 375095,2026-11-18,Alcorn State @ Missouri,41-102,SPREAD,PLAY,Alcorn State +42.75,-110.0,-8.4,L,-1.0
-375108,2026-11-18,North Carolina Central @ George Mason,60-83,SPREAD,LEAN,North Carolina Central +23.5,-110.0,-5.7,W,0.9090909090909091
+375108,2026-11-18,North Carolina Central @ George Mason,60-83,SPREAD,LEAN,North Carolina Central +23.5,-110.0,-5.7,W,0.9090909090909092
 375110,2026-11-18,NJIT @ Fairleigh Dickinson,66-78,ML,VALUE,Fairleigh Dickinson ML,-185.0,10.9,W,0.5405405405405406
-375112,2026-11-18,UL Monroe @ LSU,67-79,SPREAD,LEAN,UL Monroe +37.5,-110.0,-5.9,W,0.9090909090909091
+375112,2026-11-18,UL Monroe @ LSU,67-79,SPREAD,LEAN,UL Monroe +37.5,-110.0,-5.9,W,0.9090909090909092
 378058,2026-11-18,James Madison @ Towson,70-52,ML,VALUE,Towson ML,-163.0,9.1,L,-1.0
+372864,2026-11-19,UMBC @ Ohio State,62-101,SPREAD,LEAN,UMBC +30.5,-110.0,-5.3,L,-1.0
+375132,2026-11-19,Texas A&M @ TCU,97-92,ML,VALUE,Texas A&M ML,-107.5,7.4,W,0.9302325581395349
+375133,2026-11-19,Tulane @ Louisiana Tech,67-74,ML,VALUE,Tulane ML,0.0,51.9,L,-1.0
+375140,2026-11-19,Montana State @ High Point,74-85,ML,VALUE,Montana State ML,712.5,6.3,L,-1.0
+375142,2026-11-19,Wisconsin @ Seton Hall,69-74,ML,VALUE,Seton Hall ML,165.0,9.2,W,1.65
+378686,2026-11-19,Notre Dame @ Auburn,78-73,ML,VALUE,Auburn ML,-165.5,5.9,L,-1.0
+378687,2026-11-19,Rutgers @ UNLV,89-70,ML,VALUE,Rutgers ML,-146.0,4.7,W,0.684931506849315
+378688,2026-11-19,Florida @ West Virginia,85-72,ML,VALUE,West Virginia ML,362.5,12.9,L,-1.0
+378689,2026-11-19,Houston @ Kansas,92-83,ML,VALUE,Kansas ML,127.0,8.3,L,-1.0
