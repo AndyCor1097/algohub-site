@@ -19,7 +19,7 @@ game_id,date,matchup,score,market,tier,pick,odds,edge,result,units
 375112,2026-11-18,UL Monroe @ LSU,67-79,SPREAD,LEAN,UL Monroe +37.5,-110.0,-5.9,W,0.9090909090909092
 378058,2026-11-18,James Madison @ Towson,70-52,ML,VALUE,Towson ML,-163.0,9.1,L,-1.0
 372864,2026-11-19,UMBC @ Ohio State,62-101,SPREAD,LEAN,UMBC +30.5,-110.0,-5.3,L,-1.0
-375132,2026-11-19,Texas A&M @ TCU,97-92,ML,VALUE,Texas A&M ML,-107.5,7.4,W,0.9302325581395349
+375132,2026-11-19,Texas A&M @ TCU,97-92,ML,VALUE,Texas A&M ML,-107.5,7.4,W,0.9302325581395348
 375133,2026-11-19,Tulane @ Louisiana Tech,67-74,ML,VALUE,Tulane ML,0.0,51.9,L,-1.0
 375140,2026-11-19,Montana State @ High Point,74-85,ML,VALUE,Montana State ML,712.5,6.3,L,-1.0
 375142,2026-11-19,Wisconsin @ Seton Hall,69-74,ML,VALUE,Seton Hall ML,165.0,9.2,W,1.65
@@ -27,3 +27,16 @@ game_id,date,matchup,score,market,tier,pick,odds,edge,result,units
 378687,2026-11-19,Rutgers @ UNLV,89-70,ML,VALUE,Rutgers ML,-146.0,4.7,W,0.684931506849315
 378688,2026-11-19,Florida @ West Virginia,85-72,ML,VALUE,West Virginia ML,362.5,12.9,L,-1.0
 378689,2026-11-19,Houston @ Kansas,92-83,ML,VALUE,Kansas ML,127.0,8.3,L,-1.0
+372870,2026-11-20,Wagner @ Maryland,45-62,SPREAD,PLAY,Wagner +34.25,-110.0,-7.9,W,0.9090909090909091
+372871,2026-11-20,Kentucky @ Indiana,76-90,ML,VALUE,Indiana ML,-153.5,7.1,W,0.6514657980456026
+372874,2026-11-20,Saint Louis @ Saint Mary's,78-95,ML,VALUE,Saint Mary's ML,-125.0,4.7,W,0.8
+372881,2026-11-20,Temple @ Middle Tennessee,85-76,ML,VALUE,Middle Tennessee ML,138.0,6.6,L,-1.0
+375148,2026-11-20,Mississippi Valley State @ Arkansas,48-92,SPREAD,PLAY,Mississippi Valley State +38.5,-110.0,-8.5,L,-1.0
+375158,2026-11-20,Harvard @ Holy Cross,77-65,ML,VALUE,Holy Cross ML,637.5,4.9,L,-1.0
+375160,2026-11-20,Western Illinois @ UAlbany,60-65,ML,VALUE,Western Illinois ML,245.0,13.0,L,-1.0
+375169,2026-11-20,Dayton @ Utah,63-46,ML,VALUE,Utah ML,-115.0,5.5,L,-1.0
+375173,2026-11-20,Kansas City @ Iona,61-62,ML,VALUE,Iona ML,-192.0,4.2,W,0.5208333333333334
+375176,2026-11-20,UT Arlington @ Northwestern State,69-62,ML,VALUE,Northwestern State ML,142.5,6.5,L,-1.0
+378076,2026-11-20,Georgia State @ Jacksonville State,77-82,ML,VALUE,Georgia State ML,-1.5,39.8,L,-1.0
+378691,2026-11-20,Wisconsin @ Murray State,53-70,ML,VALUE,Murray State ML,145.0,6.8,W,1.45
+378692,2026-11-20,Seton Hall @ NC State,87-81,ML,VALUE,NC State ML,-148.0,6.3,L,-1.0

@@ -136,3 +136,6 @@ date,game_id,player,team,market,tier,pick,odds,edge,actual,result,units
 2026-11-17,401910003,Terrence Shannon Jr,MIN,PROP REBOUNDS,LEAN,Terrence Shannon Jr Rebounds U 3.5,-102.0,3.8,1,W,0.9803921568627452
 2026-11-18,401910009,Giannis Antetokounmpo,MIA,PROP REBOUNDS,LEAN,Giannis Antetokounmpo Rebounds U 11.5,125.0,3.1,14,L,-1.0
 2026-11-18,401910010,Joel Embiid,PHI,PROP ASSISTS,LEAN,Joel Embiid Assists O 3.5,130.0,3.4,7,W,1.3
+2026-11-20,401909308,Ausar Thompson,DET,PROP ASSISTS,LEAN,Ausar Thompson Assists O 4.5,130.0,4.3,3,L,-1.0
+2026-11-20,401909305,Brandon Miller,CHA,PROP REBOUNDS,LEAN,Brandon Miller Rebounds O 4.5,125.0,3.3,8,W,1.25
+2026-11-20,401909305,Naz Reid,CHA,PROP THREES,LEAN,Naz Reid Threes O 2.5,133.0,3.5,2,L,-1.0

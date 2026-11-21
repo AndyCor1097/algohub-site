@@ -69,3 +69,6 @@ game_id,date,matchup,score,market,tier,pick,odds,edge,result,units
 401910020,2026-11-19,Trail Blazers @ Bucks,124-114,SPREAD,LEAN,Trail Blazers -10.5,-110.0,-2.2,L,-1.0
 401910021,2026-11-19,Knicks @ Timberwolves,102-99,SPREAD,LEAN,Timberwolves +1.5,-110.0,2.0,L,-1.0
 401910021,2026-11-19,Knicks @ Timberwolves,102-99,ML,VALUE,Timberwolves ML,102.0,5.5,L,-1.0
+401909308,2026-11-20,Raptors @ Pistons,105-102,TOTAL,LEAN,OVER 216.5,-110.0,2.8,L,-1.0
+401909312,2026-11-20,Rockets @ Nuggets,124-133,SPREAD,LEAN,Rockets +1.5,-110.0,-2.1,L,-1.0
+401909312,2026-11-20,Rockets @ Nuggets,124-133,ML,VALUE,Rockets ML,111.0,5.7,L,-1.0
