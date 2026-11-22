@@ -27,7 +27,7 @@ game_id,date,matchup,score,market,tier,pick,odds,edge,result,units
 378687,2026-11-19,Rutgers @ UNLV,89-70,ML,VALUE,Rutgers ML,-146.0,4.7,W,0.684931506849315
 378688,2026-11-19,Florida @ West Virginia,85-72,ML,VALUE,West Virginia ML,362.5,12.9,L,-1.0
 378689,2026-11-19,Houston @ Kansas,92-83,ML,VALUE,Kansas ML,127.0,8.3,L,-1.0
-372870,2026-11-20,Wagner @ Maryland,45-62,SPREAD,PLAY,Wagner +34.25,-110.0,-7.9,W,0.9090909090909091
+372870,2026-11-20,Wagner @ Maryland,45-62,SPREAD,PLAY,Wagner +34.25,-110.0,-7.9,W,0.9090909090909092
 372871,2026-11-20,Kentucky @ Indiana,76-90,ML,VALUE,Indiana ML,-153.5,7.1,W,0.6514657980456026
 372874,2026-11-20,Saint Louis @ Saint Mary's,78-95,ML,VALUE,Saint Mary's ML,-125.0,4.7,W,0.8
 372881,2026-11-20,Temple @ Middle Tennessee,85-76,ML,VALUE,Middle Tennessee ML,138.0,6.6,L,-1.0
@@ -40,3 +40,19 @@ game_id,date,matchup,score,market,tier,pick,odds,edge,result,units
 378076,2026-11-20,Georgia State @ Jacksonville State,77-82,ML,VALUE,Georgia State ML,-1.5,39.8,L,-1.0
 378691,2026-11-20,Wisconsin @ Murray State,53-70,ML,VALUE,Murray State ML,145.0,6.8,W,1.45
 378692,2026-11-20,Seton Hall @ NC State,87-81,ML,VALUE,NC State ML,-148.0,6.3,L,-1.0
+372888,2026-11-21,Brown @ Vermont,71-84,ML,VALUE,Vermont ML,-186.0,11.3,W,0.5376344086021505
+372890,2026-11-21,Northern Illinois @ Bowling Green,86-68,ML,VALUE,Bowling Green ML,-225.0,6.7,L,-1.0
+372892,2026-11-21,Lafayette @ Syracuse,81-84,SPREAD,LEAN,Lafayette +24.5,-110.0,-1.1,W,0.9090909090909091
+372893,2026-11-21,Washington State @ Duke,74-78,SPREAD,PLAY,Washington State +24.75,-110.0,-4.5,W,0.9090909090909091
+372894,2026-11-21,Coppin State @ Georgetown,60-84,SPREAD,PLAY,Coppin State +31.5,-110.0,-7.3,W,0.9090909090909091
+372895,2026-11-21,Fordham @ Portland,87-69,ML,VALUE,Portland ML,202.5,14.0,L,-1.0
+372896,2026-11-21,Army @ Binghamton,46-67,ML,VALUE,Binghamton ML,100.0,5.0,W,1.0
+375182,2026-11-21,Southern Miss @ Nicholls,80-69,ML,VALUE,Nicholls ML,134.5,5.2,L,-1.0
+375184,2026-11-21,Siena @ Bucknell,93-87,ML,VALUE,Bucknell ML,222.5,6.6,L,-1.0
+375185,2026-11-21,Columbia @ Boston University,80-71,ML,VALUE,Boston University ML,0.0,45.7,L,-1.0
+375186,2026-11-21,UAlbany @ Canisius,81-91,ML,VALUE,Canisius ML,110.0,12.7,W,1.1
+375187,2026-11-21,New Hampshire @ New Haven,47-50,ML,VALUE,New Haven ML,112.0,4.8,W,1.12
+375189,2026-11-21,Little Rock @ North Florida,87-99,ML,VALUE,North Florida ML,170.0,12.4,W,1.7
+375193,2026-11-21,Pennsylvania @ La Salle,83-73,ML,VALUE,La Salle ML,-122.5,14.5,L,-1.0
+375196,2026-11-21,St. Thomas-Minnesota @ Milwaukee,98-70,ML,VALUE,Milwaukee ML,105.0,12.6,L,-1.0
+375205,2026-11-21,Navy @ Rider,66-69,ML,VALUE,Rider ML,177.5,4.5,W,1.775

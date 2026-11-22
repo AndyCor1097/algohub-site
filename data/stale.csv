@@ -1,29 +1,12 @@
 sport,day,game,market,bet,dk,sharp,ev,model_agrees
 cfb,2026-11-22,Oklahoma State @ Arizona State,Spread,Arizona State +3.5,-110 (assumed),Novig 57%,9.3,True
 cfb,2026-11-22,Nevada Las Vegas @ San José State,Spread,San José State +7.5,-110 (assumed),Novig 57%,8.3,True
-cfb,2026-11-21,South Florida @ Florida Atlantic,Spread,Florida Atlantic +1.5,+1.5 (-110),Pinnacle -1,7.4,True
-cfb,2026-11-21,Western Kentucky @ Liberty,Spread,Liberty -16.5,-110 (assumed),Novig 56%,6.4,True
-cfb,2026-11-21,Houston @ West Virginia,Moneyline,West Virginia ML,+240,Novig 31%,6.2,True
 cfb,2026-11-22,San Diego State @ Boise State,Spread,Boise State -18.5,-110 (assumed),Novig 56%,6.0,True
-cfb,2026-11-21,Georgia State @ Marshall,Spread,Georgia State +1,+1 (-110),Pinnacle -1,5.0,True
-cfb,2026-11-21,Washington State @ Texas State,Spread,Washington State +12,+12 (-110),Pinnacle +10,5.0,True
 cfb,2026-11-22,Hawai'i @ Nevada,Spread,Hawai'i +5.5,+5.5 (-110),Pinnacle +3.5,5.0,True
-cfb,2026-11-21,UTSA @ Alabama Birmingham,Spread,Alabama Birmingham +5.5,-110 (assumed),Novig 55%,4.0,True
-cfb,2026-11-21,New Mexico @ Wyoming,Spread,Wyoming +9,+9 (-110),Pinnacle +7.5,2.6,True
+cfb,2026-11-22,Oklahoma State @ Arizona State,Moneyline,Arizona State ML,+136,Novig 44%,4.4,True
 cfb,2026-11-22,Arizona @ Kansas State,Spread,Kansas State +8.5,+8.5 (-110),Pinnacle +7,2.6,True
-cfb,2026-11-21,North Carolina @ Virginia,Spread,Virginia +0,+0 (-110),Pinnacle -1.5,2.6,True
-cfb,2026-11-21,Rutgers @ Penn State,Spread,Rutgers +25.5,+25.5 (-110),Pinnacle +24,2.6,True
-cfb,2026-11-21,North Carolina State @ Florida State,Spread,Florida State -9.5,-110 (assumed),Novig 54%,2.1,True
+cfb,2026-11-22,Utah State @ Oregon State,Spread,Oregon State -8,-8 (-110),Pinnacle -9.5,2.6,True
 cfb,2026-11-22,Hawai'i @ Nevada,Spread,Nevada -5.5,-110 (assumed),Novig 56%,6.4,False
-cfb,2026-11-21,Georgia State @ Marshall,Spread,Marshall -1.5,-110 (assumed),Novig 56%,6.0,False
-cfb,2026-11-21,Washington State @ Texas State,Spread,Texas State -11.5,-110 (assumed),Novig 56%,6.0,False
-cfb,2026-11-21,Arizona @ Kansas State,Spread,Arizona -8.5,-110 (assumed),Novig 55%,5.5,False
-cfb,2026-11-21,North Carolina @ Virginia,Spread,North Carolina +1.5,-110 (assumed),Novig 55%,5.0,False
-cfb,2026-11-21,Georgia State @ Marshall,Moneyline,Marshall ML,-124,Novig 57%,4.1,False
 cfb,2026-11-22,Arkansas State @ Louisiana Tech,Spread,Louisiana Tech -13.5,-110 (assumed),Novig 55%,4.0,False
-cfb,2026-11-21,Delaware @ New Mexico State,Spread,New Mexico State +3.5,-110 (assumed),Novig 54%,3.6,False
 cfb,2026-11-22,Utah State @ Oregon State,Spread,Utah State +8.5,-110 (assumed),Novig 54%,3.6,False
-cfb,2026-11-21,Arkansas @ Texas,Spread,Texas -19.5,-19.5 (-110),Pinnacle -21,2.6,False
 cfb,2026-11-22,San Diego State @ Boise State,Spread,San Diego State +18.5,+18.5 (-110),Pinnacle +17,2.6,False
-cfb,2026-11-21,Florida International @ Kennesaw State,Moneyline,Florida International ML,+124,Novig 46%,2.3,False
-nfl,2026-11-22,NYJ @ LAC,Spread,NYJ +3.5,-110 (assumed),Novig 54%,3.6,True

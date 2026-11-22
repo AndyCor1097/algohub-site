@@ -23,6 +23,8 @@ nfl,2026-11-15,MIN @ GB,ML,VALUE,GB ML,57%,-0.3,%
 cfb,2026-11-20,Clemson @ Duke,SPREAD,STRONG,Duke -12,-12.5,0.5,pts
 cfb,2026-11-20,Oregon @ Michigan State,SPREAD,STRONG,Michigan State +18,+18.5,-0.5,pts
 cfb,2026-11-20,New Mexico @ Wyoming,SPREAD,STRONG,Wyoming +9,+9.5,-0.5,pts
+cfb,2026-11-21,North Carolina @ Virginia,SPREAD,EDGE,Virginia +0,+1.5,-1.5,pts
+cfb,2026-11-21,Western Kentucky @ Liberty,SPREAD,LEAN,Liberty -17.5,-18.5,1.0,pts
 nhl,2026-11-09,PHI @ VAN,ML,PLAY,VAN ML,44%,-1.3,%
 nhl,2026-11-09,PHI @ VAN,PUCK LINE,PLAY,VAN +1.5,+1.5,-0.3,%
 nhl,2026-11-09,PHI @ VAN,TOTAL,LEAN,UNDER 6.5,6.5,-2.7,%
@@ -39,6 +41,7 @@ cbb,2026-11-20,Georgia State @ Jacksonville State,ML,VALUE,Georgia State ML,47%,
 cbb,2026-11-20,Wisconsin @ Murray State,ML,VALUE,Murray State ML,40%,-1.1,%
 cbb,2026-11-20,UT Arlington @ Northwestern State,ML,VALUE,Northwestern State ML,38%,-3.0,%
 cbb,2026-11-20,Kentucky @ Indiana,ML,VALUE,Indiana ML,60%,-0.1,%
+cbb,2026-11-21,New Hampshire @ New Haven,ML,VALUE,New Haven ML,47%,-0.4,%
 nba,2026-11-04,Heat @ Clippers,SPREAD,LEAN,Clippers +5.5,+5.5,0.0,pts
 nba,2026-11-04,Heat @ Clippers,ML,VALUE,Clippers ML,33%,-2.2,%
 nba,2026-11-10,Clippers @ Suns,SPREAD,LEAN,Clippers +3.5,+3.5,0.0,pts
