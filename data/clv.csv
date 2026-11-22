@@ -34,6 +34,7 @@ nhl,2026-11-10,DET @ STL,PUCK LINE,LEAN,DET +1.5,+1.5,0.3,%
 nhl,2026-11-11,UTA @ VGK,TOTAL,LEAN,UNDER 6.5,6.5,1.8,%
 nhl,2026-11-11,NSH @ ANA,ML,LEAN,ANA ML,56%,-0.2,%
 nhl,2026-11-12,TBL @ CBJ,TOTAL,LEAN,UNDER 6.5,6.5,-0.7,%
+nhl,2026-11-22,CAR @ NYR,TOTAL,PLAY,UNDER 6.5,6.5,-0.6,%
 cbb,2026-11-20,Temple @ Middle Tennessee,ML,VALUE,Middle Tennessee ML,40%,-1.8,%
 cbb,2026-11-20,Harvard @ Holy Cross,ML,VALUE,Holy Cross ML,13%,-0.3,%
 cbb,2026-11-20,Kansas City @ Iona,ML,VALUE,Iona ML,64%,-2.3,%
