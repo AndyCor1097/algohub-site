@@ -1,13 +1,1 @@
 sport,day,game,market,bet,dk,sharp,ev,model_agrees
-cfb,2026-11-22,Oklahoma State @ Arizona State,Spread,Arizona State +3.5,-110 (assumed),Novig 57%,9.3,True
-cfb,2026-11-22,Nevada Las Vegas @ San José State,Spread,San José State +7.5,-110 (assumed),Novig 57%,8.3,True
-cfb,2026-11-22,San Diego State @ Boise State,Spread,Boise State -18.5,-110 (assumed),Novig 56%,6.0,True
-cfb,2026-11-22,Hawai'i @ Nevada,Spread,Hawai'i +5.5,+5.5 (-110),Pinnacle +3.5,5.0,True
-cfb,2026-11-22,Oklahoma State @ Arizona State,Moneyline,Arizona State ML,+136,Novig 44%,4.4,True
-cfb,2026-11-22,Arizona @ Kansas State,Spread,Kansas State +8.5,+8.5 (-110),Pinnacle +7,2.6,True
-cfb,2026-11-22,Utah State @ Oregon State,Spread,Oregon State -8,-8 (-110),Pinnacle -9.5,2.6,True
-cfb,2026-11-22,Hawai'i @ Nevada,Spread,Nevada -5.5,-110 (assumed),Novig 56%,6.4,False
-cfb,2026-11-22,Arkansas State @ Louisiana Tech,Spread,Louisiana Tech -13.5,-110 (assumed),Novig 55%,4.0,False
-cfb,2026-11-22,Utah State @ Oregon State,Spread,Utah State +8.5,-110 (assumed),Novig 54%,3.6,False
-cfb,2026-11-22,San Diego State @ Boise State,Spread,San Diego State +18.5,+18.5 (-110),Pinnacle +17,2.6,False
-nfl,2026-11-22,NYJ @ LAC,Spread,NYJ +3.5,-110 (assumed),Novig 54%,2.6,True

@@ -1,0 +1,2317 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AlgoHub CBB 2026-11-24</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0e13;--card:#12161d;--card2:#171c25;--line:#222a35;--tx:#e6edf3;--mu:#7d8590;--lean:#58a6ff;--play:#3fb950;--ham:#f2b134}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-serif;padding:28px 16px 60px}
+.wrap{max-width:1180px;margin:0 auto}
+.proj,.cols span,.top h1,.stats b,.wplab,.pick,.srow i{font-family:"Barlow Condensed",sans-serif}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:18px}
+.top .k{color:var(--mu);font-size:12px;letter-spacing:.18em;font-weight:600}
+.top h1{font-size:44px;font-weight:800;line-height:1}
+.stats{display:flex;gap:22px} .stats div{text-align:right} .stats small{display:block;color:var(--mu);font-size:11px;letter-spacing:.14em}
+.stats b{font-size:30px} .stats .h b{color:var(--ham)} .stats .p b{color:var(--play)}
+.tools{display:flex;gap:8px;margin:18px 0;flex-wrap:wrap;align-items:center}
+.tools button{background:transparent;border:1px solid var(--line);color:var(--mu);padding:7px 14px;border-radius:999px;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.08em;cursor:pointer}
+.tools button.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.tools input{flex:1;min-width:180px;max-width:320px;background:var(--card);border:1px solid var(--line);color:var(--tx);border-radius:999px;padding:8px 14px;font:500 13px Inter,sans-serif}
+.tools input:focus,.tools button:focus-visible{outline:2px solid var(--ham);outline-offset:2px}
+.count{color:var(--mu);font-size:12px;margin-left:auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;border-top:3px solid var(--line)}
+.card.b-lean{border-top-color:var(--lean)} .card.b-play{border-top-color:var(--play)}
+.card.b-hammer{border-top-color:var(--ham);box-shadow:0 0 0 1px rgba(242,177,52,.25),0 8px 30px rgba(242,177,52,.08)}
+.meta{display:flex;justify-content:space-between;gap:10px;padding:11px 16px;color:var(--mu);font-size:11px;letter-spacing:.06em;border-bottom:1px solid var(--line)}
+.meta span:last-child{text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.team{display:flex;align-items:center;gap:12px;padding:10px 16px}
+.badge{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font:800 12px "Barlow Condensed";flex:none}
+.tname{flex:1;min-width:0} .tname b{display:block;font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tname small{color:var(--mu);font-size:12px} .rk{font-style:normal;color:var(--mu);font-size:12px;font-weight:600;margin-right:6px}
+.proj{font-size:32px;font-weight:700;color:var(--mu)} .team.fav .proj{color:var(--tx)}
+.alt{padding:0 16px 10px;color:var(--mu);font-size:12px;letter-spacing:.04em}
+.wp{padding:6px 16px 14px} .wplab{display:flex;justify-content:space-between;font-size:15px;font-weight:700;margin-bottom:6px}
+.wplab .cap{color:var(--mu);font:600 10px Inter,system-ui,sans-serif;letter-spacing:.16em;align-self:center}
+.wpbar{display:flex;height:8px;border-radius:99px;overflow:hidden;gap:2px;background:var(--line)} .wpbar i{display:block;height:100%}
+.mkt{border-top:1px solid var(--line);padding:12px 16px;background:var(--card2)}
+.mlabel{color:var(--mu);font:600 10px Inter,system-ui,sans-serif;letter-spacing:.18em;margin-bottom:8px}
+.cols{display:grid;grid-template-columns:1.4fr 1.4fr .6fr;gap:8px} .cols small{display:block;color:var(--mu);font-size:10px;letter-spacing:.14em}
+.cols span{font-size:17px;font-weight:700} .edge span{color:var(--mu)} .edge.hot span{color:var(--tx);font-size:24px}
+.pick{margin-top:10px;display:flex;align-items:center;gap:10px;font-size:19px;font-weight:700;flex-wrap:wrap}
+.pick small{color:var(--mu);font:600 12px Inter,sans-serif}
+.pick .tier{font:800 11px Inter,system-ui,sans-serif;letter-spacing:.14em;padding:4px 8px;border-radius:6px;color:#0b0e13}
+.t-lean .tier{background:var(--lean)} .t-play .tier{background:var(--play)} .t-hammer .tier{background:var(--ham)}
+.t-hammer{color:var(--ham)} .pick.none{color:#4b535d;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.16em}
+.ml{border-top:1px solid var(--line);padding:10px 16px;font-size:12px;color:var(--mu);display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.ml b{color:var(--play);font-size:14px}
+.strip{border-top:1px solid var(--line);padding:12px 16px}
+.srow{display:flex;gap:16px;font-size:11px;color:var(--mu);letter-spacing:.06em;padding:3px 0;align-items:baseline}
+.srow b{color:var(--tx);width:40px;font-size:12px} .srow i{font-style:normal;color:var(--tx);font-size:15px;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 14px}
+.chip{font:600 10px Inter,system-ui,sans-serif;letter-spacing:.1em;color:#c9d1d9;border:1px solid var(--line);background:#0f1319;padding:4px 8px;border-radius:6px}
+.chip.out{color:#ffb4ab;border-color:#5a2a27;background:#1d1212}
+.foot{color:var(--mu);font-size:11px;margin-top:30px}
+.hide{display:none}
+</style></head><body><div class="wrap">
+  <div class="top"><div><div class="k">THE ALGOHUB · CBB GAME ALGO</div><h1>TUESDAY, NOVEMBER 24</h1></div>
+    <div class="stats"><div><small>GAMES</small><b>70</b></div><div class="p"><small>PLAYS</small><b>0</b></div>
+      <div class="h"><small>HAMMERS</small><b>0</b></div></div></div>
+  <div class="tools">
+    <button data-f="plays" class="">PLAYS ONLY</button><button data-f="all" class="on">ALL GAMES</button>
+    <input type="search" placeholder="Find a team" aria-label="Find a team">
+    <span class="count"></span>
+  </div>
+  <div class="grid">
+    <article class="card b-none" data-play="0" data-s="st. bonaventure wright state sbu wrst">
+      <header class="meta"><span>10:00 AM ET</span><span>State Farm Field House</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#cba052;color:#0b0e13">WRST</span>
+        <div class="tname"><b><i class="rk">#68</i>Wright State</b><small>4-0</small></div>
+        <div class="proj">75</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#70261D;color:#fff">SBU</span>
+        <div class="tname"><b><i class="rk">#103</i>St. Bonaventure</b><small>4-1</small></div>
+        <div class="proj">73</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>WRST 55%</span><span class="cap">WIN PROB</span><span>SBU 45%</span></div>
+        <div class="wpbar"><i style="width:54.7%;background:#cba052"></i><i style="width:45.3%;background:#70261D"></i></div></div>
+      <div class="alt">CBBD ratings: WRST 76 - SBU 72</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Wright State -1.3</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>148.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>WRST</b><span>OFF <i>#65</i></span><span>DEF <i>#76</i></span><span>TEMPO <i>#167</i></span></div><div class="srow"><b>SBU</b><span>OFF <i>#100</i></span><span>DEF <i>#116</i></span><span>TEMPO <i>#297</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="new mexico state ohio nmsu ohio">
+      <header class="meta"><span>11:00 AM ET</span><span>The Reef</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#295A29;color:#fff">OHIO</span>
+        <div class="tname"><b><i class="rk">#149</i>Ohio</b><small>3-1</small></div>
+        <div class="proj">80</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#891216;color:#fff">NMSU</span>
+        <div class="tname"><b><i class="rk">#258</i>New Mexico State</b><small>0-5</small></div>
+        <div class="proj">74</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>OHIO 70%</span><span class="cap">WIN PROB</span><span>NMSU 30%</span></div>
+        <div class="wpbar"><i style="width:69.9%;background:#295A29"></i><i style="width:30.1%;background:#891216"></i></div></div>
+      <div class="alt">CBBD ratings: OHIO 81 - NMSU 73</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Ohio -5.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>154.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>OHIO</b><span>OFF <i>#126</i></span><span>DEF <i>#221</i></span><span>TEMPO <i>#132</i></span></div><div class="srow"><b>NMSU</b><span>OFF <i>#220</i></span><span>DEF <i>#294</i></span><span>TEMPO <i>#204</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="northern colorado se louisiana unco sela">
+      <header class="meta"><span>12:30 PM ET</span><span>Hard Rock Hotel Riviera Maya</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#215732;color:#fff">SELA</span>
+        <div class="tname"><b><i class="rk">#329</i>SE Louisiana</b><small>1-4</small></div>
+        <div class="proj">74</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#13558D;color:#fff">UNCO</span>
+        <div class="tname"><b><i class="rk">#335</i>Northern Colorado</b><small>0-3</small></div>
+        <div class="proj">72</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>SELA 56%</span><span class="cap">WIN PROB</span><span>UNCO 44%</span></div>
+        <div class="wpbar"><i style="width:55.7%;background:#215732"></i><i style="width:44.3%;background:#13558D"></i></div></div>
+      <div class="alt">CBBD ratings: SELA 75 - UNCO 72</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>SE Louisiana -1.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>146.3</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>SELA</b><span>OFF <i>#272</i></span><span>DEF <i>#346</i></span><span>TEMPO <i>#254</i></span></div><div class="srow"><b>UNCO</b><span>OFF <i>#355</i></span><span>DEF <i>#201</i></span><span>TEMPO <i>#78</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">SELA MISSED LAST GAME: Logan Suber (18 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="akron belmont akr bel">
+      <header class="meta"><span>12:30 PM ET</span><span>State Farm Field House</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#182142;color:#fff">BEL</span>
+        <div class="tname"><b><i class="rk">#135</i>Belmont</b><small>2-1</small></div>
+        <div class="proj">68</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#00285e;color:#fff">AKR</span>
+        <div class="tname"><b><i class="rk">#153</i>Akron</b><small>2-1</small></div>
+        <div class="proj">68</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>BEL 51%</span><span class="cap">WIN PROB</span><span>AKR 49%</span></div>
+        <div class="wpbar"><i style="width:51.0%;background:#182142"></i><i style="width:49.0%;background:#00285e"></i></div></div>
+      <div class="alt">CBBD ratings: BEL 68 - AKR 68</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Belmont -0.3</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>136.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>BEL</b><span>OFF <i>#206</i></span><span>DEF <i>#103</i></span><span>TEMPO <i>#176</i></span></div><div class="srow"><b>AKR</b><span>OFF <i>#279</i></span><span>DEF <i>#65</i></span><span>TEMPO <i>#314</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="florida international southern utah fiu suu">
+      <header class="meta"><span>1:00 PM ET</span><span>Ocean Bank Convocation Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#c72026;color:#fff">SUU</span>
+        <div class="tname"><b><i class="rk">#290</i>Southern Utah</b><small>0-3</small></div>
+        <div class="proj">76</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#091731;color:#fff">FIU</span>
+        <div class="tname"><b><i class="rk">#176</i>Florida International</b><small>2-1</small></div>
+        <div class="proj">87</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>SUU 15%</span><span class="cap">WIN PROB</span><span>FIU 85%</span></div>
+        <div class="wpbar"><i style="width:15.4%;background:#c72026"></i><i style="width:84.6%;background:#091731"></i></div></div>
+      <div class="alt">CBBD ratings: SUU 75 - FIU 87</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Florida International -11.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>162.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>SUU</b><span>OFF <i>#282</i></span><span>DEF <i>#279</i></span><span>TEMPO <i>#99</i></span></div><div class="srow"><b>FIU</b><span>OFF <i>#164</i></span><span>DEF <i>#213</i></span><span>TEMPO <i>#8</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="oklahoma pittsburgh ou pitt">
+      <header class="meta"><span>1:30 PM ET</span><span>Suncoast Credit Union Arena</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#003263;color:#fff">PITT</span>
+        <div class="tname"><b><i class="rk">#43</i>Pittsburgh</b><small>6-0</small></div>
+        <div class="proj">78</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#a32036;color:#fff">OU</span>
+        <div class="tname"><b><i class="rk">#112</i>Oklahoma</b><small>4-1</small></div>
+        <div class="proj">70</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>PITT 77%</span><span class="cap">WIN PROB</span><span>OU 23%</span></div>
+        <div class="wpbar"><i style="width:77.3%;background:#003263"></i><i style="width:22.7%;background:#a32036"></i></div></div>
+      <div class="alt">CBBD ratings: PITT 80 - OU 69</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Pittsburgh -8.1</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>148.3</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>PITT</b><span>OFF <i>#73</i></span><span>DEF <i>#24</i></span><span>TEMPO <i>#98</i></span></div><div class="srow"><b>OU</b><span>OFF <i>#95</i></span><span>DEF <i>#167</i></span><span>TEMPO <i>#321</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">OU MISSED LAST GAME: Dayton Forsythe (20 mpg), Duke Brennan (19 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="uic rice uic rice">
+      <header class="meta"><span>1:30 PM ET</span><span>The Reef</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#d1d5d8;color:#0b0e13">RICE</span>
+        <div class="tname"><b><i class="rk">#208</i>Rice</b><small>3-2</small></div>
+        <div class="proj">69</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#001e62;color:#fff">UIC</span>
+        <div class="tname"><b><i class="rk">#142</i>UIC</b><small>3-2</small></div>
+        <div class="proj">74</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>RICE 31%</span><span class="cap">WIN PROB</span><span>UIC 69%</span></div>
+        <div class="wpbar"><i style="width:31.1%;background:#d1d5d8"></i><i style="width:68.9%;background:#001e62"></i></div></div>
+      <div class="alt">CBBD ratings: RICE 72 - UIC 71</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>UIC -5.3</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>142.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>RICE</b><span>OFF <i>#203</i></span><span>DEF <i>#228</i></span><span>TEMPO <i>#91</i></span></div><div class="srow"><b>UIC</b><span>OFF <i>#196</i></span><span>DEF <i>#117</i></span><span>TEMPO <i>#359</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="san francisco oregon state sf orst">
+      <header class="meta"><span>2:00 PM ET</span><span>Acrisure Arena</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#231f20;color:#fff">ORST</span>
+        <div class="tname"><b><i class="rk">#72</i>Oregon State</b><small>6-0</small></div>
+        <div class="proj">80</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#22523F;color:#fff">SF</span>
+        <div class="tname"><b><i class="rk">#181</i>San Francisco</b><small>4-1</small></div>
+        <div class="proj">72</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>ORST 79%</span><span class="cap">WIN PROB</span><span>SF 21%</span></div>
+        <div class="wpbar"><i style="width:79.1%;background:#231f20"></i><i style="width:20.9%;background:#22523F"></i></div></div>
+      <div class="alt">CBBD ratings: ORST 81 - SF 71</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Oregon State -8.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>152.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>ORST</b><span>OFF <i>#56</i></span><span>DEF <i>#97</i></span><span>TEMPO <i>#49</i></span></div><div class="srow"><b>SF</b><span>OFF <i>#241</i></span><span>DEF <i>#138</i></span><span>TEMPO <i>#265</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="miami tcu mia tcu">
+      <header class="meta"><span>3:00 PM ET</span><span>T-Mobile Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#4d1979;color:#fff">TCU</span>
+        <div class="tname"><b><i class="rk">#69</i>TCU</b><small>4-1</small></div>
+        <div class="proj">74</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#005030;color:#fff">MIA</span>
+        <div class="tname"><b><i class="rk">#11</i>Miami</b><small>5-1</small></div>
+        <div class="proj">85</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>TCU 16%</span><span class="cap">WIN PROB</span><span>MIA 84%</span></div>
+        <div class="wpbar"><i style="width:16.0%;background:#4d1979"></i><i style="width:84.0%;background:#005030"></i></div></div>
+      <div class="alt">CBBD ratings: TCU 75 - MIA 84</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>Miami -7.5</span></div>
+          <div><small>MODEL</small><span>Miami -10.7</span></div>
+          <div class="edge "><small>EDGE</small><span>3.2</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>156.5</span></div>
+          <div><small>MODEL</small><span>159.5</span></div>
+          <div class="edge "><small>EDGE</small><span>3.0</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>TCU</b><span>OFF <i>#66</i></span><span>DEF <i>#77</i></span><span>TEMPO <i>#29</i></span></div><div class="srow"><b>MIA</b><span>OFF <i>#46</i></span><span>DEF <i>#4</i></span><span>TEMPO <i>#56</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip out">TCU MISSED LAST GAME: Ryan Hunt (14 mpg)</span><span class="chip out">MIA MISSED LAST GAME: Malik Reneau (18 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="maryland tennessee md tenn">
+      <header class="meta"><span>3:00 PM ET</span><span>Michelob ULTRA Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#ff8200;color:#fff">TENN</span>
+        <div class="tname"><b><i class="rk">#30</i>Tennessee</b><small>5-0</small></div>
+        <div class="proj">71</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#D5002B;color:#fff">MD</span>
+        <div class="tname"><b><i class="rk">#62</i>Maryland</b><small>3-2</small></div>
+        <div class="proj">71</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>TENN 49%</span><span class="cap">WIN PROB</span><span>MD 51%</span></div>
+        <div class="wpbar"><i style="width:49.3%;background:#ff8200"></i><i style="width:50.7%;background:#D5002B"></i></div></div>
+      <div class="alt">CBBD ratings: TENN 71 - MD 71</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>Tennessee -5.5</span></div>
+          <div><small>MODEL</small><span>PK</span></div>
+          <div class="edge "><small>EDGE</small><span>5.7</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>147.5</span></div>
+          <div><small>MODEL</small><span>141.7</span></div>
+          <div class="edge "><small>EDGE</small><span>5.8</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>TENN</b><span>OFF <i>#119</i></span><span>DEF <i>#2</i></span><span>TEMPO <i>#257</i></span></div><div class="srow"><b>MD</b><span>OFF <i>#55</i></span><span>DEF <i>#68</i></span><span>TEMPO <i>#159</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NEEDS PINNACLE</span><span class="chip out">TENN MISSED LAST GAME: Jalen Haralson (20 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="detroit mercy north dakota detm und">
+      <header class="meta"><span>3:00 PM ET</span><span>Hard Rock Hotel Riviera Maya</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#00A26B;color:#fff">UND</span>
+        <div class="tname"><b><i class="rk">#297</i>North Dakota</b><small>2-3</small></div>
+        <div class="proj">83</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#165b9e;color:#fff">DETM</span>
+        <div class="tname"><b><i class="rk">#359</i>Detroit Mercy</b><small>0-5</small></div>
+        <div class="proj">75</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>UND 78%</span><span class="cap">WIN PROB</span><span>DETM 22%</span></div>
+        <div class="wpbar"><i style="width:77.6%;background:#00A26B"></i><i style="width:22.4%;background:#165b9e"></i></div></div>
+      <div class="alt">CBBD ratings: UND 84 - DETM 74</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>North Dakota -8.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>157.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>UND</b><span>OFF <i>#246</i></span><span>DEF <i>#325</i></span><span>TEMPO <i>#92</i></span></div><div class="srow"><b>DETM</b><span>OFF <i>#325</i></span><span>DEF <i>#360</i></span><span>TEMPO <i>#124</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">DETM MISSED LAST GAME: Dante Favor (16 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="yale app state yale app">
+      <header class="meta"><span>3:00 PM ET</span><span>State Farm Field House</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#000000;color:#fff">APP</span>
+        <div class="tname"><b><i class="rk">#152</i>App State</b><small>3-1</small></div>
+        <div class="proj">69</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#004a81;color:#fff">YALE</span>
+        <div class="tname"><b><i class="rk">#191</i>Yale</b><small>2-3</small></div>
+        <div class="proj">67</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>APP 57%</span><span class="cap">WIN PROB</span><span>YALE 43%</span></div>
+        <div class="wpbar"><i style="width:56.5%;background:#000000"></i><i style="width:43.5%;background:#004a81"></i></div></div>
+      <div class="alt">CBBD ratings: APP 70 - YALE 67</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>App State -1.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>136.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>APP</b><span>OFF <i>#182</i></span><span>DEF <i>#154</i></span><span>TEMPO <i>#361</i></span></div><div class="srow"><b>YALE</b><span>OFF <i>#160</i></span><span>DEF <i>#249</i></span><span>TEMPO <i>#313</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">YALE MISSED LAST GAME: Jordan Brathwaite (33 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="arkansas state long beach state arst lbsu">
+      <header class="meta"><span>3:30 PM ET</span><span>Ocean Bank Convocation Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#000000;color:#fff">LBSU</span>
+        <div class="tname"><b><i class="rk">#226</i>Long Beach State</b><small>1-3</small></div>
+        <div class="proj">76</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#e81018;color:#fff">ARST</span>
+        <div class="tname"><b><i class="rk">#212</i>Arkansas State</b><small>2-2</small></div>
+        <div class="proj">79</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>LBSU 41%</span><span class="cap">WIN PROB</span><span>ARST 59%</span></div>
+        <div class="wpbar"><i style="width:41.4%;background:#000000"></i><i style="width:58.6%;background:#e81018"></i></div></div>
+      <div class="alt">CBBD ratings: LBSU 78 - ARST 77</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Arkansas State -2.3</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>154.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>LBSU</b><span>OFF <i>#209</i></span><span>DEF <i>#253</i></span><span>TEMPO <i>#211</i></span></div><div class="srow"><b>ARST</b><span>OFF <i>#250</i></span><span>DEF <i>#172</i></span><span>TEMPO <i>#27</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">LBSU MISSED LAST GAME: Yohann Sissoko (25 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="new haven lindenwood nhvn lin">
+      <header class="meta"><span>4:00 PM ET</span><span>Stony Brook Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#101820;color:#fff">LIN</span>
+        <div class="tname"><b><i class="rk">#336</i>Lindenwood</b><small>0-4</small></div>
+        <div class="proj">66</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#000000;color:#fff">NHVN</span>
+        <div class="tname"><b><i class="rk">#314</i>New Haven</b><small>2-3</small></div>
+        <div class="proj">68</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>LIN 42%</span><span class="cap">WIN PROB</span><span>NHVN 58%</span></div>
+        <div class="wpbar"><i style="width:42.1%;background:#101820"></i><i style="width:57.9%;background:#000000"></i></div></div>
+      <div class="alt">CBBD ratings: LIN 66 - NHVN 67</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>New Haven -2.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>133.3</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>LIN</b><span>OFF <i>#351</i></span><span>DEF <i>#234</i></span><span>TEMPO <i>#72</i></span></div><div class="srow"><b>NHVN</b><span>OFF <i>#356</i></span><span>DEF <i>#149</i></span><span>TEMPO <i>#357</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">NHVN MISSED LAST GAME: Faquir Mosley (16 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="illinois state tulsa ilst tlsa">
+      <header class="meta"><span>4:30 PM ET</span><span>Acrisure Arena</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#003595;color:#fff">TLSA</span>
+        <div class="tname"><b><i class="rk">#91</i>Tulsa</b><small>3-1</small></div>
+        <div class="proj">73</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#CE1126;color:#fff">ILST</span>
+        <div class="tname"><b><i class="rk">#106</i>Illinois State</b><small>1-3</small></div>
+        <div class="proj">72</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>TLSA 54%</span><span class="cap">WIN PROB</span><span>ILST 46%</span></div>
+        <div class="wpbar"><i style="width:54.3%;background:#003595"></i><i style="width:45.7%;background:#CE1126"></i></div></div>
+      <div class="alt">CBBD ratings: TLSA 73 - ILST 73</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Tulsa -1.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>145.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>TLSA</b><span>OFF <i>#110</i></span><span>DEF <i>#72</i></span><span>TEMPO <i>#241</i></span></div><div class="srow"><b>ILST</b><span>OFF <i>#98</i></span><span>DEF <i>#147</i></span><span>TEMPO <i>#273</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">ILST MISSED LAST GAME: Demarion Burch (25 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="iowa state san diego state isu sdsu">
+      <header class="meta"><span>5:30 PM ET</span><span>Michelob ULTRA Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#c41230;color:#fff">SDSU</span>
+        <div class="tname"><b><i class="rk">#55</i>San Diego State</b><small>5-0</small></div>
+        <div class="proj">66</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#822433;color:#fff">ISU</span>
+        <div class="tname"><b><i class="rk">#29</i>Iowa State</b><small>3-1</small></div>
+        <div class="proj">74</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>SDSU 23%</span><span class="cap">WIN PROB</span><span>ISU 77%</span></div>
+        <div class="wpbar"><i style="width:23.1%;background:#c41230"></i><i style="width:76.9%;background:#822433"></i></div></div>
+      <div class="alt">CBBD ratings: SDSU 71 - ISU 69</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>Iowa State -7.5</span></div>
+          <div><small>MODEL</small><span>Iowa State -7.9</span></div>
+          <div class="edge "><small>EDGE</small><span>0.4</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>144.5</span></div>
+          <div><small>MODEL</small><span>139.8</span></div>
+          <div class="edge "><small>EDGE</small><span>4.7</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>SDSU</b><span>OFF <i>#68</i></span><span>DEF <i>#43</i></span><span>TEMPO <i>#195</i></span></div><div class="srow"><b>ISU</b><span>OFF <i>#107</i></span><span>DEF <i>#3</i></span><span>TEMPO <i>#258</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="creighton michigan crei mich">
+      <header class="meta"><span>5:30 PM ET</span><span>T-Mobile Arena</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#00274c;color:#fff">MICH</span>
+        <div class="tname"><b><i class="rk">#20</i>Michigan</b><small>3-2</small></div>
+        <div class="proj">82</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#005ca9;color:#fff">CREI</span>
+        <div class="tname"><b><i class="rk">#50</i>Creighton</b><small>4-1</small></div>
+        <div class="proj">78</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>MICH 62%</span><span class="cap">WIN PROB</span><span>CREI 38%</span></div>
+        <div class="wpbar"><i style="width:62.3%;background:#00274c"></i><i style="width:37.7%;background:#005ca9"></i></div></div>
+      <div class="alt">CBBD ratings: MICH 80 - CREI 79</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>Michigan -4.5</span></div>
+          <div><small>MODEL</small><span>Michigan -3.4</span></div>
+          <div class="edge "><small>EDGE</small><span>1.1</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>163.5</span></div>
+          <div><small>MODEL</small><span>159.9</span></div>
+          <div class="edge "><small>EDGE</small><span>3.6</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>MICH</b><span>OFF <i>#24</i></span><span>DEF <i>#22</i></span><span>TEMPO <i>#9</i></span></div><div class="srow"><b>CREI</b><span>OFF <i>#88</i></span><span>DEF <i>#32</i></span><span>TEMPO <i>#100</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="kent state wyoming kent wyo">
+      <header class="meta"><span>5:30 PM ET</span><span>Ocean Center</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#492f24;color:#fff">WYO</span>
+        <div class="tname"><b><i class="rk">#67</i>Wyoming</b><small>4-1</small></div>
+        <div class="proj">79</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#003976;color:#fff">KENT</span>
+        <div class="tname"><b><i class="rk">#304</i>Kent State</b><small>1-3</small></div>
+        <div class="proj">62</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>WYO 93%</span><span class="cap">WIN PROB</span><span>KENT 7%</span></div>
+        <div class="wpbar"><i style="width:93.4%;background:#492f24"></i><i style="width:6.6%;background:#003976"></i></div></div>
+      <div class="alt">CBBD ratings: WYO 77 - KENT 64</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Wyoming -16.3</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>140.9</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>WYO</b><span>OFF <i>#62</i></span><span>DEF <i>#74</i></span><span>TEMPO <i>#328</i></span></div><div class="srow"><b>KENT</b><span>OFF <i>#314</i></span><span>DEF <i>#246</i></span><span>TEMPO <i>#250</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="depaul purdue dep pur">
+      <header class="meta"><span>6:00 PM ET</span><span>Suncoast Credit Union Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#000000;color:#fff">PUR</span>
+        <div class="tname"><b><i class="rk">#38</i>Purdue</b><small>4-2</small></div>
+        <div class="proj">68</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#2d649c;color:#fff">DEP</span>
+        <div class="tname"><b><i class="rk">#40</i>DePaul</b><small>5-0</small></div>
+        <div class="proj">70</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>PUR 44%</span><span class="cap">WIN PROB</span><span>DEP 56%</span></div>
+        <div class="wpbar"><i style="width:44.1%;background:#000000"></i><i style="width:55.9%;background:#2d649c"></i></div></div>
+      <div class="alt">CBBD ratings: PUR 67 - DEP 71</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>DePaul -1.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>137.9</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>PUR</b><span>OFF <i>#26</i></span><span>DEF <i>#51</i></span><span>TEMPO <i>#332</i></span></div><div class="srow"><b>DEP</b><span>OFF <i>#86</i></span><span>DEF <i>#14</i></span><span>TEMPO <i>#319</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="rutgers sacred heart rutg shu">
+      <header class="meta"><span>6:00 PM ET</span><span>Jersey Mike’s Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#a40012;color:#fff">SHU</span>
+        <div class="tname"><b><i class="rk">#296</i>Sacred Heart</b><small>1-3</small></div>
+        <div class="proj">69</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#d21034;color:#fff">RUTG</span>
+        <div class="tname"><b><i class="rk">#65</i>Rutgers</b><small>4-2</small></div>
+        <div class="proj">93</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>SHU 1%</span><span class="cap">WIN PROB</span><span>RUTG 99%</span></div>
+        <div class="wpbar"><i style="width:1.3%;background:#a40012"></i><i style="width:98.7%;background:#d21034"></i></div></div>
+      <div class="alt">CBBD ratings: SHU 74 - RUTG 87</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Rutgers -23.9</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>161.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>SHU</b><span>OFF <i>#187</i></span><span>DEF <i>#352</i></span><span>TEMPO <i>#141</i></span></div><div class="srow"><b>RUTG</b><span>OFF <i>#31</i></span><span>DEF <i>#119</i></span><span>TEMPO <i>#146</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">SHU MISSED LAST GAME: Jojo Wallace (26 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="wofford queens university wof quc">
+      <header class="meta"><span>6:00 PM ET</span><span>Jerry Richardson Indoor Stadium</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#192C66;color:#fff">QUC</span>
+        <div class="tname"><b><i class="rk">#215</i>Queens University</b><small>3-3</small></div>
+        <div class="proj">87</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#533B22;color:#fff">WOF</span>
+        <div class="tname"><b><i class="rk">#285</i>Wofford</b><small>2-3</small></div>
+        <div class="proj">86</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>QUC 55%</span><span class="cap">WIN PROB</span><span>WOF 45%</span></div>
+        <div class="wpbar"><i style="width:54.9%;background:#192C66"></i><i style="width:45.1%;background:#533B22"></i></div></div>
+      <div class="alt">CBBD ratings: QUC 86 - WOF 87</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Queens University -1.3</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>173.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>QUC</b><span>OFF <i>#63</i></span><span>DEF <i>#362</i></span><span>TEMPO <i>#58</i></span></div><div class="srow"><b>WOF</b><span>OFF <i>#156</i></span><span>DEF <i>#354</i></span><span>TEMPO <i>#131</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">WOF MISSED LAST GAME: Cam Lowe (29 mpg), Luke Flynn (25 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="vmi southern indiana vmi usi">
+      <header class="meta"><span>6:00 PM ET</span><span>Cameron Hall</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#CF102D;color:#fff">USI</span>
+        <div class="tname"><b><i class="rk">#306</i>Southern Indiana</b><small>0-5</small></div>
+        <div class="proj">70</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#ae122a;color:#fff">VMI</span>
+        <div class="tname"><b><i class="rk">#259</i>VMI</b><small>2-3</small></div>
+        <div class="proj">76</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>USI 27%</span><span class="cap">WIN PROB</span><span>VMI 73%</span></div>
+        <div class="wpbar"><i style="width:26.9%;background:#CF102D"></i><i style="width:73.1%;background:#ae122a"></i></div></div>
+      <div class="alt">CBBD ratings: USI 69 - VMI 76</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>VMI -6.7</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>145.7</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>USI</b><span>OFF <i>#337</i></span><span>DEF <i>#187</i></span><span>TEMPO <i>#57</i></span></div><div class="srow"><b>VMI</b><span>OFF <i>#297</i></span><span>DEF <i>#178</i></span><span>TEMPO <i>#185</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="florida atlantic mercer fau mer">
+      <header class="meta"><span>6:00 PM ET</span><span>Eleanor R. Baldwin Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#ff7f29;color:#fff">MER</span>
+        <div class="tname"><b><i class="rk">#213</i>Mercer</b><small>2-4</small></div>
+        <div class="proj">75</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#00447c;color:#fff">FAU</span>
+        <div class="tname"><b><i class="rk">#157</i>Florida Atlantic</b><small>3-1</small></div>
+        <div class="proj">84</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>MER 21%</span><span class="cap">WIN PROB</span><span>FAU 79%</span></div>
+        <div class="wpbar"><i style="width:20.9%;background:#ff7f29"></i><i style="width:79.1%;background:#00447c"></i></div></div>
+      <div class="alt">CBBD ratings: MER 78 - FAU 82</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Florida Atlantic -8.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>159.5</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>MER</b><span>OFF <i>#204</i></span><span>DEF <i>#240</i></span><span>TEMPO <i>#67</i></span></div><div class="srow"><b>FAU</b><span>OFF <i>#130</i></span><span>DEF <i>#233</i></span><span>TEMPO <i>#128</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="kennesaw state eastern michigan kenn emu">
+      <header class="meta"><span>6:00 PM ET</span><span>Hard Rock Hotel Riviera Maya</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#00331b;color:#fff">EMU</span>
+        <div class="tname"><b><i class="rk">#156</i>Eastern Michigan</b><small>3-1</small></div>
+        <div class="proj">73</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#fdbb30;color:#0b0e13">KENN</span>
+        <div class="tname"><b><i class="rk">#122</i>Kennesaw State</b><small>3-1</small></div>
+        <div class="proj">78</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>EMU 33%</span><span class="cap">WIN PROB</span><span>KENN 67%</span></div>
+        <div class="wpbar"><i style="width:33.3%;background:#00331b"></i><i style="width:66.7%;background:#fdbb30"></i></div></div>
+      <div class="alt">CBBD ratings: EMU 75 - KENN 76</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Kennesaw State -4.7</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>151.1</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>EMU</b><span>OFF <i>#137</i></span><span>DEF <i>#217</i></span><span>TEMPO <i>#350</i></span></div><div class="srow"><b>KENN</b><span>OFF <i>#173</i></span><span>DEF <i>#99</i></span><span>TEMPO <i>#13</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">KENN MISSED LAST GAME: Trey Simpson (13 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="furman elon fur elon">
+      <header class="meta"><span>6:30 PM ET</span><span>Timmons Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#020303;color:#fff">ELON</span>
+        <div class="tname"><b><i class="rk">#150</i>Elon</b><small>3-3</small></div>
+        <div class="proj">69</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#582c83;color:#fff">FUR</span>
+        <div class="tname"><b><i class="rk">#120</i>Furman</b><small>4-1</small></div>
+        <div class="proj">76</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>ELON 24%</span><span class="cap">WIN PROB</span><span>FUR 76%</span></div>
+        <div class="wpbar"><i style="width:24.2%;background:#020303"></i><i style="width:75.8%;background:#582c83"></i></div></div>
+      <div class="alt">CBBD ratings: ELON 70 - FUR 75</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Furman -7.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>145.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>ELON</b><span>OFF <i>#190</i></span><span>DEF <i>#142</i></span><span>TEMPO <i>#268</i></span></div><div class="srow"><b>FUR</b><span>OFF <i>#125</i></span><span>DEF <i>#158</i></span><span>TEMPO <i>#233</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">FUR MISSED LAST GAME: Collin O&#x27;Neal (16 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="lamar robert morris lam rmu">
+      <header class="meta"><span>6:30 PM ET</span><span>The Reef</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#00214D;color:#fff">RMU</span>
+        <div class="tname"><b><i class="rk">#274</i>Robert Morris</b><small>1-4</small></div>
+        <div class="proj">74</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#000000;color:#fff">LAM</span>
+        <div class="tname"><b><i class="rk">#185</i>Lamar</b><small>1-2</small></div>
+        <div class="proj">81</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>RMU 27%</span><span class="cap">WIN PROB</span><span>LAM 73%</span></div>
+        <div class="wpbar"><i style="width:27.0%;background:#00214D"></i><i style="width:73.0%;background:#000000"></i></div></div>
+      <div class="alt">CBBD ratings: RMU 72 - LAM 83</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Lamar -6.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>155.5</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>RMU</b><span>OFF <i>#294</i></span><span>DEF <i>#220</i></span><span>TEMPO <i>#171</i></span></div><div class="srow"><b>LAM</b><span>OFF <i>#181</i></span><span>DEF <i>#204</i></span><span>TEMPO <i>#25</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="ohio state vanderbilt osu van">
+      <header class="meta"><span>7:00 PM ET</span><span>Schottenstein Center</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#000000;color:#fff">VAN</span>
+        <div class="tname"><b><i class="rk">#10</i>Vanderbilt</b><small>5-0</small></div>
+        <div class="proj">77</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#ce1141;color:#fff">OSU</span>
+        <div class="tname"><b><i class="rk">#58</i>Ohio State</b><small>4-2</small></div>
+        <div class="proj">75</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>VAN 58%</span><span class="cap">WIN PROB</span><span>OSU 42%</span></div>
+        <div class="wpbar"><i style="width:57.9%;background:#000000"></i><i style="width:42.1%;background:#ce1141"></i></div></div>
+      <div class="alt">CBBD ratings: VAN 77 - OSU 74</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Vanderbilt -2.1</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>151.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>VAN</b><span>OFF <i>#39</i></span><span>DEF <i>#6</i></span><span>TEMPO <i>#150</i></span></div><div class="srow"><b>OSU</b><span>OFF <i>#27</i></span><span>DEF <i>#108</i></span><span>TEMPO <i>#212</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="indiana jacksonville iu jax">
+      <header class="meta"><span>7:00 PM ET</span><span>Simon Skjodt Assembly Hall</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#00523e;color:#fff">JAX</span>
+        <div class="tname"><b><i class="rk">#313</i>Jacksonville</b><small>1-4</small></div>
+        <div class="proj">60</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#990000;color:#fff">IU</span>
+        <div class="tname"><b><i class="rk">#34</i>Indiana</b><small>6-0</small></div>
+        <div class="proj">89</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>JAX 0%</span><span class="cap">WIN PROB</span><span>IU 100%</span></div>
+        <div class="wpbar"><i style="width:0.4%;background:#00523e"></i><i style="width:99.6%;background:#990000"></i></div></div>
+      <div class="alt">CBBD ratings: JAX 65 - IU 84</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Indiana -28.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>148.9</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>JAX</b><span>OFF <i>#248</i></span><span>DEF <i>#344</i></span><span>TEMPO <i>#343</i></span></div><div class="srow"><b>IU</b><span>OFF <i>#19</i></span><span>DEF <i>#60</i></span><span>TEMPO <i>#183</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="james madison charleston southern jmu chso">
+      <header class="meta"><span>7:00 PM ET</span><span>Atlantic Union Bank Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#2e3192;color:#fff">CHSO</span>
+        <div class="tname"><b><i class="rk">#256</i>Charleston Southern</b><small>1-4</small></div>
+        <div class="proj">67</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#450084;color:#fff">JMU</span>
+        <div class="tname"><b><i class="rk">#118</i>James Madison</b><small>3-2</small></div>
+        <div class="proj">84</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>CHSO 7%</span><span class="cap">WIN PROB</span><span>JMU 93%</span></div>
+        <div class="wpbar"><i style="width:6.6%;background:#2e3192"></i><i style="width:93.4%;background:#450084"></i></div></div>
+      <div class="alt">CBBD ratings: CHSO 71 - JMU 80</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>James Madison -16.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>151.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>CHSO</b><span>OFF <i>#302</i></span><span>DEF <i>#171</i></span><span>TEMPO <i>#53</i></span></div><div class="srow"><b>JMU</b><span>OFF <i>#131</i></span><span>DEF <i>#135</i></span><span>TEMPO <i>#191</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">CHSO MISSED LAST GAME: Nicholas Errica (22 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="lehigh binghamton leh bing">
+      <header class="meta"><span>7:00 PM ET</span><span>Stabler Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#00614A;color:#fff">BING</span>
+        <div class="tname"><b><i class="rk">#318</i>Binghamton</b><small>3-3</small></div>
+        <div class="proj">63</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#6c2b2a;color:#fff">LEH</span>
+        <div class="tname"><b><i class="rk">#179</i>Lehigh</b><small>3-2</small></div>
+        <div class="proj">74</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>BING 14%</span><span class="cap">WIN PROB</span><span>LEH 86%</span></div>
+        <div class="wpbar"><i style="width:14.3%;background:#00614A"></i><i style="width:85.7%;background:#6c2b2a"></i></div></div>
+      <div class="alt">CBBD ratings: BING 65 - LEH 72</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Lehigh -11.5</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>137.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>BING</b><span>OFF <i>#300</i></span><span>DEF <i>#302</i></span><span>TEMPO <i>#349</i></span></div><div class="srow"><b>LEH</b><span>OFF <i>#225</i></span><span>DEF <i>#155</i></span><span>TEMPO <i>#263</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">LEH MISSED LAST GAME: Caleb Thomas (15 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="bowling green gardner-webb bgsu gweb">
+      <header class="meta"><span>7:00 PM ET</span><span>Stroh Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#c12535;color:#fff">GWEB</span>
+        <div class="tname"><b><i class="rk">#328</i>Gardner-Webb</b><small>0-5</small></div>
+        <div class="proj">69</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#2b1000;color:#fff">BGSU</span>
+        <div class="tname"><b><i class="rk">#210</i>Bowling Green</b><small>3-2</small></div>
+        <div class="proj">79</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>GWEB 17%</span><span class="cap">WIN PROB</span><span>BGSU 83%</span></div>
+        <div class="wpbar"><i style="width:17.1%;background:#c12535"></i><i style="width:82.9%;background:#2b1000"></i></div></div>
+      <div class="alt">CBBD ratings: GWEB 69 - BGSU 78</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Bowling Green -10.3</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>147.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>GWEB</b><span>OFF <i>#328</i></span><span>DEF <i>#288</i></span><span>TEMPO <i>#192</i></span></div><div class="srow"><b>BGSU</b><span>OFF <i>#114</i></span><span>DEF <i>#337</i></span><span>TEMPO <i>#323</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">GWEB MISSED LAST GAME: Jacob Hudson (19 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="florida milwaukee fla milw">
+      <header class="meta"><span>7:00 PM ET</span><span>Stephen C. O&#x27;Connell Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#000000;color:#fff">MILW</span>
+        <div class="tname"><b><i class="rk">#262</i>Milwaukee</b><small>1-4</small></div>
+        <div class="proj">61</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#0021a5;color:#fff">FLA</span>
+        <div class="tname"><b><i class="rk">#5</i>Florida</b><small>6-1</small></div>
+        <div class="proj">93</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>MILW 0%</span><span class="cap">WIN PROB</span><span>FLA 100%</span></div>
+        <div class="wpbar"><i style="width:0.2%;background:#000000"></i><i style="width:99.8%;background:#0021a5"></i></div></div>
+      <div class="alt">CBBD ratings: MILW 67 - FLA 87</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Florida -31.5</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>153.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>MILW</b><span>OFF <i>#255</i></span><span>DEF <i>#248</i></span><span>TEMPO <i>#90</i></span></div><div class="srow"><b>FLA</b><span>OFF <i>#2</i></span><span>DEF <i>#36</i></span><span>TEMPO <i>#282</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">FLA MISSED LAST GAME: Boogie Fland (25 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="nevada santa clara nev scu">
+      <header class="meta"><span>7:00 PM ET</span><span>Lawlor Events Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#690b0b;color:#fff">SCU</span>
+        <div class="tname"><b><i class="rk">#90</i>Santa Clara</b><small>5-1</small></div>
+        <div class="proj">78</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#002d62;color:#fff">NEV</span>
+        <div class="tname"><b><i class="rk">#80</i>Nevada</b><small>3-2</small></div>
+        <div class="proj">82</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>SCU 36%</span><span class="cap">WIN PROB</span><span>NEV 64%</span></div>
+        <div class="wpbar"><i style="width:35.7%;background:#690b0b"></i><i style="width:64.3%;background:#002d62"></i></div></div>
+      <div class="alt">CBBD ratings: SCU 79 - NEV 81</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Nevada -4.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>160.5</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>SCU</b><span>OFF <i>#93</i></span><span>DEF <i>#98</i></span><span>TEMPO <i>#11</i></span></div><div class="srow"><b>NEV</b><span>OFF <i>#105</i></span><span>DEF <i>#50</i></span><span>TEMPO <i>#107</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="marist bryant mrst bry">
+      <header class="meta"><span>7:00 PM ET</span><span>McCann Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#000000;color:#fff">BRY</span>
+        <div class="tname"><b><i class="rk">#289</i>Bryant</b><small>2-4</small></div>
+        <div class="proj">65</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#e53730;color:#fff">MRST</span>
+        <div class="tname"><b><i class="rk">#254</i>Marist</b><small>2-3</small></div>
+        <div class="proj">72</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>BRY 26%</span><span class="cap">WIN PROB</span><span>MRST 74%</span></div>
+        <div class="wpbar"><i style="width:25.5%;background:#000000"></i><i style="width:74.5%;background:#e53730"></i></div></div>
+      <div class="alt">CBBD ratings: BRY 65 - MRST 71</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Marist -7.1</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>136.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>BRY</b><span>OFF <i>#342</i></span><span>DEF <i>#152</i></span><span>TEMPO <i>#193</i></span></div><div class="srow"><b>MRST</b><span>OFF <i>#296</i></span><span>DEF <i>#170</i></span><span>TEMPO <i>#278</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">BRY MISSED LAST GAME: Elijah Hayeems (12 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="villanova coppin state vill copp">
+      <header class="meta"><span>7:00 PM ET</span><span>Finneran Pavilion</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#2e3192;color:#fff">COPP</span>
+        <div class="tname"><b><i class="rk">#332</i>Coppin State</b><small>0-6</small></div>
+        <div class="proj">57</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#00205b;color:#fff">VILL</span>
+        <div class="tname"><b><i class="rk">#63</i>Villanova</b><small>4-2</small></div>
+        <div class="proj">83</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>COPP 1%</span><span class="cap">WIN PROB</span><span>VILL 99%</span></div>
+        <div class="wpbar"><i style="width:0.9%;background:#2e3192"></i><i style="width:99.1%;background:#00205b"></i></div></div>
+      <div class="alt">CBBD ratings: COPP 63 - VILL 77</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Villanova -25.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>139.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>COPP</b><span>OFF <i>#359</i></span><span>DEF <i>#174</i></span><span>TEMPO <i>#210</i></span></div><div class="srow"><b>VILL</b><span>OFF <i>#83</i></span><span>DEF <i>#47</i></span><span>TEMPO <i>#227</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">COPP MISSED LAST GAME: Malik Shackleford (16 mpg)</span><span class="chip out">VILL MISSED LAST GAME: Darryl Simmons II (14 mpg), Nico Onyekwere (12 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="loyola maryland rider l-md rid">
+      <header class="meta"><span>7:00 PM ET</span><span>Reitz Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#a80532;color:#fff">RID</span>
+        <div class="tname"><b><i class="rk">#355</i>Rider</b><small>1-5</small></div>
+        <div class="proj">70</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#76a7a0;color:#fff">L-MD</span>
+        <div class="tname"><b><i class="rk">#358</i>Loyola Maryland</b><small>0-5</small></div>
+        <div class="proj">73</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>RID 39%</span><span class="cap">WIN PROB</span><span>L-MD 61%</span></div>
+        <div class="wpbar"><i style="width:39.2%;background:#a80532"></i><i style="width:60.8%;background:#76a7a0"></i></div></div>
+      <div class="alt">CBBD ratings: RID 69 - L-MD 74</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Loyola Maryland -2.9</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>143.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>RID</b><span>OFF <i>#313</i></span><span>DEF <i>#358</i></span><span>TEMPO <i>#294</i></span></div><div class="srow"><b>L-MD</b><span>OFF <i>#353</i></span><span>DEF <i>#332</i></span><span>TEMPO <i>#202</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="georgia southern bellarmine gaso bell">
+      <header class="meta"><span>7:00 PM ET</span><span>Truist Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#000000;color:#fff">BELL</span>
+        <div class="tname"><b><i class="rk">#261</i>Bellarmine</b><small>1-5</small></div>
+        <div class="proj">76</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#003775;color:#fff">GASO</span>
+        <div class="tname"><b><i class="rk">#243</i>Georgia Southern</b><small>2-4</small></div>
+        <div class="proj">77</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>BELL 46%</span><span class="cap">WIN PROB</span><span>GASO 54%</span></div>
+        <div class="wpbar"><i style="width:45.5%;background:#000000"></i><i style="width:54.5%;background:#003775"></i></div></div>
+      <div class="alt">CBBD ratings: BELL 76 - GASO 77</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Georgia Southern -1.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>153.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>BELL</b><span>OFF <i>#163</i></span><span>DEF <i>#340</i></span><span>TEMPO <i>#354</i></span></div><div class="srow"><b>GASO</b><span>OFF <i>#237</i></span><span>DEF <i>#245</i></span><span>TEMPO <i>#36</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="morgan state mount st. mary&#x27;s morg msm">
+      <header class="meta"><span>7:00 PM ET</span><span>Hill Field House</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#005596;color:#fff">MSM</span>
+        <div class="tname"><b><i class="rk">#338</i>Mount St. Mary&#x27;s</b><small>1-4</small></div>
+        <div class="proj">73</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#014786;color:#fff">MORG</span>
+        <div class="tname"><b><i class="rk">#352</i>Morgan State</b><small>2-3</small></div>
+        <div class="proj">74</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>MSM 43%</span><span class="cap">WIN PROB</span><span>MORG 57%</span></div>
+        <div class="wpbar"><i style="width:43.2%;background:#005596"></i><i style="width:56.8%;background:#014786"></i></div></div>
+      <div class="alt">CBBD ratings: MSM 69 - MORG 78</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Morgan State -1.9</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>147.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>MSM</b><span>OFF <i>#341</i></span><span>DEF <i>#291</i></span><span>TEMPO <i>#140</i></span></div><div class="srow"><b>MORG</b><span>OFF <i>#354</i></span><span>DEF <i>#306</i></span><span>TEMPO <i>#94</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">MORG MISSED LAST GAME: Keith Richard (32 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="seton hall new hampshire hall unh">
+      <header class="meta"><span>7:00 PM ET</span><span>Prudential Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#004990;color:#fff">UNH</span>
+        <div class="tname"><b><i class="rk">#237</i>New Hampshire</b><small>3-3</small></div>
+        <div class="proj">57</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#0857B1;color:#fff">HALL</span>
+        <div class="tname"><b><i class="rk">#74</i>Seton Hall</b><small>5-1</small></div>
+        <div class="proj">77</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>UNH 3%</span><span class="cap">WIN PROB</span><span>HALL 97%</span></div>
+        <div class="wpbar"><i style="width:3.3%;background:#004990"></i><i style="width:96.7%;background:#0857B1"></i></div></div>
+      <div class="alt">CBBD ratings: UNH 65 - HALL 69</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Seton Hall -19.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>134.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>UNH</b><span>OFF <i>#346</i></span><span>DEF <i>#71</i></span><span>TEMPO <i>#164</i></span></div><div class="srow"><b>HALL</b><span>OFF <i>#111</i></span><span>DEF <i>#37</i></span><span>TEMPO <i>#306</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="coastal carolina campbell ccu cam">
+      <header class="meta"><span>7:00 PM ET</span><span>The HTC Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#000000;color:#fff">CAM</span>
+        <div class="tname"><b><i class="rk">#187</i>Campbell</b><small>2-4</small></div>
+        <div class="proj">76</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#007073;color:#fff">CCU</span>
+        <div class="tname"><b><i class="rk">#275</i>Coastal Carolina</b><small>1-4</small></div>
+        <div class="proj">76</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>CAM 47%</span><span class="cap">WIN PROB</span><span>CCU 53%</span></div>
+        <div class="wpbar"><i style="width:47.0%;background:#000000"></i><i style="width:53.0%;background:#007073"></i></div></div>
+      <div class="alt">CBBD ratings: CAM 79 - CCU 73</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Coastal Carolina -0.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>152.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>CAM</b><span>OFF <i>#106</i></span><span>DEF <i>#320</i></span><span>TEMPO <i>#312</i></span></div><div class="srow"><b>CCU</b><span>OFF <i>#308</i></span><span>DEF <i>#192</i></span><span>TEMPO <i>#61</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="iowa umbc iowa umbc">
+      <header class="meta"><span>7:00 PM ET</span><span>Carver-Hawkeye Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#000000;color:#fff">UMBC</span>
+        <div class="tname"><b><i class="rk">#325</i>UMBC</b><small>2-4</small></div>
+        <div class="proj">55</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#000000;color:#fff">IOWA</span>
+        <div class="tname"><b><i class="rk">#15</i>Iowa</b><small>3-1</small></div>
+        <div class="proj">88</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>UMBC 0%</span><span class="cap">WIN PROB</span><span>IOWA 100%</span></div>
+        <div class="wpbar"><i style="width:0.1%;background:#000000"></i><i style="width:99.9%;background:#000000"></i></div></div>
+      <div class="alt">CBBD ratings: UMBC 62 - IOWA 81</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Iowa -32.3</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>143.1</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>UMBC</b><span>OFF <i>#340</i></span><span>DEF <i>#247</i></span><span>TEMPO <i>#45</i></span></div><div class="srow"><b>IOWA</b><span>OFF <i>#18</i></span><span>DEF <i>#29</i></span><span>TEMPO <i>#363</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="georgia tech samford gt sam">
+      <header class="meta"><span>7:00 PM ET</span><span>McCamish Pavilion</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#005485;color:#fff">SAM</span>
+        <div class="tname"><b><i class="rk">#250</i>Samford</b><small>2-2</small></div>
+        <div class="proj">73</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#003057;color:#fff">GT</span>
+        <div class="tname"><b><i class="rk">#138</i>Georgia Tech</b><small>5-1</small></div>
+        <div class="proj">86</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>SAM 12%</span><span class="cap">WIN PROB</span><span>GT 88%</span></div>
+        <div class="wpbar"><i style="width:12.1%;background:#005485"></i><i style="width:87.9%;background:#003057"></i></div></div>
+      <div class="alt">CBBD ratings: SAM 77 - GT 82</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Georgia Tech -12.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>158.5</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>SAM</b><span>OFF <i>#229</i></span><span>DEF <i>#273</i></span><span>TEMPO <i>#161</i></span></div><div class="srow"><b>GT</b><span>OFF <i>#158</i></span><span>DEF <i>#150</i></span><span>TEMPO <i>#22</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="south florida stetson usf stet">
+      <header class="meta"><span>7:00 PM ET</span><span>Yuengling Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#0a5640;color:#fff">STET</span>
+        <div class="tname"><b><i class="rk">#288</i>Stetson</b><small>0-5</small></div>
+        <div class="proj">67</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#004A36;color:#fff">USF</span>
+        <div class="tname"><b><i class="rk">#92</i>South Florida</b><small>3-3</small></div>
+        <div class="proj">85</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>STET 5%</span><span class="cap">WIN PROB</span><span>USF 95%</span></div>
+        <div class="wpbar"><i style="width:5.4%;background:#0a5640"></i><i style="width:94.6%;background:#004A36"></i></div></div>
+      <div class="alt">CBBD ratings: STET 70 - USF 83</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>South Florida -17.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>152.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>STET</b><span>OFF <i>#240</i></span><span>DEF <i>#324</i></span><span>TEMPO <i>#336</i></span></div><div class="srow"><b>USF</b><span>OFF <i>#74</i></span><span>DEF <i>#131</i></span><span>TEMPO <i>#76</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="weber state tarleton state web tar">
+      <header class="meta"><span>7:00 PM ET</span><span>Dee Events Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#000000;color:#fff">TAR</span>
+        <div class="tname"><b><i class="rk">#228</i>Tarleton State</b><small>2-2</small></div>
+        <div class="proj">79</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#18005a;color:#fff">WEB</span>
+        <div class="tname"><b><i class="rk">#320</i>Weber State</b><small>0-4</small></div>
+        <div class="proj">82</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>TAR 41%</span><span class="cap">WIN PROB</span><span>WEB 59%</span></div>
+        <div class="wpbar"><i style="width:40.9%;background:#000000"></i><i style="width:59.1%;background:#18005a"></i></div></div>
+      <div class="alt">CBBD ratings: TAR 82 - WEB 79</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Weber State -2.5</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>160.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>TAR</b><span>OFF <i>#224</i></span><span>DEF <i>#231</i></span><span>TEMPO <i>#79</i></span></div><div class="srow"><b>WEB</b><span>OFF <i>#242</i></span><span>DEF <i>#350</i></span><span>TEMPO <i>#73</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="chattanooga delaware state utc dsu">
+      <header class="meta"><span>7:00 PM ET</span><span>McKenzie Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#FF3630;color:#fff">DSU</span>
+        <div class="tname"><b><i class="rk">#339</i>Delaware State</b><small>0-4</small></div>
+        <div class="proj">68</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#00386b;color:#fff">UTC</span>
+        <div class="tname"><b><i class="rk">#182</i>Chattanooga</b><small>2-3</small></div>
+        <div class="proj">86</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>DSU 5%</span><span class="cap">WIN PROB</span><span>UTC 95%</span></div>
+        <div class="wpbar"><i style="width:5.2%;background:#FF3630"></i><i style="width:94.8%;background:#00386b"></i></div></div>
+      <div class="alt">CBBD ratings: DSU 72 - UTC 82</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Chattanooga -17.5</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>153.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>DSU</b><span>OFF <i>#320</i></span><span>DEF <i>#328</i></span><span>TEMPO <i>#95</i></span></div><div class="srow"><b>UTC</b><span>OFF <i>#140</i></span><span>DEF <i>#269</i></span><span>TEMPO <i>#224</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">DSU MISSED LAST GAME: Nehemiah Reedus (37 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="siena vermont sie uvm">
+      <header class="meta"><span>7:00 PM ET</span><span>MVP Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#154734;color:#fff">UVM</span>
+        <div class="tname"><b><i class="rk">#183</i>Vermont</b><small>2-3</small></div>
+        <div class="proj">78</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#037961;color:#fff">SIE</span>
+        <div class="tname"><b><i class="rk">#206</i>Siena</b><small>4-2</small></div>
+        <div class="proj">83</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>UVM 33%</span><span class="cap">WIN PROB</span><span>SIE 67%</span></div>
+        <div class="wpbar"><i style="width:33.2%;background:#154734"></i><i style="width:66.8%;background:#037961"></i></div></div>
+      <div class="alt">CBBD ratings: UVM 80 - SIE 81</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Siena -4.7</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>160.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>UVM</b><span>OFF <i>#132</i></span><span>DEF <i>#282</i></span><span>TEMPO <i>#339</i></span></div><div class="srow"><b>SIE</b><span>OFF <i>#162</i></span><span>DEF <i>#285</i></span><span>TEMPO <i>#5</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">UVM MISSED LAST GAME: Gus Yalden (29 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="harvard boston university harv bu">
+      <header class="meta"><span>7:00 PM ET</span><span>Lavietes Pavilion</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#cc0000;color:#fff">BU</span>
+        <div class="tname"><b><i class="rk">#193</i>Boston University</b><small>4-2</small></div>
+        <div class="proj">69</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#990000;color:#fff">HARV</span>
+        <div class="tname"><b><i class="rk">#189</i>Harvard</b><small>1-4</small></div>
+        <div class="proj">73</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>BU 33%</span><span class="cap">WIN PROB</span><span>HARV 67%</span></div>
+        <div class="wpbar"><i style="width:32.7%;background:#cc0000"></i><i style="width:67.3%;background:#990000"></i></div></div>
+      <div class="alt">CBBD ratings: BU 70 - HARV 72</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Harvard -4.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>142.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>BU</b><span>OFF <i>#199</i></span><span>DEF <i>#206</i></span><span>TEMPO <i>#218</i></span></div><div class="srow"><b>HARV</b><span>OFF <i>#211</i></span><span>DEF <i>#177</i></span><span>TEMPO <i>#341</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="old dominion hampton odu hamp">
+      <header class="meta"><span>7:00 PM ET</span><span>Chartway Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#0067AC;color:#fff">HAMP</span>
+        <div class="tname"><b><i class="rk">#263</i>Hampton</b><small>0-3</small></div>
+        <div class="proj">60</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#00507d;color:#fff">ODU</span>
+        <div class="tname"><b><i class="rk">#124</i>Old Dominion</b><small>4-1</small></div>
+        <div class="proj">74</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>HAMP 11%</span><span class="cap">WIN PROB</span><span>ODU 89%</span></div>
+        <div class="wpbar"><i style="width:11.1%;background:#0067AC"></i><i style="width:88.9%;background:#00507d"></i></div></div>
+      <div class="alt">CBBD ratings: HAMP 62 - ODU 72</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Old Dominion -13.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>134.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>HAMP</b><span>OFF <i>#333</i></span><span>DEF <i>#133</i></span><span>TEMPO <i>#267</i></span></div><div class="srow"><b>ODU</b><span>OFF <i>#166</i></span><span>DEF <i>#110</i></span><span>TEMPO <i>#335</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="southeast missouri state purdue fort wayne semo pfw">
+      <header class="meta"><span>7:30 PM ET</span><span>Show Me Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#00378A;color:#fff">PFW</span>
+        <div class="tname"><b><i class="rk">#248</i>Purdue Fort Wayne</b><small>2-2</small></div>
+        <div class="proj">77</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#c8102e;color:#fff">SEMO</span>
+        <div class="tname"><b><i class="rk">#294</i>Southeast Missouri State</b><small>1-3</small></div>
+        <div class="proj">79</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>PFW 41%</span><span class="cap">WIN PROB</span><span>SEMO 59%</span></div>
+        <div class="wpbar"><i style="width:41.3%;background:#00378A"></i><i style="width:58.7%;background:#c8102e"></i></div></div>
+      <div class="alt">CBBD ratings: PFW 78 - SEMO 78</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Southeast Missouri State -2.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>155.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>PFW</b><span>OFF <i>#161</i></span><span>DEF <i>#335</i></span><span>TEMPO <i>#220</i></span></div><div class="srow"><b>SEMO</b><span>OFF <i>#265</i></span><span>DEF <i>#303</i></span><span>TEMPO <i>#103</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">SEMO MISSED LAST GAME: Landren Blocker (20 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="louisiana tech alcorn state lt alcn">
+      <header class="meta"><span>7:30 PM ET</span><span>Thomas Assembly Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#4b0058;color:#fff">ALCN</span>
+        <div class="tname"><b><i class="rk">#363</i>Alcorn State</b><small>0-6</small></div>
+        <div class="proj">67</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#002d65;color:#fff">LT</span>
+        <div class="tname"><b><i class="rk">#265</i>Louisiana Tech</b><small>3-2</small></div>
+        <div class="proj">81</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>ALCN 10%</span><span class="cap">WIN PROB</span><span>LT 90%</span></div>
+        <div class="wpbar"><i style="width:10.4%;background:#4b0058"></i><i style="width:89.6%;background:#002d65"></i></div></div>
+      <div class="alt">CBBD ratings: ALCN 67 - LT 81</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Louisiana Tech -13.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>147.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>ALCN</b><span>OFF <i>#343</i></span><span>DEF <i>#356</i></span><span>TEMPO <i>#87</i></span></div><div class="srow"><b>LT</b><span>OFF <i>#273</i></span><span>DEF <i>#227</i></span><span>TEMPO <i>#283</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">LT MISSED LAST GAME: Deven Bates (20 mpg), Ethan Blackmon (19 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="duquesne high point duq hpu">
+      <header class="meta"><span>7:30 PM ET</span><span>Ocean Center</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#b0b7bc;color:#0b0e13">HPU</span>
+        <div class="tname"><b><i class="rk">#53</i>High Point</b><small>6-0</small></div>
+        <div class="proj">77</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#002D62;color:#fff">DUQ</span>
+        <div class="tname"><b><i class="rk">#175</i>Duquesne</b><small>4-1</small></div>
+        <div class="proj">66</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>HPU 85%</span><span class="cap">WIN PROB</span><span>DUQ 15%</span></div>
+        <div class="wpbar"><i style="width:85.1%;background:#b0b7bc"></i><i style="width:14.9%;background:#002D62"></i></div></div>
+      <div class="alt">CBBD ratings: HPU 76 - DUQ 67</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>High Point -11.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>142.5</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>HPU</b><span>OFF <i>#102</i></span><span>DEF <i>#21</i></span><span>TEMPO <i>#186</i></span></div><div class="srow"><b>DUQ</b><span>OFF <i>#189</i></span><span>DEF <i>#175</i></span><span>TEMPO <i>#277</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="tennessee tech west georgia tntc wga">
+      <header class="meta"><span>7:30 PM ET</span><span>Hooper Eblen Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#0033a1;color:#fff">WGA</span>
+        <div class="tname"><b><i class="rk">#327</i>West Georgia</b><small>0-4</small></div>
+        <div class="proj">71</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#5A4099;color:#fff">TNTC</span>
+        <div class="tname"><b><i class="rk">#113</i>Tennessee Tech</b><small>3-2</small></div>
+        <div class="proj">90</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>WGA 4%</span><span class="cap">WIN PROB</span><span>TNTC 96%</span></div>
+        <div class="wpbar"><i style="width:4.0%;background:#0033a1"></i><i style="width:96.0%;background:#5A4099"></i></div></div>
+      <div class="alt">CBBD ratings: WGA 73 - TNTC 87</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Tennessee Tech -18.9</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>160.5</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>WGA</b><span>OFF <i>#347</i></span><span>DEF <i>#219</i></span><span>TEMPO <i>#65</i></span></div><div class="srow"><b>TNTC</b><span>OFF <i>#87</i></span><span>DEF <i>#186</i></span><span>TEMPO <i>#24</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">TNTC MISSED LAST GAME: Cbo Newton (22 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="ul monroe houston christian ulm hcu">
+      <header class="meta"><span>7:30 PM ET</span><span>Fant-Ewing Coliseum</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#00539c;color:#fff">HCU</span>
+        <div class="tname"><b><i class="rk">#255</i>Houston Christian</b><small>2-1</small></div>
+        <div class="proj">74</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#231F20;color:#fff">ULM</span>
+        <div class="tname"><b><i class="rk">#282</i>UL Monroe</b><small>0-6</small></div>
+        <div class="proj">79</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>HCU 34%</span><span class="cap">WIN PROB</span><span>ULM 66%</span></div>
+        <div class="wpbar"><i style="width:34.3%;background:#00539c"></i><i style="width:65.7%;background:#231F20"></i></div></div>
+      <div class="alt">CBBD ratings: HCU 78 - ULM 75</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>UL Monroe -4.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>153.3</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>HCU</b><span>OFF <i>#230</i></span><span>DEF <i>#283</i></span><span>TEMPO <i>#235</i></span></div><div class="srow"><b>ULM</b><span>OFF <i>#292</i></span><span>DEF <i>#243</i></span><span>TEMPO <i>#37</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">ULM MISSED LAST GAME: Quaran McPherson (28 mpg), Mike White (18 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="army air force army afa">
+      <header class="meta"><span>8:00 PM ET</span><span>UTSA Convocation Center</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#004a7b;color:#fff">AFA</span>
+        <div class="tname"><b><i class="rk">#309</i>Air Force</b><small>2-3</small></div>
+        <div class="proj">80</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#ce9c00;color:#fff">ARMY</span>
+        <div class="tname"><b><i class="rk">#333</i>Army</b><small>1-4</small></div>
+        <div class="proj">76</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>AFA 65%</span><span class="cap">WIN PROB</span><span>ARMY 35%</span></div>
+        <div class="wpbar"><i style="width:65.1%;background:#004a7b"></i><i style="width:34.9%;background:#ce9c00"></i></div></div>
+      <div class="alt">CBBD ratings: AFA 79 - ARMY 76</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Air Force -4.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>155.7</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>AFA</b><span>OFF <i>#210</i></span><span>DEF <i>#353</i></span><span>TEMPO <i>#26</i></span></div><div class="srow"><b>ARMY</b><span>OFF <i>#318</i></span><span>DEF <i>#316</i></span><span>TEMPO <i>#315</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">AFA MISSED LAST GAME: Brendan Martin (12 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="notre dame central michigan nd cmu">
+      <header class="meta"><span>8:00 PM ET</span><span>Purcell Pavilion</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#6a0032;color:#fff">CMU</span>
+        <div class="tname"><b><i class="rk">#221</i>Central Michigan</b><small>3-2</small></div>
+        <div class="proj">68</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#0c2340;color:#fff">ND</span>
+        <div class="tname"><b><i class="rk">#47</i>Notre Dame</b><small>6-1</small></div>
+        <div class="proj">90</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>CMU 2%</span><span class="cap">WIN PROB</span><span>ND 98%</span></div>
+        <div class="wpbar"><i style="width:2.3%;background:#6a0032"></i><i style="width:97.7%;background:#0c2340"></i></div></div>
+      <div class="alt">CBBD ratings: CMU 73 - ND 84</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Notre Dame -21.5</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>157.7</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>CMU</b><span>OFF <i>#169</i></span><span>DEF <i>#298</i></span><span>TEMPO <i>#223</i></span></div><div class="srow"><b>ND</b><span>OFF <i>#22</i></span><span>DEF <i>#93</i></span><span>TEMPO <i>#121</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="texas tech louisville ttu lou">
+      <header class="meta"><span>8:00 PM ET</span><span>Michelob ULTRA Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#c9001f;color:#fff">LOU</span>
+        <div class="tname"><b><i class="rk">#57</i>Louisville</b><small>3-1</small></div>
+        <div class="proj">67</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#000000;color:#fff">TTU</span>
+        <div class="tname"><b><i class="rk">#3</i>Texas Tech</b><small>5-0</small></div>
+        <div class="proj">79</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>LOU 12%</span><span class="cap">WIN PROB</span><span>TTU 88%</span></div>
+        <div class="wpbar"><i style="width:11.9%;background:#c9001f"></i><i style="width:88.1%;background:#000000"></i></div></div>
+      <div class="alt">CBBD ratings: LOU 68 - TTU 78</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>Texas Tech -5.5</span></div>
+          <div><small>MODEL</small><span>Texas Tech -12.8</span></div>
+          <div class="edge "><small>EDGE</small><span>7.3</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>153.5</span></div>
+          <div><small>MODEL</small><span>146.0</span></div>
+          <div class="edge "><small>EDGE</small><span>7.5</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>LOU</b><span>OFF <i>#42</i></span><span>DEF <i>#80</i></span><span>TEMPO <i>#106</i></span></div><div class="srow"><b>TTU</b><span>OFF <i>#60</i></span><span>DEF <i>#1</i></span><span>TEMPO <i>#234</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NEEDS PINNACLE</span><span class="chip out">LOU MISSED LAST GAME: Seth Trimble (28 mpg)</span><span class="chip out">TTU MISSED LAST GAME: Bassala Bagayoko (14 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="north alabama alabama a&amp;m una aamu">
+      <header class="meta"><span>8:00 PM ET</span><span>Flowers Hall</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#790000;color:#fff">AAMU</span>
+        <div class="tname"><b><i class="rk">#280</i>Alabama A&amp;M</b><small>2-2</small></div>
+        <div class="proj">73</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#663399;color:#fff">UNA</span>
+        <div class="tname"><b><i class="rk">#276</i>North Alabama</b><small>1-2</small></div>
+        <div class="proj">79</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>AAMU 28%</span><span class="cap">WIN PROB</span><span>UNA 72%</span></div>
+        <div class="wpbar"><i style="width:28.4%;background:#790000"></i><i style="width:71.6%;background:#663399"></i></div></div>
+      <div class="alt">CBBD ratings: AAMU 72 - UNA 79</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>North Alabama -6.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>151.3</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>AAMU</b><span>OFF <i>#286</i></span><span>DEF <i>#239</i></span><span>TEMPO <i>#85</i></span></div><div class="srow"><b>UNA</b><span>OFF <i>#285</i></span><span>DEF <i>#235</i></span><span>TEMPO <i>#119</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="kansas city green bay kc gb">
+      <header class="meta"><span>8:00 PM ET</span><span>Swinney Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#006633;color:#fff">GB</span>
+        <div class="tname"><b><i class="rk">#227</i>Green Bay</b><small>1-4</small></div>
+        <div class="proj">72</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#004b87;color:#fff">KC</span>
+        <div class="tname"><b><i class="rk">#219</i>Kansas City</b><small>2-4</small></div>
+        <div class="proj">76</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>GB 37%</span><span class="cap">WIN PROB</span><span>KC 63%</span></div>
+        <div class="wpbar"><i style="width:37.2%;background:#006633"></i><i style="width:62.8%;background:#004b87"></i></div></div>
+      <div class="alt">CBBD ratings: GB 73 - KC 75</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Kansas City -3.5</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>147.7</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>GB</b><span>OFF <i>#207</i></span><span>DEF <i>#258</i></span><span>TEMPO <i>#260</i></span></div><div class="srow"><b>KC</b><span>OFF <i>#191</i></span><span>DEF <i>#274</i></span><span>TEMPO <i>#239</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="auburn lipscomb aub lip">
+      <header class="meta"><span>8:00 PM ET</span><span>Neville Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#20366C;color:#fff">LIP</span>
+        <div class="tname"><b><i class="rk">#197</i>Lipscomb</b><small>3-4</small></div>
+        <div class="proj">65</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#002b5c;color:#fff">AUB</span>
+        <div class="tname"><b><i class="rk">#48</i>Auburn</b><small>3-3</small></div>
+        <div class="proj">88</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>LIP 2%</span><span class="cap">WIN PROB</span><span>AUB 98%</span></div>
+        <div class="wpbar"><i style="width:2.0%;background:#20366C"></i><i style="width:98.0%;background:#002b5c"></i></div></div>
+      <div class="alt">CBBD ratings: LIP 72 - AUB 81</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Auburn -22.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>152.9</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>LIP</b><span>OFF <i>#177</i></span><span>DEF <i>#242</i></span><span>TEMPO <i>#88</i></span></div><div class="srow"><b>AUB</b><span>OFF <i>#59</i></span><span>DEF <i>#42</i></span><span>TEMPO <i>#230</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">LIP MISSED LAST GAME: Takai Simpkins (32 mpg), Devyn Martin (22 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="cornell bucknell cor buck">
+      <header class="meta"><span>8:00 PM ET</span><span>Newman Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#000060;color:#fff">BUCK</span>
+        <div class="tname"><b><i class="rk">#330</i>Bucknell</b><small>1-5</small></div>
+        <div class="proj">69</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#d60027;color:#fff">COR</span>
+        <div class="tname"><b><i class="rk">#173</i>Cornell</b><small>2-3</small></div>
+        <div class="proj">83</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>BUCK 9%</span><span class="cap">WIN PROB</span><span>COR 91%</span></div>
+        <div class="wpbar"><i style="width:9.1%;background:#000060"></i><i style="width:90.9%;background:#d60027"></i></div></div>
+      <div class="alt">CBBD ratings: BUCK 69 - COR 84</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Cornell -14.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>152.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>BUCK</b><span>OFF <i>#311</i></span><span>DEF <i>#318</i></span><span>TEMPO <i>#247</i></span></div><div class="srow"><b>COR</b><span>OFF <i>#179</i></span><span>DEF <i>#180</i></span><span>TEMPO <i>#46</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="pennsylvania drexel penn drex">
+      <header class="meta"><span>8:00 PM ET</span><span>The Palestra</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#020260;color:#fff">DREX</span>
+        <div class="tname"><b><i class="rk">#186</i>Drexel</b><small>3-2</small></div>
+        <div class="proj">71</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#082A74;color:#fff">PENN</span>
+        <div class="tname"><b><i class="rk">#137</i>Pennsylvania</b><small>2-3</small></div>
+        <div class="proj">80</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>DREX 22%</span><span class="cap">WIN PROB</span><span>PENN 78%</span></div>
+        <div class="wpbar"><i style="width:21.9%;background:#020260"></i><i style="width:78.1%;background:#082A74"></i></div></div>
+      <div class="alt">CBBD ratings: DREX 73 - PENN 78</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Pennsylvania -8.4</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>150.7</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>DREX</b><span>OFF <i>#222</i></span><span>DEF <i>#163</i></span><span>TEMPO <i>#302</i></span></div><div class="srow"><b>PENN</b><span>OFF <i>#178</i></span><span>DEF <i>#124</i></span><span>TEMPO <i>#17</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">PENN MISSED LAST GAME: Sir Mohammed (26 mpg), AJ Levine (24 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="south alabama florida a&amp;m usa famu">
+      <header class="meta"><span>8:00 PM ET</span><span>Mitchell Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#F89728;color:#0b0e13">FAMU</span>
+        <div class="tname"><b><i class="rk">#364</i>Florida A&amp;M</b><small>0-5</small></div>
+        <div class="proj">68</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#003E7E;color:#fff">USA</span>
+        <div class="tname"><b><i class="rk">#249</i>South Alabama</b><small>3-4</small></div>
+        <div class="proj">83</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>FAMU 8%</span><span class="cap">WIN PROB</span><span>USA 92%</span></div>
+        <div class="wpbar"><i style="width:8.3%;background:#F89728"></i><i style="width:91.7%;background:#003E7E"></i></div></div>
+      <div class="alt">CBBD ratings: FAMU 69 - USA 82</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>South Alabama -14.9</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>150.9</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>FAMU</b><span>OFF <i>#357</i></span><span>DEF <i>#351</i></span><span>TEMPO <i>#42</i></span></div><div class="srow"><b>USA</b><span>OFF <i>#144</i></span><span>DEF <i>#345</i></span><span>TEMPO <i>#355</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">USA MISSED LAST GAME: Aaron Goldstein (35 mpg), Davaughn Hueitt (23 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="ut arlington oral roberts uta oru">
+      <header class="meta"><span>8:00 PM ET</span><span>College Park Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#002462;color:#fff">ORU</span>
+        <div class="tname"><b><i class="rk">#203</i>Oral Roberts</b><small>1-3</small></div>
+        <div class="proj">72</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#004b7c;color:#fff">UTA</span>
+        <div class="tname"><b><i class="rk">#188</i>UT Arlington</b><small>4-1</small></div>
+        <div class="proj">76</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>ORU 37%</span><span class="cap">WIN PROB</span><span>UTA 63%</span></div>
+        <div class="wpbar"><i style="width:37.1%;background:#002462"></i><i style="width:62.9%;background:#004b7c"></i></div></div>
+      <div class="alt">CBBD ratings: ORU 70 - UTA 77</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>UT Arlington -3.5</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>147.6</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>ORU</b><span>OFF <i>#223</i></span><span>DEF <i>#197</i></span><span>TEMPO <i>#166</i></span></div><div class="srow"><b>UTA</b><span>OFF <i>#249</i></span><span>DEF <i>#137</i></span><span>TEMPO <i>#138</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="utep charleston utep cofc">
+      <header class="meta"><span>8:30 PM ET</span><span>Don Haskins Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#7a2531;color:#fff">COFC</span>
+        <div class="tname"><b><i class="rk">#133</i>Charleston</b><small>2-1</small></div>
+        <div class="proj">73</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#ff8200;color:#fff">UTEP</span>
+        <div class="tname"><b><i class="rk">#162</i>UTEP</b><small>4-1</small></div>
+        <div class="proj">73</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>COFC 47%</span><span class="cap">WIN PROB</span><span>UTEP 53%</span></div>
+        <div class="wpbar"><i style="width:47.1%;background:#7a2531"></i><i style="width:52.9%;background:#ff8200"></i></div></div>
+      <div class="alt">CBBD ratings: COFC 74 - UTEP 72</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>UTEP -0.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>146.1</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>COFC</b><span>OFF <i>#96</i></span><span>DEF <i>#241</i></span><span>TEMPO <i>#151</i></span></div><div class="srow"><b>UTEP</b><span>OFF <i>#216</i></span><span>DEF <i>#129</i></span><span>TEMPO <i>#342</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="florida state unc asheville fsu unca">
+      <header class="meta"><span>9:00 PM ET</span><span>Tucker Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#003da5;color:#fff">UNCA</span>
+        <div class="tname"><b><i class="rk">#279</i>UNC Asheville</b><small>1-5</small></div>
+        <div class="proj">66</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#782f40;color:#fff">FSU</span>
+        <div class="tname"><b><i class="rk">#56</i>Florida State</b><small>5-1</small></div>
+        <div class="proj">93</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>UNCA 1%</span><span class="cap">WIN PROB</span><span>FSU 99%</span></div>
+        <div class="wpbar"><i style="width:0.7%;background:#003da5"></i><i style="width:99.3%;background:#782f40"></i></div></div>
+      <div class="alt">CBBD ratings: UNCA 72 - FSU 87</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Florida State -26.5</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>158.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>UNCA</b><span>OFF <i>#234</i></span><span>DEF <i>#309</i></span><span>TEMPO <i>#163</i></span></div><div class="srow"><b>FSU</b><span>OFF <i>#54</i></span><span>DEF <i>#58</i></span><span>TEMPO <i>#44</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">UNCA MISSED LAST GAME: Jermaurhiyun Anderson (19 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="uc santa barbara unc greensboro ucsb uncg">
+      <header class="meta"><span>9:00 PM ET</span><span>The Thunderdome</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#003559;color:#fff">UNCG</span>
+        <div class="tname"><b><i class="rk">#236</i>UNC Greensboro</b><small>2-2</small></div>
+        <div class="proj">65</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#1e1840;color:#fff">UCSB</span>
+        <div class="tname"><b><i class="rk">#66</i>UC Santa Barbara</b><small>3-0</small></div>
+        <div class="proj">86</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>UNCG 3%</span><span class="cap">WIN PROB</span><span>UCSB 97%</span></div>
+        <div class="wpbar"><i style="width:2.7%;background:#003559"></i><i style="width:97.3%;background:#1e1840"></i></div></div>
+      <div class="alt">CBBD ratings: UNCG 72 - UCSB 79</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>UC Santa Barbara -20.8</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>151.0</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>UNCG</b><span>OFF <i>#165</i></span><span>DEF <i>#311</i></span><span>TEMPO <i>#236</i></span></div><div class="srow"><b>UCSB</b><span>OFF <i>#36</i></span><span>DEF <i>#120</i></span><span>TEMPO <i>#304</i></span></div></div>
+      <div class="chips"><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="saint louis grand canyon slu gcu">
+      <header class="meta"><span>9:30 PM ET</span><span>Chaifetz Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#522398;color:#fff">GCU</span>
+        <div class="tname"><b><i class="rk">#41</i>Grand Canyon</b><small>4-0</small></div>
+        <div class="proj">81</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#00539C;color:#fff">SLU</span>
+        <div class="tname"><b><i class="rk">#35</i>Saint Louis</b><small>3-2</small></div>
+        <div class="proj">82</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>GCU 45%</span><span class="cap">WIN PROB</span><span>SLU 55%</span></div>
+        <div class="wpbar"><i style="width:45.5%;background:#522398"></i><i style="width:54.5%;background:#00539C"></i></div></div>
+      <div class="alt">CBBD ratings: GCU 81 - SLU 82</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Saint Louis -1.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>162.7</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>GCU</b><span>OFF <i>#35</i></span><span>DEF <i>#46</i></span><span>TEMPO <i>#66</i></span></div><div class="srow"><b>SLU</b><span>OFF <i>#33</i></span><span>DEF <i>#41</i></span><span>TEMPO <i>#62</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="alabama baylor ala bay">
+      <header class="meta"><span>10:00 PM ET</span><span>T-Mobile Arena</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#154734;color:#fff">BAY</span>
+        <div class="tname"><b><i class="rk">#27</i>Baylor</b><small>4-1</small></div>
+        <div class="proj">87</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#9e1632;color:#fff">ALA</span>
+        <div class="tname"><b><i class="rk">#36</i>Alabama</b><small>5-0</small></div>
+        <div class="proj">85</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>BAY 56%</span><span class="cap">WIN PROB</span><span>ALA 44%</span></div>
+        <div class="wpbar"><i style="width:55.6%;background:#154734"></i><i style="width:44.4%;background:#9e1632"></i></div></div>
+      <div class="alt">CBBD ratings: BAY 89 - ALA 82</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>Alabama -1.5</span></div>
+          <div><small>MODEL</small><span>Baylor -1.5</span></div>
+          <div class="edge "><small>EDGE</small><span>3.0</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>177.5</span></div>
+          <div><small>MODEL</small><span>171.5</span></div>
+          <div class="edge "><small>EDGE</small><span>6.0</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>BAY</b><span>OFF <i>#30</i></span><span>DEF <i>#27</i></span><span>TEMPO <i>#96</i></span></div><div class="srow"><b>ALA</b><span>OFF <i>#12</i></span><span>DEF <i>#81</i></span><span>TEMPO <i>#2</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="oregon st. john&#x27;s ore sju">
+      <header class="meta"><span>10:30 PM ET</span><span>Michelob ULTRA Arena</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#d10000;color:#fff">SJU</span>
+        <div class="tname"><b><i class="rk">#12</i>St. John&#x27;s</b><small>5-0</small></div>
+        <div class="proj">84</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#007030;color:#fff">ORE</span>
+        <div class="tname"><b><i class="rk">#73</i>Oregon</b><small>3-1</small></div>
+        <div class="proj">75</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>SJU 81%</span><span class="cap">WIN PROB</span><span>ORE 19%</span></div>
+        <div class="wpbar"><i style="width:81.2%;background:#d10000"></i><i style="width:18.8%;background:#007030"></i></div></div>
+      <div class="alt">CBBD ratings: SJU 83 - ORE 76</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>St. John&#x27;s -8.5</span></div>
+          <div><small>MODEL</small><span>St. John&#x27;s -9.5</span></div>
+          <div class="edge "><small>EDGE</small><span>1.0</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>158.5</span></div>
+          <div><small>MODEL</small><span>159.1</span></div>
+          <div class="edge "><small>EDGE</small><span>0.6</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>SJU</b><span>OFF <i>#32</i></span><span>DEF <i>#13</i></span><span>TEMPO <i>#39</i></span></div><div class="srow"><b>ORE</b><span>OFF <i>#34</i></span><span>DEF <i>#148</i></span><span>TEMPO <i>#225</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip out">ORE MISSED LAST GAME: Sean Stewart (17 mpg)</span></div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="colorado stanford colo stan">
+      <header class="meta"><span>11:59 PM ET</span><span>Acrisure Arena</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#8c1515;color:#fff">STAN</span>
+        <div class="tname"><b><i class="rk">#101</i>Stanford</b><small>5-1</small></div>
+        <div class="proj">72</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#000000;color:#fff">COLO</span>
+        <div class="tname"><b><i class="rk">#115</i>Colorado</b><small>2-3</small></div>
+        <div class="proj">71</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>STAN 53%</span><span class="cap">WIN PROB</span><span>COLO 47%</span></div>
+        <div class="wpbar"><i style="width:52.7%;background:#8c1515"></i><i style="width:47.3%;background:#000000"></i></div></div>
+      <div class="alt">CBBD ratings: STAN 72 - COLO 71</div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>Stanford -0.7</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>-</span></div>
+          <div><small>MODEL</small><span>143.2</span></div>
+          <div class="edge "><small>EDGE</small><span>-</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>STAN</b><span>OFF <i>#108</i></span><span>DEF <i>#107</i></span><span>TEMPO <i>#338</i></span></div><div class="srow"><b>COLO</b><span>OFF <i>#167</i></span><span>DEF <i>#91</i></span><span>TEMPO <i>#139</i></span></div></div>
+      <div class="chips"><span class="chip">NEUTRAL</span><span class="chip">EARLY SEASON</span><span class="chip">NO LINE</span><span class="chip out">COLO MISSED LAST GAME: Goc Malual (12 mpg)</span></div>
+    </article></div>
+  <p class="foot">Opponent-adjusted offense, defense and tempo, rebuilt every morning from every game played. Edges are points vs the book. LEAN / PLAY / HAMMER. Not betting advice.</p>
+</div>
+<script>
+let mode='all', q='';
+const cards=[...document.querySelectorAll('.card')], cnt=document.querySelector('.count');
+function apply(){let n=0;cards.forEach(c=>{const show=(q?c.dataset.s.includes(q):(mode==='all'||c.dataset.play==='1'));
+  c.classList.toggle('hide',!show); if(show)n++;}); cnt.textContent=n+' of '+cards.length+' games';}
+document.querySelectorAll('.tools button').forEach(b=>b.onclick=()=>{mode=b.dataset.f;
+  document.querySelectorAll('.tools button').forEach(x=>x.classList.toggle('on',x===b));apply();});
+document.querySelector('.tools input').oninput=ev=>{q=ev.target.value.trim().toLowerCase();apply();};
+apply();
+</script></body></html>

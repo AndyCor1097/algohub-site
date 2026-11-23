@@ -1,0 +1,2315 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AlgoHub NBA 2026-11-23</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0e13;--card:#12161d;--card2:#171c25;--line:#222a35;--tx:#e6edf3;--mu:#7d8590;--lean:#58a6ff;--play:#3fb950;--ham:#f2b134}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font:14px/1.4 Inter,system-ui,sans-serif;padding:28px 16px 60px}
+.wrap{max-width:1180px;margin:0 auto}
+.proj,.cols span,.top h1,.stats b,.wplab,.pick,.srow i{font-family:"Barlow Condensed",sans-serif}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:18px}
+.top .k{color:var(--mu);font-size:12px;letter-spacing:.18em;font-weight:600}
+.top h1{font-size:44px;font-weight:800;line-height:1}
+.stats{display:flex;gap:22px} .stats div{text-align:right} .stats small{display:block;color:var(--mu);font-size:11px;letter-spacing:.14em}
+.stats b{font-size:30px} .stats .h b{color:var(--ham)} .stats .p b{color:var(--play)}
+.tools{display:flex;gap:8px;margin:18px 0;flex-wrap:wrap;align-items:center}
+.tools button{background:transparent;border:1px solid var(--line);color:var(--mu);padding:7px 14px;border-radius:999px;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.08em;cursor:pointer}
+.tools button.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.tools input{flex:1;min-width:180px;max-width:320px;background:var(--card);border:1px solid var(--line);color:var(--tx);border-radius:999px;padding:8px 14px;font:500 13px Inter,sans-serif}
+.tools input:focus,.tools button:focus-visible{outline:2px solid var(--ham);outline-offset:2px}
+.count{color:var(--mu);font-size:12px;margin-left:auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;border-top:3px solid var(--line)}
+.card.b-lean{border-top-color:var(--lean)} .card.b-play{border-top-color:var(--play)}
+.card.b-hammer{border-top-color:var(--ham);box-shadow:0 0 0 1px rgba(242,177,52,.25),0 8px 30px rgba(242,177,52,.08)}
+.meta{display:flex;justify-content:space-between;gap:10px;padding:11px 16px;color:var(--mu);font-size:11px;letter-spacing:.06em;border-bottom:1px solid var(--line)}
+.meta span:last-child{text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.team{display:flex;align-items:center;gap:12px;padding:10px 16px}
+.badge{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font:800 12px "Barlow Condensed";flex:none}
+.tname{flex:1;min-width:0} .tname b{display:block;font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tname small{color:var(--mu);font-size:12px} .rk{font-style:normal;color:var(--mu);font-size:12px;font-weight:600;margin-right:6px}
+.proj{font-size:32px;font-weight:700;color:var(--mu)} .team.fav .proj{color:var(--tx)}
+.wp{padding:6px 16px 14px} .wplab{display:flex;justify-content:space-between;font-size:15px;font-weight:700;margin-bottom:6px}
+.wplab .cap{color:var(--mu);font:600 10px Inter,system-ui,sans-serif;letter-spacing:.16em;align-self:center}
+.wpbar{display:flex;height:8px;border-radius:99px;overflow:hidden;gap:2px;background:var(--line)} .wpbar i{display:block;height:100%}
+.mkt{border-top:1px solid var(--line);padding:12px 16px;background:var(--card2)}
+.mlabel{color:var(--mu);font:600 10px Inter,system-ui,sans-serif;letter-spacing:.18em;margin-bottom:8px}
+.cols{display:grid;grid-template-columns:1.4fr 1.4fr .6fr;gap:8px} .cols small{display:block;color:var(--mu);font-size:10px;letter-spacing:.14em}
+.cols span{font-size:17px;font-weight:700} .edge span{color:var(--mu)} .edge.hot span{color:var(--tx);font-size:24px}
+.pick{margin-top:10px;display:flex;align-items:center;gap:10px;font-size:19px;font-weight:700;flex-wrap:wrap}
+.pick small{color:var(--mu);font:600 12px Inter,sans-serif}
+.pick .tier{font:800 11px Inter,system-ui,sans-serif;letter-spacing:.14em;padding:4px 8px;border-radius:6px;color:#0b0e13}
+.t-lean .tier{background:var(--lean)} .t-play .tier{background:var(--play)} .t-hammer .tier{background:var(--ham)}
+.t-hammer{color:var(--ham)} .pick.none{color:#4b535d;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.16em}
+.ml{border-top:1px solid var(--line);padding:10px 16px;font-size:12px;color:var(--mu);display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.ml b{color:var(--play);font-size:14px}
+.strip{border-top:1px solid var(--line);padding:12px 16px}
+.srow{display:flex;gap:16px;font-size:11px;color:var(--mu);letter-spacing:.06em;padding:3px 0;align-items:baseline}
+.srow b{color:var(--tx);width:40px;font-size:12px} .srow i{font-style:normal;color:var(--tx);font-size:15px;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 14px}
+.chip{font:600 10px Inter,system-ui,sans-serif;letter-spacing:.1em;color:#c9d1d9;border:1px solid var(--line);background:#0f1319;padding:4px 8px;border-radius:6px}
+.chip.out{color:#ffb4ab;border-color:#5a2a27;background:#1d1212}
+.foot{color:var(--mu);font-size:11px;margin-top:30px}
+.stats .pp b{color:var(--lean)}
+.ptoggle{display:flex;justify-content:space-between;align-items:center;width:100%;border:0;border-top:1px solid var(--line);
+background:#0f1319;color:var(--tx);padding:13px 16px;font:700 11px Inter,system-ui,sans-serif;letter-spacing:.16em;cursor:pointer}
+.ptoggle:hover{background:#141a22} .ptoggle em{font-style:normal;color:var(--play);margin-left:8px}
+.ptoggle .car{transition:transform .2s;color:var(--mu)} .ptoggle[aria-expanded="true"] .car{transform:rotate(180deg)}
+.props{border-top:1px solid var(--line);padding:6px 0 8px;background:#0f1319}
+.pfilt{display:flex;gap:5px;flex-wrap:wrap;padding:6px 16px 8px}
+.pfilt button{background:transparent;border:1px solid var(--line);color:var(--mu);border-radius:999px;padding:4px 9px;font:600 10px Inter,system-ui,sans-serif;letter-spacing:.1em;cursor:pointer}
+.pfilt button.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.prow{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:10px;row-gap:5px;padding:10px 16px;border-top:1px solid #1a2029}
+.pl{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis} .pl b{font-size:14px;font-weight:600} .pl small{color:var(--mu);font-size:11px}
+.pinj{font:700 10px Inter,sans-serif;color:#9ecbff;margin-left:4px}
+.pm{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:4px 12px;color:var(--mu);font-size:10px;letter-spacing:.08em}
+.pm b{color:var(--tx);font:700 13px "Barlow Condensed",sans-serif;letter-spacing:.02em}
+.pm .mk{color:#c9d1d9;font-weight:700;letter-spacing:.12em}
+.pnote{color:#ffb4ab;font-weight:600;letter-spacing:.04em}
+.ptier{flex:none;display:flex;align-items:center;gap:7px;font:700 17px "Barlow Condensed",sans-serif;white-space:nowrap}
+.ptier i{font:800 9px Inter,system-ui,sans-serif;font-style:normal;letter-spacing:.12em;padding:3px 6px;border-radius:5px;color:#0b0e13}
+.ptier small{color:var(--mu);font-size:12px}
+.ptier.t-lean i{background:var(--lean)} .ptier.t-play i{background:var(--play)} .ptier.t-hammer i{background:var(--ham)} .ptier.t-hammer{color:var(--ham)}
+.pnone{flex:none;color:#4b535d;font:600 10px Inter,system-ui,sans-serif;letter-spacing:.14em}
+.pproj{flex:none;font:700 18px "Barlow Condensed",sans-serif;color:var(--mu)}
+.prow.hide,.prow[data-hide="1"]{display:none}
+.hide{display:none}
+</style></head><body><div class="wrap">
+  <div class="top"><div><div class="k">THE ALGOHUB · NBA GAME ALGO</div><h1>MONDAY, NOVEMBER 23</h1></div>
+    <div class="stats"><div><small>GAMES</small><b>10</b></div><div class="p"><small>PLAYS</small><b>7</b></div>
+      <div class="h"><small>HAMMERS</small><b>0</b></div>
+      <div class="pp"><small>PROP PLAYS</small><b>11</b></div></div></div>
+  <div class="tools">
+    <button data-f="plays" class="">PLAYS ONLY</button><button data-f="all" class="on">ALL GAMES</button>
+    <input type="search" placeholder="Find a team" aria-label="Find a team">
+    <span class="count"></span>
+  </div>
+  <div class="grid">
+    <article class="card b-lean" data-play="1" data-s="hornets grizzlies cha mem">
+      <header class="meta"><span>7:00 PM ET</span><span>Spectrum Center</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#5d76a9;color:#fff">MEM</span>
+        <div class="tname"><b><i class="rk">#9</i>Grizzlies</b><small>12-5</small></div>
+        <div class="proj">111</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#008ca8;color:#fff">CHA</span>
+        <div class="tname"><b><i class="rk">#26</i>Hornets</b><small>4-11</small></div>
+        <div class="proj">106</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>MEM 64%</span><span class="cap">WIN PROB</span><span>CHA 36%</span></div>
+        <div class="wpbar"><i style="width:64.4%;background:#5d76a9"></i><i style="width:35.6%;background:#008ca8"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>Grizzlies -2.5</span></div>
+          <div><small>MODEL</small><span>Grizzlies -5.0</span></div>
+          <div class="edge hot"><small>EDGE</small><span>2.5</span></div></div>
+        <div class="pick t-lean"><span class="tier">LEAN</span>Grizzlies -2.5 <small>57% to cover</small></div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>215.5</span></div>
+          <div><small>MODEL</small><span>217.1</span></div>
+          <div class="edge "><small>EDGE</small><span>1.6</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      <div class="ml">ML VALUE <b>Grizzlies -138</b><span>+6.7% vs no-vig</span></div>
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>MEM</b><span>OFF <i>#4</i></span><span>DEF <i>#12</i></span><span>PACE <i>#10</i></span></div><div class="srow"><b>CHA</b><span>OFF <i>#30</i></span><span>DEF <i>#13</i></span><span>PACE <i>#28</i></span></div></div>
+      <div class="chips"><span class="chip out">MEM OUT: Jerami Grant, Cameron Boozer, GG Jackson +2</span><span class="chip out">CHA OUT: Grayson Allen, Grant Williams, Kon Knueppel +1</span></div>
+      
+      <button class="ptoggle" aria-expanded="false">PLAYER PROPS · 47 <em>4 PLAYS</em><span class="car">▾</span></button>
+      <div class="props" hidden>
+        <div class="pfilt"><button class="on" data-pm="plays">PLAYS · 4</button><button data-pm="all">ALL</button><button data-pm="pts">PTS</button><button data-pm="reb">REB</button><button data-pm="ast">AST</button><button data-pm="fg3m">3PM</button></div>
+        
+          <div class="prow" data-m="reb" data-play="1">
+            <div class="pl"><b>Ryan Kalkbrenner</b> <small>CHA</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="ptier t-lean"><i>LEAN</i>O 4.5 <small>+117</small></span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>4.5</b></span><span>PROJ <b>6.0</b></span><span>MIN <b>23</b></span><span>OVER % <b>66%</b></span><span>MKT <b>45%</b></span><span>EDGE <b>+3.9</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="1">
+            <div class="pl"><b>Jaylen Wells</b> <small>MEM</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +7 MIN</span></div>
+            <span class="ptier t-lean"><i>LEAN</i>O 1.5 <small>+102</small></span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>1.5</b></span><span>PROJ <b>2.4</b></span><span>MIN <b>33</b></span><span>OVER % <b>65%</b></span><span>MKT <b>49%</b></span><span>EDGE <b>+3.8</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="1">
+            <div class="pl"><b>Ty Jerome</b> <small>MEM</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +7 MIN</span></div>
+            <span class="ptier t-lean"><i>LEAN</i>O 2.5 <small>+102</small></span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>2.5</b></span><span>PROJ <b>3.6</b></span><span>MIN <b>36</b></span><span>OVER % <b>65%</b></span><span>MKT <b>49%</b></span><span>EDGE <b>+3.4</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="1">
+            <div class="pl"><b>Cam Spencer</b> <small>MEM</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +7 MIN</span></div>
+            <span class="ptier t-lean"><i>LEAN</i>O 1.5 <small>-113</small></span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>1.5</b></span><span>PROJ <b>2.6</b></span><span>MIN <b>32</b></span><span>OVER % <b>70%</b></span><span>MKT <b>52%</b></span><span>EDGE <b>+3.2</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Jaylen Wells</b> <small>MEM</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +7 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>9.5</b></span><span>PROJ <b>14.1</b></span><span>MIN <b>33</b></span><span>OVER % <b>73%</b></span><span>MKT <b>51%</b></span><span class="pnote">projection far from the line: role/minutes news?</span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Zach Edey</b> <small>MEM</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +6 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>8.5</b></span><span>PROJ <b>13.0</b></span><span>MIN <b>28</b></span><span>OVER % <b>75%</b></span><span>MKT <b>51%</b></span><span class="pnote">projection far from the line: role/minutes news?</span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0" data-hide="1">
+            <div class="pl"><b>Cam Spencer</b> <small>MEM</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +7 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>LINE <b>5.5</b></span><span>PROJ <b>7.5</b></span><span>MIN <b>32</b></span><span>OVER % <b>69%</b></span><span>MKT <b>48%</b></span><span class="pnote">projection far from the line: role/minutes news?</span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Isaiah Stewart</b> <small>MEM</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>8.5</b></span><span>PROJ <b>11.8</b></span><span>MIN <b>25</b></span><span>OVER % <b>69%</b></span><span>MKT <b>50%</b></span><span class="pnote">projection far from the line: role/minutes news?</span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0" data-hide="1">
+            <div class="pl"><b>Ty Jerome</b> <small>MEM</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +7 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>LINE <b>5.5</b></span><span>PROJ <b>7.2</b></span><span>MIN <b>36</b></span><span>OVER % <b>66%</b></span><span>MKT <b>46%</b></span><span class="pnote">projection far from the line: role/minutes news?</span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Cam Spencer</b> <small>MEM</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +7 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>10.5</b></span><span>PROJ <b>14.4</b></span><span>MIN <b>32</b></span><span>OVER % <b>69%</b></span><span>MKT <b>47%</b></span><span class="pnote">projection far from the line: role/minutes news?</span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Ryan Kalkbrenner</b> <small>CHA</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>4.5</b></span><span>PROJ <b>7.0</b></span><span>MIN <b>23</b></span><span>OVER % <b>72%</b></span><span>MKT <b>52%</b></span><span class="pnote">projection far from the line: role/minutes news?</span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Jaylen Wells</b> <small>MEM</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +7 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>2.5</b></span><span>PROJ <b>3.6</b></span><span>MIN <b>33</b></span><span>OVER % <b>67%</b></span><span>MKT <b>52%</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Isaiah Stewart</b> <small>MEM</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>3.5</b></span><span>PROJ <b>4.6</b></span><span>MIN <b>25</b></span><span>OVER % <b>64%</b></span><span>MKT <b>50%</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Moussa Diabaté</b> <small>CHA</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +6 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>9.5</b></span><span>PROJ <b>11.7</b></span><span>MIN <b>35</b></span><span>OVER % <b>64%</b></span><span>MKT <b>52%</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Ty Jerome</b> <small>MEM</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +7 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>22.5</b></span><span>PROJ <b>28.6</b></span><span>MIN <b>36</b></span><span>OVER % <b>65%</b></span><span>MKT <b>55%</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0" data-hide="1">
+            <div class="pl"><b>Cedric Coward</b> <small>MEM</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +7 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>2.5</b></span><span>PROJ <b>2.8</b></span><span>MIN <b>36</b></span><span>OVER % <b>49%</b></span><span>MKT <b>38%</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Royce O&#x27;Neale</b> <small>CHA</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>3.5</b></span><span>PROJ <b>4.3</b></span><span>MIN <b>28</b></span><span>OVER % <b>58%</b></span><span>MKT <b>48%</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Zach Edey</b> <small>MEM</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +6 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>6.5</b></span><span>PROJ <b>10.0</b></span><span>MIN <b>28</b></span><span>OVER % <b>79%</b></span><span>MKT <b>54%</b></span><span class="pnote">projection far from the line: role/minutes news?</span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Ty Jerome</b> <small>MEM</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +7 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>3.5</b></span><span>PROJ <b>3.9</b></span><span>MIN <b>36</b></span><span>OVER % <b>52%</b></span><span>MKT <b>42%</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0" data-hide="1">
+            <div class="pl"><b>Cedric Coward</b> <small>MEM</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +7 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>LINE <b>3.5</b></span><span>PROJ <b>3.9</b></span><span>MIN <b>36</b></span><span>OVER % <b>53%</b></span><span>MKT <b>44%</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Taylor Hendricks</b> <small>MEM</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>8.5</b></span><span>PROJ <b>10.0</b></span><span>MIN <b>23</b></span><span>OVER % <b>57%</b></span><span>MKT <b>48%</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Brandon Miller</b> <small>CHA</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +6 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>4.5</b></span><span>PROJ <b>5.4</b></span><span>MIN <b>36</b></span><span>OVER % <b>59%</b></span><span>MKT <b>51%</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Naz Reid</b> <small>CHA</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +6 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>7.5</b></span><span>PROJ <b>9.3</b></span><span>MIN <b>37</b></span><span>OVER % <b>64%</b></span><span>MKT <b>55%</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Moussa Diabaté</b> <small>CHA</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +6 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>9.5</b></span><span>PROJ <b>10.9</b></span><span>MIN <b>35</b></span><span>OVER % <b>55%</b></span><span>MKT <b>45%</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0" data-hide="1">
+            <div class="pl"><b>Royce O&#x27;Neale</b> <small>CHA</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>1.5</b></span><span>PROJ <b>2.5</b></span><span>MIN <b>28</b></span><span>OVER % <b>67%</b></span><span>MKT <b>58%</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Cam Spencer</b> <small>MEM</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +7 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>3.5</b></span><span>PROJ <b>3.6</b></span><span>MIN <b>32</b></span><span>OVER % <b>47%</b></span><span>MKT <b>42%</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Coby White</b> <small>CHA</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>17.5</b></span><span>PROJ <b>17.8</b></span><span>MIN <b>27</b></span><span>OVER % <b>46%</b></span><span>MKT <b>51%</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0" data-hide="1">
+            <div class="pl"><b>Naz Reid</b> <small>CHA</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +6 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>2.5</b></span><span>PROJ <b>3.0</b></span><span>MIN <b>37</b></span><span>OVER % <b>55%</b></span><span>MKT <b>46%</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0" data-hide="1">
+            <div class="pl"><b>Taylor Hendricks</b> <small>MEM</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>0.5</b></span><span>PROJ <b>1.2</b></span><span>MIN <b>23</b></span><span>OVER % <b>68%</b></span><span>MKT <b>62%</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0" data-hide="1">
+            <div class="pl"><b>Brandon Miller</b> <small>CHA</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +6 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>LINE <b>3.5</b></span><span>PROJ <b>3.4</b></span><span>MIN <b>36</b></span><span>OVER % <b>43%</b></span><span>MKT <b>40%</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0" data-hide="1">
+            <div class="pl"><b>Coby White</b> <small>CHA</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>1.5</b></span><span>PROJ <b>2.1</b></span><span>MIN <b>27</b></span><span>OVER % <b>59%</b></span><span>MKT <b>60%</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0" data-hide="1">
+            <div class="pl"><b>Coby White</b> <small>CHA</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>LINE <b>4.5</b></span><span>PROJ <b>4.7</b></span><span>MIN <b>27</b></span><span>OVER % <b>48%</b></span><span>MKT <b>41%</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Sion James</b> <small>CHA</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>7.5</b></span><span>PROJ <b>7.3</b></span><span>MIN <b>33</b></span><span>OVER % <b>42%</b></span><span>MKT <b>45%</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0" data-hide="1">
+            <div class="pl"><b>Sion James</b> <small>CHA</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>1.5</b></span><span>PROJ <b>1.4</b></span><span>MIN <b>33</b></span><span>OVER % <b>39%</b></span><span>MKT <b>41%</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0" data-hide="1">
+            <div class="pl"><b>Royce O&#x27;Neale</b> <small>CHA</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>LINE <b>1.5</b></span><span>PROJ <b>1.8</b></span><span>MIN <b>28</b></span><span>OVER % <b>51%</b></span><span>MKT <b>48%</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Coby White</b> <small>CHA</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>2.5</b></span><span>PROJ <b>3.3</b></span><span>MIN <b>27</b></span><span>OVER % <b>61%</b></span><span>MKT <b>51%</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Taylor Hendricks</b> <small>MEM</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>4.5</b></span><span>PROJ <b>4.6</b></span><span>MIN <b>23</b></span><span>OVER % <b>46%</b></span><span>MKT <b>47%</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Royce O&#x27;Neale</b> <small>CHA</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>4.5</b></span><span>PROJ <b>8.8</b></span><span>MIN <b>28</b></span><span>OVER % <b>83%</b></span><span>MKT <b>74%</b></span><span class="pnote">projection far from the line: role/minutes news?</span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Cedric Coward</b> <small>MEM</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +7 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>15.5</b></span><span>PROJ <b>18.1</b></span><span>MIN <b>36</b></span><span>OVER % <b>58%</b></span><span>MKT <b>54%</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0" data-hide="1">
+            <div class="pl"><b>Brandon Miller</b> <small>CHA</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +6 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>3.5</b></span><span>PROJ <b>3.6</b></span><span>MIN <b>36</b></span><span>OVER % <b>46%</b></span><span>MKT <b>40%</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0" data-hide="1">
+            <div class="pl"><b>Naz Reid</b> <small>CHA</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +6 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>LINE <b>2.5</b></span><span>PROJ <b>3.0</b></span><span>MIN <b>37</b></span><span>OVER % <b>55%</b></span><span>MKT <b>53%</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Naz Reid</b> <small>CHA</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +6 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>18.5</b></span><span>PROJ <b>20.0</b></span><span>MIN <b>37</b></span><span>OVER % <b>52%</b></span><span>MKT <b>50%</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Sion James</b> <small>CHA</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>3.5</b></span><span>PROJ <b>4.6</b></span><span>MIN <b>33</b></span><span>OVER % <b>63%</b></span><span>MKT <b>56%</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0" data-hide="1">
+            <div class="pl"><b>Moussa Diabaté</b> <small>CHA</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +6 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>LINE <b>1.5</b></span><span>PROJ <b>2.5</b></span><span>MIN <b>35</b></span><span>OVER % <b>68%</b></span><span>MKT <b>62%</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0" data-hide="1">
+            <div class="pl"><b>Sion James</b> <small>CHA</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>LINE <b>2.5</b></span><span>PROJ <b>3.3</b></span><span>MIN <b>33</b></span><span>OVER % <b>61%</b></span><span>MKT <b>57%</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Cedric Coward</b> <small>MEM</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +7 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>6.5</b></span><span>PROJ <b>8.6</b></span><span>MIN <b>36</b></span><span>OVER % <b>68%</b></span><span>MKT <b>59%</b></span><span class="pnote">projection far from the line: role/minutes news?</span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Brandon Miller</b> <small>CHA</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +6 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>20.5</b></span><span>PROJ <b>23.2</b></span><span>MIN <b>36</b></span><span>OVER % <b>56%</b></span><span>MKT <b>49%</b></span></div>
+          </div>
+      </div>
+    </article>
+    <article class="card b-play" data-play="1" data-s="76ers trail blazers phi por">
+      <header class="meta"><span>7:00 PM ET</span><span>Xfinity Mobile Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#e03a3e;color:#fff">POR</span>
+        <div class="tname"><b><i class="rk">#5</i>Trail Blazers</b><small>10-6</small></div>
+        <div class="proj">115</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#1d428a;color:#fff">PHI</span>
+        <div class="tname"><b><i class="rk">#15</i>76ers</b><small>14-3</small></div>
+        <div class="proj">116</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>POR 49%</span><span class="cap">WIN PROB</span><span>PHI 51%</span></div>
+        <div class="wpbar"><i style="width:48.7%;background:#e03a3e"></i><i style="width:51.3%;background:#1d428a"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>76ers -3.5</span></div>
+          <div><small>MODEL</small><span>76ers -0.8</span></div>
+          <div class="edge hot"><small>EDGE</small><span>2.7</span></div></div>
+        <div class="pick t-play"><span class="tier">PLAY</span>Trail Blazers +3.5 <small>57% to cover</small></div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>231.5</span></div>
+          <div><small>MODEL</small><span>230.8</span></div>
+          <div class="edge "><small>EDGE</small><span>0.7</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      <div class="ml">ML VALUE <b>Trail Blazers +141</b><span>+7.4% vs no-vig</span></div>
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>POR</b><span>OFF <i>#9</i></span><span>DEF <i>#7</i></span><span>PACE <i>#9</i></span></div><div class="srow"><b>PHI</b><span>OFF <i>#8</i></span><span>DEF <i>#19</i></span><span>PACE <i>#16</i></span></div></div>
+      <div class="chips"><span class="chip out">POR OUT: Chris Youngblood, Vit Krejci, Ja Morant +1</span><span class="chip out">PHI OUT: Adem Bona, Ariel Hukporti</span></div>
+      
+      <button class="ptoggle" aria-expanded="false">PLAYER PROPS · 52 <em>5 PLAYS</em><span class="car">▾</span></button>
+      <div class="props" hidden>
+        <div class="pfilt"><button class="on" data-pm="plays">PLAYS · 5</button><button data-pm="all">ALL</button><button data-pm="pts">PTS</button><button data-pm="reb">REB</button><button data-pm="ast">AST</button><button data-pm="fg3m">3PM</button></div>
+        
+          <div class="prow" data-m="ast" data-play="1">
+            <div class="pl"><b>Jaylen Brown</b> <small>PHI</small></div>
+            <span class="ptier t-lean"><i>LEAN</i>O 3.5 <small>+156</small></span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>LINE <b>3.5</b></span><span>PROJ <b>4.2</b></span><span>MIN <b>35</b></span><span>OVER % <b>58%</b></span><span>MKT <b>39%</b></span><span>EDGE <b>+4.4</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="1">
+            <div class="pl"><b>Jrue Holiday</b> <small>POR</small></div>
+            <span class="ptier t-lean"><i>LEAN</i>O 4.5 <small>+133</small></span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>LINE <b>4.5</b></span><span>PROJ <b>5.5</b></span><span>MIN <b>30</b></span><span>OVER % <b>60%</b></span><span>MKT <b>42%</b></span><span>EDGE <b>+3.9</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="1">
+            <div class="pl"><b>Scoot Henderson</b> <small>POR</small></div>
+            <span class="ptier t-lean"><i>LEAN</i>O 1.5 <small>-117</small></span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>LINE <b>1.5</b></span><span>PROJ <b>2.6</b></span><span>MIN <b>26</b></span><span>OVER % <b>71%</b></span><span>MKT <b>53%</b></span><span>EDGE <b>+3.7</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="1">
+            <div class="pl"><b>VJ Edgecombe</b> <small>PHI</small></div>
+            <span class="ptier t-lean"><i>LEAN</i>O 3.5 <small>+138</small></span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>LINE <b>3.5</b></span><span>PROJ <b>4.3</b></span><span>MIN <b>36</b></span><span>OVER % <b>58%</b></span><span>MKT <b>41%</b></span><span>EDGE <b>+3.5</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="1">
+            <div class="pl"><b>Anfernee Simons</b> <small>PHI</small></div>
+            <span class="ptier t-lean"><i>LEAN</i>O 1.5 <small>-120</small></span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>1.5</b></span><span>PROJ <b>2.6</b></span><span>MIN <b>24</b></span><span>OVER % <b>70%</b></span><span>MKT <b>54%</b></span><span>EDGE <b>+3.4</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Anfernee Simons</b> <small>PHI</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>7.5</b></span><span>PROJ <b>12.6</b></span><span>MIN <b>24</b></span><span>OVER % <b>79%</b></span><span>MKT <b>54%</b></span><span class="pnote">model way off the line: news?</span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>VJ Edgecombe</b> <small>PHI</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>11.5</b></span><span>PROJ <b>14.8</b></span><span>MIN <b>36</b></span><span>OVER % <b>65%</b></span><span>MKT <b>50%</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0" data-hide="1">
+            <div class="pl"><b>Tyrese Maxey</b> <small>PHI</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>LINE <b>4.5</b></span><span>PROJ <b>6.1</b></span><span>MIN <b>37</b></span><span>OVER % <b>67%</b></span><span>MKT <b>53%</b></span><span class="pnote">projection far from the line: role/minutes news?</span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0" data-hide="1">
+            <div class="pl"><b>Toumani Camara</b> <small>POR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>LINE <b>1.5</b></span><span>PROJ <b>1.9</b></span><span>MIN <b>34</b></span><span>OVER % <b>56%</b></span><span>MKT <b>44%</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Scoot Henderson</b> <small>POR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>9.5</b></span><span>PROJ <b>12.4</b></span><span>MIN <b>26</b></span><span>OVER % <b>65%</b></span><span>MKT <b>52%</b></span><span class="pnote">projection far from the line: role/minutes news?</span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>LeBron James</b> <small>PHI</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>14.5</b></span><span>PROJ <b>18.1</b></span><span>MIN <b>34</b></span><span>OVER % <b>63%</b></span><span>MKT <b>52%</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0" data-hide="1">
+            <div class="pl"><b>Joel Embiid</b> <small>PHI</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>1.5</b></span><span>PROJ <b>0.9</b></span><span>MIN <b>33</b></span><span>OVER % <b>21%</b></span><span>MKT <b>32%</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Jrue Holiday</b> <small>POR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>12.5</b></span><span>PROJ <b>15.9</b></span><span>MIN <b>30</b></span><span>OVER % <b>64%</b></span><span>MKT <b>50%</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0" data-hide="1">
+            <div class="pl"><b>LeBron James</b> <small>PHI</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>1.5</b></span><span>PROJ <b>1.0</b></span><span>MIN <b>34</b></span><span>OVER % <b>27%</b></span><span>MKT <b>38%</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0" data-hide="1">
+            <div class="pl"><b>Jrue Holiday</b> <small>POR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>1.5</b></span><span>PROJ <b>2.7</b></span><span>MIN <b>30</b></span><span>OVER % <b>71%</b></span><span>MKT <b>62%</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Anfernee Simons</b> <small>PHI</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>1.5</b></span><span>PROJ <b>2.1</b></span><span>MIN <b>24</b></span><span>OVER % <b>60%</b></span><span>MKT <b>52%</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Sidy Cissoko</b> <small>POR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>6.5</b></span><span>PROJ <b>7.9</b></span><span>MIN <b>26</b></span><span>OVER % <b>58%</b></span><span>MKT <b>46%</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Jaylen Brown</b> <small>PHI</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>5.5</b></span><span>PROJ <b>6.6</b></span><span>MIN <b>35</b></span><span>OVER % <b>59%</b></span><span>MKT <b>52%</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Jaylen Brown</b> <small>PHI</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>19.5</b></span><span>PROJ <b>24.7</b></span><span>MIN <b>35</b></span><span>OVER % <b>65%</b></span><span>MKT <b>53%</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Toumani Camara</b> <small>POR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>4.5</b></span><span>PROJ <b>4.4</b></span><span>MIN <b>34</b></span><span>OVER % <b>44%</b></span><span>MKT <b>50%</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0" data-hide="1">
+            <div class="pl"><b>Damian Lillard</b> <small>POR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>3.5</b></span><span>PROJ <b>3.1</b></span><span>MIN <b>32</b></span><span>OVER % <b>38%</b></span><span>MKT <b>44%</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0" data-hide="1">
+            <div class="pl"><b>Deni Avdija</b> <small>POR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>LINE <b>5.5</b></span><span>PROJ <b>6.8</b></span><span>MIN <b>36</b></span><span>OVER % <b>61%</b></span><span>MKT <b>56%</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0" data-hide="1">
+            <div class="pl"><b>LeBron James</b> <small>PHI</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>LINE <b>6.5</b></span><span>PROJ <b>7.1</b></span><span>MIN <b>34</b></span><span>OVER % <b>53%</b></span><span>MKT <b>48%</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0" data-hide="1">
+            <div class="pl"><b>Anfernee Simons</b> <small>PHI</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>LINE <b>1.5</b></span><span>PROJ <b>1.8</b></span><span>MIN <b>24</b></span><span>OVER % <b>52%</b></span><span>MKT <b>46%</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0" data-hide="1">
+            <div class="pl"><b>Toumani Camara</b> <small>POR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>2.5</b></span><span>PROJ <b>2.9</b></span><span>MIN <b>34</b></span><span>OVER % <b>52%</b></span><span>MKT <b>43%</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Damian Lillard</b> <small>POR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>21.5</b></span><span>PROJ <b>20.9</b></span><span>MIN <b>32</b></span><span>OVER % <b>42%</b></span><span>MKT <b>50%</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Tyrese Maxey</b> <small>PHI</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>23.5</b></span><span>PROJ <b>26.4</b></span><span>MIN <b>37</b></span><span>OVER % <b>55%</b></span><span>MKT <b>50%</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Damian Lillard</b> <small>POR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>3.5</b></span><span>PROJ <b>3.8</b></span><span>MIN <b>32</b></span><span>OVER % <b>50%</b></span><span>MKT <b>46%</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0" data-hide="1">
+            <div class="pl"><b>Donovan Clingan</b> <small>POR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>LINE <b>1.5</b></span><span>PROJ <b>2.2</b></span><span>MIN <b>29</b></span><span>OVER % <b>62%</b></span><span>MKT <b>59%</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0" data-hide="1">
+            <div class="pl"><b>Scoot Henderson</b> <small>POR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>1.5</b></span><span>PROJ <b>1.6</b></span><span>MIN <b>26</b></span><span>OVER % <b>45%</b></span><span>MKT <b>37%</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0" data-hide="1">
+            <div class="pl"><b>Donovan Clingan</b> <small>POR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>0.5</b></span><span>PROJ <b>1.1</b></span><span>MIN <b>29</b></span><span>OVER % <b>66%</b></span><span>MKT <b>62%</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0" data-hide="1">
+            <div class="pl"><b>Tyrese Maxey</b> <small>PHI</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>2.5</b></span><span>PROJ <b>2.8</b></span><span>MIN <b>37</b></span><span>OVER % <b>51%</b></span><span>MKT <b>48%</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0" data-hide="1">
+            <div class="pl"><b>Damian Lillard</b> <small>POR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>LINE <b>4.5</b></span><span>PROJ <b>4.2</b></span><span>MIN <b>32</b></span><span>OVER % <b>40%</b></span><span>MKT <b>43%</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0" data-hide="1">
+            <div class="pl"><b>VJ Edgecombe</b> <small>PHI</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>1.5</b></span><span>PROJ <b>1.9</b></span><span>MIN <b>36</b></span><span>OVER % <b>53%</b></span><span>MKT <b>50%</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>VJ Edgecombe</b> <small>PHI</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>5.5</b></span><span>PROJ <b>6.1</b></span><span>MIN <b>36</b></span><span>OVER % <b>53%</b></span><span>MKT <b>50%</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>LeBron James</b> <small>PHI</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>6.5</b></span><span>PROJ <b>6.4</b></span><span>MIN <b>34</b></span><span>OVER % <b>44%</b></span><span>MKT <b>45%</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Tyrese Maxey</b> <small>PHI</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>3.5</b></span><span>PROJ <b>3.5</b></span><span>MIN <b>37</b></span><span>OVER % <b>45%</b></span><span>MKT <b>42%</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Scoot Henderson</b> <small>POR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>2.5</b></span><span>PROJ <b>2.4</b></span><span>MIN <b>26</b></span><span>OVER % <b>42%</b></span><span>MKT <b>39%</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0" data-hide="1">
+            <div class="pl"><b>Deni Avdija</b> <small>POR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>1.5</b></span><span>PROJ <b>2.2</b></span><span>MIN <b>36</b></span><span>OVER % <b>61%</b></span><span>MKT <b>56%</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Donovan Clingan</b> <small>POR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>11.5</b></span><span>PROJ <b>11.7</b></span><span>MIN <b>29</b></span><span>OVER % <b>47%</b></span><span>MKT <b>45%</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0" data-hide="1">
+            <div class="pl"><b>Sidy Cissoko</b> <small>POR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>LINE <b>1.5</b></span><span>PROJ <b>2.0</b></span><span>MIN <b>26</b></span><span>OVER % <b>58%</b></span><span>MKT <b>50%</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Sidy Cissoko</b> <small>POR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>3.5</b></span><span>PROJ <b>3.4</b></span><span>MIN <b>26</b></span><span>OVER % <b>43%</b></span><span>MKT <b>42%</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0" data-hide="1">
+            <div class="pl"><b>Joel Embiid</b> <small>PHI</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>LINE <b>3.5</b></span><span>PROJ <b>4.2</b></span><span>MIN <b>33</b></span><span>OVER % <b>57%</b></span><span>MKT <b>53%</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0" data-hide="1">
+            <div class="pl"><b>Jaylen Brown</b> <small>PHI</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>1.5</b></span><span>PROJ <b>2.0</b></span><span>MIN <b>35</b></span><span>OVER % <b>57%</b></span><span>MKT <b>48%</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Deni Avdija</b> <small>POR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>23.5</b></span><span>PROJ <b>25.7</b></span><span>MIN <b>36</b></span><span>OVER % <b>53%</b></span><span>MKT <b>49%</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0" data-hide="1">
+            <div class="pl"><b>Sidy Cissoko</b> <small>POR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>0.5</b></span><span>PROJ <b>1.4</b></span><span>MIN <b>26</b></span><span>OVER % <b>72%</b></span><span>MKT <b>65%</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Joel Embiid</b> <small>PHI</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>8.5</b></span><span>PROJ <b>8.3</b></span><span>MIN <b>33</b></span><span>OVER % <b>44%</b></span><span>MKT <b>44%</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Toumani Camara</b> <small>POR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>10.5</b></span><span>PROJ <b>13.7</b></span><span>MIN <b>34</b></span><span>OVER % <b>66%</b></span><span>MKT <b>54%</b></span><span class="pnote">projection far from the line: role/minutes news?</span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Deni Avdija</b> <small>POR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>6.5</b></span><span>PROJ <b>6.8</b></span><span>MIN <b>36</b></span><span>OVER % <b>49%</b></span><span>MKT <b>51%</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Jrue Holiday</b> <small>POR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>3.5</b></span><span>PROJ <b>4.3</b></span><span>MIN <b>30</b></span><span>OVER % <b>58%</b></span><span>MKT <b>60%</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Donovan Clingan</b> <small>POR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>10.5</b></span><span>PROJ <b>12.7</b></span><span>MIN <b>29</b></span><span>OVER % <b>60%</b></span><span>MKT <b>51%</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Joel Embiid</b> <small>PHI</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>22.5</b></span><span>PROJ <b>23.1</b></span><span>MIN <b>33</b></span><span>OVER % <b>47%</b></span><span>MKT <b>47%</b></span></div>
+          </div>
+      </div>
+    </article>
+    <article class="card b-none" data-play="1" data-s="pacers thunder ind okc">
+      <header class="meta"><span>7:30 PM ET</span><span>Gainbridge Fieldhouse</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#007ac1;color:#fff">OKC</span>
+        <div class="tname"><b><i class="rk">#7</i>Thunder</b><small>10-7</small></div>
+        <div class="proj">113</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#0c2340;color:#fff">IND</span>
+        <div class="tname"><b><i class="rk">#21</i>Pacers</b><small>5-12</small></div>
+        <div class="proj">108</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>OKC 66%</span><span class="cap">WIN PROB</span><span>IND 34%</span></div>
+        <div class="wpbar"><i style="width:66.4%;background:#007ac1"></i><i style="width:33.6%;background:#0c2340"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>Thunder -4.5</span></div>
+          <div><small>MODEL</small><span>Thunder -5.7</span></div>
+          <div class="edge "><small>EDGE</small><span>1.2</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>221.5</span></div>
+          <div><small>MODEL</small><span>221.1</span></div>
+          <div class="edge "><small>EDGE</small><span>0.4</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>OKC</b><span>OFF <i>#15</i></span><span>DEF <i>#4</i></span><span>PACE <i>#18</i></span></div><div class="srow"><b>IND</b><span>OFF <i>#27</i></span><span>DEF <i>#15</i></span><span>PACE <i>#6</i></span></div></div>
+      <div class="chips"><span class="chip">OKC B2B</span><span class="chip">IND B2B</span><span class="chip out">OKC OUT: Aday Mara, Shai Gilgeous-Alexander, Nikola Topic +6</span><span class="chip out">IND OUT: T.J. McConnell, Tyrese Haliburton, Johnny Furphy +1</span></div>
+      
+      <button class="ptoggle" aria-expanded="false">PLAYER PROPS · 12 <em>1 PLAY</em><span class="car">▾</span></button>
+      <div class="props" hidden>
+        <div class="pfilt"><button class="on" data-pm="plays">PLAYS · 1</button><button data-pm="all">ALL</button><button data-pm="pts">PTS</button><button data-pm="reb">REB</button><button data-pm="ast">AST</button><button data-pm="fg3m">3PM</button></div>
+        
+          <div class="prow" data-m="reb" data-play="1">
+            <div class="pl"><b>Jared McCain</b> <small>OKC</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +13 MIN</span></div>
+            <span class="ptier t-lean"><i>LEAN</i>O 3.5 <small>+138</small></span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>3.5</b></span><span>PROJ <b>4.6</b></span><span>MIN <b>40</b></span><span>OVER % <b>63%</b></span><span>MKT <b>42%</b></span><span>EDGE <b>+4.9</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Ajay Mitchell</b> <small>OKC</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +13 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>3.5</b></span><span>PROJ <b>5.0</b></span><span>MIN <b>40</b></span><span>OVER % <b>69%</b></span><span>MKT <b>55%</b></span><span class="pnote">projection far from the line: role/minutes news?</span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0" data-hide="1">
+            <div class="pl"><b>Jared McCain</b> <small>OKC</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +13 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>LINE <b>1.5</b></span><span>PROJ <b>2.8</b></span><span>MIN <b>40</b></span><span>OVER % <b>74%</b></span><span>MKT <b>61%</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0" data-hide="1">
+            <div class="pl"><b>Ajay Mitchell</b> <small>OKC</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +13 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>1.5</b></span><span>PROJ <b>1.5</b></span><span>MIN <b>40</b></span><span>OVER % <b>42%</b></span><span>MKT <b>34%</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Pascal Siakam</b> <small>IND</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>20.5</b></span><span>PROJ <b>23.8</b></span><span>MIN <b>34</b></span><span>OVER % <b>58%</b></span><span>MKT <b>50%</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0" data-hide="1">
+            <div class="pl"><b>Pascal Siakam</b> <small>IND</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>1.5</b></span><span>PROJ <b>1.8</b></span><span>MIN <b>34</b></span><span>OVER % <b>53%</b></span><span>MKT <b>49%</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0" data-hide="1">
+            <div class="pl"><b>Kelly Oubre Jr.</b> <small>IND</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>1.5</b></span><span>PROJ <b>1.4</b></span><span>MIN <b>28</b></span><span>OVER % <b>39%</b></span><span>MKT <b>44%</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Aaron Nesmith</b> <small>IND</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>3.5</b></span><span>PROJ <b>3.7</b></span><span>MIN <b>31</b></span><span>OVER % <b>49%</b></span><span>MKT <b>52%</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Kelly Oubre Jr.</b> <small>IND</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>3.5</b></span><span>PROJ <b>3.9</b></span><span>MIN <b>28</b></span><span>OVER % <b>53%</b></span><span>MKT <b>56%</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0" data-hide="1">
+            <div class="pl"><b>Ivica Zubac</b> <small>IND</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>LINE <b>1.5</b></span><span>PROJ <b>2.1</b></span><span>MIN <b>28</b></span><span>OVER % <b>59%</b></span><span>MKT <b>57%</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Ivica Zubac</b> <small>IND</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>11.5</b></span><span>PROJ <b>12.2</b></span><span>MIN <b>28</b></span><span>OVER % <b>50%</b></span><span>MKT <b>48%</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Andrew Nembhard</b> <small>IND</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>2.5</b></span><span>PROJ <b>2.5</b></span><span>MIN <b>34</b></span><span>OVER % <b>45%</b></span><span>MKT <b>45%</b></span></div>
+          </div>
+      </div>
+    </article>
+    <article class="card b-none" data-play="1" data-s="raptors bucks tor mil">
+      <header class="meta"><span>7:30 PM ET</span><span>Scotiabank Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#00471b;color:#fff">MIL</span>
+        <div class="tname"><b><i class="rk">#30</i>Bucks</b><small>1-16</small></div>
+        <div class="proj">107</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#d91244;color:#fff">TOR</span>
+        <div class="tname"><b><i class="rk">#18</i>Raptors</b><small>6-10</small></div>
+        <div class="proj">118</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>MIL 21%</span><span class="cap">WIN PROB</span><span>TOR 79%</span></div>
+        <div class="wpbar"><i style="width:21.1%;background:#00471b"></i><i style="width:78.9%;background:#d91244"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>Raptors -10.5</span></div>
+          <div><small>MODEL</small><span>Raptors -10.4</span></div>
+          <div class="edge "><small>EDGE</small><span>0.1</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>223.5</span></div>
+          <div><small>MODEL</small><span>225.0</span></div>
+          <div class="edge "><small>EDGE</small><span>1.5</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>MIL</b><span>OFF <i>#26</i></span><span>DEF <i>#30</i></span><span>PACE <i>#14</i></span></div><div class="srow"><b>TOR</b><span>OFF <i>#14</i></span><span>DEF <i>#14</i></span><span>PACE <i>#26</i></span></div></div>
+      <div class="chips"><span class="chip out">MIL OUT: Ousmane Dieng</span><span class="chip out">TOR OUT: Nate Bittle, Kawhi Leonard, RJ Barrett</span></div>
+      
+      <button class="ptoggle" aria-expanded="false">PLAYER PROPS · 4 <em>1 PLAY</em><span class="car">▾</span></button>
+      <div class="props" hidden>
+        <div class="pfilt"><button class="on" data-pm="plays">PLAYS · 1</button><button data-pm="all">ALL</button><button data-pm="pts">PTS</button><button data-pm="reb">REB</button><button data-pm="fg3m">3PM</button></div>
+        
+          <div class="prow" data-m="reb" data-play="1">
+            <div class="pl"><b>Allen Graves</b> <small>TOR</small></div>
+            <span class="ptier t-lean"><i>LEAN</i>U 4.5 <small>+111</small></span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>4.5</b></span><span>PROJ <b>3.9</b></span><span>MIN <b>21</b></span><span>OVER % <b>35%</b></span><span>MKT <b>53%</b></span><span>EDGE <b>+3.8</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0" data-hide="1">
+            <div class="pl"><b>Jakob Poeltl</b> <small>TOR</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>LINE <b>7.5</b></span><span>PROJ <b>7.7</b></span><span>MIN <b>28</b></span><span>OVER % <b>48%</b></span><span>MKT <b>56%</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0" data-hide="1">
+            <div class="pl"><b>Allen Graves</b> <small>TOR</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>8.5</b></span><span>PROJ <b>8.2</b></span><span>MIN <b>21</b></span><span>OVER % <b>42%</b></span><span>MKT <b>49%</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0" data-hide="1">
+            <div class="pl"><b>Immanuel Quickley</b> <small>TOR</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">THREES</span><span>LINE <b>2.5</b></span><span>PROJ <b>3.1</b></span><span>MIN <b>37</b></span><span>OVER % <b>55%</b></span><span>MKT <b>52%</b></span></div>
+          </div>
+      </div>
+    </article>
+    <article class="card b-lean" data-play="1" data-s="timberwolves nets min bkn">
+      <header class="meta"><span>7:30 PM ET</span><span>Target Center</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#000000;color:#fff">BKN</span>
+        <div class="tname"><b><i class="rk">#28</i>Nets</b><small>3-12</small></div>
+        <div class="proj">105</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#266092;color:#fff">MIN</span>
+        <div class="tname"><b><i class="rk">#2</i>Timberwolves</b><small>12-5</small></div>
+        <div class="proj">118</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>BKN 13%</span><span class="cap">WIN PROB</span><span>MIN 87%</span></div>
+        <div class="wpbar"><i style="width:13.3%;background:#000000"></i><i style="width:86.7%;background:#266092"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>Timberwolves -11.5</span></div>
+          <div><small>MODEL</small><span>Timberwolves -13.4</span></div>
+          <div class="edge hot"><small>EDGE</small><span>1.9</span></div></div>
+        <div class="pick t-lean"><span class="tier">LEAN</span>Timberwolves -11.5 <small>55% to cover</small></div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>223.5</span></div>
+          <div><small>MODEL</small><span>223.2</span></div>
+          <div class="edge "><small>EDGE</small><span>0.3</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>BKN</b><span>OFF <i>#25</i></span><span>DEF <i>#28</i></span><span>PACE <i>#17</i></span></div><div class="srow"><b>MIN</b><span>OFF <i>#17</i></span><span>DEF <i>#1</i></span><span>PACE <i>#5</i></span></div></div>
+      <div class="chips"><span class="chip out">BKN OUT: Nolan Traore</span><span class="chip out">MIN OUT: Jaylen Clark, Anthony Edwards, Donte DiVincenzo</span></div>
+      
+      <button class="ptoggle" aria-expanded="false">PLAYER PROPS · 4<span class="car">▾</span></button>
+      <div class="props" hidden>
+        <div class="pfilt"><button class=on data-pm="all">ALL</button><button data-pm="pts">PTS</button><button data-pm="ast">AST</button></div>
+        
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Ayo Dosunmu</b> <small>MIN</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>LINE <b>3.5</b></span><span>PROJ <b>4.0</b></span><span>MIN <b>34</b></span><span>OVER % <b>53%</b></span><span>MKT <b>56%</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>LaMelo Ball</b> <small>MIN</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>18.5</b></span><span>PROJ <b>20.5</b></span><span>MIN <b>32</b></span><span>OVER % <b>54%</b></span><span>MKT <b>50%</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Julius Randle</b> <small>BKN</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>20.5</b></span><span>PROJ <b>21.7</b></span><span>MIN <b>35</b></span><span>OVER % <b>50%</b></span><span>MKT <b>48%</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Danny Wolf</b> <small>BKN</small></div>
+            <span class="pnone">NO PLAY</span>
+            <div class="pm"><span class="mk">POINTS</span><span>LINE <b>8.5</b></span><span>PROJ <b>10.2</b></span><span>MIN <b>24</b></span><span>OVER % <b>59%</b></span><span>MKT <b>53%</b></span></div>
+          </div>
+      </div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="bulls cavaliers chi cle">
+      <header class="meta"><span>8:00 PM ET</span><span>United Center</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#860038;color:#fff">CLE</span>
+        <div class="tname"><b><i class="rk">#12</i>Cavaliers</b><small>9-8</small></div>
+        <div class="proj">125</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#ce1141;color:#fff">CHI</span>
+        <div class="tname"><b><i class="rk">#23</i>Bulls</b><small>4-12</small></div>
+        <div class="proj">117</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>CLE 74%</span><span class="cap">WIN PROB</span><span>CHI 26%</span></div>
+        <div class="wpbar"><i style="width:74.2%;background:#860038"></i><i style="width:25.8%;background:#ce1141"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>Cavaliers -8.5</span></div>
+          <div><small>MODEL</small><span>Cavaliers -8.3</span></div>
+          <div class="edge "><small>EDGE</small><span>0.2</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>240.5</span></div>
+          <div><small>MODEL</small><span>242.4</span></div>
+          <div class="edge "><small>EDGE</small><span>1.9</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>CLE</b><span>OFF <i>#2</i></span><span>DEF <i>#23</i></span><span>PACE <i>#8</i></span></div><div class="srow"><b>CHI</b><span>OFF <i>#19</i></span><span>DEF <i>#27</i></span><span>PACE <i>#1</i></span></div></div>
+      <div class="chips"><span class="chip">CHI B2B</span><span class="chip out">CLE OUT: Jaylon Tyson, Nae&#x27;Qwan Tomlin, Evan Mobley</span><span class="chip out">CHI OUT: Nic Claxton, Norman Powell, Caleb Wilson</span></div>
+      
+      <button class="ptoggle" aria-expanded="false">PLAYER PROPS · 56<span class="car">▾</span></button>
+      <div class="props" hidden>
+        <div class="pfilt"><button class=on data-pm="all">ALL</button><button data-pm="pts">PTS</button><button data-pm="reb">REB</button><button data-pm="ast">AST</button><button data-pm="fg3m">3PM</button></div>
+        
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Donovan Mitchell</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pproj">30.6</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>30.6</b></span><span>MIN <b>38</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Donovan Mitchell</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pproj">5.3</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>5.3</b></span><span>MIN <b>38</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Donovan Mitchell</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pproj">6.4</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>6.4</b></span><span>MIN <b>38</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Donovan Mitchell</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pproj">3.5</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>3.5</b></span><span>MIN <b>38</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>James Harden</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pproj">24.3</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>24.3</b></span><span>MIN <b>39</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>James Harden</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pproj">5.5</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>5.5</b></span><span>MIN <b>39</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>James Harden</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pproj">8.2</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>8.2</b></span><span>MIN <b>39</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>James Harden</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pproj">3.6</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>3.6</b></span><span>MIN <b>39</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Jarrett Allen</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">16.8</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>16.8</b></span><span>MIN <b>31</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Jarrett Allen</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">10.0</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>10.0</b></span><span>MIN <b>31</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Jarrett Allen</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">2.2</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>2.2</b></span><span>MIN <b>31</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Jarrett Allen</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">0.2</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>0.2</b></span><span>MIN <b>31</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Meleek Thomas</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">15.1</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>15.1</b></span><span>MIN <b>27</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Meleek Thomas</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">3.6</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>3.6</b></span><span>MIN <b>27</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Meleek Thomas</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">2.4</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>2.4</b></span><span>MIN <b>27</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Meleek Thomas</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">2.6</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>2.6</b></span><span>MIN <b>27</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Peyton Watson</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">14.7</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>14.7</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Peyton Watson</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">5.2</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>5.2</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Peyton Watson</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">2.7</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>2.7</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Peyton Watson</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">1.5</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>1.5</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Sam Merrill</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">11.7</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>11.7</b></span><span>MIN <b>27</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Sam Merrill</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">3.1</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>3.1</b></span><span>MIN <b>27</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Sam Merrill</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">2.5</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>2.5</b></span><span>MIN <b>27</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Sam Merrill</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">2.7</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>2.7</b></span><span>MIN <b>27</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Tyrese Proctor</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">12.0</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>12.0</b></span><span>MIN <b>24</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Tyrese Proctor</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">3.3</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>3.3</b></span><span>MIN <b>24</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Tyrese Proctor</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">3.3</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>3.3</b></span><span>MIN <b>24</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Tyrese Proctor</b> <small>CLE</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">2.2</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>2.2</b></span><span>MIN <b>24</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Buddy Hield</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">12.3</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>12.3</b></span><span>MIN <b>24</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Buddy Hield</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">3.3</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>3.3</b></span><span>MIN <b>24</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Buddy Hield</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">2.4</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>2.4</b></span><span>MIN <b>24</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Buddy Hield</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">2.5</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>2.5</b></span><span>MIN <b>24</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Isaac Okoro</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +6 MIN</span></div>
+            <span class="pproj">11.1</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>11.1</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Isaac Okoro</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +6 MIN</span></div>
+            <span class="pproj">3.4</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>3.4</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Isaac Okoro</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +6 MIN</span></div>
+            <span class="pproj">2.3</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>2.3</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Isaac Okoro</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +6 MIN</span></div>
+            <span class="pproj">1.4</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>1.4</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Jalen Smith</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +6 MIN</span></div>
+            <span class="pproj">16.5</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>16.5</b></span><span>MIN <b>31</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Jalen Smith</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +6 MIN</span></div>
+            <span class="pproj">9.3</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>9.3</b></span><span>MIN <b>31</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Jalen Smith</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +6 MIN</span></div>
+            <span class="pproj">2.2</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>2.2</b></span><span>MIN <b>31</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Jalen Smith</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +6 MIN</span></div>
+            <span class="pproj">2.5</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>2.5</b></span><span>MIN <b>31</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Josh Giddey</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +7 MIN</span></div>
+            <span class="pproj">16.2</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>16.2</b></span><span>MIN <b>37</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Josh Giddey</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +7 MIN</span></div>
+            <span class="pproj">8.4</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>8.4</b></span><span>MIN <b>37</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Josh Giddey</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +7 MIN</span></div>
+            <span class="pproj">11.4</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>11.4</b></span><span>MIN <b>37</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Josh Giddey</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +7 MIN</span></div>
+            <span class="pproj">1.8</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>1.8</b></span><span>MIN <b>37</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Matas Buzelis</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +7 MIN</span></div>
+            <span class="pproj">19.8</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>19.8</b></span><span>MIN <b>36</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Matas Buzelis</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +7 MIN</span></div>
+            <span class="pproj">6.3</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>6.3</b></span><span>MIN <b>36</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Matas Buzelis</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +7 MIN</span></div>
+            <span class="pproj">2.6</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>2.6</b></span><span>MIN <b>36</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Matas Buzelis</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +7 MIN</span></div>
+            <span class="pproj">2.8</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>2.8</b></span><span>MIN <b>36</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Patrick Williams</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pproj">8.2</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>8.2</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Patrick Williams</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pproj">3.4</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>3.4</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Patrick Williams</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pproj">1.9</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>1.9</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Patrick Williams</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pproj">1.4</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>1.4</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Tre Jones</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pproj">13.9</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>13.9</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Tre Jones</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pproj">2.8</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>2.8</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Tre Jones</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pproj">5.0</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>5.0</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Tre Jones</b> <small>CHI</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +5 MIN</span></div>
+            <span class="pproj">0.5</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>0.5</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+      </div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="pelicans suns nop phx">
+      <header class="meta"><span>8:00 PM ET</span><span>Smoothie King Center</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#29127a;color:#fff">PHX</span>
+        <div class="tname"><b><i class="rk">#16</i>Suns</b><small>8-7</small></div>
+        <div class="proj">119</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#0a2240;color:#fff">NOP</span>
+        <div class="tname"><b><i class="rk">#27</i>Pelicans</b><small>5-13</small></div>
+        <div class="proj">115</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>PHX 62%</span><span class="cap">WIN PROB</span><span>NOP 38%</span></div>
+        <div class="wpbar"><i style="width:62.3%;background:#29127a"></i><i style="width:37.7%;background:#0a2240"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>Suns -3.5</span></div>
+          <div><small>MODEL</small><span>Suns -4.7</span></div>
+          <div class="edge "><small>EDGE</small><span>1.2</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>233.5</span></div>
+          <div><small>MODEL</small><span>233.8</span></div>
+          <div class="edge "><small>EDGE</small><span>0.3</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>PHX</b><span>OFF <i>#10</i></span><span>DEF <i>#16</i></span><span>PACE <i>#23</i></span></div><div class="srow"><b>NOP</b><span>OFF <i>#23</i></span><span>DEF <i>#29</i></span><span>PACE <i>#4</i></span></div></div>
+      <div class="chips"><span class="chip out">PHX OUT: Mark Williams</span><span class="chip out">NOP OUT: Bryce McGowens, Trendon Watford, Bennedict Mathurin +1</span></div>
+      
+      <button class="ptoggle" aria-expanded="false">PLAYER PROPS · 52<span class="car">▾</span></button>
+      <div class="props" hidden>
+        <div class="pfilt"><button class=on data-pm="all">ALL</button><button data-pm="pts">PTS</button><button data-pm="reb">REB</button><button data-pm="ast">AST</button><button data-pm="fg3m">3PM</button></div>
+        
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Collin Gillespie</b> <small>PHX</small></div>
+            <span class="pproj">10.9</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>10.9</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Collin Gillespie</b> <small>PHX</small></div>
+            <span class="pproj">3.0</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>3.0</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Collin Gillespie</b> <small>PHX</small></div>
+            <span class="pproj">4.1</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>4.1</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Collin Gillespie</b> <small>PHX</small></div>
+            <span class="pproj">2.5</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>2.5</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Devin Booker</b> <small>PHX</small></div>
+            <span class="pproj">26.0</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>26.0</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Devin Booker</b> <small>PHX</small></div>
+            <span class="pproj">3.1</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>3.1</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Devin Booker</b> <small>PHX</small></div>
+            <span class="pproj">5.7</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>5.7</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Devin Booker</b> <small>PHX</small></div>
+            <span class="pproj">2.0</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>2.0</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Dillon Brooks</b> <small>PHX</small></div>
+            <span class="pproj">17.1</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>17.1</b></span><span>MIN <b>29</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Dillon Brooks</b> <small>PHX</small></div>
+            <span class="pproj">3.4</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>3.4</b></span><span>MIN <b>29</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Dillon Brooks</b> <small>PHX</small></div>
+            <span class="pproj">2.1</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>2.1</b></span><span>MIN <b>29</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Dillon Brooks</b> <small>PHX</small></div>
+            <span class="pproj">2.2</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>2.2</b></span><span>MIN <b>29</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Jalen Green</b> <small>PHX</small></div>
+            <span class="pproj">15.1</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>15.1</b></span><span>MIN <b>26</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Jalen Green</b> <small>PHX</small></div>
+            <span class="pproj">3.5</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>3.5</b></span><span>MIN <b>26</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Jalen Green</b> <small>PHX</small></div>
+            <span class="pproj">3.1</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>3.1</b></span><span>MIN <b>26</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Jalen Green</b> <small>PHX</small></div>
+            <span class="pproj">1.7</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>1.7</b></span><span>MIN <b>26</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Miles Bridges</b> <small>PHX</small></div>
+            <span class="pproj">15.4</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>15.4</b></span><span>MIN <b>28</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Miles Bridges</b> <small>PHX</small></div>
+            <span class="pproj">6.1</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>6.1</b></span><span>MIN <b>28</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Miles Bridges</b> <small>PHX</small></div>
+            <span class="pproj">3.1</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>3.1</b></span><span>MIN <b>28</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Miles Bridges</b> <small>PHX</small></div>
+            <span class="pproj">1.7</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>1.7</b></span><span>MIN <b>28</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Derik Queen</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">13.1</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>13.1</b></span><span>MIN <b>26</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Derik Queen</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">7.4</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>7.4</b></span><span>MIN <b>26</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Derik Queen</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">3.0</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>3.0</b></span><span>MIN <b>26</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Derik Queen</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">0.5</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>0.5</b></span><span>MIN <b>26</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Herbert Jones</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">8.5</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>8.5</b></span><span>MIN <b>30</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Herbert Jones</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">3.3</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>3.3</b></span><span>MIN <b>30</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Herbert Jones</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">2.3</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>2.3</b></span><span>MIN <b>30</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Herbert Jones</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">1.4</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>1.4</b></span><span>MIN <b>30</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Jeremiah Fears</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">18.9</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>18.9</b></span><span>MIN <b>35</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Jeremiah Fears</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">5.2</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>5.2</b></span><span>MIN <b>35</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Jeremiah Fears</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">5.6</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>5.6</b></span><span>MIN <b>35</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Jeremiah Fears</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">1.6</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>1.6</b></span><span>MIN <b>35</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Jordan Poole</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">14.1</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>14.1</b></span><span>MIN <b>27</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Jordan Poole</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">2.1</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>2.1</b></span><span>MIN <b>27</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Jordan Poole</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">3.6</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>3.6</b></span><span>MIN <b>27</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Jordan Poole</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">2.3</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>2.3</b></span><span>MIN <b>27</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Saddiq Bey</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">19.6</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>19.6</b></span><span>MIN <b>37</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Saddiq Bey</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">5.6</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>5.6</b></span><span>MIN <b>37</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Saddiq Bey</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">3.0</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>3.0</b></span><span>MIN <b>37</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Saddiq Bey</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">2.7</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>2.7</b></span><span>MIN <b>37</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Trey Murphy III</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">20.1</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>20.1</b></span><span>MIN <b>38</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Trey Murphy III</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">5.5</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>5.5</b></span><span>MIN <b>38</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Trey Murphy III</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">3.9</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>3.9</b></span><span>MIN <b>38</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Trey Murphy III</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">3.1</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>3.1</b></span><span>MIN <b>38</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Yves Missi</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">7.1</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>7.1</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Yves Missi</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">7.9</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>7.9</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Yves Missi</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">1.6</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>1.6</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Yves Missi</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">0.0</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>0.0</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Zion Williamson</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">24.2</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>24.2</b></span><span>MIN <b>36</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Zion Williamson</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">6.1</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>6.1</b></span><span>MIN <b>36</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Zion Williamson</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">3.4</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>3.4</b></span><span>MIN <b>36</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Zion Williamson</b> <small>NOP</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">0.3</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>0.3</b></span><span>MIN <b>36</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+      </div>
+    </article>
+    <article class="card b-none" data-play="0" data-s="rockets clippers hou lac">
+      <header class="meta"><span>8:30 PM ET</span><span>Toyota Center (Houston)</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#12173f;color:#fff">LAC</span>
+        <div class="tname"><b><i class="rk">#22</i>Clippers</b><small>4-11</small></div>
+        <div class="proj">107</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#ce0e2d;color:#fff">HOU</span>
+        <div class="tname"><b><i class="rk">#3</i>Rockets</b><small>12-5</small></div>
+        <div class="proj">119</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>LAC 16%</span><span class="cap">WIN PROB</span><span>HOU 84%</span></div>
+        <div class="wpbar"><i style="width:16.4%;background:#12173f"></i><i style="width:83.6%;background:#ce0e2d"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>Rockets -12.5</span></div>
+          <div><small>MODEL</small><span>Rockets -12.5</span></div>
+          <div class="edge "><small>EDGE</small><span>0.0</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>223.5</span></div>
+          <div><small>MODEL</small><span>225.5</span></div>
+          <div class="edge "><small>EDGE</small><span>2.0</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>LAC</b><span>OFF <i>#18</i></span><span>DEF <i>#25</i></span><span>PACE <i>#20</i></span></div><div class="srow"><b>HOU</b><span>OFF <i>#1</i></span><span>DEF <i>#10</i></span><span>PACE <i>#27</i></span></div></div>
+      <div class="chips"><span class="chip out">LAC OUT: Bradley Beal, Jordan Miller</span></div>
+      
+      <button class="ptoggle" aria-expanded="false">PLAYER PROPS · 52<span class="car">▾</span></button>
+      <div class="props" hidden>
+        <div class="pfilt"><button class=on data-pm="all">ALL</button><button data-pm="pts">PTS</button><button data-pm="reb">REB</button><button data-pm="ast">AST</button><button data-pm="fg3m">3PM</button></div>
+        
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Brandon Ingram</b> <small>LAC</small></div>
+            <span class="pproj">20.7</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>20.7</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Brandon Ingram</b> <small>LAC</small></div>
+            <span class="pproj">5.2</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>5.2</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Brandon Ingram</b> <small>LAC</small></div>
+            <span class="pproj">3.6</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>3.6</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Brandon Ingram</b> <small>LAC</small></div>
+            <span class="pproj">1.7</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>1.7</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Brook Lopez</b> <small>LAC</small></div>
+            <span class="pproj">12.4</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>12.4</b></span><span>MIN <b>24</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Brook Lopez</b> <small>LAC</small></div>
+            <span class="pproj">4.4</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>4.4</b></span><span>MIN <b>24</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Brook Lopez</b> <small>LAC</small></div>
+            <span class="pproj">1.6</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>1.6</b></span><span>MIN <b>24</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Brook Lopez</b> <small>LAC</small></div>
+            <span class="pproj">1.7</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>1.7</b></span><span>MIN <b>24</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Darius Garland</b> <small>LAC</small></div>
+            <span class="pproj">19.7</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>19.7</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Darius Garland</b> <small>LAC</small></div>
+            <span class="pproj">2.1</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>2.1</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Darius Garland</b> <small>LAC</small></div>
+            <span class="pproj">6.5</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>6.5</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Darius Garland</b> <small>LAC</small></div>
+            <span class="pproj">2.6</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>2.6</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Derrick Jones Jr.</b> <small>LAC</small></div>
+            <span class="pproj">9.8</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>9.8</b></span><span>MIN <b>28</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Derrick Jones Jr.</b> <small>LAC</small></div>
+            <span class="pproj">3.8</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>3.8</b></span><span>MIN <b>28</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Derrick Jones Jr.</b> <small>LAC</small></div>
+            <span class="pproj">1.3</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>1.3</b></span><span>MIN <b>28</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Derrick Jones Jr.</b> <small>LAC</small></div>
+            <span class="pproj">1.5</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>1.5</b></span><span>MIN <b>28</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Kris Dunn</b> <small>LAC</small></div>
+            <span class="pproj">6.4</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>6.4</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Kris Dunn</b> <small>LAC</small></div>
+            <span class="pproj">3.1</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>3.1</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Kris Dunn</b> <small>LAC</small></div>
+            <span class="pproj">3.5</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>3.5</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Kris Dunn</b> <small>LAC</small></div>
+            <span class="pproj">0.8</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>0.8</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Max Strus</b> <small>LAC</small></div>
+            <span class="pproj">10.2</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>10.2</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Max Strus</b> <small>LAC</small></div>
+            <span class="pproj">4.5</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>4.5</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Max Strus</b> <small>LAC</small></div>
+            <span class="pproj">2.6</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>2.6</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Max Strus</b> <small>LAC</small></div>
+            <span class="pproj">2.6</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>2.6</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Rui Hachimura</b> <small>LAC</small></div>
+            <span class="pproj">12.3</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>12.3</b></span><span>MIN <b>29</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Rui Hachimura</b> <small>LAC</small></div>
+            <span class="pproj">4.5</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>4.5</b></span><span>MIN <b>29</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Rui Hachimura</b> <small>LAC</small></div>
+            <span class="pproj">1.2</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>1.2</b></span><span>MIN <b>29</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Rui Hachimura</b> <small>LAC</small></div>
+            <span class="pproj">2.0</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>2.0</b></span><span>MIN <b>29</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Alperen Sengun</b> <small>HOU</small></div>
+            <span class="pproj">20.7</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>20.7</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Alperen Sengun</b> <small>HOU</small></div>
+            <span class="pproj">8.4</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>8.4</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Alperen Sengun</b> <small>HOU</small></div>
+            <span class="pproj">6.5</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>6.5</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Alperen Sengun</b> <small>HOU</small></div>
+            <span class="pproj">0.8</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>0.8</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Amen Thompson</b> <small>HOU</small></div>
+            <span class="pproj">16.2</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>16.2</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Amen Thompson</b> <small>HOU</small></div>
+            <span class="pproj">6.7</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>6.7</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Amen Thompson</b> <small>HOU</small></div>
+            <span class="pproj">3.7</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>3.7</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Amen Thompson</b> <small>HOU</small></div>
+            <span class="pproj">0.3</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>0.3</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Fred VanVleet</b> <small>HOU</small></div>
+            <span class="pproj">14.4</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>14.4</b></span><span>MIN <b>30</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Fred VanVleet</b> <small>HOU</small></div>
+            <span class="pproj">3.3</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>3.3</b></span><span>MIN <b>30</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Fred VanVleet</b> <small>HOU</small></div>
+            <span class="pproj">5.2</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>5.2</b></span><span>MIN <b>30</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Fred VanVleet</b> <small>HOU</small></div>
+            <span class="pproj">2.6</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>2.6</b></span><span>MIN <b>30</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Jabari Smith Jr.</b> <small>HOU</small></div>
+            <span class="pproj">15.1</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>15.1</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Jabari Smith Jr.</b> <small>HOU</small></div>
+            <span class="pproj">5.9</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>5.9</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Jabari Smith Jr.</b> <small>HOU</small></div>
+            <span class="pproj">2.0</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>2.0</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Jabari Smith Jr.</b> <small>HOU</small></div>
+            <span class="pproj">2.3</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>2.3</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Kevin Durant</b> <small>HOU</small></div>
+            <span class="pproj">22.1</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>22.1</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Kevin Durant</b> <small>HOU</small></div>
+            <span class="pproj">4.9</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>4.9</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Kevin Durant</b> <small>HOU</small></div>
+            <span class="pproj">4.0</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>4.0</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Kevin Durant</b> <small>HOU</small></div>
+            <span class="pproj">1.8</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>1.8</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Tari Eason</b> <small>HOU</small></div>
+            <span class="pproj">10.4</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>10.4</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Tari Eason</b> <small>HOU</small></div>
+            <span class="pproj">5.9</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>5.9</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Tari Eason</b> <small>HOU</small></div>
+            <span class="pproj">1.5</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>1.5</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Tari Eason</b> <small>HOU</small></div>
+            <span class="pproj">1.2</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>1.2</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+      </div>
+    </article>
+    <article class="card b-lean" data-play="1" data-s="lakers jazz lal uta">
+      <header class="meta"><span>10:00 PM ET</span><span>crypto.com Arena</span></header>
+      
+      <div class="team ">
+        <span class="badge" style="background:#4e008e;color:#fff">UTA</span>
+        <div class="tname"><b><i class="rk">#24</i>Jazz</b><small>3-15</small></div>
+        <div class="proj">107</div>
+      </div>
+      <div class="team fav">
+        <span class="badge" style="background:#552583;color:#fff">LAL</span>
+        <div class="tname"><b><i class="rk">#10</i>Lakers</b><small>14-3</small></div>
+        <div class="proj">120</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>UTA 15%</span><span class="cap">WIN PROB</span><span>LAL 85%</span></div>
+        <div class="wpbar"><i style="width:15.0%;background:#4e008e"></i><i style="width:85.0%;background:#552583"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>Lakers -13.5</span></div>
+          <div><small>MODEL</small><span>Lakers -12.9</span></div>
+          <div class="edge "><small>EDGE</small><span>0.6</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>224.5</span></div>
+          <div><small>MODEL</small><span>226.8</span></div>
+          <div class="edge hot"><small>EDGE</small><span>2.3</span></div></div>
+        <div class="pick t-lean"><span class="tier">LEAN</span>OVER 224.5 <small>55% to hit</small></div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>UTA</b><span>OFF <i>#28</i></span><span>DEF <i>#18</i></span><span>PACE <i>#7</i></span></div><div class="srow"><b>LAL</b><span>OFF <i>#6</i></span><span>DEF <i>#17</i></span><span>PACE <i>#12</i></span></div></div>
+      <div class="chips"><span class="chip">UTA B2B</span><span class="chip out">UTA OUT: Jusuf Nurkic, Lauri Markkanen, Jaren Jackson Jr.</span><span class="chip out">LAL OUT: Austin Reaves</span></div>
+      
+      <button class="ptoggle" aria-expanded="false">PLAYER PROPS · 44<span class="car">▾</span></button>
+      <div class="props" hidden>
+        <div class="pfilt"><button class=on data-pm="all">ALL</button><button data-pm="pts">PTS</button><button data-pm="reb">REB</button><button data-pm="ast">AST</button><button data-pm="fg3m">3PM</button></div>
+        
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Ace Bailey</b> <small>UTA</small></div>
+            <span class="pproj">14.4</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>14.4</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Ace Bailey</b> <small>UTA</small></div>
+            <span class="pproj">5.7</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>5.7</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Ace Bailey</b> <small>UTA</small></div>
+            <span class="pproj">2.2</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>2.2</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Ace Bailey</b> <small>UTA</small></div>
+            <span class="pproj">1.9</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>1.9</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Darryn Peterson</b> <small>UTA</small></div>
+            <span class="pproj">16.6</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>16.6</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Darryn Peterson</b> <small>UTA</small></div>
+            <span class="pproj">4.7</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>4.7</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Darryn Peterson</b> <small>UTA</small></div>
+            <span class="pproj">4.1</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>4.1</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Darryn Peterson</b> <small>UTA</small></div>
+            <span class="pproj">2.0</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>2.0</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Keyonte George</b> <small>UTA</small></div>
+            <span class="pproj">23.5</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>23.5</b></span><span>MIN <b>36</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Keyonte George</b> <small>UTA</small></div>
+            <span class="pproj">4.1</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>4.1</b></span><span>MIN <b>36</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Keyonte George</b> <small>UTA</small></div>
+            <span class="pproj">7.3</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>7.3</b></span><span>MIN <b>36</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Keyonte George</b> <small>UTA</small></div>
+            <span class="pproj">2.5</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>2.5</b></span><span>MIN <b>36</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Svi Mykhailiuk</b> <small>UTA</small></div>
+            <span class="pproj">9.1</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>9.1</b></span><span>MIN <b>24</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Svi Mykhailiuk</b> <small>UTA</small></div>
+            <span class="pproj">2.7</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>2.7</b></span><span>MIN <b>24</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Svi Mykhailiuk</b> <small>UTA</small></div>
+            <span class="pproj">2.1</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>2.1</b></span><span>MIN <b>24</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Svi Mykhailiuk</b> <small>UTA</small></div>
+            <span class="pproj">2.1</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>2.1</b></span><span>MIN <b>24</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Jake LaRavia</b> <small>LAL</small></div>
+            <span class="pproj">7.7</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>7.7</b></span><span>MIN <b>28</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Jake LaRavia</b> <small>LAL</small></div>
+            <span class="pproj">4.4</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>4.4</b></span><span>MIN <b>28</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Jake LaRavia</b> <small>LAL</small></div>
+            <span class="pproj">2.2</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>2.2</b></span><span>MIN <b>28</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Jake LaRavia</b> <small>LAL</small></div>
+            <span class="pproj">1.1</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>1.1</b></span><span>MIN <b>28</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Luka Dončić</b> <small>LAL</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">39.6</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>39.6</b></span><span>MIN <b>40</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Luka Dončić</b> <small>LAL</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">7.6</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>7.6</b></span><span>MIN <b>40</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Luka Dončić</b> <small>LAL</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">8.8</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>8.8</b></span><span>MIN <b>40</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Luka Dončić</b> <small>LAL</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">5.2</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>5.2</b></span><span>MIN <b>40</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Matisse Thybulle</b> <small>LAL</small></div>
+            <span class="pproj">8.4</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>8.4</b></span><span>MIN <b>26</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Matisse Thybulle</b> <small>LAL</small></div>
+            <span class="pproj">2.6</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>2.6</b></span><span>MIN <b>26</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Matisse Thybulle</b> <small>LAL</small></div>
+            <span class="pproj">1.3</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>1.3</b></span><span>MIN <b>26</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Matisse Thybulle</b> <small>LAL</small></div>
+            <span class="pproj">1.9</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>1.9</b></span><span>MIN <b>26</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Quentin Grimes</b> <small>LAL</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">15.0</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>15.0</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Quentin Grimes</b> <small>LAL</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">3.9</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>3.9</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Quentin Grimes</b> <small>LAL</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">3.5</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>3.5</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Quentin Grimes</b> <small>LAL</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">2.1</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>2.1</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Sandro Mamukelashvili</b> <small>LAL</small></div>
+            <span class="pproj">11.4</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>11.4</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Sandro Mamukelashvili</b> <small>LAL</small></div>
+            <span class="pproj">4.9</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>4.9</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Sandro Mamukelashvili</b> <small>LAL</small></div>
+            <span class="pproj">2.0</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>2.0</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Sandro Mamukelashvili</b> <small>LAL</small></div>
+            <span class="pproj">1.5</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>1.5</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Walker Kessler</b> <small>LAL</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">15.7</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>15.7</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Walker Kessler</b> <small>LAL</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">11.4</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>11.4</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Walker Kessler</b> <small>LAL</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">2.5</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>2.5</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Walker Kessler</b> <small>LAL</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">0.6</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>0.6</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Ziaire Williams</b> <small>LAL</small></div>
+            <span class="pproj">10.6</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>10.6</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Ziaire Williams</b> <small>LAL</small></div>
+            <span class="pproj">2.4</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>2.4</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Ziaire Williams</b> <small>LAL</small></div>
+            <span class="pproj">1.6</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>1.6</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Ziaire Williams</b> <small>LAL</small></div>
+            <span class="pproj">1.7</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>1.7</b></span><span>MIN <b>25</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+      </div>
+    </article>
+    <article class="card b-lean" data-play="1" data-s="kings spurs sac sas">
+      <header class="meta"><span>10:00 PM ET</span><span>Golden 1 Center</span></header>
+      
+      <div class="team fav">
+        <span class="badge" style="background:#000000;color:#fff">SAS</span>
+        <div class="tname"><b><i class="rk">#1</i>Spurs</b><small>14-3</small></div>
+        <div class="proj">118</div>
+      </div>
+      <div class="team ">
+        <span class="badge" style="background:#5a2d81;color:#fff">SAC</span>
+        <div class="tname"><b><i class="rk">#29</i>Kings</b><small>2-14</small></div>
+        <div class="proj">105</div>
+      </div>
+      <div class="wp"><div class="wplab"><span>SAS 85%</span><span class="cap">WIN PROB</span><span>SAC 15%</span></div>
+        <div class="wpbar"><i style="width:84.7%;background:#000000"></i><i style="width:15.3%;background:#5a2d81"></i></div></div>
+      
+      <div class="mkt"><div class="mlabel">SPREAD</div>
+        <div class="cols"><div><small>BOOK</small><span>Spurs -10.5</span></div>
+          <div><small>MODEL</small><span>Spurs -12.7</span></div>
+          <div class="edge hot"><small>EDGE</small><span>2.2</span></div></div>
+        <div class="pick t-lean"><span class="tier">LEAN</span>Spurs -10.5 <small>56% to cover</small></div></div>
+      
+      <div class="mkt"><div class="mlabel">TOTAL</div>
+        <div class="cols"><div><small>BOOK</small><span>223.5</span></div>
+          <div><small>MODEL</small><span>223.3</span></div>
+          <div class="edge "><small>EDGE</small><span>0.2</span></div></div>
+        <div class="pick none">NO PLAY</div></div>
+      
+      <div class="strip"><div class="mlabel">ADJUSTED RANKS</div><div class="srow"><b>SAS</b><span>OFF <i>#7</i></span><span>DEF <i>#3</i></span><span>PACE <i>#21</i></span></div><div class="srow"><b>SAC</b><span>OFF <i>#29</i></span><span>DEF <i>#26</i></span><span>PACE <i>#13</i></span></div></div>
+      <div class="chips"><span class="chip out">SAS OUT: Dylan Harper, Tobias Harris, Jayden Quaintance</span><span class="chip out">SAC OUT: Maxime Raynaud, Ben Simmons</span></div>
+      
+      <button class="ptoggle" aria-expanded="false">PLAYER PROPS · 44<span class="car">▾</span></button>
+      <div class="props" hidden>
+        <div class="pfilt"><button class=on data-pm="all">ALL</button><button data-pm="pts">PTS</button><button data-pm="reb">REB</button><button data-pm="ast">AST</button><button data-pm="fg3m">3PM</button></div>
+        
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>De&#x27;Aaron Fox</b> <small>SAS</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">16.0</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>16.0</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>De&#x27;Aaron Fox</b> <small>SAS</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">4.0</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>4.0</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>De&#x27;Aaron Fox</b> <small>SAS</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">6.4</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>6.4</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>De&#x27;Aaron Fox</b> <small>SAS</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">1.3</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>1.3</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Devin Vassell</b> <small>SAS</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">13.6</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>13.6</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Devin Vassell</b> <small>SAS</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">4.2</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>4.2</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Devin Vassell</b> <small>SAS</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">3.0</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>3.0</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Devin Vassell</b> <small>SAS</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">2.0</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>2.0</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Julian Champagnie</b> <small>SAS</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">11.8</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>11.8</b></span><span>MIN <b>30</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Julian Champagnie</b> <small>SAS</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">5.0</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>5.0</b></span><span>MIN <b>30</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Julian Champagnie</b> <small>SAS</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">1.7</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>1.7</b></span><span>MIN <b>30</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Julian Champagnie</b> <small>SAS</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +3 MIN</span></div>
+            <span class="pproj">2.9</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>2.9</b></span><span>MIN <b>30</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Keldon Johnson</b> <small>SAS</small></div>
+            <span class="pproj">12.1</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>12.1</b></span><span>MIN <b>27</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Keldon Johnson</b> <small>SAS</small></div>
+            <span class="pproj">5.9</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>5.9</b></span><span>MIN <b>27</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Keldon Johnson</b> <small>SAS</small></div>
+            <span class="pproj">2.2</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>2.2</b></span><span>MIN <b>27</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Keldon Johnson</b> <small>SAS</small></div>
+            <span class="pproj">0.9</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>0.9</b></span><span>MIN <b>27</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Stephon Castle</b> <small>SAS</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">18.2</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>18.2</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Stephon Castle</b> <small>SAS</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">5.6</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>5.6</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Stephon Castle</b> <small>SAS</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">7.2</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>7.2</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Stephon Castle</b> <small>SAS</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">2.1</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>2.1</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Victor Wembanyama</b> <small>SAS</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">31.7</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>31.7</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Victor Wembanyama</b> <small>SAS</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">12.9</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>12.9</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Victor Wembanyama</b> <small>SAS</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">3.6</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>3.6</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Victor Wembanyama</b> <small>SAS</small> <span class="pinj" title="Extra minutes with a teammate OUT">🚑 +4 MIN</span></div>
+            <span class="pproj">2.3</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>2.3</b></span><span>MIN <b>34</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Darius Acuff Jr.</b> <small>SAC</small></div>
+            <span class="pproj">23.1</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>23.1</b></span><span>MIN <b>37</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Darius Acuff Jr.</b> <small>SAC</small></div>
+            <span class="pproj">3.9</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>3.9</b></span><span>MIN <b>37</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Darius Acuff Jr.</b> <small>SAC</small></div>
+            <span class="pproj">6.8</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>6.8</b></span><span>MIN <b>37</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Darius Acuff Jr.</b> <small>SAC</small></div>
+            <span class="pproj">3.0</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>3.0</b></span><span>MIN <b>37</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>De&#x27;Andre Hunter</b> <small>SAC</small></div>
+            <span class="pproj">15.4</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>15.4</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>De&#x27;Andre Hunter</b> <small>SAC</small></div>
+            <span class="pproj">4.5</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>4.5</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>De&#x27;Andre Hunter</b> <small>SAC</small></div>
+            <span class="pproj">2.0</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>2.0</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>De&#x27;Andre Hunter</b> <small>SAC</small></div>
+            <span class="pproj">2.2</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>2.2</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Domantas Sabonis</b> <small>SAC</small></div>
+            <span class="pproj">14.2</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>14.2</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Domantas Sabonis</b> <small>SAC</small></div>
+            <span class="pproj">12.1</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>12.1</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Domantas Sabonis</b> <small>SAC</small></div>
+            <span class="pproj">4.8</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>4.8</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Domantas Sabonis</b> <small>SAC</small></div>
+            <span class="pproj">0.3</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>0.3</b></span><span>MIN <b>32</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Keegan Murray</b> <small>SAC</small></div>
+            <span class="pproj">11.9</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>11.9</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Keegan Murray</b> <small>SAC</small></div>
+            <span class="pproj">5.0</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>5.0</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Keegan Murray</b> <small>SAC</small></div>
+            <span class="pproj">1.7</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>1.7</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Keegan Murray</b> <small>SAC</small></div>
+            <span class="pproj">1.1</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>1.1</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="pts" data-play="0">
+            <div class="pl"><b>Zach LaVine</b> <small>SAC</small></div>
+            <span class="pproj">19.2</span>
+            <div class="pm"><span class="mk">POINTS</span><span>PROJ <b>19.2</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="reb" data-play="0">
+            <div class="pl"><b>Zach LaVine</b> <small>SAC</small></div>
+            <span class="pproj">3.1</span>
+            <div class="pm"><span class="mk">REBOUNDS</span><span>PROJ <b>3.1</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="ast" data-play="0">
+            <div class="pl"><b>Zach LaVine</b> <small>SAC</small></div>
+            <span class="pproj">2.5</span>
+            <div class="pm"><span class="mk">ASSISTS</span><span>PROJ <b>2.5</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+          <div class="prow" data-m="fg3m" data-play="0">
+            <div class="pl"><b>Zach LaVine</b> <small>SAC</small></div>
+            <span class="pproj">2.7</span>
+            <div class="pm"><span class="mk">THREES</span><span>PROJ <b>2.7</b></span><span>MIN <b>33</b></span><span>LINE <b>none yet</b></span></div>
+          </div>
+      </div>
+    </article></div>
+  <p class="foot">Opponent-adjusted offense, defense and pace, rebuilt every morning from every game played, then blended with the sharp line (market-first). MODEL = our number after that blend; EDGE = points vs the line. LEAN / PLAY / HAMMER. Not betting advice.</p>
+</div>
+<script>
+let mode='all', q='';
+const cards=[...document.querySelectorAll('.card')], cnt=document.querySelector('.count');
+function apply(){let n=0;cards.forEach(c=>{const show=(q?c.dataset.s.includes(q):(mode==='all'||c.dataset.play==='1'));
+  c.classList.toggle('hide',!show); if(show)n++;}); cnt.textContent=n+' of '+cards.length+' games';}
+document.querySelectorAll('.tools button').forEach(b=>b.onclick=()=>{mode=b.dataset.f;
+  document.querySelectorAll('.tools button').forEach(x=>x.classList.toggle('on',x===b));apply();});
+document.querySelector('.tools input').oninput=ev=>{q=ev.target.value.trim().toLowerCase();apply();};
+apply();
+document.querySelectorAll('.ptoggle').forEach(b=>b.onclick=()=>{
+  const p=b.nextElementSibling, open=p.hidden; p.hidden=!open; b.setAttribute('aria-expanded',open);
+});
+document.querySelectorAll('.pfilt button').forEach(b=>b.onclick=()=>{
+  const box=b.closest('.props'), f=b.dataset.pm;
+  box.querySelectorAll('.pfilt button').forEach(x=>x.classList.toggle('on',x===b));
+  box.querySelectorAll('.prow').forEach(r=>r.removeAttribute('data-hide'));
+  box.querySelectorAll('.prow').forEach(r=>r.classList.toggle('hide',
+    f==='plays'?r.dataset.play!=='1':(f!=='all'&&r.dataset.m!==f)));
+});
+</script></body></html>

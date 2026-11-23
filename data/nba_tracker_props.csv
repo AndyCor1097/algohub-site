@@ -143,3 +143,7 @@ date,game_id,player,team,market,tier,pick,odds,edge,actual,result,units
 2026-11-21,401910026,Jaylen Wells,MEM,PROP REBOUNDS,LEAN,Jaylen Wells Rebounds O 3.5,135.0,4.9,1,L,-1.0
 2026-11-21,401910023,LeBron James,PHI,PROP ASSISTS,LEAN,LeBron James Assists O 7.5,133.0,3.1,6,L,-1.0
 2026-11-21,401910023,Tyrese Maxey,PHI,PROP POINTS,LEAN,Tyrese Maxey Points O 24.5,102.0,3.1,17,L,-1.0
+2026-11-22,401910029,Ausar Thompson,DET,PROP ASSISTS,LEAN,Ausar Thompson Assists O 4.5,115.0,3.2,5,W,1.15
+2026-11-22,401910029,Cade Cunningham,DET,PROP ASSISTS,LEAN,Cade Cunningham Assists O 8.5,113.0,3.8,15,W,1.13
+2026-11-22,401910029,Nickeil Alexander-Walker,ATL,PROP POINTS,LEAN,Nickeil Alexander-Walker Points O 19.5,-106.0,3.0,27,W,0.9433962264150944
+2026-11-22,401910029,Onyeka Okongwu,ATL,PROP ASSISTS,LEAN,Onyeka Okongwu Assists O 2.5,138.0,4.7,2,L,-1.0

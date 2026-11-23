@@ -200,3 +200,10 @@ game_id,date,matchup,score,pick,model_pct,result,ats_pick,ats_edge,ats_result
 401910026,2026-11-21,Grizzlies @ Timberwolves,95-104,Timberwolves,63.9,W,Grizzlies,1.1,L
 401910027,2026-11-21,Pelicans @ Spurs,91-114,Spurs,91.0,W,Spurs,0.4,W
 401910028,2026-11-21,Celtics @ Kings,96-97,Celtics,89.4,L,Celtics,1.9,L
+401910029,2026-11-22,Pistons @ Hawks,97-107,Pistons,54.2,L,Pistons,0.5,L
+401910030,2026-11-22,Thunder @ Heat,113-123,Thunder,54.1,L,Thunder,2.4,L
+401910031,2026-11-22,Magic @ Wizards,96-116,Magic,62.3,L,Wizards,0.7,W
+401910032,2026-11-22,Nuggets @ Bulls,151-145,Nuggets,75.3,W,Bulls,1.5,W
+401910033,2026-11-22,Mavericks @ Jazz,116-114,Mavericks,51.9,W,Mavericks,0.8,W
+401910034,2026-11-22,Pacers @ Knicks,106-113,Knicks,74.3,W,Pacers,0.1,W
+401910035,2026-11-22,Celtics @ Warriors,87-88,Celtics,68.9,L,Warriors,2.4,W

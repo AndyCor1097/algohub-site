@@ -73,3 +73,9 @@ game_id,date,matchup,score,market,tier,pick,odds,edge,result,units
 401909312,2026-11-20,Rockets @ Nuggets,124-133,SPREAD,LEAN,Rockets +1.5,-110.0,-2.1,L,-1.0
 401909312,2026-11-20,Rockets @ Nuggets,124-133,ML,VALUE,Rockets ML,111.0,5.7,L,-1.0
 401910028,2026-11-21,Celtics @ Kings,96-97,SPREAD,LEAN,Celtics -13.5,-110.0,-1.9,L,-1.0
+401910030,2026-11-22,Thunder @ Heat,113-123,SPREAD,LEAN,Thunder +3.5,-110.0,-2.4,L,-1.0
+401910030,2026-11-22,Thunder @ Heat,113-123,ML,VALUE,Thunder ML,153.0,6.5,L,-1.0
+401910031,2026-11-22,Magic @ Wizards,96-116,TOTAL,LEAN,OVER 219.5,-110.0,2.8,L,-1.0
+401910035,2026-11-22,Celtics @ Warriors,87-88,SPREAD,LEAN,Warriors +8.5,-110.0,2.4,W,0.9090909090909091
+401910035,2026-11-22,Celtics @ Warriors,87-88,TOTAL,LEAN,OVER 209.5,-110.0,2.4,L,-1.0
+401910035,2026-11-22,Celtics @ Warriors,87-88,ML,VALUE,Warriors ML,292.0,5.8,W,2.92

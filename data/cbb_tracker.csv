@@ -42,9 +42,9 @@ game_id,date,matchup,score,market,tier,pick,odds,edge,result,units
 378692,2026-11-20,Seton Hall @ NC State,87-81,ML,VALUE,NC State ML,-148.0,6.3,L,-1.0
 372888,2026-11-21,Brown @ Vermont,71-84,ML,VALUE,Vermont ML,-186.0,11.3,W,0.5376344086021505
 372890,2026-11-21,Northern Illinois @ Bowling Green,86-68,ML,VALUE,Bowling Green ML,-225.0,6.7,L,-1.0
-372892,2026-11-21,Lafayette @ Syracuse,81-84,SPREAD,LEAN,Lafayette +24.5,-110.0,-1.1,W,0.9090909090909091
-372893,2026-11-21,Washington State @ Duke,74-78,SPREAD,PLAY,Washington State +24.75,-110.0,-4.5,W,0.9090909090909091
-372894,2026-11-21,Coppin State @ Georgetown,60-84,SPREAD,PLAY,Coppin State +31.5,-110.0,-7.3,W,0.9090909090909091
+372892,2026-11-21,Lafayette @ Syracuse,81-84,SPREAD,LEAN,Lafayette +24.5,-110.0,-1.1,W,0.9090909090909092
+372893,2026-11-21,Washington State @ Duke,74-78,SPREAD,PLAY,Washington State +24.75,-110.0,-4.5,W,0.9090909090909092
+372894,2026-11-21,Coppin State @ Georgetown,60-84,SPREAD,PLAY,Coppin State +31.5,-110.0,-7.3,W,0.9090909090909092
 372895,2026-11-21,Fordham @ Portland,87-69,ML,VALUE,Portland ML,202.5,14.0,L,-1.0
 372896,2026-11-21,Army @ Binghamton,46-67,ML,VALUE,Binghamton ML,100.0,5.0,W,1.0
 375182,2026-11-21,Southern Miss @ Nicholls,80-69,ML,VALUE,Nicholls ML,134.5,5.2,L,-1.0
@@ -56,3 +56,17 @@ game_id,date,matchup,score,market,tier,pick,odds,edge,result,units
 375193,2026-11-21,Pennsylvania @ La Salle,83-73,ML,VALUE,La Salle ML,-122.5,14.5,L,-1.0
 375196,2026-11-21,St. Thomas-Minnesota @ Milwaukee,98-70,ML,VALUE,Milwaukee ML,105.0,12.6,L,-1.0
 375205,2026-11-21,Navy @ Rider,66-69,ML,VALUE,Rider ML,177.5,4.5,W,1.775
+372900,2026-11-22,Southern Indiana @ Texas,61-97,SPREAD,PLAY,Southern Indiana +38.5,-110.0,-6.2,W,0.9090909090909091
+372902,2026-11-22,San Diego @ Fordham,80-58,ML,VALUE,Fordham ML,-150.0,12.8,L,-1.0
+372903,2026-11-22,Towson @ American University,75-86,ML,VALUE,American University ML,-112.5,23.1,W,0.8888888888888888
+372904,2026-11-22,San José State @ Loyola Chicago,63-72,ML,VALUE,Loyola Chicago ML,-184.0,7.2,W,0.5434782608695652
+375219,2026-11-22,UAlbany @ Mercyhurst,75-78,ML,VALUE,Mercyhurst ML,-120.0,9.0,W,0.8333333333333334
+375225,2026-11-22,Fairfield @ Long Island University,74-71,ML,VALUE,Long Island University ML,-152.5,13.6,L,-1.0
+375227,2026-11-22,William & Mary @ Youngstown State,75-63,ML,VALUE,Youngstown State ML,119.5,26.5,L,-1.0
+375228,2026-11-22,Dayton @ Northwestern,55-79,ML,VALUE,Northwestern ML,136.0,7.9,W,1.36
+375229,2026-11-22,South Dakota @ Utah Tech,74-73,ML,VALUE,Utah Tech ML,-109.0,13.9,L,-1.0
+375230,2026-11-22,Wyoming @ Duquesne,79-61,ML,VALUE,Wyoming ML,-192.5,10.5,W,0.5194805194805194
+375231,2026-11-22,Virginia Tech @ Oklahoma State,80-106,ML,VALUE,Virginia Tech ML,-122.5,7.2,L,-1.0
+375238,2026-11-22,Rhode Island @ UAB,79-64,ML,VALUE,Rhode Island ML,-135.0,11.6,W,0.7407407407407407
+378087,2026-11-22,George Washington @ Western Kentucky,78-86,ML,VALUE,Western Kentucky ML,168.0,8.3,W,1.68
+378090,2026-11-22,Richmond @ Liberty,92-88,ML,VALUE,Liberty ML,-124.0,16.7,L,-1.0

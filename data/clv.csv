@@ -20,6 +20,12 @@ nfl,2026-11-15,MIA @ IND,TOTAL,HAMMER,OVER 37.5,37.5,0.0,pts
 nfl,2026-11-15,MIA @ IND,ML,VALUE,MIA ML,33%,-0.2,%
 nfl,2026-11-15,MIN @ GB,SPREAD,LEAN,GB -2.5,-2.5,0.0,pts
 nfl,2026-11-15,MIN @ GB,ML,VALUE,GB ML,57%,-0.3,%
+nfl,2026-11-22,ARI @ KC,ML,VALUE,ARI ML,9%,-0.3,%
+nfl,2026-11-22,MIA @ BUF,SPREAD,LEAN,MIA +16.5,+16.5,0.0,pts
+nfl,2026-11-22,MIA @ BUF,ML,VALUE,MIA ML,8%,-0.0,%
+nfl,2026-11-22,NO @ CHI,ML,VALUE,NO ML,15%,0.3,%
+nfl,2026-11-22,TEN @ DAL,ML,VALUE,TEN ML,24%,-0.2,%
+nfl,2026-11-22,PIT @ PHI,TOTAL,LEAN,OVER 37.5,37.5,0.0,pts
 cfb,2026-11-20,Clemson @ Duke,SPREAD,STRONG,Duke -12,-12.5,0.5,pts
 cfb,2026-11-20,Oregon @ Michigan State,SPREAD,STRONG,Michigan State +18,+18.5,-0.5,pts
 cfb,2026-11-20,New Mexico @ Wyoming,SPREAD,STRONG,Wyoming +9,+9.5,-0.5,pts
@@ -43,6 +49,9 @@ cbb,2026-11-20,Wisconsin @ Murray State,ML,VALUE,Murray State ML,40%,-1.1,%
 cbb,2026-11-20,UT Arlington @ Northwestern State,ML,VALUE,Northwestern State ML,38%,-3.0,%
 cbb,2026-11-20,Kentucky @ Indiana,ML,VALUE,Indiana ML,60%,-0.1,%
 cbb,2026-11-21,New Hampshire @ New Haven,ML,VALUE,New Haven ML,47%,-0.4,%
+cbb,2026-11-22,Towson @ American University,ML,VALUE,American University ML,51%,-2.2,%
+cbb,2026-11-22,Fairfield @ Long Island University,ML,VALUE,Long Island University ML,57%,-2.9,%
+cbb,2026-11-22,Dayton @ Northwestern,ML,VALUE,Northwestern ML,40%,-2.6,%
 nba,2026-11-04,Heat @ Clippers,SPREAD,LEAN,Clippers +5.5,+5.5,0.0,pts
 nba,2026-11-04,Heat @ Clippers,ML,VALUE,Clippers ML,33%,-2.2,%
 nba,2026-11-10,Clippers @ Suns,SPREAD,LEAN,Clippers +3.5,+3.5,0.0,pts
