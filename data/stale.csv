@@ -1,1 +1,4 @@
 sport,day,game,market,bet,dk,sharp,ev,model_agrees
+cbb,2026-11-24,Wyoming @ Kent State,Spread,Kent State +9.5,+9.5 (-110),Pinnacle +8,4.0,True
+nfl,2026-11-30,CAR @ TB,Spread,TB -2.5,-110 (assumed),Novig 54%,2.1,True
+nfl,2026-11-29,SEA @ SF,Spread,SEA +3.5,-110 (assumed),Novig 54%,2.6,False
