@@ -147,3 +147,14 @@ date,game_id,player,team,market,tier,pick,odds,edge,actual,result,units
 2026-11-22,401910029,Cade Cunningham,DET,PROP ASSISTS,LEAN,Cade Cunningham Assists O 8.5,113.0,3.8,15,W,1.13
 2026-11-22,401910029,Nickeil Alexander-Walker,ATL,PROP POINTS,LEAN,Nickeil Alexander-Walker Points O 19.5,-106.0,3.0,27,W,0.9433962264150944
 2026-11-22,401910029,Onyeka Okongwu,ATL,PROP ASSISTS,LEAN,Onyeka Okongwu Assists O 2.5,138.0,4.7,2,L,-1.0
+2026-11-23,401910039,Allen Graves,TOR,PROP REBOUNDS,LEAN,Allen Graves Rebounds U 4.5,111.0,3.8,2,W,1.11
+2026-11-23,401910037,Anfernee Simons,PHI,PROP THREES,LEAN,Anfernee Simons Threes O 1.5,-120.0,3.4,0,L,-1.0
+2026-11-23,401910036,Cam Spencer,MEM,PROP THREES,LEAN,Cam Spencer Threes O 1.5,-113.0,3.2,3,W,0.8849557522123894
+2026-11-23,401910038,Jared McCain,OKC,PROP REBOUNDS,LEAN,Jared McCain Rebounds O 3.5,138.0,4.9,5,W,1.38
+2026-11-23,401910037,Jaylen Brown,PHI,PROP ASSISTS,LEAN,Jaylen Brown Assists O 3.5,156.0,4.4,4,W,1.56
+2026-11-23,401910036,Jaylen Wells,MEM,PROP THREES,LEAN,Jaylen Wells Threes O 1.5,102.0,3.8,2,W,1.02
+2026-11-23,401910037,Jrue Holiday,POR,PROP ASSISTS,LEAN,Jrue Holiday Assists O 4.5,133.0,3.9,5,W,1.33
+2026-11-23,401910036,Ryan Kalkbrenner,CHA,PROP REBOUNDS,LEAN,Ryan Kalkbrenner Rebounds O 4.5,117.0,3.9,2,L,-1.0
+2026-11-23,401910037,Scoot Henderson,POR,PROP ASSISTS,LEAN,Scoot Henderson Assists O 1.5,-117.0,3.7,3,W,0.8547008547008547
+2026-11-23,401910036,Ty Jerome,MEM,PROP THREES,LEAN,Ty Jerome Threes O 2.5,102.0,3.4,7,W,1.02
+2026-11-23,401910037,VJ Edgecombe,PHI,PROP ASSISTS,LEAN,VJ Edgecombe Assists O 3.5,138.0,3.5,7,W,1.38
