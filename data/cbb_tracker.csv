@@ -76,7 +76,42 @@ game_id,date,matchup,score,market,tier,pick,odds,edge,result,units
 375251,2026-11-23,Northern Iowa @ Davidson,48-79,ML,VALUE,Davidson ML,-235.0,7.8,W,0.425531914893617
 375254,2026-11-23,Charlotte @ Florida Gulf Coast,71-58,ML,VALUE,Florida Gulf Coast ML,227.5,5.5,L,-1.0
 375255,2026-11-23,Tulsa @ Oregon State,66-69,ML,VALUE,Tulsa ML,212.5,5.3,L,-1.0
-375256,2026-11-23,Ole Miss @ Clemson,82-62,ML,VALUE,Ole Miss ML,-249.0,9.2,W,0.40160642570281124
+375256,2026-11-23,Ole Miss @ Clemson,82-62,ML,VALUE,Ole Miss ML,-249.0,9.2,W,0.4016064257028112
 375257,2026-11-23,Tulane @ Georgia State,63-73,ML,VALUE,Georgia State ML,-127.5,4.5,W,0.7843137254901961
 378697,2026-11-23,Middle Tennessee @ Southern Illinois,77-76,ML,VALUE,Southern Illinois ML,-145.0,9.7,L,-1.0
 378698,2026-11-23,Indiana State @ East Carolina,77-76,ML,VALUE,East Carolina ML,-146.5,6.1,L,-1.0
+372914,2026-11-24,Vanderbilt @ Ohio State,72-66,ML,VALUE,Vanderbilt ML,-130.0,10.3,W,0.7692307692307693
+372915,2026-11-24,Jacksonville @ Indiana,64-82,SPREAD,PLAY,Jacksonville +27.5,-110.0,-6.7,W,0.9090909090909091
+372917,2026-11-24,Air Force @ Army,88-79,ML,VALUE,Air Force ML,-170.0,6.3,W,0.5882352941176471
+372922,2026-11-24,Purdue @ DePaul,56-65,ML,VALUE,DePaul ML,130.0,6.4,W,1.3
+372923,2026-11-24,Pittsburgh @ Oklahoma,79-68,ML,VALUE,Oklahoma ML,450.0,13.7,L,-1.0
+372925,2026-11-24,TCU @ Miami,84-71,ML,VALUE,Miami ML,-225.0,7.2,L,-1.0
+372926,2026-11-24,Tennessee @ Maryland,72-64,ML,VALUE,Tennessee ML,-135.0,14.3,W,0.7407407407407407
+372930,2026-11-24,Louisville @ Texas Tech,72-64,ML,VALUE,Texas Tech ML,-148.0,12.1,L,-1.0
+375266,2026-11-24,Purdue Fort Wayne @ Southeast Missouri State,80-75,ML,VALUE,Purdue Fort Wayne ML,145.0,7.7,W,1.45
+375267,2026-11-24,Alcorn State @ Louisiana Tech,41-83,SPREAD,PLAY,Alcorn State +16.5,-110.0,-6.7,L,-1.0
+375267,2026-11-24,Alcorn State @ Louisiana Tech,41-83,ML,VALUE,Alcorn State ML,1000.0,9.5,L,-1.0
+375270,2026-11-24,Bryant @ Marist,57-58,ML,VALUE,Marist ML,-148.0,7.3,W,0.6756756756756757
+375271,2026-11-24,Queens University @ Wofford,77-86,ML,VALUE,Queens University ML,-115.0,8.6,L,-1.0
+375273,2026-11-24,Evansville @ Missouri,67-78,SPREAD,LEAN,Evansville +30.5,-110.0,-5.2,W,0.9090909090909091
+375274,2026-11-24,Coppin State @ Villanova,52-70,SPREAD,HAMMER,Coppin State +34.5,-110.0,-7.0,W,0.9090909090909091
+375277,2026-11-24,Bellarmine @ Georgia Southern,82-67,ML,VALUE,Georgia Southern ML,-142.0,6.2,L,-1.0
+375278,2026-11-24,Green Bay @ Kansas City,77-72,ML,VALUE,Kansas City ML,-115.0,8.6,L,-1.0
+375279,2026-11-24,Mount St. Mary's @ Morgan State,75-74,ML,VALUE,Morgan State ML,-115.0,4.5,L,-1.0
+375281,2026-11-24,Campbell @ Coastal Carolina,70-66,ML,VALUE,Coastal Carolina ML,-122.0,14.4,L,-1.0
+375283,2026-11-24,Lipscomb @ Auburn,66-101,SPREAD,PLAY,Lipscomb +24.5,-110.0,-4.7,L,-1.0
+375292,2026-11-24,North Dakota @ Detroit Mercy,77-67,ML,VALUE,Detroit Mercy ML,164.0,4.5,L,-1.0
+375293,2026-11-24,Long Beach State @ Arkansas State,81-106,ML,VALUE,Long Beach State ML,164.0,9.3,L,-1.0
+375302,2026-11-24,Eastern Michigan @ Kennesaw State,60-56,ML,VALUE,Eastern Michigan ML,170.0,16.1,W,1.7
+375304,2026-11-24,Tarleton State @ Weber State,87-89,ML,VALUE,Tarleton State ML,-108.0,4.5,L,-1.0
+375306,2026-11-24,Vermont @ Siena,88-98,ML,VALUE,Vermont ML,154.0,7.2,L,-1.0
+375307,2026-11-24,Boston University @ Harvard,81-72,ML,VALUE,Harvard ML,-225.0,5.9,L,-1.0
+375310,2026-11-24,Drexel @ Pennsylvania,74-89,ML,VALUE,Pennsylvania ML,-265.0,10.6,W,0.37735849056603776
+378103,2026-11-24,Wright State @ St. Bonaventure,70-72,ML,VALUE,Wright State ML,-106.5,16.9,L,-1.0
+378104,2026-11-24,Ohio @ New Mexico State,69-68,ML,VALUE,New Mexico State ML,177.5,6.5,L,-1.0
+378106,2026-11-24,Lindenwood @ New Haven,60-63,ML,VALUE,Lindenwood ML,-130.0,6.6,L,-1.0
+378108,2026-11-24,App State @ Yale,50-57,ML,VALUE,Yale ML,-1.5,50.5,W,66.66666666666667
+378112,2026-11-24,Florida A&M @ South Alabama,49-74,SPREAD,LEAN,Florida A&M +18.5,-110.0,-3.1,L,-1.0
+378114,2026-11-24,Oral Roberts @ UT Arlington,84-80,ML,VALUE,UT Arlington ML,-205.0,10.1,L,-1.0
+378703,2026-11-24,Ole Miss @ BYU,73-63,ML,VALUE,Ole Miss ML,140.0,13.6,W,1.4
+378706,2026-11-24,VCU @ Colorado State,84-81,ML,VALUE,VCU ML,-230.0,7.7,W,0.43478260869565216

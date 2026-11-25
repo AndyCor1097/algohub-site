@@ -1,10 +1,1 @@
 sport,day,game,market,bet,dk,sharp,ev,model_agrees
-cbb,2026-11-24,Wyoming @ Kent State,Spread,Kent State +9.5,+9.5 (-110),Pinnacle +8,4.0,True
-nfl,2026-11-26,CHI @ DET,Moneyline,DET ML,+125,Novig 47%,6.3,True
-nfl,2026-11-29,WAS @ ARI,Spread,ARI +7.5,-110 (assumed),Novig 54%,3.6,True
-nfl,2026-11-27,DEN @ PIT,Moneyline,DEN ML,-144,Novig 64%,8.0,False
-nfl,2026-11-27,DEN @ PIT,Total,Under 37.5,-110 (assumed),Novig 55%,5.5,False
-nfl,2026-11-30,CAR @ TB,Spread,TB -2.5,-110 (assumed),Novig 55%,4.5,False
-nfl,2026-11-29,LV @ CLE,Total,Under 41.5,-110 (assumed),Novig 55%,4.0,False
-nfl,2026-11-29,SEA @ SF,Spread,SEA +3.5,-110 (assumed),Novig 54%,2.6,False
-nfl,2026-11-29,ATL @ MIN,Total,Under 42.5,-110 (assumed),Novig 54%,2.1,False
