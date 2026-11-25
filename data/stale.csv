@@ -1,1 +1,4 @@
 sport,day,game,market,bet,dk,sharp,ev,model_agrees
+nfl,2026-11-30,CAR @ TB,Spread,TB -2.5,-110 (assumed),Novig 55%,4.0,False
+nfl,2026-11-29,SEA @ SF,Spread,SEA +3.5,-110 (assumed),Novig 54%,3.1,False
+nfl,2026-11-29,NE @ LAC,Spread,LAC +1.5,-110 (assumed),Novig 54%,2.1,False
