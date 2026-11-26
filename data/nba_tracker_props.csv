@@ -158,3 +158,7 @@ date,game_id,player,team,market,tier,pick,odds,edge,actual,result,units
 2026-11-23,401910037,Scoot Henderson,POR,PROP ASSISTS,LEAN,Scoot Henderson Assists O 1.5,-117.0,3.7,3,W,0.8547008547008547
 2026-11-23,401910036,Ty Jerome,MEM,PROP THREES,LEAN,Ty Jerome Threes O 2.5,102.0,3.4,7,W,1.02
 2026-11-23,401910037,VJ Edgecombe,PHI,PROP ASSISTS,LEAN,VJ Edgecombe Assists O 3.5,138.0,3.5,7,W,1.38
+2026-11-25,401909318,Buddy Hield,CHI,PROP POINTS,LEAN,Buddy Hield Points U 13.5,-102.0,3.7,9,W,0.9803921568627451
+2026-11-25,401909317,Davion Mitchell,MIA,PROP REBOUNDS,LEAN,Davion Mitchell Rebounds U 3.5,-138.0,3.6,4,L,-1.0
+2026-11-25,401909318,Jalen Smith,CHI,PROP REBOUNDS,LEAN,Jalen Smith Rebounds O 6.5,104.0,4.1,DNP,P,0.0
+2026-11-25,401909319,Meleek Thomas,CLE,PROP THREES,LEAN,Meleek Thomas Threes O 1.5,113.0,3.1,2,W,1.13
