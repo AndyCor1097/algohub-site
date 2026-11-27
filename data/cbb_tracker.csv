@@ -116,16 +116,16 @@ game_id,date,matchup,score,market,tier,pick,odds,edge,result,units
 378703,2026-11-24,Ole Miss @ BYU,73-63,ML,VALUE,Ole Miss ML,140.0,13.6,W,1.4
 378706,2026-11-24,VCU @ Colorado State,84-81,ML,VALUE,VCU ML,-230.0,7.7,W,0.4347826086956521
 372937,2026-11-25,Omaha @ UC Davis,78-80,ML,VALUE,UC Davis ML,-205.0,17.8,W,0.4878048780487805
-372944,2026-11-25,UConn @ Duke,63-77,SPREAD,LEAN,Duke +2.5,-110.0,3.4,W,0.9090909090909091
+372944,2026-11-25,UConn @ Duke,63-77,SPREAD,LEAN,Duke +2.5,-110.0,3.4,W,0.9090909090909092
 372944,2026-11-25,UConn @ Duke,63-77,ML,VALUE,Duke ML,120.0,9.8,W,1.2
-375317,2026-11-25,Mississippi Valley State @ New Mexico,77-100,SPREAD,LEAN,Mississippi Valley State +36,-110.0,-5.8,W,0.9090909090909091
+375317,2026-11-25,Mississippi Valley State @ New Mexico,77-100,SPREAD,LEAN,Mississippi Valley State +36,-110.0,-5.8,W,0.9090909090909092
 375319,2026-11-25,South Carolina Upstate @ The Citadel,54-72,ML,VALUE,The Citadel ML,-170.0,11.3,W,0.5882352941176471
 375320,2026-11-25,West Florida @ Northwestern State,57-71,ML,VALUE,Northwestern State ML,-130.0,11.7,W,0.7692307692307693
 375323,2026-11-25,Northern Illinois @ SIU Edwardsville,68-65,ML,VALUE,SIU Edwardsville ML,140.0,7.0,L,-1.0
 375324,2026-11-25,Manhattan @ NJIT,81-70,ML,VALUE,Manhattan ML,105.0,4.1,W,1.05
 375327,2026-11-25,Longwood @ George Mason,58-93,SPREAD,PLAY,Longwood +16.5,-110.0,-5.8,L,-1.0
 375327,2026-11-25,Longwood @ George Mason,58-93,ML,VALUE,Longwood ML,900.0,6.6,L,-1.0
-375330,2026-11-25,Jackson State @ Oklahoma State,58-93,SPREAD,HAMMER,Jackson State +35.5,-110.0,-9.2,W,0.9090909090909091
+375330,2026-11-25,Jackson State @ Oklahoma State,58-93,SPREAD,HAMMER,Jackson State +35.5,-110.0,-9.2,W,0.9090909090909092
 375334,2026-11-25,Northern Iowa @ Charlotte,72-85,ML,VALUE,Northern Iowa ML,320.0,9.7,L,-1.0
 375336,2026-11-25,Long Beach State @ Southern Utah,65-64,ML,VALUE,Long Beach State ML,-130.0,4.7,W,0.7692307692307693
 375337,2026-11-25,Tulane @ Davidson,47-74,ML,VALUE,Tulane ML,310.0,10.7,L,-1.0
@@ -139,7 +139,7 @@ game_id,date,matchup,score,market,tier,pick,odds,edge,result,units
 378116,2026-11-25,Arkansas-Pine Bluff @ South Dakota,50-86,SPREAD,PLAY,Arkansas-Pine Bluff +22.5,-110.0,-9.1,L,-1.0
 378116,2026-11-25,Arkansas-Pine Bluff @ South Dakota,50-86,ML,VALUE,Arkansas-Pine Bluff ML,2200.0,6.5,L,-1.0
 378117,2026-11-25,Arkansas State @ Florida International,92-88,ML,VALUE,Florida International ML,-130.0,11.3,L,-1.0
-378118,2026-11-25,St. Bonaventure @ Belmont,71-68,SPREAD,LEAN,St. Bonaventure +1.5,-110.0,-2.4,W,0.9090909090909091
+378118,2026-11-25,St. Bonaventure @ Belmont,71-68,SPREAD,LEAN,St. Bonaventure +1.5,-110.0,-2.4,W,0.9090909090909092
 378118,2026-11-25,St. Bonaventure @ Belmont,71-68,ML,VALUE,St. Bonaventure ML,114.0,9.4,W,1.14
 378119,2026-11-25,Rice @ Ohio,82-74,ML,VALUE,Ohio ML,-180.0,5.5,L,-1.0
 378120,2026-11-25,Yale @ Wright State,72-70,ML,VALUE,Wright State ML,-245.0,5.9,L,-1.0
@@ -148,3 +148,17 @@ game_id,date,matchup,score,market,tier,pick,odds,edge,result,units
 378709,2026-11-25,Ole Miss @ Arizona,73-84,ML,VALUE,Ole Miss ML,195.0,5.0,L,-1.0
 378715,2026-11-25,Kennesaw State @ Charleston,77-91,ML,VALUE,Charleston ML,-125.0,7.8,W,0.8
 378717,2026-11-25,Washington @ VCU,78-80,ML,VALUE,VCU ML,-192.0,4.2,W,0.5208333333333334
+372946,2026-11-26,Army @ UTSA,79-61,ML,VALUE,UTSA ML,290.0,64.3,L,-1.0
+372947,2026-11-26,Jacksonville State @ UC Davis,63-68,SPREAD,PLAY,UC Davis +3.5,-110.0,7.3,W,0.9090909090909091
+372947,2026-11-26,Jacksonville State @ UC Davis,63-68,ML,VALUE,UC Davis ML,136.0,23.1,W,1.36
+372948,2026-11-26,Pittsburgh @ DePaul,71-64,ML,VALUE,DePaul ML,-112.0,11.8,L,-1.0
+375354,2026-11-26,South Carolina @ Arizona State,80-73,ML,VALUE,South Carolina ML,160.0,7.1,W,1.6
+375355,2026-11-26,Utah State @ USC,78-74,ML,VALUE,USC ML,-122.0,5.4,L,-1.0
+377906,2026-11-26,Boston College @ UCF,75-73,ML,VALUE,Boston College ML,114.0,4.1,W,1.14
+378126,2026-11-26,Georgia @ Cincinnati,81-83,ML,VALUE,Georgia ML,300.0,5.0,L,-1.0
+378710,2026-11-26,San Diego State @ Maryland,75-71,ML,VALUE,San Diego State ML,210.0,9.6,W,2.1
+378712,2026-11-26,Tennessee @ Iowa State,75-64,ML,VALUE,Iowa State ML,-205.0,11.4,L,-1.0
+378713,2026-11-26,Miami @ Michigan,97-70,ML,VALUE,Miami ML,-122.0,7.2,W,0.819672131147541
+378714,2026-11-26,TCU @ Creighton,87-95,ML,VALUE,Creighton ML,-125.0,13.7,W,0.8
+378719,2026-11-26,Louisville @ St. John's,93-90,ML,VALUE,St. John's ML,-125.0,12.6,L,-1.0
+378721,2026-11-26,Gonzaga @ Baylor,72-64,ML,VALUE,Baylor ML,145.0,9.1,L,-1.0
