@@ -34,6 +34,10 @@ cfb,2026-11-21,Western Kentucky @ Liberty,SPREAD,LEAN,Liberty -17.5,-18.5,1.0,pt
 cfb,2026-11-27,Buffalo @ Akron,SPREAD,EDGE,Buffalo -7.5,-7.5,0.0,pts
 cfb,2026-11-27,Nebraska @ Iowa,SPREAD,EDGE,Iowa -3.5,-3.5,0.0,pts
 cfb,2026-11-27,Tulsa @ UTSA,SPREAD,EDGE,UTSA +1.5,+1.5,0.0,pts
+cfb,2026-11-28,Navy @ Charlotte,SPREAD,LEAN,Charlotte +16.5,+16.5,0.0,pts
+cfb,2026-11-28,Louisiana Tech @ Georgia Southern,SPREAD,LEAN,Georgia Southern -1.5,-1.5,0.0,pts
+cfb,2026-11-28,Michigan @ Ohio State,SPREAD,EDGE,Ohio State -10,-10.5,0.5,pts
+cfb,2026-11-28,Connecticut @ Wyoming,SPREAD,LEAN,Wyoming +3.5,+3.5,0.0,pts
 nhl,2026-11-09,PHI @ VAN,ML,PLAY,VAN ML,44%,-1.3,%
 nhl,2026-11-09,PHI @ VAN,PUCK LINE,PLAY,VAN +1.5,+1.5,-0.3,%
 nhl,2026-11-09,PHI @ VAN,TOTAL,LEAN,UNDER 6.5,6.5,-2.7,%
@@ -71,6 +75,7 @@ cbb,2026-11-27,Navy @ Fairfield,ML,VALUE,Fairfield ML,67%,-0.5,%
 cbb,2026-11-27,Maine @ Le Moyne,ML,VALUE,Le Moyne ML,54%,0.8,%
 cbb,2026-11-27,South Alabama @ Fresno State,SPREAD,LEAN,Fresno State +2.5,+2.5,0.0,pts
 cbb,2026-11-27,South Alabama @ Fresno State,ML,VALUE,Fresno State ML,44%,-1.7,%
+cbb,2026-11-28,Princeton @ St. Thomas-Minnesota,ML,VALUE,Princeton ML,45%,-1.2,%
 nba,2026-11-10,Clippers @ Suns,SPREAD,LEAN,Clippers +3.5,+3.5,0.0,pts
 nba,2026-11-10,Clippers @ Suns,ML,VALUE,Clippers ML,38%,-3.4,%
 nba,2026-11-10,Heat @ Jazz,SPREAD,LEAN,Jazz +8.5,+8.5,0.0,pts
