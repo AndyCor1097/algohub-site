@@ -229,3 +229,14 @@ game_id,date,matchup,score,pick,model_pct,result,ats_pick,ats_edge,ats_result
 401909323,2026-11-25,Suns @ Rockets,104-116,Rockets,76.1,W,Suns,0.6,L
 401909324,2026-11-25,Kings @ Warriors,110-129,Warriors,73.5,W,Warriors,1.6,W
 401909325,2026-11-25,Spurs @ Trail Blazers,111-116,Spurs,57.2,L,Trail Blazers,0.2,W
+401909326,2026-11-27,Heat @ Knicks,108-105,Knicks,63.5,L,Knicks,0.7,L
+401909327,2026-11-27,Bucks @ Pistons,98-113,Pistons,83.0,W,Pistons,1.9,W
+401909328,2026-11-27,76ers @ Pacers,111-87,76ers,59.6,W,Pacers,0.3,L
+401909329,2026-11-27,Nets @ Raptors,100-124,Raptors,75.8,W,Nets,0.2,L
+401909330,2026-11-27,Hawks @ Celtics,87-86,Celtics,74.3,L,Hawks,0.8,W
+401909331,2026-11-27,Grizzlies @ Timberwolves,114-109,Timberwolves,64.5,L,Timberwolves,0.3,L
+401909332,2026-11-27,Mavericks @ Suns,113-109,Suns,53.5,L,Mavericks,0.3,W
+401909333,2026-11-27,Lakers @ Spurs,96-99,Spurs,66.7,W,Spurs,0.0,L
+401909334,2026-11-27,Nuggets @ Jazz,120-107,Nuggets,74.1,W,Jazz,2.2,L
+401909335,2026-11-27,Pelicans @ Clippers,105-104,Clippers,57.2,L,Clippers,0.4,L
+401909336,2026-11-27,Warriors @ Trail Blazers,94-116,Trail Blazers,74.9,W,Warriors,1.0,L

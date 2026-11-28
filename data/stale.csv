@@ -1,3 +1,4 @@
 sport,day,game,market,bet,dk,sharp,ev,model_agrees
-cbb,2026-11-27,Wake Forest @ Memphis,Spread,Wake Forest +1.5,+1.5 (-110),Pinnacle -1,9.8,False
+cbb,2026-11-28,Georgia Southern @ UNC Asheville,Spread,UNC Asheville +1.5,+1.5 (-110),Pinnacle -1,9.8,True
+nfl,2026-11-29,NE @ LAC,Spread,NE -2.5,-110 (assumed),Novig 54%,2.6,True
 nfl,2026-11-30,CAR @ TB,Spread,CAR +3.5,-110 (assumed),Novig 55%,4.5,False

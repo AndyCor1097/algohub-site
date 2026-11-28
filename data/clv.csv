@@ -31,6 +31,9 @@ cfb,2026-11-20,Oregon @ Michigan State,SPREAD,STRONG,Michigan State +18,+18.5,-0
 cfb,2026-11-20,New Mexico @ Wyoming,SPREAD,STRONG,Wyoming +9,+9.5,-0.5,pts
 cfb,2026-11-21,North Carolina @ Virginia,SPREAD,EDGE,Virginia +0,+1.5,-1.5,pts
 cfb,2026-11-21,Western Kentucky @ Liberty,SPREAD,LEAN,Liberty -17.5,-18.5,1.0,pts
+cfb,2026-11-27,Buffalo @ Akron,SPREAD,EDGE,Buffalo -7.5,-7.5,0.0,pts
+cfb,2026-11-27,Nebraska @ Iowa,SPREAD,EDGE,Iowa -3.5,-3.5,0.0,pts
+cfb,2026-11-27,Tulsa @ UTSA,SPREAD,EDGE,UTSA +1.5,+1.5,0.0,pts
 nhl,2026-11-09,PHI @ VAN,ML,PLAY,VAN ML,44%,-1.3,%
 nhl,2026-11-09,PHI @ VAN,PUCK LINE,PLAY,VAN +1.5,+1.5,-0.3,%
 nhl,2026-11-09,PHI @ VAN,TOTAL,LEAN,UNDER 6.5,6.5,-2.7,%
@@ -41,6 +44,7 @@ nhl,2026-11-11,UTA @ VGK,TOTAL,LEAN,UNDER 6.5,6.5,1.8,%
 nhl,2026-11-11,NSH @ ANA,ML,LEAN,ANA ML,56%,-0.2,%
 nhl,2026-11-12,TBL @ CBJ,TOTAL,LEAN,UNDER 6.5,6.5,-0.7,%
 nhl,2026-11-22,CAR @ NYR,TOTAL,PLAY,UNDER 6.5,6.5,-0.6,%
+nhl,2026-11-27,UTA @ NSH,ML,LEAN,UTA ML,53%,0.8,%
 cbb,2026-11-20,Temple @ Middle Tennessee,ML,VALUE,Middle Tennessee ML,40%,-1.8,%
 cbb,2026-11-20,Harvard @ Holy Cross,ML,VALUE,Holy Cross ML,13%,-0.3,%
 cbb,2026-11-20,Kansas City @ Iona,ML,VALUE,Iona ML,64%,-2.3,%
@@ -61,8 +65,12 @@ cbb,2026-11-24,Lindenwood @ New Haven,ML,VALUE,Lindenwood ML,55%,-1.8,%
 cbb,2026-11-24,Stanford @ Colorado,ML,VALUE,Colorado ML,38%,-1.9,%
 cbb,2026-11-26,Boston College @ UCF,ML,VALUE,Boston College ML,45%,-1.5,%
 cbb,2026-11-26,South Carolina @ Arizona State,ML,VALUE,South Carolina ML,35%,-3.2,%
-nba,2026-11-04,Heat @ Clippers,SPREAD,LEAN,Clippers +5.5,+5.5,0.0,pts
-nba,2026-11-04,Heat @ Clippers,ML,VALUE,Clippers ML,33%,-2.2,%
+cbb,2026-11-27,Hampton @ UMass Lowell,ML,VALUE,UMass Lowell ML,52%,-5.2,%
+cbb,2026-11-27,Wake Forest @ Memphis,ML,VALUE,Memphis ML,53%,-0.1,%
+cbb,2026-11-27,Navy @ Fairfield,ML,VALUE,Fairfield ML,67%,-0.5,%
+cbb,2026-11-27,Maine @ Le Moyne,ML,VALUE,Le Moyne ML,54%,0.8,%
+cbb,2026-11-27,South Alabama @ Fresno State,SPREAD,LEAN,Fresno State +2.5,+2.5,0.0,pts
+cbb,2026-11-27,South Alabama @ Fresno State,ML,VALUE,Fresno State ML,44%,-1.7,%
 nba,2026-11-10,Clippers @ Suns,SPREAD,LEAN,Clippers +3.5,+3.5,0.0,pts
 nba,2026-11-10,Clippers @ Suns,ML,VALUE,Clippers ML,38%,-3.4,%
 nba,2026-11-10,Heat @ Jazz,SPREAD,LEAN,Jazz +8.5,+8.5,0.0,pts
